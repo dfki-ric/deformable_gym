@@ -8,7 +8,7 @@ needs to learn to grasp deformable object such as shoe insoles or pillows.
 ## Installation 
 
 ```bash
-git clone https://github.com/dfki-ric/deformable_gym
+git clone git@github.com:dfki-ric/deformable_gym.git
 ```
 
 After cloning the repository, it is recommended to install the library in editable mode.

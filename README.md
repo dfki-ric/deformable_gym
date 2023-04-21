@@ -7,10 +7,8 @@ needs to learn to grasp deformable object such as shoe insoles or pillows.
 
 ## Installation 
 
-The Mia hand URDF is integrated as a git submodule. Please clone this repository using the `--recurse-submodules` option.
-
 ```bash
-git clone --recurse-submodules git@git.hb.dfki.de:april/learning/deformable_gym.git
+git clone git@github.com:dfki-ric/deformable_gym.git
 ```
 
 After cloning the repository, it is recommended to install the library in editable mode.
@@ -52,9 +50,8 @@ pip install numpydoc sphinx sphinx-gallery sphinx-bootstrap-theme
 
 ## Contributing
 
-If you wish to report bugs, please use the [issue tracker](https://git.hb.dfki.de/april/learning/deformable_gym/-/issues) 
-at Gitlab. If you would like to contribute to DeformableGym, just open an issue or a 
-[merge request](https://git.hb.dfki.de/april/learning/deformable_gym/-/merge_requests). The target branch for 
+If you wish to report bugs, please use the [issue tracker](https://github.com/dfki-ric/deformable_gym/issues). If you would like to contribute to DeformableGym, just open an issue or a 
+[pull request](https://github.com/dfki-ric/deformable_gym/pulls). The target branch for 
 merge requests is the development branch. The development branch will be merged to master for new releases. If you have 
 questions about the software, you should ask them in the discussion section.
 

@@ -10,7 +10,7 @@ needs to learn to grasp deformable object such as shoe insoles or pillows.
 The Mia hand URDF is integrated as a git submodule. Please clone this repository using the `--recurse-submodules` option.
 
 ```bash
-git clone --recurse-submodules git@git.hb.dfki.de:april/learning/deformable_gym.git
+git clone https://github.com/dfki-ric/deformable_gym
 ```
 
 After cloning the repository, it is recommended to install the library in editable mode.

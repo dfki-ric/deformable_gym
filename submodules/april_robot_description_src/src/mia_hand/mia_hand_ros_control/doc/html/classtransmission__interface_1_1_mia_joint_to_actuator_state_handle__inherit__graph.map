@@ -1,4 +1,0 @@
-<map id="transmission_interface::MiaJointToActuatorStateHandle" name="transmission_interface::MiaJointToActuatorStateHandle">
-<area shape="rect" id="node1" title="Class handling for propagating joint state (position, velocity) to actuator state for a given MiaInde..." alt="" coords="5,95,237,136"/>
-<area shape="rect" id="node2" href="$classtransmission__interface_1_1_mia_transmission_handle.html" title="Base class to handle the MiaIndexTransmission." alt="" coords="28,5,215,47"/>
-</map>

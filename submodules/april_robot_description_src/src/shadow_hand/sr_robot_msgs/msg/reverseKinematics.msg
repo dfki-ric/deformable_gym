@@ -1,2 +1,0 @@
-string  finger_name
-

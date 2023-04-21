@@ -1,9 +1,0 @@
-# if motor_data_type == -1 -> publish MOTOR_DEMAND_TORQUE
-# if motor_data_type > 0   -> motor_data_type must be in FROM_MOTOR_DATA_TYPE enum
-
-
-int16 motor_index
-int16 motor_data_type
-int16 publisher_index
----
-bool success

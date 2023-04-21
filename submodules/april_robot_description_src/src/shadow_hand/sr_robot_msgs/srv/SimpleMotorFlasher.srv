@@ -1,7 +1,0 @@
-string firmware
-int8 motor_id
----
-int32 value
-# value must take one of the following values
-int32 SUCCESS = 0
-int32 FAIL = 1

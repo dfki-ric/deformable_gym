@@ -1,6 +1,0 @@
-<map id="mia_hand::CppDriver" name="mia_hand::CppDriver">
-<area shape="rect" id="node1" title=" " alt="" coords="149,200,307,227"/>
-<area shape="rect" id="node2" href="$classmia__hand_1_1_serial_port.html" title="Class to handle a serial port and its serial communication protocol." alt="" coords="5,81,163,108"/>
-<area shape="rect" id="node3" title=" " alt="" coords="9,5,159,32"/>
-<area shape="rect" id="node4" href="$structmia__hand_1_1_finger_serial_info.html" title="Struct containing all info that could regard a Mia hand motor." alt="" coords="187,81,381,108"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="transmission_interface::MiaTransmissionHandle" name="transmission_interface::MiaTransmissionHandle">
-<area shape="rect" id="node1" title="Base class to handle the MiaIndexTransmission." alt="" coords="133,200,319,241"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,89,113,115"/>
-<area shape="rect" id="node3" href="$classtransmission__interface_1_1_mia_index_transmission.html" title="Implementation of the no&#45;linear Mia Index Transmission." alt="" coords="138,81,314,123"/>
-<area shape="rect" id="node4" title=" " alt="" coords="172,5,280,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="338,89,421,115"/>
-</map>

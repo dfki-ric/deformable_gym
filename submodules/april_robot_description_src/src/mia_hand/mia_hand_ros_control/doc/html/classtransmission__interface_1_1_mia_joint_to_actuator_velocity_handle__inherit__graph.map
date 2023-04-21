@@ -1,4 +1,0 @@
-<map id="transmission_interface::MiaJointToActuatorVelocityHandle" name="transmission_interface::MiaJointToActuatorVelocityHandle">
-<area shape="rect" id="node1" title="Class handling for propagating joint velocities to actuator velocities for a given MiaIndexTransmissi..." alt="" coords="5,95,211,151"/>
-<area shape="rect" id="node2" href="$classtransmission__interface_1_1_mia_transmission_handle.html" title="Base class to handle the MiaIndexTransmission." alt="" coords="15,5,201,47"/>
-</map>

@@ -1,0 +1,6 @@
+shape_msgs/SolidPrimitive bounding_box
+geometry_msgs/PoseStamped pose
+
+---
+
+moveit_msgs/Grasp grasp

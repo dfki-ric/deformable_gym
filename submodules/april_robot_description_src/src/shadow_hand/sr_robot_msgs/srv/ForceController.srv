@@ -1,0 +1,14 @@
+int16 maxpwm               # the maximum pwm the motor can apply
+int16 sgleftref            # the left strain gauge amp reference
+int16 sgrightref           # the right strain gauge amp reference
+int16 f                    # the feed forward gain value for the force controller
+int16 p                    # the p value for the force controller
+int16 i                    # the i value for the force controller
+int16 d                    # the d value for the force controller
+int16 imax                 # the imax value for the force controller
+int16 deadband             # the deadband value for the force controller
+int16 sign                 # the sign of the force controller
+int16 torque_limit         # the max output torue of force controller
+int16 torque_limiter_gain  # the gain for the force controller torque limiter
+---
+bool configured            # return true if the configuration worked, false otherwise

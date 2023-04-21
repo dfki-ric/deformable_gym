@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<launch>
+
+
+	<!-- Arguments to set the MIA COM number  -->
+	<arg name="Mia_COM_" default='0' doc="Int number of the Mia hand COM port" />
+	<arg name="Mia_fs_" default='20' doc="Hz, frequency of the control loop of the Mia Hw interface" />
+	<arg name="robotNamespace"         default="mia_hand_hw"/> <!-- /mia_hand -->
+	<arg name="load_default_mia_model" default="false" />
+	<!-- Argument to select the type traj controller -->
+	<arg name="tc_type" default="vel"  doc="type of trajectory controller to launch. Values: vel, pos "/>
+	<arg name="Rviz_on" default="false" doc="If true, start Rviz to plot Mia hand joint state" />
+
+	<!-- convert joint states to TF transforms for rviz, etc -->
+  <group if="$(arg Rviz_on)">
+		<include file="$(find mia_hand_description)/launch/view_mia_hand_rviz.launch">
+      <arg name="Rviz_on" value="$(arg Rviz_on)"/>
+      <arg name="use_joint_gui" value="false"/>
+      <arg name="robotNamespace"   value="$(arg robotNamespace)"/>
+      <arg name="load_default_mia_model"   value="false"/>
+			<arg name="remap_MIA_th_opp" value="true"/>
+    </include>
+	</group>
+
+<group ns="$(arg robotNamespace)">
+
+	<!-- Load the path of the config file of the MIA trasnsmission -->
+	<param name="mia_transmissions_config_" type="string" value="$(find mia_hand_description)/calibration/transmission_config.yaml " />
+
+	<!-- Load urd as robot description -->
+	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find mia_hand_description)/urdf/mia_hand_launch.urdf.xacro'
+		default_mia_model:=$(arg load_default_mia_model)" />
+
+	<group unless="$(arg Rviz_on)">
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false"/>
+	</group>
+
+	<!-- Load joint controller configurations from YAML file to parameter server -->
+	<rosparam file="$(find mia_hand_ros_control)/config/mia_hand_hw_controllers.yaml" command="load"/>
+	<rosparam file="$(find mia_hand_ros_control)/config/mia_hand_hw_trajectory_controllers.yaml" command="load"/>
+
+
+	<!-- Start the control node -->
+	<node name="Mia_hw_node" pkg="mia_hand_ros_control" type="Mia_hw_node" output="screen" >
+		<param name="Mia_COM_" type="int" value="$(arg Mia_COM_)"/> <!-- private param so as to match to the namespace used-->
+		<param name="Mia_fs_" type="int" value="$(arg Mia_fs_)"/> <!-- private param so as to match to the namespace used-->
+	</node>
+
+	<!-- spawn controller -->
+	<node name="trajectory_ctrl_spawner" pkg="controller_manager" type="spawner"
+		output="screen"  args="mia_hand_hw_$(arg tc_type)_trajectory_controller" />
+
+	<node pkg="controller_manager" type="spawner" name="joint_state_controller_spawner"
+		output="screen"   args="joint_state_controller" />
+
+
+	<!-- Load gui to teleop -->
+	<node name="rqt_joint_trajectory_controller" pkg="rqt_joint_trajectory_controller" type="rqt_joint_trajectory_controller" />
+</group>
+
+</launch>

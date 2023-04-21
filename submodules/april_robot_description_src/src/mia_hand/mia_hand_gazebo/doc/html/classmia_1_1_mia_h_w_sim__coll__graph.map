@@ -1,0 +1,5 @@
+<map id="mia::MiaHWSim" name="mia::MiaHWSim">
+<area shape="rect" id="node1" title="Class hardware sim interface of the simulated Mia hand." alt="" coords="112,109,239,136"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,153,47"/>
+<area shape="rect" id="node3" href="$structmia_1_1_joint__index__mapping.html" title="Struct to store the indexes of each joints in the MiaHWSim Class Index of each joint depends on the o..." alt="" coords="177,13,368,39"/>
+</map>

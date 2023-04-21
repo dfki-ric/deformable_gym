@@ -1,0 +1,44 @@
+\hypertarget{_c_make_lists_8txt}{}\doxysection{mia\+\_\+hand\+\_\+driver/\+C\+Make\+Lists.txt File Reference}
+\label{_c_make_lists_8txt}\index{mia\_hand\_driver/CMakeLists.txt@{mia\_hand\_driver/CMakeLists.txt}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_c_make_lists_8txt_a54da716cee78291234cd2568a168b0f7}{cmake\+\_\+minimum\+\_\+required}} (V\+E\+R\+S\+I\+ON 3.\+0.\+2) project(mia\+\_\+hand\+\_\+driver) find\+\_\+package(catkin R\+E\+Q\+U\+I\+R\+ED C\+O\+M\+P\+O\+N\+E\+N\+TS roscpp mia\+\_\+hand\+\_\+msgs) find\+\_\+package(Pkg\+Config R\+E\+Q\+U\+I\+R\+ED) pkg\+\_\+check\+\_\+modules(L\+I\+B\+S\+E\+R\+I\+AL R\+E\+Q\+U\+I\+R\+ED libserial) catkin\+\_\+package(C\+A\+T\+K\+I\+N\+\_\+\+D\+E\+P\+E\+N\+DS roscpp mia\+\_\+hand\+\_\+msgs D\+E\+P\+E\+N\+DS L\+I\+B\+S\+E\+R\+I\+AL I\+N\+C\+L\+U\+D\+E\+\_\+\+D\+I\+RS include L\+I\+B\+R\+A\+R\+I\+ES \$
+\item 
+\mbox{\hyperlink{_c_make_lists_8txt_a6864a625bd24359c03dfa399e6bdc5f5}{include\+\_\+directories}} (include \$\{L\+I\+B\+S\+E\+R\+I\+A\+L\+\_\+\+I\+N\+C\+L\+U\+D\+E\+\_\+\+D\+I\+RS\} \$\{catkin\+\_\+\+I\+N\+C\+L\+U\+D\+E\+\_\+\+D\+I\+RS\}) add\+\_\+library(\$
+\item 
+src serial\+\_\+port cpp src cpp\+\_\+driver cpp src ros\+\_\+driver cpp \mbox{\hyperlink{_c_make_lists_8txt_a97ebf391ed39c51b8d116e1b28fd6d9c}{target\+\_\+link\+\_\+libraries}} (\$\{P\+R\+O\+J\+E\+C\+T\+\_\+\+N\+A\+ME\} \$\{L\+I\+B\+S\+E\+R\+I\+A\+L\+\_\+\+L\+I\+B\+R\+A\+R\+I\+ES\} \$\{catkin\+\_\+\+L\+I\+B\+R\+A\+R\+I\+ES\}) add\+\_\+executable(\$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_make_lists_8txt_a54da716cee78291234cd2568a168b0f7}\label{_c_make_lists_8txt_a54da716cee78291234cd2568a168b0f7}} 
+\index{CMakeLists.txt@{CMakeLists.txt}!cmake\_minimum\_required@{cmake\_minimum\_required}}
+\index{cmake\_minimum\_required@{cmake\_minimum\_required}!CMakeLists.txt@{CMakeLists.txt}}
+\doxysubsubsection{\texorpdfstring{cmake\_minimum\_required()}{cmake\_minimum\_required()}}
+{\footnotesize\ttfamily cmake\+\_\+minimum\+\_\+required (\begin{DoxyParamCaption}\item[{V\+E\+R\+S\+I\+ON 3.\+0.}]{2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1 of file C\+Make\+Lists.\+txt.
+
+\mbox{\Hypertarget{_c_make_lists_8txt_a6864a625bd24359c03dfa399e6bdc5f5}\label{_c_make_lists_8txt_a6864a625bd24359c03dfa399e6bdc5f5}} 
+\index{CMakeLists.txt@{CMakeLists.txt}!include\_directories@{include\_directories}}
+\index{include\_directories@{include\_directories}!CMakeLists.txt@{CMakeLists.txt}}
+\doxysubsubsection{\texorpdfstring{include\_directories()}{include\_directories()}}
+{\footnotesize\ttfamily include\+\_\+directories (\begin{DoxyParamCaption}\item[{include \$\{L\+I\+B\+S\+E\+R\+I\+A\+L\+\_\+\+I\+N\+C\+L\+U\+D\+E\+\_\+\+D\+I\+RS\} \$\{catkin\+\_\+\+I\+N\+C\+L\+U\+D\+E\+\_\+\+D\+I\+RS\}}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 28 of file C\+Make\+Lists.\+txt.
+
+\mbox{\Hypertarget{_c_make_lists_8txt_a97ebf391ed39c51b8d116e1b28fd6d9c}\label{_c_make_lists_8txt_a97ebf391ed39c51b8d116e1b28fd6d9c}} 
+\index{CMakeLists.txt@{CMakeLists.txt}!target\_link\_libraries@{target\_link\_libraries}}
+\index{target\_link\_libraries@{target\_link\_libraries}!CMakeLists.txt@{CMakeLists.txt}}
+\doxysubsubsection{\texorpdfstring{target\_link\_libraries()}{target\_link\_libraries()}}
+{\footnotesize\ttfamily \+\_\+node src mia\+\_\+hand\+\_\+driver\+\_\+node cpp target\+\_\+link\+\_\+libraries (\begin{DoxyParamCaption}\item[{}]{\$\{\+P\+R\+O\+J\+E\+C\+T\+\_\+\+N\+A\+M\+E\} \$\{\+L\+I\+B\+S\+E\+R\+I\+A\+L\+\_\+\+L\+I\+B\+R\+A\+R\+I\+E\+S\} \$\{catkin\+\_\+\+L\+I\+B\+R\+A\+R\+I\+E\+S\} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 36 of file C\+Make\+Lists.\+txt.
+

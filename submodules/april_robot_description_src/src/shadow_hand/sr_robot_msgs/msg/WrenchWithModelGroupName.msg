@@ -1,0 +1,2 @@
+string model_group_name
+geometry_msgs/WrenchStamped wrench

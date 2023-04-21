@@ -1,0 +1,6 @@
+# the joint_state_controller communicates with hardware interface
+# to publish joint states: position, velocity and effort
+
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50

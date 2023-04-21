@@ -1,0 +1,1749 @@
+\hypertarget{classmia__hand_1_1_mia_h_w_interface}{}\doxysection{mia\+\_\+hand\+::Mia\+H\+W\+Interface Class Reference}
+\label{classmia__hand_1_1_mia_h_w_interface}\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+
+
+Class hardware interface of the real Mia hand.  
+
+
+
+
+{\ttfamily \#include $<$mia\+\_\+hw\+\_\+interface.\+h$>$}
+
+
+
+Inheritance diagram for mia\+\_\+hand\+::Mia\+H\+W\+Interface\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classmia__hand_1_1_mia_h_w_interface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for mia\+\_\+hand\+::Mia\+H\+W\+Interface\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmia__hand_1_1_mia_h_w_interface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a18e453c16dba2221460a858a466c9eb4}{Mia\+H\+W\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a05dfe99d103179b5d4e9f0ff9599abd2}{$\sim$\+Mia\+H\+W\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Class distructor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_abdd25593111617742df173d33a04e9e7}{init}} (ros\+::\+Node\+Handle \&root\+\_\+nh, ros\+::\+Node\+Handle \&mia\+\_\+hw\+\_\+nh) override
+\begin{DoxyCompactList}\small\item\em Initialize the class hardware interface and the robot hardware. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a46a90f94206a4534df73cd73a2c126ce}{update}} (const ros\+::\+Timer\+Event \&e)
+\begin{DoxyCompactList}\small\item\em Initialize the class hardware interface and the robot hardware. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read}} (const ros\+::\+Time \&time, const ros\+::\+Duration \&duration) override
+\begin{DoxyCompactList}\small\item\em Read state data from the real robot hardware. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae9d2cf3000f8d8b9be921f7c5e83858a}{write}} (const ros\+::\+Time \&time, const ros\+::\+Duration \&duration) override
+\begin{DoxyCompactList}\small\item\em Write data command to the real robot hardware. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_adcd1565af362a06fe79f9e855c0b98ef}{check\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Check the status of the hand connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} \{ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a20b1da26839fa673e89f83733b52c3b2}{E\+F\+F\+O\+RT}}, 
+\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a19904abf35ee1f78f40783736d9004b4}{P\+O\+S\+I\+T\+I\+ON}}, 
+\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a709e1b3a7e15d763ddd52880640616c7}{V\+E\+L\+O\+C\+I\+TY}}
+ \}
+\begin{DoxyCompactList}\small\item\em Joints control methods. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_af7e47fc2a2fd132b7497826fbe6fd6d9}{register\+Joint\+Limits}} (const std\+::string \&joint\+\_\+name, const std\+::vector$<$ hardware\+\_\+interface\+::\+Joint\+Handle $>$ \&joint\+\_\+handle, const std\+::vector$<$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} $>$ ctrl\+\_\+method, const ros\+::\+Node\+Handle \&joint\+\_\+limit\+\_\+nh, const urdf\+::\+Model $\ast$const urdf\+\_\+model, int $\ast$const joint\+\_\+type, double $\ast$const lower\+\_\+limit, double $\ast$const upper\+\_\+limit, double $\ast$const effort\+\_\+limit)
+\begin{DoxyCompactList}\small\item\em Register the joint limits of the real mia hardware. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa589cc30357f727aaae93e2512ff64d3}{Init\+Bk\+Last\+Commands}} ()
+\begin{DoxyCompactList}\small\item\em Initialization of the arrays saving the last command received. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a978f7e06ec110e82cbf632dd7f1af157}{Select\+Ctr\+Method}} (enum \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_abe776e0fd3dc8974902b2441f9ca8dc3}{last\+\_\+joint\+\_\+control\+\_\+methods\+\_\+}}, const double \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aab3ba43a41928ed39b33c44e96f0cd9f}{last\+\_\+joint\+\_\+velocity\+\_\+command\+\_\+}}, const double \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a274711cddb934ad4643eae4b3643739a}{joint\+\_\+velocity\+\_\+command\+\_\+}}, const double \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a102c26ff2f9801e71355f4fa03d32300}{last\+\_\+joint\+\_\+position\+\_\+command\+\_\+}}, const double \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aafa8ec60666b415e88047564e6ab089b}{joint\+\_\+position\+\_\+command\+\_\+}})
+\begin{DoxyCompactList}\small\item\em Select the control method to move the real mia hardware. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_adfdd454d0167c7cd239c69219a53b8dc}{Get\+Thumb\+Opp\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Evaluate the position of the Mia thumb opposition joint. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ad4b20342c08afa2a747869d00b75279a}{get\+U\+R\+DF}} (std\+::string param\+\_\+name) const
+\begin{DoxyCompactList}\small\item\em Get the name of the U\+R\+DF. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a8f37f578fd59e2f44988a0c525148119}{parse\+Transmissions\+From\+U\+R\+DF}} (const std\+::string \&urdf\+\_\+string)
+\begin{DoxyCompactList}\small\item\em Get the transmission names and type from the loaded U\+R\+DF Get the trasnsmission names specified in the mia hand U\+R\+DF to retrieve joints info as name, limits and type etc. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa06973abb2a34fdcadc655a12946d857}{connect\+\_\+mia}} (uint16\+\_\+t port\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Connect Mia hand to the specified seria port . \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a5eba6bbab9149bf3f6b7d2a02b27da76}{disconnect\+\_\+mia}} ()
+\begin{DoxyCompactList}\small\item\em Disconnet mia and its stremaings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a4161bbfc49ce85191ced1951c85a691e}{init\+Publishers}} ()
+\begin{DoxyCompactList}\small\item\em Initialize publishers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa70c9a1b3dd7065bbe841742ce231a78}{init\+Services}} ()
+\begin{DoxyCompactList}\small\item\em Initialize services. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a88fb3a424db02340f6b314caea16ad07}{switch\+Ana\+Stream\+Callback}} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a3526cd8e72a427e70b2b963390db8210}{switch\+\_\+ana\+\_\+stream\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_acf03f4146cd6c957f537b584f796fbba}{switch\+Cur\+Stream\+Callback}} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a2102fd7f884dcf247b49f3dd885a70fb}{switch\+\_\+cur\+\_\+stream\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ab24172266b1cbfe36204e9dacc3d83ca}{connect\+To\+Port\+Callback}} (mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Request \&req, mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ac40ff4810ef848de5c1a0b1bca7c7102}{connect\+\_\+to\+\_\+port\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aba79af25cc763c4f7c5a777417d1818c}{disconnect\+Callback}} (std\+\_\+srvs\+::\+Trigger\+::\+Request \&req, std\+\_\+srvs\+::\+Trigger\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_afd5e2ce7cb8c16a4f0d41c6f7b8d7927}{disconnect\+\_\+}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Cpp\+Driver \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_acbb08f46374293ed6e80dd93501675e1}{mia\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Low level driver of the Mia hand. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa8c0e4de64fceaf8ea5f64fd81058c3b}{C\+O\+M\+\_\+number\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Number of the C\+OM in which the Mia hand is plugged. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a55ab225ef73f24605a7c4de8030a545a}{is\+\_\+connected\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if the Mia hand is connected, False otherwise. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a02c3f0050054b1ef25fbaa1e52849526}{was\+\_\+connected\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if the Mia hand was connected, False otherwise. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a192a0d25821f444ef9e57c59a765ee11}{is\+\_\+initialized}}
+\begin{DoxyCompactList}\small\item\em True if tthe class has already been initialized. \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ade125611e0a27dd6177d07963d29c64e}{connectionstatus\+\_\+mtx\+\_\+}}
+\item 
+std\+::mutex \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ac514eb170014e666ab065a8066eda119}{connectionmia\+\_\+mtx\+\_\+}}
+\item 
+ros\+::\+Node\+Handle \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a902c52594463bb80a90e2d9ce4e76d37}{nh\+\_\+}}
+\begin{DoxyCompactList}\small\item\em R\+OS node handle. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a79260f35c0503855da8970dfdadd178c}{mot\+\_\+cur\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the current absorbed by the Mia hand motors. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a9992aed3fe64350ef8bb2c2959186951}{fin\+\_\+for\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the force data read by the sensors embedded in the Mia hand fingers. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aef427b2bc86a2506db78dcf7665093fa}{connection\+\_\+status\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the status of the connection of the device. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa2d41682e3ae372bcfb3705c26a938b4}{is\+\_\+mot\+\_\+cur\+\_\+info\+\_\+enabled}}
+\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aea13996d2c03e312d460ebff4676f7d6}{is\+\_\+fin\+\_\+for\+\_\+info\+\_\+enabled}}
+\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ac40ff4810ef848de5c1a0b1bca7c7102}{connect\+\_\+to\+\_\+port\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to open a serial port and connect the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_afd5e2ce7cb8c16a4f0d41c6f7b8d7927}{disconnect\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to disconnect the Mia hand and close the serial port. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a3526cd8e72a427e70b2b963390db8210}{switch\+\_\+ana\+\_\+stream\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to manage a the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a2102fd7f884dcf247b49f3dd885a70fb}{switch\+\_\+cur\+\_\+stream\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to manage a the streaming of the current data (i.\+e. force sensor outputs) sent by the Mia hand. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa4bcc7bb0627fae8c4b17aa3f774d630}{robot\+\_\+description\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Generic name of the U\+R\+DF to look for with \#get\+U\+R\+D\+F(std\+::string param\+\_\+name). \end{DoxyCompactList}\item 
+std\+::vector$<$ transmission\+\_\+interface\+::\+Transmission\+Info $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a8988f26c1e1b36ecb7788e01b58d2e82}{U\+R\+D\+Ftransmissions\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Transmissions declared in the U\+R\+DF. \end{DoxyCompactList}\item 
+hardware\+\_\+interface\+::\+Joint\+State\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a2122f0eb8ea337aeb2578ac548bb5d16}{js\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real Mia joint state. \end{DoxyCompactList}\item 
+hardware\+\_\+interface\+::\+Position\+Joint\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a590381c7a14e953feda9ce833886f6c2}{pj\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real Mia joint position commands. \end{DoxyCompactList}\item 
+hardware\+\_\+interface\+::\+Velocity\+Joint\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a86c3e47ee8d37f012ff3ac50d3b6c2be}{vj\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real Mia joint velocity commands. \end{DoxyCompactList}\item 
+hardware\+\_\+interface\+::\+Effort\+Joint\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a91c4badc84ba2c5f0a232a26f380c371}{ej\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em unused \end{DoxyCompactList}\item 
+joint\+\_\+limits\+\_\+interface\+::\+Position\+Joint\+Saturation\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a40befde034823bc6ed52223ae2959dd4}{pj\+\_\+sat\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real Mia joint position saturation limit. \end{DoxyCompactList}\item 
+joint\+\_\+limits\+\_\+interface\+::\+Position\+Joint\+Soft\+Limits\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae4596764d6afa588ec343ec16be579ba}{pj\+\_\+limits\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real joint position soft limit. \end{DoxyCompactList}\item 
+joint\+\_\+limits\+\_\+interface\+::\+Velocity\+Joint\+Saturation\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a6a0d38767489809cba2538a15801778c}{vj\+\_\+sat\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real Mia joint velocity saturation limit. \end{DoxyCompactList}\item 
+joint\+\_\+limits\+\_\+interface\+::\+Velocity\+Joint\+Soft\+Limits\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a1f55b68d1d24b899b3bf8ca177ba87e1}{vj\+\_\+limits\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Interface for the real Mia joint velocity software limit. \end{DoxyCompactList}\item 
+joint\+\_\+limits\+\_\+interface\+::\+Effort\+Joint\+Saturation\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ad72d313280a351b2860e6f6b76525e74}{ej\+\_\+sat\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em unused \end{DoxyCompactList}\item 
+joint\+\_\+limits\+\_\+interface\+::\+Effort\+Joint\+Soft\+Limits\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a7caa16036b57780759d2f458572b5823}{ej\+\_\+limits\+\_\+interface\+\_\+}}
+\begin{DoxyCompactList}\small\item\em unused \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_thfle_transmission}{transmission\+\_\+interface\+::\+Mia\+Thfle\+Transmission}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a37e0635fe21c53bcac685e69d44cbde2}{Thfle\+Trans}}
+\begin{DoxyCompactList}\small\item\em Transmissions class implemented for the Mia hand thumb flexion joint. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission}{transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ace8eacf3b92f4c5052920a4260f8a0d4}{Mrl\+Trans}}
+\begin{DoxyCompactList}\small\item\em Transmissions class implemented for the Mia hand mrl flexion joint. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{transmission\+\_\+interface\+::\+Mia\+Index\+Transmission}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a68b435c2147821cd33abc47885f06197}{Index\+Trans}}
+\begin{DoxyCompactList}\small\item\em Transmissions class implemented for the Mia hand mrl flexion joint. \end{DoxyCompactList}\item 
+std\+::vector$<$ transmission\+\_\+interface\+::\+Transmission $\ast$ $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a57c4f1c4bba150fb7c342d0f2f4feca7}{Mia\+Trasmissions}}
+\begin{DoxyCompactList}\small\item\em Transmissions vector to handle the transmissions implemented for the real Mia hand. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a8de85613838285ae024a3de4e966748b}{trasmission\+\_\+names\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual transmissions name. \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Actuator\+To\+Joint\+Position\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae33c2b59feaf2fe880584f721bcb9bef}{act\+\_\+to\+\_\+jnt\+\_\+pos\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating current actuator position state to joint space. \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Actuator\+To\+Joint\+Velocity\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a3e0a057acd053fe1cec2dac3e4a333c2}{act\+\_\+to\+\_\+jnt\+\_\+vel\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating current velocity actuator state to joint space. \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Joint\+To\+Actuator\+Position\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a6d198a08b5d2f11126ed81f818623b9d}{jnt\+\_\+to\+\_\+act\+\_\+pos}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating joint position commands to actuator space. \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Joint\+To\+Actuator\+Velocity\+Interface \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a9268e574ecf9c0982539a467ba7befd2}{jnt\+\_\+to\+\_\+act\+\_\+vel}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating joint velocity commands to actuator space Transmission interface used for Mia mrl and thumb flexion joints/actuators. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_position_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Position\+Interface}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a406717ad3670dd6108b964b6ed9b3c39}{index\+\_\+act\+\_\+to\+\_\+jnt\+\_\+pos\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating current actuator position state of the Mia index to joint space. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_velocity_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Velocity\+Interface}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_abcbf3e837259ece3b2df04e99b7bee07}{index\+\_\+act\+\_\+to\+\_\+jnt\+\_\+vel\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating current actuator velocity state of the Mia index to joint space. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_position_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Position\+Interface}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae7607ec8b0d2bd16e43a2694fdce3a57}{index\+\_\+jnt\+\_\+to\+\_\+act\+\_\+pos}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating joint position commands to actuator space. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_velocity_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Velocity\+Interface}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a6fd40c76b1c5d9db88ca8da94b1256bd}{index\+\_\+jnt\+\_\+to\+\_\+act\+\_\+vel}}
+\begin{DoxyCompactList}\small\item\em Transmission interface for propagating joint velocity commands to actuator space. \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Actuator\+Data \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a76d391275a6fb56b8a582c8995a3ddc4}{a\+\_\+state\+\_\+data}} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em Actuator state data (one for transmission). \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Actuator\+Data \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a209ad7d8d6fa3efba308d23facfdf043}{a\+\_\+cmd\+\_\+data}} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em Actuator command data (one for transmission). \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Joint\+Data \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa149c767d0fb5390655f6b58b09580a3}{j\+\_\+state\+\_\+data}} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em Joint state data (one for transmission). \end{DoxyCompactList}\item 
+transmission\+\_\+interface\+::\+Joint\+Data \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a8bda15cebe5ce459b7ff5a4377b99d22}{j\+\_\+cmd\+\_\+data}} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em joint command data (one for transmission). \end{DoxyCompactList}\item 
+mia\+\_\+hand\+::thumb\+\_\+opp\+\_\+passive\+\_\+joint \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a3bdc3e630cb574996f219bb0e73496cd}{My\+Th\+\_\+opp\+\_\+passive\+Joint}}
+\begin{DoxyCompactList}\small\item\em Class used to evaluate the target position of the Mia simulated thumb opposition joint. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmia__hand_1_1_joint__index__mapping}{Joint\+\_\+index\+\_\+mapping}} \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ad3709b13e596ab81dd2b14136a03cc5b}{joints\+\_\+ii}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structmia__hand_1_1_joint__index__mapping}{Joint\+\_\+index\+\_\+mapping}} struct. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae453fb67caea4c3ca2a038ce9b61cece}{write\+\_\+counter}}
+\begin{DoxyCompactList}\small\item\em Counter of the write method. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a2098520ef716a76914337d3bc4aea118}{n\+\_\+dof\+\_\+sim\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Number of degree of freedom. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a860faa1c1041e65d994ea2eb94be4a7a}{n\+\_\+actuators\+\_\+}}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a49621ed5892243a143cc7d1d1490c18c}{joint\+\_\+names\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Name of the joints as specified in the U\+R\+DF. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a7504b9e7da55add992bcf530f80efadd}{joint\+\_\+types\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Type of the joints specified in the U\+R\+DF. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a68f117d37d0fd2dd017aa871445193f0}{joint\+\_\+position\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual position state of the joints of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a3d9617022ed4adcd4daa561b040fb505}{joint\+\_\+velocity\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual velocity state of the joints of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae5b035ec204cffad9000e55e60ee1a90}{joint\+\_\+effort\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Useless. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aafa8ec60666b415e88047564e6ab089b}{joint\+\_\+position\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual position joint command for the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a274711cddb934ad4643eae4b3643739a}{joint\+\_\+velocity\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual velocity joint command for the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ab88c385f75686c29ef7d42b6760af1ce}{joint\+\_\+effort\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Useless. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a102c26ff2f9801e71355f4fa03d32300}{last\+\_\+joint\+\_\+position\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Last joint position command received for the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aab3ba43a41928ed39b33c44e96f0cd9f}{last\+\_\+joint\+\_\+velocity\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Last joint velocity command received for the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ada22725d05962ec816feed244ad870d2}{act\+\_\+position\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual position state of the actuators of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a7199bf6a48e0720629f8cd5959a6bec7}{act\+\_\+velocity\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual velocity state of the actuators of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_adb7cffdab3faa58fb7607e9e017605d1}{act\+\_\+effort\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Useless. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ad2154c1ca7bd912be876ab8151bd3723}{act\+\_\+position\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual position actuator command for the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a8b3fbfdd3f42185a9040a6df1b8c1b2f}{act\+\_\+velocity\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual velocity actuator command for the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae22a5f01492a47912cdde212caa72693}{act\+\_\+effort\+\_\+command\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Useless. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a81da3f27bfa921751978262389975e83}{joint\+\_\+control\+\_\+methods\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Actual control method for the joints of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_abe776e0fd3dc8974902b2441f9ca8dc3}{last\+\_\+joint\+\_\+control\+\_\+methods\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Last control method used for the joints of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} $>$ $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ae5e50fe8e3052e8eff7407b76b940d0e}{List\+\_\+joint\+\_\+control\+\_\+methods\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of control method available for the joints of the Mia hardware. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a542b07d66d09d17b96a23475fb12b161}{joint\+\_\+lower\+\_\+limits\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Lower position limits of the joints of the Mia hardware (as specified in the U\+R\+DF) \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aa0f1c78983eed527793f6bed55999fc9}{joint\+\_\+upper\+\_\+limits\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Upper position limits of the joints of the Mia hardware (as specified in the U\+R\+DF). \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ac17923a9ebb91aa05c9b45edd8df62c3}{joint\+\_\+effort\+\_\+limits\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Effort limit of the joints of the Mia hardware specified in the U\+R\+DF (fake). \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a4e1122123b722d9dfea143643987f0c1}{old\+\_\+act\+\_\+position\+\_\+state\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Last position state of the actuator returned by the Mia hardware in the \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read()}} funtion. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a63c94a78445d5d7ab7d473ee5ec69a3c}{read\+\_\+counter}}
+\begin{DoxyCompactList}\small\item\em Counter for the \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read()}} funtion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class hardware interface of the real Mia hand. 
+
+This class inherits from public hardware\+\_\+interface\+::\+Robot\+HW. 
+
+Definition at line 105 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}\label{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!ControlMethod@{ControlMethod}}
+\index{ControlMethod@{ControlMethod}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{ControlMethod}{ControlMethod}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Control\+Method}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Joints control methods. 
+
+All possible joints controlled methods allowed by R\+OS. NB. E\+F\+F\+O\+RT control method is not allowed with Mia hand. It is included since in the U\+R\+DF file efforts limits are usually specified. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EFFORT@{EFFORT}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!EFFORT@{EFFORT}}}\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a20b1da26839fa673e89f83733b52c3b2}\label{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a20b1da26839fa673e89f83733b52c3b2}} 
+E\+F\+F\+O\+RT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{POSITION@{POSITION}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!POSITION@{POSITION}}}\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a19904abf35ee1f78f40783736d9004b4}\label{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a19904abf35ee1f78f40783736d9004b4}} 
+P\+O\+S\+I\+T\+I\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VELOCITY@{VELOCITY}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!VELOCITY@{VELOCITY}}}\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a709e1b3a7e15d763ddd52880640616c7}\label{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95a709e1b3a7e15d763ddd52880640616c7}} 
+V\+E\+L\+O\+C\+I\+TY&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 164 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a18e453c16dba2221460a858a466c9eb4}\label{classmia__hand_1_1_mia_h_w_interface_a18e453c16dba2221460a858a466c9eb4}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!MiaHWInterface@{MiaHWInterface}}
+\index{MiaHWInterface@{MiaHWInterface}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{MiaHWInterface()}{MiaHWInterface()}}
+{\footnotesize\ttfamily mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Mia\+H\+W\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class constructor. 
+
+
+
+Definition at line 44 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a05dfe99d103179b5d4e9f0ff9599abd2}\label{classmia__hand_1_1_mia_h_w_interface_a05dfe99d103179b5d4e9f0ff9599abd2}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!````~MiaHWInterface@{$\sim$MiaHWInterface}}
+\index{````~MiaHWInterface@{$\sim$MiaHWInterface}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{$\sim$MiaHWInterface()}{~MiaHWInterface()}}
+{\footnotesize\ttfamily mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::$\sim$\+Mia\+H\+W\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class distructor. 
+
+
+
+Definition at line 74 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_adcd1565af362a06fe79f9e855c0b98ef}\label{classmia__hand_1_1_mia_h_w_interface_adcd1565af362a06fe79f9e855c0b98ef}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!checkConnection@{checkConnection}}
+\index{checkConnection@{checkConnection}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{checkConnection()}{checkConnection()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::check\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check the status of the hand connection. 
+
+
+
+Definition at line 148 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa06973abb2a34fdcadc655a12946d857}\label{classmia__hand_1_1_mia_h_w_interface_aa06973abb2a34fdcadc655a12946d857}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!connect\_mia@{connect\_mia}}
+\index{connect\_mia@{connect\_mia}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{connect\_mia()}{connect\_mia()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::connect\+\_\+mia (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{port\+\_\+num }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Connect Mia hand to the specified seria port . 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port\+\_\+num} & number of the serial port. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the connection suceeded , False if not. 
+\end{DoxyReturn}
+
+
+Definition at line 107 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ab24172266b1cbfe36204e9dacc3d83ca}\label{classmia__hand_1_1_mia_h_w_interface_ab24172266b1cbfe36204e9dacc3d83ca}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!connectToPortCallback@{connectToPortCallback}}
+\index{connectToPortCallback@{connectToPortCallback}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{connectToPortCallback()}{connectToPortCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::connect\+To\+Port\+Callback (\begin{DoxyParamCaption}\item[{mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Request \&}]{req,  }\item[{mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_ac40ff4810ef848de5c1a0b1bca7c7102}{connect\+\_\+to\+\_\+port\+\_\+}}. 
+
+Connect the Mia hand opening a serial port. 
+\begin{DoxyParams}{Parameters}
+{\em req} & mia\+\_\+hand\+\_\+msgs containing the number of the port to open. \\
+\hline
+{\em resp} & mia\+\_\+hand\+\_\+msgs containing the success of the operation (true or false) and a string message. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 526 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a5eba6bbab9149bf3f6b7d2a02b27da76}\label{classmia__hand_1_1_mia_h_w_interface_a5eba6bbab9149bf3f6b7d2a02b27da76}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!disconnect\_mia@{disconnect\_mia}}
+\index{disconnect\_mia@{disconnect\_mia}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{disconnect\_mia()}{disconnect\_mia()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::disconnect\+\_\+mia (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Disconnet mia and its stremaings. 
+
+
+
+Definition at line 85 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aba79af25cc763c4f7c5a777417d1818c}\label{classmia__hand_1_1_mia_h_w_interface_aba79af25cc763c4f7c5a777417d1818c}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!disconnectCallback@{disconnectCallback}}
+\index{disconnectCallback@{disconnectCallback}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{disconnectCallback()}{disconnectCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::disconnect\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Trigger\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Trigger\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_afd5e2ce7cb8c16a4f0d41c6f7b8d7927}{disconnect\+\_\+}}. 
+
+Disconnect the Mia hand and close the serial port. 
+\begin{DoxyParams}{Parameters}
+{\em req} & unused. \\
+\hline
+{\em resp} & containing the success of the operation (true or false) and a string message. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 552 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_adfdd454d0167c7cd239c69219a53b8dc}\label{classmia__hand_1_1_mia_h_w_interface_adfdd454d0167c7cd239c69219a53b8dc}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!GetThumbOppPosition@{GetThumbOppPosition}}
+\index{GetThumbOppPosition@{GetThumbOppPosition}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{GetThumbOppPosition()}{GetThumbOppPosition()}}
+{\footnotesize\ttfamily double mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Get\+Thumb\+Opp\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Evaluate the position of the Mia thumb opposition joint. 
+
+Since in the actual Mia hand the opposition of the thumb (passive joint) is coupled to the movement of the index flexion this function uses the sate of the index flexion joint of the mia hand hardware to evaluate the position that the actual thumb opposition has reached at the current time. 
+\begin{DoxyParams}{Parameters}
+{\em period} & Time since the last simulation step. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The target position of the Mia simulated thumb opposition joint. 
+\end{DoxyReturn}
+
+
+Definition at line 870 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ad4b20342c08afa2a747869d00b75279a}\label{classmia__hand_1_1_mia_h_w_interface_ad4b20342c08afa2a747869d00b75279a}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!getURDF@{getURDF}}
+\index{getURDF@{getURDF}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{getURDF()}{getURDF()}}
+{\footnotesize\ttfamily std\+::string mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::get\+U\+R\+DF (\begin{DoxyParamCaption}\item[{std\+::string}]{param\+\_\+name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get the name of the U\+R\+DF. 
+
+A method taking the ros parameter urdf generic name and return the specific of the loaded U\+R\+DF. 
+\begin{DoxyParams}{Parameters}
+{\em param\+\_\+name} & generic name of the param to look for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the specific name of the parameter linking to the robot U\+R\+DF 
+\end{DoxyReturn}
+
+
+Definition at line 903 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_abdd25593111617742df173d33a04e9e7}\label{classmia__hand_1_1_mia_h_w_interface_abdd25593111617742df173d33a04e9e7}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!init@{init}}
+\index{init@{init}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::init (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{root\+\_\+nh,  }\item[{ros\+::\+Node\+Handle \&}]{mia\+\_\+hw\+\_\+nh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Initialize the class hardware interface and the robot hardware. 
+
+Initialize the hardware driver, connect the C\+OM port in which the Mia hand is plugged and initialize the hardware interface class, registering the needed interfaces and the joint limits. 
+\begin{DoxyParams}{Parameters}
+{\em root\+\_\+nh} & root node handle. \\
+\hline
+{\em mia\+\_\+hw\+\_\+nh} & Mia hardware node handle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the robot hardware is initialized successfully, False if not. 
+\end{DoxyReturn}
+
+
+Definition at line 175 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa589cc30357f727aaae93e2512ff64d3}\label{classmia__hand_1_1_mia_h_w_interface_aa589cc30357f727aaae93e2512ff64d3}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!InitBkLastCommands@{InitBkLastCommands}}
+\index{InitBkLastCommands@{InitBkLastCommands}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{InitBkLastCommands()}{InitBkLastCommands()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Init\+Bk\+Last\+Commands (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Initialization of the arrays saving the last command received. 
+
+Initialize the values of array variables ( \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a102c26ff2f9801e71355f4fa03d32300}{last\+\_\+joint\+\_\+position\+\_\+command\+\_\+}} and \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_aab3ba43a41928ed39b33c44e96f0cd9f}{last\+\_\+joint\+\_\+velocity\+\_\+command\+\_\+}} ) containing the last received command. They will be used to know which command (velocity or position) to send to the hand. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a978f7e06ec110e82cbf632dd7f1af157}{Select\+Ctr\+Method}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 727 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a4161bbfc49ce85191ced1951c85a691e}\label{classmia__hand_1_1_mia_h_w_interface_a4161bbfc49ce85191ced1951c85a691e}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!initPublishers@{initPublishers}}
+\index{initPublishers@{initPublishers}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{initPublishers()}{initPublishers()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::init\+Publishers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Initialize publishers. 
+
+
+
+Definition at line 460 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa70c9a1b3dd7065bbe841742ce231a78}\label{classmia__hand_1_1_mia_h_w_interface_aa70c9a1b3dd7065bbe841742ce231a78}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!initServices@{initServices}}
+\index{initServices@{initServices}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{initServices()}{initServices()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::init\+Services (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Initialize services. 
+
+
+
+Definition at line 476 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a8f37f578fd59e2f44988a0c525148119}\label{classmia__hand_1_1_mia_h_w_interface_a8f37f578fd59e2f44988a0c525148119}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!parseTransmissionsFromURDF@{parseTransmissionsFromURDF}}
+\index{parseTransmissionsFromURDF@{parseTransmissionsFromURDF}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{parseTransmissionsFromURDF()}{parseTransmissionsFromURDF()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::parse\+Transmissions\+From\+U\+R\+DF (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{urdf\+\_\+string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get the transmission names and type from the loaded U\+R\+DF Get the trasnsmission names specified in the mia hand U\+R\+DF to retrieve joints info as name, limits and type etc. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em urdf\+\_\+string} & U\+R\+DF parameter name. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 937 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}\label{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!read@{read}}
+\index{read@{read}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::read (\begin{DoxyParamCaption}\item[{const ros\+::\+Time \&}]{time,  }\item[{const ros\+::\+Duration \&}]{duration }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Read state data from the real robot hardware. 
+
+Read joint positions velocities from the real robot hardware. 
+\begin{DoxyParams}{Parameters}
+{\em time} & The current time. \\
+\hline
+{\em duration} & The time passed since the last call to \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read()}}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 575 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_af7e47fc2a2fd132b7497826fbe6fd6d9}\label{classmia__hand_1_1_mia_h_w_interface_af7e47fc2a2fd132b7497826fbe6fd6d9}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!registerJointLimits@{registerJointLimits}}
+\index{registerJointLimits@{registerJointLimits}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{registerJointLimits()}{registerJointLimits()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::register\+Joint\+Limits (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{joint\+\_\+name,  }\item[{const std\+::vector$<$ hardware\+\_\+interface\+::\+Joint\+Handle $>$ \&}]{joint\+\_\+handle,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}} $>$}]{ctrl\+\_\+method,  }\item[{const ros\+::\+Node\+Handle \&}]{joint\+\_\+limit\+\_\+nh,  }\item[{const urdf\+::\+Model $\ast$const}]{urdf\+\_\+model,  }\item[{int $\ast$const}]{joint\+\_\+type,  }\item[{double $\ast$const}]{lower\+\_\+limit,  }\item[{double $\ast$const}]{upper\+\_\+limit,  }\item[{double $\ast$const}]{effort\+\_\+limit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Register the joint limits of the real mia hardware. 
+
+Register the limits of the joint specified by joint\+\_\+name and joint\+\_\+handle. The limits are retrieved from joint\+\_\+limit\+\_\+nh. If urdf\+\_\+model is not N\+U\+LL, limits are retrieved from it also. 
+\begin{DoxyParams}{Parameters}
+{\em joint\+\_\+name} & Name of the joint whose limits has to be registered. \\
+\hline
+{\em joint\+\_\+handle} & Handler of the joint. \\
+\hline
+{\em ctrl\+\_\+method} & Array of enum describe the control methods available for that joint. \\
+\hline
+{\em joint\+\_\+limit\+\_\+nh} & Joint node handle. \\
+\hline
+{\em urdf\+\_\+model} & U\+R\+DF model. \\
+\hline
+{\em joint\+\_\+type} & Joint type (e.\+g. urdf\+::\+Joint\+::\+R\+E\+V\+O\+L\+U\+TE). \\
+\hline
+{\em lower\+\_\+limit} & Lower position limit of the joint returned by this method. \\
+\hline
+{\em upper\+\_\+limit} & Upper position limit of the joint returned by this method. \\
+\hline
+{\em effort\+\_\+limit} & Effortlimit of the joint returned by this method (unused). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 746 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a978f7e06ec110e82cbf632dd7f1af157}\label{classmia__hand_1_1_mia_h_w_interface_a978f7e06ec110e82cbf632dd7f1af157}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!SelectCtrMethod@{SelectCtrMethod}}
+\index{SelectCtrMethod@{SelectCtrMethod}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{SelectCtrMethod()}{SelectCtrMethod()}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Mia\+H\+W\+Interface\+::\+Control\+Method}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Select\+Ctr\+Method (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}}}]{last\+\_\+joint\+\_\+control\+\_\+methods\+\_\+,  }\item[{const double}]{last\+\_\+joint\+\_\+velocity\+\_\+command\+\_\+,  }\item[{const double}]{joint\+\_\+velocity\+\_\+command\+\_\+,  }\item[{const double}]{last\+\_\+joint\+\_\+position\+\_\+command\+\_\+,  }\item[{const double}]{joint\+\_\+position\+\_\+command\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Select the control method to move the real mia hardware. 
+
+Since velocity and position interfaces are both loaded for each joint, this method recognize wich type of control the received new command requires. 
+\begin{DoxyParams}{Parameters}
+{\em last\+\_\+joint\+\_\+control\+\_\+methods\+\_\+} & Last type of control method used for the joint. \\
+\hline
+{\em last\+\_\+joint\+\_\+velocity\+\_\+command\+\_\+} & Last velocity command received for the joint. \\
+\hline
+{\em joint\+\_\+velocity\+\_\+command\+\_\+} & Actual velocity command received for the joint. \\
+\hline
+{\em last\+\_\+joint\+\_\+position\+\_\+command\+\_\+} & Last position command received for the joint. \\
+\hline
+{\em joint\+\_\+position\+\_\+command\+\_\+} & Actual position command received for the joint. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the control method to use in the current time step to move the joint. 
+\end{DoxyReturn}
+
+
+Definition at line 883 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a88fb3a424db02340f6b314caea16ad07}\label{classmia__hand_1_1_mia_h_w_interface_a88fb3a424db02340f6b314caea16ad07}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!switchAnaStreamCallback@{switchAnaStreamCallback}}
+\index{switchAnaStreamCallback@{switchAnaStreamCallback}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{switchAnaStreamCallback()}{switchAnaStreamCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::switch\+Ana\+Stream\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a3526cd8e72a427e70b2b963390db8210}{switch\+\_\+ana\+\_\+stream\+\_\+}}. 
+
+Manage the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. 
+\begin{DoxyParams}{Parameters}
+{\em req} & True to enable the data streaming, False to disable it. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 499 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_acf03f4146cd6c957f537b584f796fbba}\label{classmia__hand_1_1_mia_h_w_interface_acf03f4146cd6c957f537b584f796fbba}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!switchCurStreamCallback@{switchCurStreamCallback}}
+\index{switchCurStreamCallback@{switchCurStreamCallback}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{switchCurStreamCallback()}{switchCurStreamCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::switch\+Cur\+Stream\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a2102fd7f884dcf247b49f3dd885a70fb}{switch\+\_\+cur\+\_\+stream\+\_\+}}. 
+
+Manage the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. 
+\begin{DoxyParams}{Parameters}
+{\em req} & True to enable the data streaming, False to disable it. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 513 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a46a90f94206a4534df73cd73a2c126ce}\label{classmia__hand_1_1_mia_h_w_interface_a46a90f94206a4534df73cd73a2c126ce}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!update@{update}}
+\index{update@{update}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::update (\begin{DoxyParamCaption}\item[{const ros\+::\+Timer\+Event \&}]{e }\end{DoxyParamCaption})}
+
+
+
+Initialize the class hardware interface and the robot hardware. 
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae9d2cf3000f8d8b9be921f7c5e83858a}\label{classmia__hand_1_1_mia_h_w_interface_ae9d2cf3000f8d8b9be921f7c5e83858a}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!write@{write}}
+\index{write@{write}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::write (\begin{DoxyParamCaption}\item[{const ros\+::\+Time \&}]{time,  }\item[{const ros\+::\+Duration \&}]{duration }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Write data command to the real robot hardware. 
+
+Write position or velocities command data to the robot hardware. 
+\begin{DoxyParams}{Parameters}
+{\em time} & The current time. \\
+\hline
+{\em duration} & The time passed since the last call to \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read()}}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 657 of file mia\+\_\+hw\+\_\+interface.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a209ad7d8d6fa3efba308d23facfdf043}\label{classmia__hand_1_1_mia_h_w_interface_a209ad7d8d6fa3efba308d23facfdf043}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!a\_cmd\_data@{a\_cmd\_data}}
+\index{a\_cmd\_data@{a\_cmd\_data}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{a\_cmd\_data}{a\_cmd\_data}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Actuator\+Data mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::a\+\_\+cmd\+\_\+data\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actuator command data (one for transmission). 
+
+
+
+Definition at line 437 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a76d391275a6fb56b8a582c8995a3ddc4}\label{classmia__hand_1_1_mia_h_w_interface_a76d391275a6fb56b8a582c8995a3ddc4}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!a\_state\_data@{a\_state\_data}}
+\index{a\_state\_data@{a\_state\_data}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{a\_state\_data}{a\_state\_data}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Actuator\+Data mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::a\+\_\+state\+\_\+data\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actuator state data (one for transmission). 
+
+
+
+Definition at line 436 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae22a5f01492a47912cdde212caa72693}\label{classmia__hand_1_1_mia_h_w_interface_ae22a5f01492a47912cdde212caa72693}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_effort\_command\_@{act\_effort\_command\_}}
+\index{act\_effort\_command\_@{act\_effort\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_effort\_command\_}{act\_effort\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+effort\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Useless. 
+
+
+
+Definition at line 487 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_adb7cffdab3faa58fb7607e9e017605d1}\label{classmia__hand_1_1_mia_h_w_interface_adb7cffdab3faa58fb7607e9e017605d1}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_effort\_state\_@{act\_effort\_state\_}}
+\index{act\_effort\_state\_@{act\_effort\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_effort\_state\_}{act\_effort\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+effort\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Useless. 
+
+
+
+Definition at line 483 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ad2154c1ca7bd912be876ab8151bd3723}\label{classmia__hand_1_1_mia_h_w_interface_ad2154c1ca7bd912be876ab8151bd3723}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_position\_command\_@{act\_position\_command\_}}
+\index{act\_position\_command\_@{act\_position\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_position\_command\_}{act\_position\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+position\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual position actuator command for the Mia hardware. 
+
+
+
+Definition at line 485 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ada22725d05962ec816feed244ad870d2}\label{classmia__hand_1_1_mia_h_w_interface_ada22725d05962ec816feed244ad870d2}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_position\_state\_@{act\_position\_state\_}}
+\index{act\_position\_state\_@{act\_position\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_position\_state\_}{act\_position\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+position\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual position state of the actuators of the Mia hardware. 
+
+
+
+Definition at line 481 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae33c2b59feaf2fe880584f721bcb9bef}\label{classmia__hand_1_1_mia_h_w_interface_ae33c2b59feaf2fe880584f721bcb9bef}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_to\_jnt\_pos\_state@{act\_to\_jnt\_pos\_state}}
+\index{act\_to\_jnt\_pos\_state@{act\_to\_jnt\_pos\_state}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_to\_jnt\_pos\_state}{act\_to\_jnt\_pos\_state}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Actuator\+To\+Joint\+Position\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+to\+\_\+jnt\+\_\+pos\+\_\+state\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating current actuator position state to joint space. 
+
+Transmission interface used for Mia mrl and thumb flexion joints/actuators. 
+
+Definition at line 389 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a3e0a057acd053fe1cec2dac3e4a333c2}\label{classmia__hand_1_1_mia_h_w_interface_a3e0a057acd053fe1cec2dac3e4a333c2}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_to\_jnt\_vel\_state@{act\_to\_jnt\_vel\_state}}
+\index{act\_to\_jnt\_vel\_state@{act\_to\_jnt\_vel\_state}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_to\_jnt\_vel\_state}{act\_to\_jnt\_vel\_state}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Actuator\+To\+Joint\+Velocity\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+to\+\_\+jnt\+\_\+vel\+\_\+state\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating current velocity actuator state to joint space. 
+
+Transmission interface used for Mia mrl and thumb flexion joints/actuators. 
+
+Definition at line 395 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a8b3fbfdd3f42185a9040a6df1b8c1b2f}\label{classmia__hand_1_1_mia_h_w_interface_a8b3fbfdd3f42185a9040a6df1b8c1b2f}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_velocity\_command\_@{act\_velocity\_command\_}}
+\index{act\_velocity\_command\_@{act\_velocity\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_velocity\_command\_}{act\_velocity\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+velocity\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual velocity actuator command for the Mia hardware. 
+
+
+
+Definition at line 486 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a7199bf6a48e0720629f8cd5959a6bec7}\label{classmia__hand_1_1_mia_h_w_interface_a7199bf6a48e0720629f8cd5959a6bec7}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!act\_velocity\_state\_@{act\_velocity\_state\_}}
+\index{act\_velocity\_state\_@{act\_velocity\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{act\_velocity\_state\_}{act\_velocity\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::act\+\_\+velocity\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual velocity state of the actuators of the Mia hardware. 
+
+
+
+Definition at line 482 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa8c0e4de64fceaf8ea5f64fd81058c3b}\label{classmia__hand_1_1_mia_h_w_interface_aa8c0e4de64fceaf8ea5f64fd81058c3b}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!COM\_number\_@{COM\_number\_}}
+\index{COM\_number\_@{COM\_number\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{COM\_number\_}{COM\_number\_}}
+{\footnotesize\ttfamily int mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+C\+O\+M\+\_\+number\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Number of the C\+OM in which the Mia hand is plugged. 
+
+
+
+Definition at line 255 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ac40ff4810ef848de5c1a0b1bca7c7102}\label{classmia__hand_1_1_mia_h_w_interface_ac40ff4810ef848de5c1a0b1bca7c7102}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!connect\_to\_port\_@{connect\_to\_port\_}}
+\index{connect\_to\_port\_@{connect\_to\_port\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_port\_}{connect\_to\_port\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::connect\+\_\+to\+\_\+port\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Service to open a serial port and connect the Mia hand. 
+
+
+
+Definition at line 283 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aef427b2bc86a2506db78dcf7665093fa}\label{classmia__hand_1_1_mia_h_w_interface_aef427b2bc86a2506db78dcf7665093fa}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!connection\_status\_info\_@{connection\_status\_info\_}}
+\index{connection\_status\_info\_@{connection\_status\_info\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{connection\_status\_info\_}{connection\_status\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::connection\+\_\+status\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Publisher of the status of the connection of the device. 
+
+
+
+Definition at line 275 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ac514eb170014e666ab065a8066eda119}\label{classmia__hand_1_1_mia_h_w_interface_ac514eb170014e666ab065a8066eda119}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!connectionmia\_mtx\_@{connectionmia\_mtx\_}}
+\index{connectionmia\_mtx\_@{connectionmia\_mtx\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{connectionmia\_mtx\_}{connectionmia\_mtx\_}}
+{\footnotesize\ttfamily std\+::mutex mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::connectionmia\+\_\+mtx\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 262 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ade125611e0a27dd6177d07963d29c64e}\label{classmia__hand_1_1_mia_h_w_interface_ade125611e0a27dd6177d07963d29c64e}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!connectionstatus\_mtx\_@{connectionstatus\_mtx\_}}
+\index{connectionstatus\_mtx\_@{connectionstatus\_mtx\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{connectionstatus\_mtx\_}{connectionstatus\_mtx\_}}
+{\footnotesize\ttfamily std\+::mutex mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::connectionstatus\+\_\+mtx\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 261 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_afd5e2ce7cb8c16a4f0d41c6f7b8d7927}\label{classmia__hand_1_1_mia_h_w_interface_afd5e2ce7cb8c16a4f0d41c6f7b8d7927}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!disconnect\_@{disconnect\_}}
+\index{disconnect\_@{disconnect\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{disconnect\_}{disconnect\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::disconnect\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Service to disconnect the Mia hand and close the serial port. 
+
+
+
+Definition at line 284 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a91c4badc84ba2c5f0a232a26f380c371}\label{classmia__hand_1_1_mia_h_w_interface_a91c4badc84ba2c5f0a232a26f380c371}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!ej\_interface\_@{ej\_interface\_}}
+\index{ej\_interface\_@{ej\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{ej\_interface\_}{ej\_interface\_}}
+{\footnotesize\ttfamily hardware\+\_\+interface\+::\+Effort\+Joint\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::ej\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+unused 
+
+
+
+Definition at line 346 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a7caa16036b57780759d2f458572b5823}\label{classmia__hand_1_1_mia_h_w_interface_a7caa16036b57780759d2f458572b5823}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!ej\_limits\_interface\_@{ej\_limits\_interface\_}}
+\index{ej\_limits\_interface\_@{ej\_limits\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{ej\_limits\_interface\_}{ej\_limits\_interface\_}}
+{\footnotesize\ttfamily joint\+\_\+limits\+\_\+interface\+::\+Effort\+Joint\+Soft\+Limits\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::ej\+\_\+limits\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+unused 
+
+
+
+Definition at line 354 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ad72d313280a351b2860e6f6b76525e74}\label{classmia__hand_1_1_mia_h_w_interface_ad72d313280a351b2860e6f6b76525e74}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!ej\_sat\_interface\_@{ej\_sat\_interface\_}}
+\index{ej\_sat\_interface\_@{ej\_sat\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{ej\_sat\_interface\_}{ej\_sat\_interface\_}}
+{\footnotesize\ttfamily joint\+\_\+limits\+\_\+interface\+::\+Effort\+Joint\+Saturation\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::ej\+\_\+sat\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+unused 
+
+
+
+Definition at line 353 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a9992aed3fe64350ef8bb2c2959186951}\label{classmia__hand_1_1_mia_h_w_interface_a9992aed3fe64350ef8bb2c2959186951}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!fin\_for\_info\_@{fin\_for\_info\_}}
+\index{fin\_for\_info\_@{fin\_for\_info\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{fin\_for\_info\_}{fin\_for\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::fin\+\_\+for\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Publisher of the force data read by the sensors embedded in the Mia hand fingers. 
+
+
+
+Definition at line 274 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a406717ad3670dd6108b964b6ed9b3c39}\label{classmia__hand_1_1_mia_h_w_interface_a406717ad3670dd6108b964b6ed9b3c39}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!index\_act\_to\_jnt\_pos\_state@{index\_act\_to\_jnt\_pos\_state}}
+\index{index\_act\_to\_jnt\_pos\_state@{index\_act\_to\_jnt\_pos\_state}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{index\_act\_to\_jnt\_pos\_state}{index\_act\_to\_jnt\_pos\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_position_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Position\+Interface}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::index\+\_\+act\+\_\+to\+\_\+jnt\+\_\+pos\+\_\+state\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating current actuator position state of the Mia index to joint space. 
+
+Transmission interface used for Mia index flexion joints/actuators. 
+
+Definition at line 413 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_abcbf3e837259ece3b2df04e99b7bee07}\label{classmia__hand_1_1_mia_h_w_interface_abcbf3e837259ece3b2df04e99b7bee07}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!index\_act\_to\_jnt\_vel\_state@{index\_act\_to\_jnt\_vel\_state}}
+\index{index\_act\_to\_jnt\_vel\_state@{index\_act\_to\_jnt\_vel\_state}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{index\_act\_to\_jnt\_vel\_state}{index\_act\_to\_jnt\_vel\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_velocity_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Velocity\+Interface}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::index\+\_\+act\+\_\+to\+\_\+jnt\+\_\+vel\+\_\+state\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating current actuator velocity state of the Mia index to joint space. 
+
+Transmission interface used for Mia index flexion joints/actuators. 
+
+Definition at line 419 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae7607ec8b0d2bd16e43a2694fdce3a57}\label{classmia__hand_1_1_mia_h_w_interface_ae7607ec8b0d2bd16e43a2694fdce3a57}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!index\_jnt\_to\_act\_pos@{index\_jnt\_to\_act\_pos}}
+\index{index\_jnt\_to\_act\_pos@{index\_jnt\_to\_act\_pos}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{index\_jnt\_to\_act\_pos}{index\_jnt\_to\_act\_pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_position_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Position\+Interface}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::index\+\_\+jnt\+\_\+to\+\_\+act\+\_\+pos\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating joint position commands to actuator space. 
+
+Transmission interface used for Mia index flexion joints/actuators. 
+
+Definition at line 425 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a6fd40c76b1c5d9db88ca8da94b1256bd}\label{classmia__hand_1_1_mia_h_w_interface_a6fd40c76b1c5d9db88ca8da94b1256bd}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!index\_jnt\_to\_act\_vel@{index\_jnt\_to\_act\_vel}}
+\index{index\_jnt\_to\_act\_vel@{index\_jnt\_to\_act\_vel}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{index\_jnt\_to\_act\_vel}{index\_jnt\_to\_act\_vel}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_velocity_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Velocity\+Interface}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::index\+\_\+jnt\+\_\+to\+\_\+act\+\_\+vel\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating joint velocity commands to actuator space. 
+
+Transmission interface used for Mia index flexion joints/actuators. 
+
+Definition at line 431 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a68b435c2147821cd33abc47885f06197}\label{classmia__hand_1_1_mia_h_w_interface_a68b435c2147821cd33abc47885f06197}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!IndexTrans@{IndexTrans}}
+\index{IndexTrans@{IndexTrans}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{IndexTrans}{IndexTrans}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{transmission\+\_\+interface\+::\+Mia\+Index\+Transmission}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Index\+Trans\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmissions class implemented for the Mia hand mrl flexion joint. 
+
+\begin{DoxySeeAlso}{See also}
+Mia\+Index\+Transmission class 
+\end{DoxySeeAlso}
+
+
+Definition at line 375 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a55ab225ef73f24605a7c4de8030a545a}\label{classmia__hand_1_1_mia_h_w_interface_a55ab225ef73f24605a7c4de8030a545a}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!is\_connected\_@{is\_connected\_}}
+\index{is\_connected\_@{is\_connected\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{is\_connected\_}{is\_connected\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::is\+\_\+connected\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+True if the Mia hand is connected, False otherwise. 
+
+
+
+Definition at line 258 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aea13996d2c03e312d460ebff4676f7d6}\label{classmia__hand_1_1_mia_h_w_interface_aea13996d2c03e312d460ebff4676f7d6}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!is\_fin\_for\_info\_enabled@{is\_fin\_for\_info\_enabled}}
+\index{is\_fin\_for\_info\_enabled@{is\_fin\_for\_info\_enabled}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{is\_fin\_for\_info\_enabled}{is\_fin\_for\_info\_enabled}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::is\+\_\+fin\+\_\+for\+\_\+info\+\_\+enabled\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 278 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a192a0d25821f444ef9e57c59a765ee11}\label{classmia__hand_1_1_mia_h_w_interface_a192a0d25821f444ef9e57c59a765ee11}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!is\_initialized@{is\_initialized}}
+\index{is\_initialized@{is\_initialized}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{is\_initialized}{is\_initialized}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::is\+\_\+initialized\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+True if tthe class has already been initialized. 
+
+
+
+Definition at line 260 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa2d41682e3ae372bcfb3705c26a938b4}\label{classmia__hand_1_1_mia_h_w_interface_aa2d41682e3ae372bcfb3705c26a938b4}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!is\_mot\_cur\_info\_enabled@{is\_mot\_cur\_info\_enabled}}
+\index{is\_mot\_cur\_info\_enabled@{is\_mot\_cur\_info\_enabled}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{is\_mot\_cur\_info\_enabled}{is\_mot\_cur\_info\_enabled}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::is\+\_\+mot\+\_\+cur\+\_\+info\+\_\+enabled\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 277 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a8bda15cebe5ce459b7ff5a4377b99d22}\label{classmia__hand_1_1_mia_h_w_interface_a8bda15cebe5ce459b7ff5a4377b99d22}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!j\_cmd\_data@{j\_cmd\_data}}
+\index{j\_cmd\_data@{j\_cmd\_data}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{j\_cmd\_data}{j\_cmd\_data}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Joint\+Data mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::j\+\_\+cmd\+\_\+data\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+joint command data (one for transmission). 
+
+
+
+Definition at line 440 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa149c767d0fb5390655f6b58b09580a3}\label{classmia__hand_1_1_mia_h_w_interface_aa149c767d0fb5390655f6b58b09580a3}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!j\_state\_data@{j\_state\_data}}
+\index{j\_state\_data@{j\_state\_data}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{j\_state\_data}{j\_state\_data}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Joint\+Data mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::j\+\_\+state\+\_\+data\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Joint state data (one for transmission). 
+
+
+
+Definition at line 439 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a6d198a08b5d2f11126ed81f818623b9d}\label{classmia__hand_1_1_mia_h_w_interface_a6d198a08b5d2f11126ed81f818623b9d}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!jnt\_to\_act\_pos@{jnt\_to\_act\_pos}}
+\index{jnt\_to\_act\_pos@{jnt\_to\_act\_pos}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{jnt\_to\_act\_pos}{jnt\_to\_act\_pos}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Joint\+To\+Actuator\+Position\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::jnt\+\_\+to\+\_\+act\+\_\+pos\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating joint position commands to actuator space. 
+
+Transmission interface used for Mia mrl and thumb flexion joints/actuators. 
+
+Definition at line 401 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a9268e574ecf9c0982539a467ba7befd2}\label{classmia__hand_1_1_mia_h_w_interface_a9268e574ecf9c0982539a467ba7befd2}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!jnt\_to\_act\_vel@{jnt\_to\_act\_vel}}
+\index{jnt\_to\_act\_vel@{jnt\_to\_act\_vel}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{jnt\_to\_act\_vel}{jnt\_to\_act\_vel}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Joint\+To\+Actuator\+Velocity\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::jnt\+\_\+to\+\_\+act\+\_\+vel\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmission interface for propagating joint velocity commands to actuator space Transmission interface used for Mia mrl and thumb flexion joints/actuators. 
+
+
+
+Definition at line 407 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a81da3f27bfa921751978262389975e83}\label{classmia__hand_1_1_mia_h_w_interface_a81da3f27bfa921751978262389975e83}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_control\_methods\_@{joint\_control\_methods\_}}
+\index{joint\_control\_methods\_@{joint\_control\_methods\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_control\_methods\_}{joint\_control\_methods\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}}$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+control\+\_\+methods\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual control method for the joints of the Mia hardware. 
+
+
+
+Definition at line 490 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ab88c385f75686c29ef7d42b6760af1ce}\label{classmia__hand_1_1_mia_h_w_interface_ab88c385f75686c29ef7d42b6760af1ce}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_effort\_command\_@{joint\_effort\_command\_}}
+\index{joint\_effort\_command\_@{joint\_effort\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_effort\_command\_}{joint\_effort\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+effort\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Useless. 
+
+
+
+Definition at line 476 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ac17923a9ebb91aa05c9b45edd8df62c3}\label{classmia__hand_1_1_mia_h_w_interface_ac17923a9ebb91aa05c9b45edd8df62c3}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_effort\_limits\_@{joint\_effort\_limits\_}}
+\index{joint\_effort\_limits\_@{joint\_effort\_limits\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_effort\_limits\_}{joint\_effort\_limits\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+effort\+\_\+limits\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Effort limit of the joints of the Mia hardware specified in the U\+R\+DF (fake). 
+
+
+
+Definition at line 497 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae5b035ec204cffad9000e55e60ee1a90}\label{classmia__hand_1_1_mia_h_w_interface_ae5b035ec204cffad9000e55e60ee1a90}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_effort\_state\_@{joint\_effort\_state\_}}
+\index{joint\_effort\_state\_@{joint\_effort\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_effort\_state\_}{joint\_effort\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+effort\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Useless. 
+
+
+
+Definition at line 472 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a542b07d66d09d17b96a23475fb12b161}\label{classmia__hand_1_1_mia_h_w_interface_a542b07d66d09d17b96a23475fb12b161}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_lower\_limits\_@{joint\_lower\_limits\_}}
+\index{joint\_lower\_limits\_@{joint\_lower\_limits\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_lower\_limits\_}{joint\_lower\_limits\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+lower\+\_\+limits\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Lower position limits of the joints of the Mia hardware (as specified in the U\+R\+DF) 
+
+
+
+Definition at line 494 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a49621ed5892243a143cc7d1d1490c18c}\label{classmia__hand_1_1_mia_h_w_interface_a49621ed5892243a143cc7d1d1490c18c}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_names\_@{joint\_names\_}}
+\index{joint\_names\_@{joint\_names\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_names\_}{joint\_names\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+names\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Name of the joints as specified in the U\+R\+DF. 
+
+
+
+Definition at line 467 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aafa8ec60666b415e88047564e6ab089b}\label{classmia__hand_1_1_mia_h_w_interface_aafa8ec60666b415e88047564e6ab089b}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_position\_command\_@{joint\_position\_command\_}}
+\index{joint\_position\_command\_@{joint\_position\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_position\_command\_}{joint\_position\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+position\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual position joint command for the Mia hardware. 
+
+
+
+Definition at line 474 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a68f117d37d0fd2dd017aa871445193f0}\label{classmia__hand_1_1_mia_h_w_interface_a68f117d37d0fd2dd017aa871445193f0}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_position\_state\_@{joint\_position\_state\_}}
+\index{joint\_position\_state\_@{joint\_position\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_position\_state\_}{joint\_position\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+position\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual position state of the joints of the Mia hardware. 
+
+
+
+Definition at line 470 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a7504b9e7da55add992bcf530f80efadd}\label{classmia__hand_1_1_mia_h_w_interface_a7504b9e7da55add992bcf530f80efadd}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_types\_@{joint\_types\_}}
+\index{joint\_types\_@{joint\_types\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_types\_}{joint\_types\_}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+types\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Type of the joints specified in the U\+R\+DF. 
+
+
+
+Definition at line 468 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa0f1c78983eed527793f6bed55999fc9}\label{classmia__hand_1_1_mia_h_w_interface_aa0f1c78983eed527793f6bed55999fc9}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_upper\_limits\_@{joint\_upper\_limits\_}}
+\index{joint\_upper\_limits\_@{joint\_upper\_limits\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_upper\_limits\_}{joint\_upper\_limits\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+upper\+\_\+limits\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Upper position limits of the joints of the Mia hardware (as specified in the U\+R\+DF). 
+
+
+
+Definition at line 495 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a274711cddb934ad4643eae4b3643739a}\label{classmia__hand_1_1_mia_h_w_interface_a274711cddb934ad4643eae4b3643739a}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_velocity\_command\_@{joint\_velocity\_command\_}}
+\index{joint\_velocity\_command\_@{joint\_velocity\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_velocity\_command\_}{joint\_velocity\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+velocity\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual velocity joint command for the Mia hardware. 
+
+
+
+Definition at line 475 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a3d9617022ed4adcd4daa561b040fb505}\label{classmia__hand_1_1_mia_h_w_interface_a3d9617022ed4adcd4daa561b040fb505}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joint\_velocity\_state\_@{joint\_velocity\_state\_}}
+\index{joint\_velocity\_state\_@{joint\_velocity\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joint\_velocity\_state\_}{joint\_velocity\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joint\+\_\+velocity\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual velocity state of the joints of the Mia hardware. 
+
+
+
+Definition at line 471 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ad3709b13e596ab81dd2b14136a03cc5b}\label{classmia__hand_1_1_mia_h_w_interface_ad3709b13e596ab81dd2b14136a03cc5b}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!joints\_ii@{joints\_ii}}
+\index{joints\_ii@{joints\_ii}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{joints\_ii}{joints\_ii}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmia__hand_1_1_joint__index__mapping}{Joint\+\_\+index\+\_\+mapping}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::joints\+\_\+ii\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{structmia__hand_1_1_joint__index__mapping}{Joint\+\_\+index\+\_\+mapping}} struct. 
+
+Struct that stores the index number of the simulated mia hand joint as contained in the interfaces and arrays of this class \begin{DoxySeeAlso}{See also}
+Joint\+\_\+index\+\_\+mapping() 
+\end{DoxySeeAlso}
+
+
+Definition at line 460 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a2122f0eb8ea337aeb2578ac548bb5d16}\label{classmia__hand_1_1_mia_h_w_interface_a2122f0eb8ea337aeb2578ac548bb5d16}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!js\_interface\_@{js\_interface\_}}
+\index{js\_interface\_@{js\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{js\_interface\_}{js\_interface\_}}
+{\footnotesize\ttfamily hardware\+\_\+interface\+::\+Joint\+State\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::js\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real Mia joint state. 
+
+
+
+Definition at line 343 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_abe776e0fd3dc8974902b2441f9ca8dc3}\label{classmia__hand_1_1_mia_h_w_interface_abe776e0fd3dc8974902b2441f9ca8dc3}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!last\_joint\_control\_methods\_@{last\_joint\_control\_methods\_}}
+\index{last\_joint\_control\_methods\_@{last\_joint\_control\_methods\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{last\_joint\_control\_methods\_}{last\_joint\_control\_methods\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}}$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::last\+\_\+joint\+\_\+control\+\_\+methods\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Last control method used for the joints of the Mia hardware. 
+
+
+
+Definition at line 491 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a102c26ff2f9801e71355f4fa03d32300}\label{classmia__hand_1_1_mia_h_w_interface_a102c26ff2f9801e71355f4fa03d32300}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!last\_joint\_position\_command\_@{last\_joint\_position\_command\_}}
+\index{last\_joint\_position\_command\_@{last\_joint\_position\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{last\_joint\_position\_command\_}{last\_joint\_position\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::last\+\_\+joint\+\_\+position\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Last joint position command received for the Mia hardware. 
+
+
+
+Definition at line 478 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aab3ba43a41928ed39b33c44e96f0cd9f}\label{classmia__hand_1_1_mia_h_w_interface_aab3ba43a41928ed39b33c44e96f0cd9f}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!last\_joint\_velocity\_command\_@{last\_joint\_velocity\_command\_}}
+\index{last\_joint\_velocity\_command\_@{last\_joint\_velocity\_command\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{last\_joint\_velocity\_command\_}{last\_joint\_velocity\_command\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::last\+\_\+joint\+\_\+velocity\+\_\+command\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Last joint velocity command received for the Mia hardware. 
+
+
+
+Definition at line 479 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae5e50fe8e3052e8eff7407b76b940d0e}\label{classmia__hand_1_1_mia_h_w_interface_ae5e50fe8e3052e8eff7407b76b940d0e}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!List\_joint\_control\_methods\_@{List\_joint\_control\_methods\_}}
+\index{List\_joint\_control\_methods\_@{List\_joint\_control\_methods\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{List\_joint\_control\_methods\_}{List\_joint\_control\_methods\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a61ca448009b62dfad84a0c6d9ba62b95}{Control\+Method}}$>$ $>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+List\+\_\+joint\+\_\+control\+\_\+methods\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+List of control method available for the joints of the Mia hardware. 
+
+
+
+Definition at line 492 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_acbb08f46374293ed6e80dd93501675e1}\label{classmia__hand_1_1_mia_h_w_interface_acbb08f46374293ed6e80dd93501675e1}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!mia\_@{mia\_}}
+\index{mia\_@{mia\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{mia\_}{mia\_}}
+{\footnotesize\ttfamily Cpp\+Driver mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::mia\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Low level driver of the Mia hand. 
+
+
+
+Definition at line 254 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a57c4f1c4bba150fb7c342d0f2f4feca7}\label{classmia__hand_1_1_mia_h_w_interface_a57c4f1c4bba150fb7c342d0f2f4feca7}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!MiaTrasmissions@{MiaTrasmissions}}
+\index{MiaTrasmissions@{MiaTrasmissions}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{MiaTrasmissions}{MiaTrasmissions}}
+{\footnotesize\ttfamily std\+::vector$<$transmission\+\_\+interface\+::\+Transmission$\ast$$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Mia\+Trasmissions\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmissions vector to handle the transmissions implemented for the real Mia hand. 
+
+
+
+Definition at line 380 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a79260f35c0503855da8970dfdadd178c}\label{classmia__hand_1_1_mia_h_w_interface_a79260f35c0503855da8970dfdadd178c}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!mot\_cur\_info\_@{mot\_cur\_info\_}}
+\index{mot\_cur\_info\_@{mot\_cur\_info\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{mot\_cur\_info\_}{mot\_cur\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::mot\+\_\+cur\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Publisher of the current absorbed by the Mia hand motors. 
+
+
+
+Definition at line 273 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ace8eacf3b92f4c5052920a4260f8a0d4}\label{classmia__hand_1_1_mia_h_w_interface_ace8eacf3b92f4c5052920a4260f8a0d4}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!MrlTrans@{MrlTrans}}
+\index{MrlTrans@{MrlTrans}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{MrlTrans}{MrlTrans}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission}{transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Mrl\+Trans\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmissions class implemented for the Mia hand mrl flexion joint. 
+
+\begin{DoxySeeAlso}{See also}
+Mia\+Mrl\+Transmission class 
+\end{DoxySeeAlso}
+
+
+Definition at line 369 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a3bdc3e630cb574996f219bb0e73496cd}\label{classmia__hand_1_1_mia_h_w_interface_a3bdc3e630cb574996f219bb0e73496cd}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!MyTh\_opp\_passiveJoint@{MyTh\_opp\_passiveJoint}}
+\index{MyTh\_opp\_passiveJoint@{MyTh\_opp\_passiveJoint}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{MyTh\_opp\_passiveJoint}{MyTh\_opp\_passiveJoint}}
+{\footnotesize\ttfamily mia\+\_\+hand\+::thumb\+\_\+opp\+\_\+passive\+\_\+joint mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+My\+Th\+\_\+opp\+\_\+passive\+Joint\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Class used to evaluate the target position of the Mia simulated thumb opposition joint. 
+
+Class describing the relation between the position of the Mia index flexion joint and the dependent one of the thumb opposition. This class is implemented in the mia\+\_\+hand\+\_\+description pkg. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_adfdd454d0167c7cd239c69219a53b8dc}{Get\+Thumb\+Opp\+Position()}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 449 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a860faa1c1041e65d994ea2eb94be4a7a}\label{classmia__hand_1_1_mia_h_w_interface_a860faa1c1041e65d994ea2eb94be4a7a}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!n\_actuators\_@{n\_actuators\_}}
+\index{n\_actuators\_@{n\_actuators\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{n\_actuators\_}{n\_actuators\_}}
+{\footnotesize\ttfamily int mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::n\+\_\+actuators\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 464 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a2098520ef716a76914337d3bc4aea118}\label{classmia__hand_1_1_mia_h_w_interface_a2098520ef716a76914337d3bc4aea118}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!n\_dof\_sim\_@{n\_dof\_sim\_}}
+\index{n\_dof\_sim\_@{n\_dof\_sim\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{n\_dof\_sim\_}{n\_dof\_sim\_}}
+{\footnotesize\ttfamily int mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::n\+\_\+dof\+\_\+sim\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Number of degree of freedom. 
+
+
+
+Definition at line 463 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a902c52594463bb80a90e2d9ce4e76d37}\label{classmia__hand_1_1_mia_h_w_interface_a902c52594463bb80a90e2d9ce4e76d37}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!nh\_@{nh\_}}
+\index{nh\_@{nh\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{nh\_}{nh\_}}
+{\footnotesize\ttfamily ros\+::\+Node\+Handle mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::nh\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+R\+OS node handle. 
+
+
+
+Definition at line 264 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a4e1122123b722d9dfea143643987f0c1}\label{classmia__hand_1_1_mia_h_w_interface_a4e1122123b722d9dfea143643987f0c1}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!old\_act\_position\_state\_@{old\_act\_position\_state\_}}
+\index{old\_act\_position\_state\_@{old\_act\_position\_state\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{old\_act\_position\_state\_}{old\_act\_position\_state\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::old\+\_\+act\+\_\+position\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Last position state of the actuator returned by the Mia hardware in the \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read()}} funtion. 
+
+
+
+Definition at line 500 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a590381c7a14e953feda9ce833886f6c2}\label{classmia__hand_1_1_mia_h_w_interface_a590381c7a14e953feda9ce833886f6c2}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!pj\_interface\_@{pj\_interface\_}}
+\index{pj\_interface\_@{pj\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{pj\_interface\_}{pj\_interface\_}}
+{\footnotesize\ttfamily hardware\+\_\+interface\+::\+Position\+Joint\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::pj\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real Mia joint position commands. 
+
+
+
+Definition at line 344 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae4596764d6afa588ec343ec16be579ba}\label{classmia__hand_1_1_mia_h_w_interface_ae4596764d6afa588ec343ec16be579ba}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!pj\_limits\_interface\_@{pj\_limits\_interface\_}}
+\index{pj\_limits\_interface\_@{pj\_limits\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{pj\_limits\_interface\_}{pj\_limits\_interface\_}}
+{\footnotesize\ttfamily joint\+\_\+limits\+\_\+interface\+::\+Position\+Joint\+Soft\+Limits\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::pj\+\_\+limits\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real joint position soft limit. 
+
+
+
+Definition at line 349 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a40befde034823bc6ed52223ae2959dd4}\label{classmia__hand_1_1_mia_h_w_interface_a40befde034823bc6ed52223ae2959dd4}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!pj\_sat\_interface\_@{pj\_sat\_interface\_}}
+\index{pj\_sat\_interface\_@{pj\_sat\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{pj\_sat\_interface\_}{pj\_sat\_interface\_}}
+{\footnotesize\ttfamily joint\+\_\+limits\+\_\+interface\+::\+Position\+Joint\+Saturation\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::pj\+\_\+sat\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real Mia joint position saturation limit. 
+
+
+
+Definition at line 348 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a63c94a78445d5d7ab7d473ee5ec69a3c}\label{classmia__hand_1_1_mia_h_w_interface_a63c94a78445d5d7ab7d473ee5ec69a3c}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!read\_counter@{read\_counter}}
+\index{read\_counter@{read\_counter}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{read\_counter}{read\_counter}}
+{\footnotesize\ttfamily int mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::read\+\_\+counter\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Counter for the \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface_a52c11e5f0b527d7ee720ac8f55780deb}{read()}} funtion. 
+
+
+
+Definition at line 501 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_aa4bcc7bb0627fae8c4b17aa3f774d630}\label{classmia__hand_1_1_mia_h_w_interface_aa4bcc7bb0627fae8c4b17aa3f774d630}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!robot\_description\_@{robot\_description\_}}
+\index{robot\_description\_@{robot\_description\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{robot\_description\_}{robot\_description\_}}
+{\footnotesize\ttfamily std\+::string mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::robot\+\_\+description\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Generic name of the U\+R\+DF to look for with \#get\+U\+R\+D\+F(std\+::string param\+\_\+name). 
+
+
+
+Definition at line 333 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a3526cd8e72a427e70b2b963390db8210}\label{classmia__hand_1_1_mia_h_w_interface_a3526cd8e72a427e70b2b963390db8210}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!switch\_ana\_stream\_@{switch\_ana\_stream\_}}
+\index{switch\_ana\_stream\_@{switch\_ana\_stream\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{switch\_ana\_stream\_}{switch\_ana\_stream\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::switch\+\_\+ana\+\_\+stream\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Service to manage a the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. 
+
+
+
+Definition at line 286 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a2102fd7f884dcf247b49f3dd885a70fb}\label{classmia__hand_1_1_mia_h_w_interface_a2102fd7f884dcf247b49f3dd885a70fb}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!switch\_cur\_stream\_@{switch\_cur\_stream\_}}
+\index{switch\_cur\_stream\_@{switch\_cur\_stream\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{switch\_cur\_stream\_}{switch\_cur\_stream\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::switch\+\_\+cur\+\_\+stream\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Service to manage a the streaming of the current data (i.\+e. force sensor outputs) sent by the Mia hand. 
+
+
+
+Definition at line 287 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a37e0635fe21c53bcac685e69d44cbde2}\label{classmia__hand_1_1_mia_h_w_interface_a37e0635fe21c53bcac685e69d44cbde2}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!ThfleTrans@{ThfleTrans}}
+\index{ThfleTrans@{ThfleTrans}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{ThfleTrans}{ThfleTrans}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtransmission__interface_1_1_mia_thfle_transmission}{transmission\+\_\+interface\+::\+Mia\+Thfle\+Transmission}} mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+Thfle\+Trans\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmissions class implemented for the Mia hand thumb flexion joint. 
+
+\begin{DoxySeeAlso}{See also}
+Mia\+Thfle\+Transmission class 
+\end{DoxySeeAlso}
+
+
+Definition at line 363 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a8de85613838285ae024a3de4e966748b}\label{classmia__hand_1_1_mia_h_w_interface_a8de85613838285ae024a3de4e966748b}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!trasmission\_names\_@{trasmission\_names\_}}
+\index{trasmission\_names\_@{trasmission\_names\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{trasmission\_names\_}{trasmission\_names\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::trasmission\+\_\+names\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actual transmissions name. 
+
+
+
+Definition at line 382 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a8988f26c1e1b36ecb7788e01b58d2e82}\label{classmia__hand_1_1_mia_h_w_interface_a8988f26c1e1b36ecb7788e01b58d2e82}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!URDFtransmissions\_@{URDFtransmissions\_}}
+\index{URDFtransmissions\_@{URDFtransmissions\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{URDFtransmissions\_}{URDFtransmissions\_}}
+{\footnotesize\ttfamily std\+::vector$<$transmission\+\_\+interface\+::\+Transmission\+Info$>$ mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::\+U\+R\+D\+Ftransmissions\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Transmissions declared in the U\+R\+DF. 
+
+
+
+Definition at line 338 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a86c3e47ee8d37f012ff3ac50d3b6c2be}\label{classmia__hand_1_1_mia_h_w_interface_a86c3e47ee8d37f012ff3ac50d3b6c2be}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!vj\_interface\_@{vj\_interface\_}}
+\index{vj\_interface\_@{vj\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{vj\_interface\_}{vj\_interface\_}}
+{\footnotesize\ttfamily hardware\+\_\+interface\+::\+Velocity\+Joint\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::vj\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real Mia joint velocity commands. 
+
+
+
+Definition at line 345 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a1f55b68d1d24b899b3bf8ca177ba87e1}\label{classmia__hand_1_1_mia_h_w_interface_a1f55b68d1d24b899b3bf8ca177ba87e1}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!vj\_limits\_interface\_@{vj\_limits\_interface\_}}
+\index{vj\_limits\_interface\_@{vj\_limits\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{vj\_limits\_interface\_}{vj\_limits\_interface\_}}
+{\footnotesize\ttfamily joint\+\_\+limits\+\_\+interface\+::\+Velocity\+Joint\+Soft\+Limits\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::vj\+\_\+limits\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real Mia joint velocity software limit. 
+
+
+
+Definition at line 351 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a6a0d38767489809cba2538a15801778c}\label{classmia__hand_1_1_mia_h_w_interface_a6a0d38767489809cba2538a15801778c}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!vj\_sat\_interface\_@{vj\_sat\_interface\_}}
+\index{vj\_sat\_interface\_@{vj\_sat\_interface\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{vj\_sat\_interface\_}{vj\_sat\_interface\_}}
+{\footnotesize\ttfamily joint\+\_\+limits\+\_\+interface\+::\+Velocity\+Joint\+Saturation\+Interface mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::vj\+\_\+sat\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Interface for the real Mia joint velocity saturation limit. 
+
+
+
+Definition at line 350 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_a02c3f0050054b1ef25fbaa1e52849526}\label{classmia__hand_1_1_mia_h_w_interface_a02c3f0050054b1ef25fbaa1e52849526}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!was\_connected\_@{was\_connected\_}}
+\index{was\_connected\_@{was\_connected\_}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{was\_connected\_}{was\_connected\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::was\+\_\+connected\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+True if the Mia hand was connected, False otherwise. 
+
+
+
+Definition at line 259 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_mia_h_w_interface_ae453fb67caea4c3ca2a038ce9b61cece}\label{classmia__hand_1_1_mia_h_w_interface_ae453fb67caea4c3ca2a038ce9b61cece}} 
+\index{mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}!write\_counter@{write\_counter}}
+\index{write\_counter@{write\_counter}!mia\_hand::MiaHWInterface@{mia\_hand::MiaHWInterface}}
+\doxysubsubsection{\texorpdfstring{write\_counter}{write\_counter}}
+{\footnotesize\ttfamily unsigned int mia\+\_\+hand\+::\+Mia\+H\+W\+Interface\+::write\+\_\+counter\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Counter of the write method. 
+
+
+
+Definition at line 462 of file mia\+\_\+hw\+\_\+interface.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/include/mia\+\_\+hand\+\_\+ros\+\_\+control/\mbox{\hyperlink{mia__hw__interface_8h}{mia\+\_\+hw\+\_\+interface.\+h}}\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/src/\mbox{\hyperlink{mia__hw__interface_8cpp}{mia\+\_\+hw\+\_\+interface.\+cpp}}\end{DoxyCompactItemize}

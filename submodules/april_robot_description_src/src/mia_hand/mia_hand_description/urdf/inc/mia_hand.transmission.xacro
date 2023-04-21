@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="mia_hand">
+
+ <!-- Transmission macro -->
+
+  <xacro:macro name="mia_hand_transmission_macro" params="joint_name trans_type hw_interface">
+    <transmission name="${joint_name}_trans">
+        <type>${trans_type}</type>
+         <joint name="${joint_name}">
+      	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+         </joint>
+      <actuator name="${joint_name}_actuator">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<package format="2">
+
+  <name>mia_hand_bringup</name>
+
+  <version>1.0.2</version>
+
+  <description>
+    Package for grouping together all Mia Hand config and launch files.
+  </description>
+
+  <maintainer email="andreabu@prensilia.com">Andrea Burani</maintainer>
+  <maintainer email="francescaci@prensilia.com">Francesca Cini</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://wiki.ros.org/mia_hand_ros_pkgs</url>
+  <url type="repository">https://bitbucket.org/prensiliasrl/mia_hand_ros_pkgs.git</url>
+
+
+  <author email="andreabu@prensilia.com">Andrea Burani</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>mia_hand_driver</exec_depend>
+  <exec_depend>mia_hand_description</exec_depend>
+  <exec_depend>mia_hand_gazebo</exec_depend>
+  <exec_depend>mia_hand_ros_control</exec_depend>
+
+</package>

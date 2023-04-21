@@ -1,0 +1,20 @@
+#request constants
+#Trajectory controller running on top of position controller
+uint32 TRAJECTORY_MODE=0
+#Zero-force controller running (call teach-mode in the case of the arm). No trajectory controller running
+uint32 TEACH_MODE=1
+#Position controller running, but no traj controller (this is useful to teleoperate the arm or to move freely certain joints of the hands)
+uint32 POSITION_MODE=2
+#Direct PWM control running
+uint32 DIRECT_PWM_MODE=3
+
+#request fields
+uint32 teach_mode
+string robot
+---
+#response constants
+int32 ERROR=-1
+int32 SUCCESS=0
+
+#response fields
+int32 result

@@ -1,0 +1,2071 @@
+\hypertarget{classmia__hand_1_1_r_o_s_driver}{}\doxysection{mia\+\_\+hand\+::R\+O\+S\+Driver Class Reference}
+\label{classmia__hand_1_1_r_o_s_driver}\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+
+
+{\ttfamily \#include $<$ros\+\_\+driver.\+h$>$}
+
+
+
+Collaboration diagram for mia\+\_\+hand\+::R\+O\+S\+Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmia__hand_1_1_r_o_s_driver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac5510a76d92c499e6e368979cdabbc5d}{R\+O\+S\+Driver}} (ros\+::\+Node\+Handle \&nh, ros\+::\+Node\+Handle \&nh\+\_\+priv)
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a18fc6377a934a5a74dcc207ce873a25f}{publish\+Data\+Tmr\+Callback}} (const ros\+::\+Wall\+Timer\+Event \&event)
+\begin{DoxyCompactList}\small\item\em Callback of the \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a53fda341c3544d599f0663d2e8dc407a}{publish\+\_\+data\+\_\+tmr\+\_\+}} timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a2a44a576f434acb8880f1ebb17d4b420}{check\+Connection\+Tmr\+Callback}} (const ros\+::\+Wall\+Timer\+Event \&event)
+\begin{DoxyCompactList}\small\item\em Callback of the \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa7045a3efedf344341446f8dbb1d902a}{check\+\_\+connection\+\_\+tmr\+\_\+}} timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abd16a6cf76ab478acb22dade15c9b783}{init\+Publishers}} ()
+\begin{DoxyCompactList}\small\item\em Initialize publishers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a241386dd26d450797d642688569cd1ac}{init\+Subscribers\+Thu}} ()
+\begin{DoxyCompactList}\small\item\em Initialize subscribers of the thumb flexion motor info. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aeefaa40335d3d4ca34463731e2208877}{init\+Subscribers\+Ind}} ()
+\begin{DoxyCompactList}\small\item\em Initialize subscribers of the index flexion motor info. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ae2e66a62fb1428874ad57f808ca08c0c}{init\+Subscribers\+Mrl}} ()
+\begin{DoxyCompactList}\small\item\em Initialize subscribers of the index mrl motor info. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac6e5a42a836fc9c28500ca6c8d8de12f}{init\+Subscribers\+Grasp}} ()
+\begin{DoxyCompactList}\small\item\em Initialize subscribers of the automatic grasp info. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a13704844eba418128bc52a49697086ec}{init\+Services}} ()
+\begin{DoxyCompactList}\small\item\em Initialize services. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a4714e2ab42d723d1b1e43f1c9ac1287f}{thu\+Mot\+Trgt\+Pos\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a995d6915c23c127d80440e74628312ab}{thu\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_adc2d761d8943aebfeaeebb66c4935d74}{ind\+Mot\+Trgt\+Pos\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab44de4d61241b507f3fd078fea545f90}{ind\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a5ec228f9162c2236e998646f54000a8c}{mrl\+Mot\+Trgt\+Pos\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a34449719a43b8749e56e389bbe9cc88e}{mrl\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a128e2eb8d925ea36e67d10b3422d6c40}{thu\+Mot\+Trgt\+Spe\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9f35f9c704ae08d3f1bc66452f0150d8}{thu\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a7ba90d3cce8e2f870fd85a92af19eb0f}{ind\+Mot\+Trgt\+Spe\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abfa85dfda4188e9b04490a1c031edb4f}{ind\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a7d57808a4c088fa14a38366e51156ce4}{mrl\+Mot\+Trgt\+Spe\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a972295cebef7d12730c94797a27d970e}{mrl\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab271790bcdb01db0f0aa4b17e1637109}{thu\+Fin\+Trgt\+For\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a7b438ac66cf47c01b3f777b8476065d4}{thu\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a3df294b3ad7238c90fc6111d913a15f5}{ind\+Fin\+Trgt\+For\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a864f08fd5a0fbc8af26a93fb5fbda791}{ind\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a38b5d1b338285a9d3811a8695f86117f}{mrl\+Fin\+Trgt\+For\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a8d50c308577f1957a9ad598a3d889d87}{mrl\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ade4572beed388bc72d170fcd804438b6}{thu\+Cyl\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_af71214d0f00f365d2cd8f12ea05b5d97}{thu\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa55ba189d7eedd0a6f3812d611a9d2a1}{thu\+Pin\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aac32b7efa7cc418917c6b975068cddd2}{thu\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9bd04df9b9c70a286d209b3765bf433e}{thu\+Lat\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a20dbfc398f38b6826c42dee9f6c137bf}{thu\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a2668ab2b4ea0c573045d57f4f2ffd4b3}{thu\+Sph\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}{thu\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a701072a66ea22386609f4c72cfe5cc7a}{thu\+Tri\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}{thu\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ad82260511e9b9146d2e28a5ac10fcc3f}{ind\+Cyl\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab6b61f6f1aee01f42543cd0a5752dfcc}{ind\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ad5159507abda66ee2a8416bedc8f30c4}{ind\+Pin\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a29690db40f9fc9d38bde026a65f040a7}{ind\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aecdd9029d0ceda3d79481b7d71913011}{ind\+Lat\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a33fd2186c75ec2e5af624457f357b74f}{ind\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a0012782be1b68c0ec03a55ae0f38eda6}{ind\+Sph\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab289f661b0232723038c369034296034}{ind\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_acc160399da6850cceeb7be6aef19fec7}{ind\+Tri\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a135fa2e07f4937797397dbac70a4ac4d}{ind\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9fd8ffd7b2fda5b8ddca0e34342d7a1f}{mrl\+Cyl\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \#mrl\+\_\+cyl\+\_\+grasp\+\_\+ref. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab93f52dc761693622a7e0e0af021c10c}{mrl\+Pin\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \#mrl\+\_\+pin\+\_\+grasp\+\_\+ref. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a758742b75c306f1bc65021bbc8adc3d5}{mrl\+Lat\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \#mrl\+\_\+lat\+\_\+grasp\+\_\+ref. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_adfaab050d2d90c7a6495a4c410f63be8}{mrl\+Sph\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \#mrl\+\_\+sph\+\_\+grasp\+\_\+ref. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_afe891a271b3908b21c68c66522650daf}{mrl\+Tri\+Grasp\+Ref\+Callback}} (const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \#mrl\+\_\+tri\+\_\+grasp\+\_\+ref. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a33e25505f13b8b29690fd35972bed1ac}{cyl\+Grasp\+Percent\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aea25f2775315a5565e448a6162240b3e}{cyl\+\_\+grasp\+\_\+percent\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a50f4d35a49eb813cfc8e6fa3092a5a92}{pin\+Grasp\+Percent\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a22cc579fd537f0c2ca67cc473a7d7fd9}{pin\+\_\+grasp\+\_\+percent\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_acd33c895f859e6192ce6ce49e1e74fe7}{lat\+Grasp\+Percent\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abc11021a9645baff2c0cd352a939fdb0}{lat\+\_\+grasp\+\_\+percent\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9a6fd4d3369cf5fa2673fb9bea9741ed}{sph\+Grasp\+Percent\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ae5a45419dfc976f9ed4a8acf1d997282}{sph\+\_\+grasp\+\_\+percent\+\_\+}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a00e5bca8431247ce96fdeea255ff0721}{tri\+Grasp\+Percent\+Callback}} (const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a52e8f1bff6442f343c90b5de4eb826b1}{tri\+\_\+grasp\+\_\+percent\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a803315ce1772320ce2f9280b6e36ac42}{connect\+To\+Port\+Callback}} (mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Request \&req, mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a087b4e5a508e0b8247215751d75ad9b0}{connect\+\_\+to\+\_\+port\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ad35d6467f1337e63937ae7c682926599}{disconnect\+Callback}} (std\+\_\+srvs\+::\+Trigger\+::\+Request \&req, std\+\_\+srvs\+::\+Trigger\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa80166d0dfc3123da55c0ad6f7517339}{disconnect\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a53f31395082b9715efc8b11146e6ae5f}{switch\+Pos\+Stream\+Callback}} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a4c8bba0f2ec75b4923f7c1e1d3ef257e}{switch\+\_\+pos\+\_\+stream\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ada603d62b852c512f4da7fafcab06eba}{switch\+Spe\+Stream\+Callback}} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aca55d3f1691e9e551c6175c88749ac68}{switch\+\_\+spe\+\_\+stream\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ae73db942003ecbae53e2e2f7269d34da}{switch\+Ana\+Stream\+Callback}} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a1c335065269e64456a1e5f47a6b0f260}{switch\+\_\+ana\+\_\+stream\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_af8296376d6b9af0a9e7e0f64383b52a0}{switch\+Cur\+Stream\+Callback}} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6cf652fdf909aa8347ecab8ee44aa7e5}{switch\+\_\+cur\+\_\+stream\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a2aa4a121b489701a06de71c679e5345d}{open\+Cyl\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a924e6d80700d992442a898088f45f301}{open\+\_\+cyl\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ae4d16c5abf2ad714475fe9db7cf1224b}{open\+Pin\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a43b1a37c0aa008337658e84b07c23ea2}{open\+\_\+pin\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a932909cab5c0efb1f14a44b8e50dc1f4}{open\+Lat\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a84091da1c78aa78f86ffea93ba466871}{open\+\_\+lat\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac18c4b9bfa25199b4265cb02def0eecc}{open\+Sph\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aeb42b71a2e7fa23f2ff8a8ef931b833b}{open\+\_\+sph\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a3e2c3214bb2dde261f642ead9b21ca96}{open\+Tri\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6e60c567b3bc5946268b1f33a179bf41}{open\+\_\+tri\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a1e719b84bd3f7eb898a7d17990dd2f33}{close\+Cyl\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a31058b62f0670b6d5a4f851413bf2c18}{close\+\_\+cyl\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_acd409c1f332ca427a28eaf474f67023f}{close\+Pin\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abca38760e8eac51f4c2702096ce20c9c}{close\+\_\+pin\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_adbcda18dee7dcf2c3c2de4e17007f672}{close\+Lat\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac6f1ea75698cc2cc952ca9da6caeb60b}{close\+\_\+lat\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ace9d7830566a0ca9f1ab426576d0a338}{close\+Sph\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a798d160814639f74f085ae8cad6d814d}{close\+\_\+sph\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9993357ed0848beccfd7dcfd0e295bc7}{close\+Tri\+Grasp\+Callback}} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a67b00ff7d1c20e8f619ae5f99caab4a6}{close\+\_\+tri\+\_\+grasp\+\_\+}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver}{Cpp\+Driver}} \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa3cb6c5b0491b4749ad441ac329c4bd3}{mia\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Cpp driver of the Mia hand. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a68bbfad7a42318d4cb7673e586e53e14}{is\+\_\+connected\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if the Mia hand is connected, False otherwise. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac1b00400bd84db2353821c33ce2e881b}{was\+\_\+connected\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if the Mia hand was connected, False otherwise. \end{DoxyCompactList}\item 
+ros\+::\+Wall\+Timer \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a53fda341c3544d599f0663d2e8dc407a}{publish\+\_\+data\+\_\+tmr\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Timer to handle the Mia hand data publishing. \end{DoxyCompactList}\item 
+ros\+::\+Wall\+Timer \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa7045a3efedf344341446f8dbb1d902a}{check\+\_\+connection\+\_\+tmr\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Timer to handle the check of the Mia hand connection status. \end{DoxyCompactList}\item 
+ros\+::\+Node\+Handle \& \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_af248ab0b2fc0d7d2304cbfd4e9822757}{nh\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Reference to public node handle (for topics and services) \end{DoxyCompactList}\item 
+ros\+::\+Node\+Handle \& \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abd840506a33f853fe9ef5d1bfaa2891d}{nh\+\_\+priv\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Reference to private node handle (for parameters) \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a995d6915c23c127d80440e74628312ab}{thu\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target pose of the tumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab44de4d61241b507f3fd078fea545f90}{ind\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target pose of the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a34449719a43b8749e56e389bbe9cc88e}{mrl\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target pose of the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9f35f9c704ae08d3f1bc66452f0150d8}{thu\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target velocity of the tumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abfa85dfda4188e9b04490a1c031edb4f}{ind\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target velocity of the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a972295cebef7d12730c94797a27d970e}{mrl\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target velocity of the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a7b438ac66cf47c01b3f777b8476065d4}{thu\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target force of the tumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a864f08fd5a0fbc8af26a93fb5fbda791}{ind\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target force of the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a8d50c308577f1957a9ad598a3d889d87}{mrl\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the target force of the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_af71214d0f00f365d2cd8f12ea05b5d97}{thu\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for cylindrical grasp for the thumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab6b61f6f1aee01f42543cd0a5752dfcc}{ind\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for cylindrical grasp for the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a3ce732b36dc41fc3718f2d75d0edf260}{mrl\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for cylindrical grasp for the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aac32b7efa7cc418917c6b975068cddd2}{thu\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for pinch grasp for the thumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a29690db40f9fc9d38bde026a65f040a7}{ind\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for pinch grasp for the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6fbfc9e53a17d063e89d1cc330bd0c28}{mrl\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for pinch grasp for the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a20dbfc398f38b6826c42dee9f6c137bf}{thu\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for lateral grasp for the thumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a33fd2186c75ec2e5af624457f357b74f}{ind\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for lateral grasp for the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aca0050425e062faa39f92b5b39c1276e}{mrl\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for lateral grasp for the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}{thu\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for spherical grasp for the thumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab289f661b0232723038c369034296034}{ind\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for spherical grasp for the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a91bf76dda10a7082472f7f393604c456}{mrl\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for spherical grasp for the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a216efa6a501610b18c968d0ade18507d}{thu\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for tridigital grasp for the thumb flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a135fa2e07f4937797397dbac70a4ac4d}{ind\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for tridigital grasp for the index flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ad91e46a83ac6f407117b298b449219f0}{mrl\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the parametrs for tridigital grasp for the mrl flexion motor. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aea25f2775315a5565e448a6162240b3e}{cyl\+\_\+grasp\+\_\+percent\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the closure percentage for cylindical grasp. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a22cc579fd537f0c2ca67cc473a7d7fd9}{pin\+\_\+grasp\+\_\+percent\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the closure percentage for pinch grasp. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abc11021a9645baff2c0cd352a939fdb0}{lat\+\_\+grasp\+\_\+percent\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the closure percentage for lateral grasp. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ae5a45419dfc976f9ed4a8acf1d997282}{sph\+\_\+grasp\+\_\+percent\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the closure percentage for sherical grasp. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a52e8f1bff6442f343c90b5de4eb826b1}{tri\+\_\+grasp\+\_\+percent\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Subscriber to receive the closure percentage for tridigital grasp. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a179af004225e4acadebee250ae8da9c9}{mot\+\_\+pos\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the positions data of the Mia hand motors. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a7e952df43c3dbf8ae02c19d4d8537cf1}{mot\+\_\+spe\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the velocity data of the Mia hand motors. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a8b3e3fa6f2d2a65e54a60cb721bf3bcd}{mot\+\_\+cur\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the current absorbed by the Mia hand motors. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ada4f2700e4aee3096daa1e2fe28abb39}{fin\+\_\+for\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Publisher of the force data read by the sensors embedded in the Mia hand fingers. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a087b4e5a508e0b8247215751d75ad9b0}{connect\+\_\+to\+\_\+port\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to open a serial port and connect the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa80166d0dfc3123da55c0ad6f7517339}{disconnect\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to disconnect the Mia hand and close the serial port. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a4c8bba0f2ec75b4923f7c1e1d3ef257e}{switch\+\_\+pos\+\_\+stream\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to manage a the streaming of motor position data sent by the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aca55d3f1691e9e551c6175c88749ac68}{switch\+\_\+spe\+\_\+stream\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to manage a the streaming of motor velocity data sent by the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a1c335065269e64456a1e5f47a6b0f260}{switch\+\_\+ana\+\_\+stream\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to manage a the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6cf652fdf909aa8347ecab8ee44aa7e5}{switch\+\_\+cur\+\_\+stream\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to manage a the streaming of the current data (i.\+e. force sensor outputs) sent by the Mia hand. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a924e6d80700d992442a898088f45f301}{open\+\_\+cyl\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the rest position of the cylindrical grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a43b1a37c0aa008337658e84b07c23ea2}{open\+\_\+pin\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the rest position of the pinch grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a84091da1c78aa78f86ffea93ba466871}{open\+\_\+lat\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the rest position of the lateral grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aeb42b71a2e7fa23f2ff8a8ef931b833b}{open\+\_\+sph\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the rest position of the spherical grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6e60c567b3bc5946268b1f33a179bf41}{open\+\_\+tri\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the rest position of the tridigital grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a31058b62f0670b6d5a4f851413bf2c18}{close\+\_\+cyl\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the closed position of the cylindrical grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abca38760e8eac51f4c2702096ce20c9c}{close\+\_\+pin\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the closed position of the pinch grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac6f1ea75698cc2cc952ca9da6caeb60b}{close\+\_\+lat\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the closed position of the lateral grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a798d160814639f74f085ae8cad6d814d}{close\+\_\+sph\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the closed position of the spherical grasp. \end{DoxyCompactList}\item 
+ros\+::\+Service\+Server \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a67b00ff7d1c20e8f619ae5f99caab4a6}{close\+\_\+tri\+\_\+grasp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Service to move the Mia hand motors to the closed position of the tridigital grasp. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 35 of file ros\+\_\+driver.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ac5510a76d92c499e6e368979cdabbc5d}\label{classmia__hand_1_1_r_o_s_driver_ac5510a76d92c499e6e368979cdabbc5d}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ROSDriver@{ROSDriver}}
+\index{ROSDriver@{ROSDriver}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ROSDriver()}{ROSDriver()}}
+{\footnotesize\ttfamily mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::\+R\+O\+S\+Driver (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh,  }\item[{ros\+::\+Node\+Handle \&}]{nh\+\_\+priv }\end{DoxyParamCaption})}
+
+
+
+Class constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nh} & reference to public node handle \\
+\hline
+{\em nh\+\_\+priv} & reference to private node handle \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 6 of file ros\+\_\+driver.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a2a44a576f434acb8880f1ebb17d4b420}\label{classmia__hand_1_1_r_o_s_driver_a2a44a576f434acb8880f1ebb17d4b420}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!checkConnectionTmrCallback@{checkConnectionTmrCallback}}
+\index{checkConnectionTmrCallback@{checkConnectionTmrCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{checkConnectionTmrCallback()}{checkConnectionTmrCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::check\+Connection\+Tmr\+Callback (\begin{DoxyParamCaption}\item[{const ros\+::\+Wall\+Timer\+Event \&}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa7045a3efedf344341446f8dbb1d902a}{check\+\_\+connection\+\_\+tmr\+\_\+}} timer. 
+
+
+
+Definition at line 80 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a1e719b84bd3f7eb898a7d17990dd2f33}\label{classmia__hand_1_1_r_o_s_driver_a1e719b84bd3f7eb898a7d17990dd2f33}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!closeCylGraspCallback@{closeCylGraspCallback}}
+\index{closeCylGraspCallback@{closeCylGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{closeCylGraspCallback()}{closeCylGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+Cyl\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a31058b62f0670b6d5a4f851413bf2c18}{close\+\_\+cyl\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the closed position of the cylindrical grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 620 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_adbcda18dee7dcf2c3c2de4e17007f672}\label{classmia__hand_1_1_r_o_s_driver_adbcda18dee7dcf2c3c2de4e17007f672}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!closeLatGraspCallback@{closeLatGraspCallback}}
+\index{closeLatGraspCallback@{closeLatGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{closeLatGraspCallback()}{closeLatGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+Lat\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ac6f1ea75698cc2cc952ca9da6caeb60b}{close\+\_\+lat\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the closed position of the lateral grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 636 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_acd409c1f332ca427a28eaf474f67023f}\label{classmia__hand_1_1_r_o_s_driver_acd409c1f332ca427a28eaf474f67023f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!closePinGraspCallback@{closePinGraspCallback}}
+\index{closePinGraspCallback@{closePinGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{closePinGraspCallback()}{closePinGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+Pin\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abca38760e8eac51f4c2702096ce20c9c}{close\+\_\+pin\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the closed position of the pinch grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 628 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ace9d7830566a0ca9f1ab426576d0a338}\label{classmia__hand_1_1_r_o_s_driver_ace9d7830566a0ca9f1ab426576d0a338}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!closeSphGraspCallback@{closeSphGraspCallback}}
+\index{closeSphGraspCallback@{closeSphGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{closeSphGraspCallback()}{closeSphGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+Sph\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a798d160814639f74f085ae8cad6d814d}{close\+\_\+sph\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the closed position of the spherical grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 644 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a9993357ed0848beccfd7dcfd0e295bc7}\label{classmia__hand_1_1_r_o_s_driver_a9993357ed0848beccfd7dcfd0e295bc7}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!closeTriGraspCallback@{closeTriGraspCallback}}
+\index{closeTriGraspCallback@{closeTriGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{closeTriGraspCallback()}{closeTriGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+Tri\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a67b00ff7d1c20e8f619ae5f99caab4a6}{close\+\_\+tri\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the closed position of the tridigital grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 652 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a803315ce1772320ce2f9280b6e36ac42}\label{classmia__hand_1_1_r_o_s_driver_a803315ce1772320ce2f9280b6e36ac42}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!connectToPortCallback@{connectToPortCallback}}
+\index{connectToPortCallback@{connectToPortCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{connectToPortCallback()}{connectToPortCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::connect\+To\+Port\+Callback (\begin{DoxyParamCaption}\item[{mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Request \&}]{req,  }\item[{mia\+\_\+hand\+\_\+msgs\+::\+Connect\+Serial\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a087b4e5a508e0b8247215751d75ad9b0}{connect\+\_\+to\+\_\+port\+\_\+}}. 
+
+Connect the Mia hand opening a serial port. 
+\begin{DoxyParams}{Parameters}
+{\em req} & mia\+\_\+hand\+\_\+msgs containing the number of the port to open. \\
+\hline
+{\em resp} & mia\+\_\+hand\+\_\+msgs containing the success of the operation (true or false) and a string message. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 507 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a33e25505f13b8b29690fd35972bed1ac}\label{classmia__hand_1_1_r_o_s_driver_a33e25505f13b8b29690fd35972bed1ac}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!cylGraspPercentCallback@{cylGraspPercentCallback}}
+\index{cylGraspPercentCallback@{cylGraspPercentCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{cylGraspPercentCallback()}{cylGraspPercentCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::cyl\+Grasp\+Percent\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aea25f2775315a5565e448a6162240b3e}{cyl\+\_\+grasp\+\_\+percent\+\_\+}}. 
+
+Set the target closure percentage of the cylindrical grasp. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target closure percentage \mbox{[}0, 100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 471 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ad35d6467f1337e63937ae7c682926599}\label{classmia__hand_1_1_r_o_s_driver_ad35d6467f1337e63937ae7c682926599}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!disconnectCallback@{disconnectCallback}}
+\index{disconnectCallback@{disconnectCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{disconnectCallback()}{disconnectCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::disconnect\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Trigger\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Trigger\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aa80166d0dfc3123da55c0ad6f7517339}{disconnect\+\_\+}}. 
+
+Disconnect the Mia hand and close the serial port. 
+\begin{DoxyParams}{Parameters}
+{\em req} & unused. \\
+\hline
+{\em resp} & containing the success of the operation (true or false) and a string message. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 529 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ad82260511e9b9146d2e28a5ac10fcc3f}\label{classmia__hand_1_1_r_o_s_driver_ad82260511e9b9146d2e28a5ac10fcc3f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indCylGraspRefCallback@{indCylGraspRefCallback}}
+\index{indCylGraspRefCallback@{indCylGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indCylGraspRefCallback()}{indCylGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Cyl\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab6b61f6f1aee01f42543cd0a5752dfcc}{ind\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the cylindrical grasp for the index flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 349 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a3df294b3ad7238c90fc6111d913a15f5}\label{classmia__hand_1_1_r_o_s_driver_a3df294b3ad7238c90fc6111d913a15f5}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indFinTrgtForCallback@{indFinTrgtForCallback}}
+\index{indFinTrgtForCallback@{indFinTrgtForCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indFinTrgtForCallback()}{indFinTrgtForCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Fin\+Trgt\+For\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a864f08fd5a0fbc8af26a93fb5fbda791}{ind\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target force \mbox{[}0, +1024\mbox{]} to be applied by the finger (and thus to be read by the finger sensor). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 443 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aecdd9029d0ceda3d79481b7d71913011}\label{classmia__hand_1_1_r_o_s_driver_aecdd9029d0ceda3d79481b7d71913011}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indLatGraspRefCallback@{indLatGraspRefCallback}}
+\index{indLatGraspRefCallback@{indLatGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indLatGraspRefCallback()}{indLatGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Lat\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a33fd2186c75ec2e5af624457f357b74f}{ind\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the lateral grasp for the index flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 365 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_adc2d761d8943aebfeaeebb66c4935d74}\label{classmia__hand_1_1_r_o_s_driver_adc2d761d8943aebfeaeebb66c4935d74}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indMotTrgtPosCallback@{indMotTrgtPosCallback}}
+\index{indMotTrgtPosCallback@{indMotTrgtPosCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indMotTrgtPosCallback()}{indMotTrgtPosCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Mot\+Trgt\+Pos\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab44de4d61241b507f3fd078fea545f90}{ind\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target position \mbox{[}-\/255, 255\mbox{]} of the motor \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 429 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a7ba90d3cce8e2f870fd85a92af19eb0f}\label{classmia__hand_1_1_r_o_s_driver_a7ba90d3cce8e2f870fd85a92af19eb0f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indMotTrgtSpeCallback@{indMotTrgtSpeCallback}}
+\index{indMotTrgtSpeCallback@{indMotTrgtSpeCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indMotTrgtSpeCallback()}{indMotTrgtSpeCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Mot\+Trgt\+Spe\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abfa85dfda4188e9b04490a1c031edb4f}{ind\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target velocity \mbox{[}-\/90, 90\mbox{]} of the motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 436 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ad5159507abda66ee2a8416bedc8f30c4}\label{classmia__hand_1_1_r_o_s_driver_ad5159507abda66ee2a8416bedc8f30c4}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indPinGraspRefCallback@{indPinGraspRefCallback}}
+\index{indPinGraspRefCallback@{indPinGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indPinGraspRefCallback()}{indPinGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Pin\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a29690db40f9fc9d38bde026a65f040a7}{ind\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the pinch grasp for the index flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 357 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a0012782be1b68c0ec03a55ae0f38eda6}\label{classmia__hand_1_1_r_o_s_driver_a0012782be1b68c0ec03a55ae0f38eda6}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indSphGraspRefCallback@{indSphGraspRefCallback}}
+\index{indSphGraspRefCallback@{indSphGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indSphGraspRefCallback()}{indSphGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Sph\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ab289f661b0232723038c369034296034}{ind\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the spherical grasp for the index flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 373 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_acc160399da6850cceeb7be6aef19fec7}\label{classmia__hand_1_1_r_o_s_driver_acc160399da6850cceeb7be6aef19fec7}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!indTriGraspRefCallback@{indTriGraspRefCallback}}
+\index{indTriGraspRefCallback@{indTriGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{indTriGraspRefCallback()}{indTriGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+Tri\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a135fa2e07f4937797397dbac70a4ac4d}{ind\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the tridigital grasp for the index flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 381 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_abd16a6cf76ab478acb22dade15c9b783}\label{classmia__hand_1_1_r_o_s_driver_abd16a6cf76ab478acb22dade15c9b783}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!initPublishers@{initPublishers}}
+\index{initPublishers@{initPublishers}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{initPublishers()}{initPublishers()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::init\+Publishers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initialize publishers. 
+
+
+
+Definition at line 277 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a13704844eba418128bc52a49697086ec}\label{classmia__hand_1_1_r_o_s_driver_a13704844eba418128bc52a49697086ec}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!initServices@{initServices}}
+\index{initServices@{initServices}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{initServices()}{initServices()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::init\+Services (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initialize services. 
+
+
+
+Definition at line 209 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ac6e5a42a836fc9c28500ca6c8d8de12f}\label{classmia__hand_1_1_r_o_s_driver_ac6e5a42a836fc9c28500ca6c8d8de12f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!initSubscribersGrasp@{initSubscribersGrasp}}
+\index{initSubscribersGrasp@{initSubscribersGrasp}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{initSubscribersGrasp()}{initSubscribersGrasp()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::init\+Subscribers\+Grasp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initialize subscribers of the automatic grasp info. 
+
+
+
+Definition at line 189 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aeefaa40335d3d4ca34463731e2208877}\label{classmia__hand_1_1_r_o_s_driver_aeefaa40335d3d4ca34463731e2208877}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!initSubscribersInd@{initSubscribersInd}}
+\index{initSubscribersInd@{initSubscribersInd}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{initSubscribersInd()}{initSubscribersInd()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::init\+Subscribers\+Ind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initialize subscribers of the index flexion motor info. 
+
+
+
+Definition at line 131 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ae2e66a62fb1428874ad57f808ca08c0c}\label{classmia__hand_1_1_r_o_s_driver_ae2e66a62fb1428874ad57f808ca08c0c}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!initSubscribersMrl@{initSubscribersMrl}}
+\index{initSubscribersMrl@{initSubscribersMrl}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{initSubscribersMrl()}{initSubscribersMrl()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::init\+Subscribers\+Mrl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initialize subscribers of the index mrl motor info. 
+
+
+
+Definition at line 160 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a241386dd26d450797d642688569cd1ac}\label{classmia__hand_1_1_r_o_s_driver_a241386dd26d450797d642688569cd1ac}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!initSubscribersThu@{initSubscribersThu}}
+\index{initSubscribersThu@{initSubscribersThu}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{initSubscribersThu()}{initSubscribersThu()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::init\+Subscribers\+Thu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initialize subscribers of the thumb flexion motor info. 
+
+
+
+Definition at line 102 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_acd33c895f859e6192ce6ce49e1e74fe7}\label{classmia__hand_1_1_r_o_s_driver_acd33c895f859e6192ce6ce49e1e74fe7}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!latGraspPercentCallback@{latGraspPercentCallback}}
+\index{latGraspPercentCallback@{latGraspPercentCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{latGraspPercentCallback()}{latGraspPercentCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::lat\+Grasp\+Percent\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_abc11021a9645baff2c0cd352a939fdb0}{lat\+\_\+grasp\+\_\+percent\+\_\+}}. 
+
+Set the target closure percentage of the lateral grasp. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target closure percentage \mbox{[}0, 100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 486 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a9fd8ffd7b2fda5b8ddca0e34342d7a1f}\label{classmia__hand_1_1_r_o_s_driver_a9fd8ffd7b2fda5b8ddca0e34342d7a1f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlCylGraspRefCallback@{mrlCylGraspRefCallback}}
+\index{mrlCylGraspRefCallback@{mrlCylGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlCylGraspRefCallback()}{mrlCylGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Cyl\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \#mrl\+\_\+cyl\+\_\+grasp\+\_\+ref. 
+
+Set the parameter of the cylindrical grasp for the mrl flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 389 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a38b5d1b338285a9d3811a8695f86117f}\label{classmia__hand_1_1_r_o_s_driver_a38b5d1b338285a9d3811a8695f86117f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlFinTrgtForCallback@{mrlFinTrgtForCallback}}
+\index{mrlFinTrgtForCallback@{mrlFinTrgtForCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlFinTrgtForCallback()}{mrlFinTrgtForCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Fin\+Trgt\+For\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a8d50c308577f1957a9ad598a3d889d87}{mrl\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target force \mbox{[}0, +1024\mbox{]} to be applied by the finger (and thus to be read by the finger sensor). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 464 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a758742b75c306f1bc65021bbc8adc3d5}\label{classmia__hand_1_1_r_o_s_driver_a758742b75c306f1bc65021bbc8adc3d5}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlLatGraspRefCallback@{mrlLatGraspRefCallback}}
+\index{mrlLatGraspRefCallback@{mrlLatGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlLatGraspRefCallback()}{mrlLatGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Lat\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \#mrl\+\_\+lat\+\_\+grasp\+\_\+ref. 
+
+Set the parameter of the lateral grasp for the mrl flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 405 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a5ec228f9162c2236e998646f54000a8c}\label{classmia__hand_1_1_r_o_s_driver_a5ec228f9162c2236e998646f54000a8c}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlMotTrgtPosCallback@{mrlMotTrgtPosCallback}}
+\index{mrlMotTrgtPosCallback@{mrlMotTrgtPosCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlMotTrgtPosCallback()}{mrlMotTrgtPosCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Mot\+Trgt\+Pos\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a34449719a43b8749e56e389bbe9cc88e}{mrl\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target position \mbox{[}0, 255\mbox{]} of the motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 450 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a7d57808a4c088fa14a38366e51156ce4}\label{classmia__hand_1_1_r_o_s_driver_a7d57808a4c088fa14a38366e51156ce4}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlMotTrgtSpeCallback@{mrlMotTrgtSpeCallback}}
+\index{mrlMotTrgtSpeCallback@{mrlMotTrgtSpeCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlMotTrgtSpeCallback()}{mrlMotTrgtSpeCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Mot\+Trgt\+Spe\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a972295cebef7d12730c94797a27d970e}{mrl\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target velocity \mbox{[}-\/90, 90\mbox{]} of the motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 457 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ab93f52dc761693622a7e0e0af021c10c}\label{classmia__hand_1_1_r_o_s_driver_ab93f52dc761693622a7e0e0af021c10c}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlPinGraspRefCallback@{mrlPinGraspRefCallback}}
+\index{mrlPinGraspRefCallback@{mrlPinGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlPinGraspRefCallback()}{mrlPinGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Pin\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \#mrl\+\_\+pin\+\_\+grasp\+\_\+ref. 
+
+Set the parameter of the pinch grasp for the mrl flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 397 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_adfaab050d2d90c7a6495a4c410f63be8}\label{classmia__hand_1_1_r_o_s_driver_adfaab050d2d90c7a6495a4c410f63be8}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlSphGraspRefCallback@{mrlSphGraspRefCallback}}
+\index{mrlSphGraspRefCallback@{mrlSphGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlSphGraspRefCallback()}{mrlSphGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Sph\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \#mrl\+\_\+sph\+\_\+grasp\+\_\+ref. 
+
+Set the parameter of the spherical grasp for the mrl flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 413 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_afe891a271b3908b21c68c66522650daf}\label{classmia__hand_1_1_r_o_s_driver_afe891a271b3908b21c68c66522650daf}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrlTriGraspRefCallback@{mrlTriGraspRefCallback}}
+\index{mrlTriGraspRefCallback@{mrlTriGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrlTriGraspRefCallback()}{mrlTriGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+Tri\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \#mrl\+\_\+tri\+\_\+grasp\+\_\+ref. 
+
+Set the parameter of the tridigital grasp for the mrl flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters (rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 421 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a2aa4a121b489701a06de71c679e5345d}\label{classmia__hand_1_1_r_o_s_driver_a2aa4a121b489701a06de71c679e5345d}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!openCylGraspCallback@{openCylGraspCallback}}
+\index{openCylGraspCallback@{openCylGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{openCylGraspCallback()}{openCylGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+Cyl\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a924e6d80700d992442a898088f45f301}{open\+\_\+cyl\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the rest position of the cylindrical grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 580 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a932909cab5c0efb1f14a44b8e50dc1f4}\label{classmia__hand_1_1_r_o_s_driver_a932909cab5c0efb1f14a44b8e50dc1f4}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!openLatGraspCallback@{openLatGraspCallback}}
+\index{openLatGraspCallback@{openLatGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{openLatGraspCallback()}{openLatGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+Lat\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a84091da1c78aa78f86ffea93ba466871}{open\+\_\+lat\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the rest position of the lateral grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 596 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ae4d16c5abf2ad714475fe9db7cf1224b}\label{classmia__hand_1_1_r_o_s_driver_ae4d16c5abf2ad714475fe9db7cf1224b}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!openPinGraspCallback@{openPinGraspCallback}}
+\index{openPinGraspCallback@{openPinGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{openPinGraspCallback()}{openPinGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+Pin\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a43b1a37c0aa008337658e84b07c23ea2}{open\+\_\+pin\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the rest position of the pinch grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 588 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ac18c4b9bfa25199b4265cb02def0eecc}\label{classmia__hand_1_1_r_o_s_driver_ac18c4b9bfa25199b4265cb02def0eecc}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!openSphGraspCallback@{openSphGraspCallback}}
+\index{openSphGraspCallback@{openSphGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{openSphGraspCallback()}{openSphGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+Sph\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aeb42b71a2e7fa23f2ff8a8ef931b833b}{open\+\_\+sph\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the rest position of the spherical grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 604 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a3e2c3214bb2dde261f642ead9b21ca96}\label{classmia__hand_1_1_r_o_s_driver_a3e2c3214bb2dde261f642ead9b21ca96}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!openTriGraspCallback@{openTriGraspCallback}}
+\index{openTriGraspCallback@{openTriGraspCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{openTriGraspCallback()}{openTriGraspCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+Tri\+Grasp\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6e60c567b3bc5946268b1f33a179bf41}{open\+\_\+tri\+\_\+grasp\+\_\+}}. 
+
+Move the Mia hand motors to the rest position of the tridigital grasp. 
+\begin{DoxyParams}{Parameters}
+{\em req} & Unused. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 612 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a50f4d35a49eb813cfc8e6fa3092a5a92}\label{classmia__hand_1_1_r_o_s_driver_a50f4d35a49eb813cfc8e6fa3092a5a92}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!pinGraspPercentCallback@{pinGraspPercentCallback}}
+\index{pinGraspPercentCallback@{pinGraspPercentCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{pinGraspPercentCallback()}{pinGraspPercentCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::pin\+Grasp\+Percent\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a22cc579fd537f0c2ca67cc473a7d7fd9}{pin\+\_\+grasp\+\_\+percent\+\_\+}}. 
+
+Set the target closure percentage of the pinch grasp. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target closure percentage \mbox{[}0, 100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 478 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a18fc6377a934a5a74dcc207ce873a25f}\label{classmia__hand_1_1_r_o_s_driver_a18fc6377a934a5a74dcc207ce873a25f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!publishDataTmrCallback@{publishDataTmrCallback}}
+\index{publishDataTmrCallback@{publishDataTmrCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{publishDataTmrCallback()}{publishDataTmrCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::publish\+Data\+Tmr\+Callback (\begin{DoxyParamCaption}\item[{const ros\+::\+Wall\+Timer\+Event \&}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a53fda341c3544d599f0663d2e8dc407a}{publish\+\_\+data\+\_\+tmr\+\_\+}} timer. 
+
+
+
+Definition at line 47 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a9a6fd4d3369cf5fa2673fb9bea9741ed}\label{classmia__hand_1_1_r_o_s_driver_a9a6fd4d3369cf5fa2673fb9bea9741ed}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!sphGraspPercentCallback@{sphGraspPercentCallback}}
+\index{sphGraspPercentCallback@{sphGraspPercentCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{sphGraspPercentCallback()}{sphGraspPercentCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::sph\+Grasp\+Percent\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_ae5a45419dfc976f9ed4a8acf1d997282}{sph\+\_\+grasp\+\_\+percent\+\_\+}}. 
+
+Set the target closure percentage of the spherical grasp. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target closure percentage \mbox{[}0, 100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 493 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ae73db942003ecbae53e2e2f7269d34da}\label{classmia__hand_1_1_r_o_s_driver_ae73db942003ecbae53e2e2f7269d34da}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switchAnaStreamCallback@{switchAnaStreamCallback}}
+\index{switchAnaStreamCallback@{switchAnaStreamCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switchAnaStreamCallback()}{switchAnaStreamCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+Ana\+Stream\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a1c335065269e64456a1e5f47a6b0f260}{switch\+\_\+ana\+\_\+stream\+\_\+}}. 
+
+Manage the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. 
+\begin{DoxyParams}{Parameters}
+{\em req} & True to enable the data streaming, False to disable it. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 564 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_af8296376d6b9af0a9e7e0f64383b52a0}\label{classmia__hand_1_1_r_o_s_driver_af8296376d6b9af0a9e7e0f64383b52a0}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switchCurStreamCallback@{switchCurStreamCallback}}
+\index{switchCurStreamCallback@{switchCurStreamCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switchCurStreamCallback()}{switchCurStreamCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+Cur\+Stream\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a6cf652fdf909aa8347ecab8ee44aa7e5}{switch\+\_\+cur\+\_\+stream\+\_\+}}. 
+
+Manage the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. 
+\begin{DoxyParams}{Parameters}
+{\em req} & True to enable the data streaming, False to disable it. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 572 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a53f31395082b9715efc8b11146e6ae5f}\label{classmia__hand_1_1_r_o_s_driver_a53f31395082b9715efc8b11146e6ae5f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switchPosStreamCallback@{switchPosStreamCallback}}
+\index{switchPosStreamCallback@{switchPosStreamCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switchPosStreamCallback()}{switchPosStreamCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+Pos\+Stream\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a4c8bba0f2ec75b4923f7c1e1d3ef257e}{switch\+\_\+pos\+\_\+stream\+\_\+}}. 
+
+Manage the streaming of motor position data sent by the Mia hand. 
+\begin{DoxyParams}{Parameters}
+{\em req} & True to enable the data streaming, False to disable it. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 548 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ada603d62b852c512f4da7fafcab06eba}\label{classmia__hand_1_1_r_o_s_driver_ada603d62b852c512f4da7fafcab06eba}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switchSpeStreamCallback@{switchSpeStreamCallback}}
+\index{switchSpeStreamCallback@{switchSpeStreamCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switchSpeStreamCallback()}{switchSpeStreamCallback()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+Spe\+Stream\+Callback (\begin{DoxyParamCaption}\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req,  }\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{resp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the service \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aca55d3f1691e9e551c6175c88749ac68}{switch\+\_\+spe\+\_\+stream\+\_\+}}. 
+
+Manage the streaming of motor velocity data sent by the Mia hand. 
+\begin{DoxyParams}{Parameters}
+{\em req} & True to enable the data streaming, False to disable it. \\
+\hline
+{\em resp} & Unused \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 556 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ade4572beed388bc72d170fcd804438b6}\label{classmia__hand_1_1_r_o_s_driver_ade4572beed388bc72d170fcd804438b6}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuCylGraspRefCallback@{thuCylGraspRefCallback}}
+\index{thuCylGraspRefCallback@{thuCylGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuCylGraspRefCallback()}{thuCylGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Cyl\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_af71214d0f00f365d2cd8f12ea05b5d97}{thu\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the cylindrical grasp for the thumb flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 309 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ab271790bcdb01db0f0aa4b17e1637109}\label{classmia__hand_1_1_r_o_s_driver_ab271790bcdb01db0f0aa4b17e1637109}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuFinTrgtForCallback@{thuFinTrgtForCallback}}
+\index{thuFinTrgtForCallback@{thuFinTrgtForCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuFinTrgtForCallback()}{thuFinTrgtForCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Fin\+Trgt\+For\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a7b438ac66cf47c01b3f777b8476065d4}{thu\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target force \mbox{[}0, +1024\mbox{]} to be applied by the finger (and thus to be read by the finger sensor). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 302 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a9bd04df9b9c70a286d209b3765bf433e}\label{classmia__hand_1_1_r_o_s_driver_a9bd04df9b9c70a286d209b3765bf433e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuLatGraspRefCallback@{thuLatGraspRefCallback}}
+\index{thuLatGraspRefCallback@{thuLatGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuLatGraspRefCallback()}{thuLatGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Lat\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a20dbfc398f38b6826c42dee9f6c137bf}{thu\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the lateral grasp for the thumb flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 325 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a4714e2ab42d723d1b1e43f1c9ac1287f}\label{classmia__hand_1_1_r_o_s_driver_a4714e2ab42d723d1b1e43f1c9ac1287f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuMotTrgtPosCallback@{thuMotTrgtPosCallback}}
+\index{thuMotTrgtPosCallback@{thuMotTrgtPosCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuMotTrgtPosCallback()}{thuMotTrgtPosCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Mot\+Trgt\+Pos\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a995d6915c23c127d80440e74628312ab}{thu\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target position \mbox{[}0, 255\mbox{]} of the motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 288 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a128e2eb8d925ea36e67d10b3422d6c40}\label{classmia__hand_1_1_r_o_s_driver_a128e2eb8d925ea36e67d10b3422d6c40}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuMotTrgtSpeCallback@{thuMotTrgtSpeCallback}}
+\index{thuMotTrgtSpeCallback@{thuMotTrgtSpeCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuMotTrgtSpeCallback()}{thuMotTrgtSpeCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Mot\+Trgt\+Spe\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a9f35f9c704ae08d3f1bc66452f0150d8}{thu\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target velocity \mbox{[}-\/90, 90\mbox{]} of the motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 295 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aa55ba189d7eedd0a6f3812d611a9d2a1}\label{classmia__hand_1_1_r_o_s_driver_aa55ba189d7eedd0a6f3812d611a9d2a1}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuPinGraspRefCallback@{thuPinGraspRefCallback}}
+\index{thuPinGraspRefCallback@{thuPinGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuPinGraspRefCallback()}{thuPinGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Pin\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_aac32b7efa7cc418917c6b975068cddd2}{thu\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the pinch grasp for the thumb flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 317 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a2668ab2b4ea0c573045d57f4f2ffd4b3}\label{classmia__hand_1_1_r_o_s_driver_a2668ab2b4ea0c573045d57f4f2ffd4b3}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuSphGraspRefCallback@{thuSphGraspRefCallback}}
+\index{thuSphGraspRefCallback@{thuSphGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuSphGraspRefCallback()}{thuSphGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Sph\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}{thu\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the spherical grasp for the thumb flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 333 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a701072a66ea22386609f4c72cfe5cc7a}\label{classmia__hand_1_1_r_o_s_driver_a701072a66ea22386609f4c72cfe5cc7a}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thuTriGraspRefCallback@{thuTriGraspRefCallback}}
+\index{thuTriGraspRefCallback@{thuTriGraspRefCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thuTriGraspRefCallback()}{thuTriGraspRefCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+Tri\+Grasp\+Ref\+Callback (\begin{DoxyParamCaption}\item[{const mia\+\_\+hand\+\_\+msgs\+::\+Grasp\+Ref\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}{thu\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+}}. 
+
+Set the parameter of the tridigital grasp for the thumb flexion motor. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & mia\+\_\+hand\+\_\+msgs containing the grasp parameters ( rest position, closure position and dely) to be set for the specific motor. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 341 of file ros\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a00e5bca8431247ce96fdeea255ff0721}\label{classmia__hand_1_1_r_o_s_driver_a00e5bca8431247ce96fdeea255ff0721}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!triGraspPercentCallback@{triGraspPercentCallback}}
+\index{triGraspPercentCallback@{triGraspPercentCallback}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{triGraspPercentCallback()}{triGraspPercentCallback()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::tri\+Grasp\+Percent\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::\+Int16\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Callback of the subscriber \mbox{\hyperlink{classmia__hand_1_1_r_o_s_driver_a52e8f1bff6442f343c90b5de4eb826b1}{tri\+\_\+grasp\+\_\+percent\+\_\+}}. 
+
+Set the target closure percentage of the tridigital grasp. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & standard message containing the target closure percentage \mbox{[}0, 100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 500 of file ros\+\_\+driver.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aa7045a3efedf344341446f8dbb1d902a}\label{classmia__hand_1_1_r_o_s_driver_aa7045a3efedf344341446f8dbb1d902a}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!check\_connection\_tmr\_@{check\_connection\_tmr\_}}
+\index{check\_connection\_tmr\_@{check\_connection\_tmr\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{check\_connection\_tmr\_}{check\_connection\_tmr\_}}
+{\footnotesize\ttfamily ros\+::\+Wall\+Timer mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::check\+\_\+connection\+\_\+tmr\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Timer to handle the check of the Mia hand connection status. 
+
+
+
+Definition at line 63 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a31058b62f0670b6d5a4f851413bf2c18}\label{classmia__hand_1_1_r_o_s_driver_a31058b62f0670b6d5a4f851413bf2c18}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!close\_cyl\_grasp\_@{close\_cyl\_grasp\_}}
+\index{close\_cyl\_grasp\_@{close\_cyl\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{close\_cyl\_grasp\_}{close\_cyl\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+\_\+cyl\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the closed position of the cylindrical grasp. 
+
+
+
+Definition at line 133 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ac6f1ea75698cc2cc952ca9da6caeb60b}\label{classmia__hand_1_1_r_o_s_driver_ac6f1ea75698cc2cc952ca9da6caeb60b}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!close\_lat\_grasp\_@{close\_lat\_grasp\_}}
+\index{close\_lat\_grasp\_@{close\_lat\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{close\_lat\_grasp\_}{close\_lat\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+\_\+lat\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the closed position of the lateral grasp. 
+
+
+
+Definition at line 135 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_abca38760e8eac51f4c2702096ce20c9c}\label{classmia__hand_1_1_r_o_s_driver_abca38760e8eac51f4c2702096ce20c9c}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!close\_pin\_grasp\_@{close\_pin\_grasp\_}}
+\index{close\_pin\_grasp\_@{close\_pin\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{close\_pin\_grasp\_}{close\_pin\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+\_\+pin\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the closed position of the pinch grasp. 
+
+
+
+Definition at line 134 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a798d160814639f74f085ae8cad6d814d}\label{classmia__hand_1_1_r_o_s_driver_a798d160814639f74f085ae8cad6d814d}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!close\_sph\_grasp\_@{close\_sph\_grasp\_}}
+\index{close\_sph\_grasp\_@{close\_sph\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{close\_sph\_grasp\_}{close\_sph\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+\_\+sph\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the closed position of the spherical grasp. 
+
+
+
+Definition at line 136 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a67b00ff7d1c20e8f619ae5f99caab4a6}\label{classmia__hand_1_1_r_o_s_driver_a67b00ff7d1c20e8f619ae5f99caab4a6}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!close\_tri\_grasp\_@{close\_tri\_grasp\_}}
+\index{close\_tri\_grasp\_@{close\_tri\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{close\_tri\_grasp\_}{close\_tri\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::close\+\_\+tri\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the closed position of the tridigital grasp. 
+
+
+
+Definition at line 137 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a087b4e5a508e0b8247215751d75ad9b0}\label{classmia__hand_1_1_r_o_s_driver_a087b4e5a508e0b8247215751d75ad9b0}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!connect\_to\_port\_@{connect\_to\_port\_}}
+\index{connect\_to\_port\_@{connect\_to\_port\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_port\_}{connect\_to\_port\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::connect\+\_\+to\+\_\+port\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to open a serial port and connect the Mia hand. 
+
+
+
+Definition at line 119 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aea25f2775315a5565e448a6162240b3e}\label{classmia__hand_1_1_r_o_s_driver_aea25f2775315a5565e448a6162240b3e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!cyl\_grasp\_percent\_@{cyl\_grasp\_percent\_}}
+\index{cyl\_grasp\_percent\_@{cyl\_grasp\_percent\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{cyl\_grasp\_percent\_}{cyl\_grasp\_percent\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::cyl\+\_\+grasp\+\_\+percent\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the closure percentage for cylindical grasp. 
+
+
+
+Definition at line 104 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aa80166d0dfc3123da55c0ad6f7517339}\label{classmia__hand_1_1_r_o_s_driver_aa80166d0dfc3123da55c0ad6f7517339}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!disconnect\_@{disconnect\_}}
+\index{disconnect\_@{disconnect\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{disconnect\_}{disconnect\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::disconnect\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to disconnect the Mia hand and close the serial port. 
+
+
+
+Definition at line 120 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ada4f2700e4aee3096daa1e2fe28abb39}\label{classmia__hand_1_1_r_o_s_driver_ada4f2700e4aee3096daa1e2fe28abb39}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!fin\_for\_info\_@{fin\_for\_info\_}}
+\index{fin\_for\_info\_@{fin\_for\_info\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{fin\_for\_info\_}{fin\_for\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::fin\+\_\+for\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Publisher of the force data read by the sensors embedded in the Mia hand fingers. 
+
+
+
+Definition at line 115 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ab6b61f6f1aee01f42543cd0a5752dfcc}\label{classmia__hand_1_1_r_o_s_driver_ab6b61f6f1aee01f42543cd0a5752dfcc}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_cyl\_grasp\_ref\_@{ind\_cyl\_grasp\_ref\_}}
+\index{ind\_cyl\_grasp\_ref\_@{ind\_cyl\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_cyl\_grasp\_ref\_}{ind\_cyl\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for cylindrical grasp for the index flexion motor. 
+
+
+
+Definition at line 85 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a864f08fd5a0fbc8af26a93fb5fbda791}\label{classmia__hand_1_1_r_o_s_driver_a864f08fd5a0fbc8af26a93fb5fbda791}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_fin\_trgt\_for\_@{ind\_fin\_trgt\_for\_}}
+\index{ind\_fin\_trgt\_for\_@{ind\_fin\_trgt\_for\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_fin\_trgt\_for\_}{ind\_fin\_trgt\_for\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target force of the index flexion motor. 
+
+
+
+Definition at line 81 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a33fd2186c75ec2e5af624457f357b74f}\label{classmia__hand_1_1_r_o_s_driver_a33fd2186c75ec2e5af624457f357b74f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_lat\_grasp\_ref\_@{ind\_lat\_grasp\_ref\_}}
+\index{ind\_lat\_grasp\_ref\_@{ind\_lat\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_lat\_grasp\_ref\_}{ind\_lat\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for lateral grasp for the index flexion motor. 
+
+
+
+Definition at line 93 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ab44de4d61241b507f3fd078fea545f90}\label{classmia__hand_1_1_r_o_s_driver_ab44de4d61241b507f3fd078fea545f90}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_mot\_trgt\_pos\_@{ind\_mot\_trgt\_pos\_}}
+\index{ind\_mot\_trgt\_pos\_@{ind\_mot\_trgt\_pos\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_mot\_trgt\_pos\_}{ind\_mot\_trgt\_pos\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target pose of the index flexion motor. 
+
+
+
+Definition at line 73 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_abfa85dfda4188e9b04490a1c031edb4f}\label{classmia__hand_1_1_r_o_s_driver_abfa85dfda4188e9b04490a1c031edb4f}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_mot\_trgt\_spe\_@{ind\_mot\_trgt\_spe\_}}
+\index{ind\_mot\_trgt\_spe\_@{ind\_mot\_trgt\_spe\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_mot\_trgt\_spe\_}{ind\_mot\_trgt\_spe\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target velocity of the index flexion motor. 
+
+
+
+Definition at line 77 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a29690db40f9fc9d38bde026a65f040a7}\label{classmia__hand_1_1_r_o_s_driver_a29690db40f9fc9d38bde026a65f040a7}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_pin\_grasp\_ref\_@{ind\_pin\_grasp\_ref\_}}
+\index{ind\_pin\_grasp\_ref\_@{ind\_pin\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_pin\_grasp\_ref\_}{ind\_pin\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for pinch grasp for the index flexion motor. 
+
+
+
+Definition at line 89 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ab289f661b0232723038c369034296034}\label{classmia__hand_1_1_r_o_s_driver_ab289f661b0232723038c369034296034}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_sph\_grasp\_ref\_@{ind\_sph\_grasp\_ref\_}}
+\index{ind\_sph\_grasp\_ref\_@{ind\_sph\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_sph\_grasp\_ref\_}{ind\_sph\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for spherical grasp for the index flexion motor. 
+
+
+
+Definition at line 97 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a135fa2e07f4937797397dbac70a4ac4d}\label{classmia__hand_1_1_r_o_s_driver_a135fa2e07f4937797397dbac70a4ac4d}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!ind\_tri\_grasp\_ref\_@{ind\_tri\_grasp\_ref\_}}
+\index{ind\_tri\_grasp\_ref\_@{ind\_tri\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{ind\_tri\_grasp\_ref\_}{ind\_tri\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::ind\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for tridigital grasp for the index flexion motor. 
+
+
+
+Definition at line 101 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a68bbfad7a42318d4cb7673e586e53e14}\label{classmia__hand_1_1_r_o_s_driver_a68bbfad7a42318d4cb7673e586e53e14}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!is\_connected\_@{is\_connected\_}}
+\index{is\_connected\_@{is\_connected\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{is\_connected\_}{is\_connected\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::is\+\_\+connected\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+True if the Mia hand is connected, False otherwise. 
+
+
+
+Definition at line 59 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_abc11021a9645baff2c0cd352a939fdb0}\label{classmia__hand_1_1_r_o_s_driver_abc11021a9645baff2c0cd352a939fdb0}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!lat\_grasp\_percent\_@{lat\_grasp\_percent\_}}
+\index{lat\_grasp\_percent\_@{lat\_grasp\_percent\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{lat\_grasp\_percent\_}{lat\_grasp\_percent\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::lat\+\_\+grasp\+\_\+percent\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the closure percentage for lateral grasp. 
+
+
+
+Definition at line 106 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aa3cb6c5b0491b4749ad441ac329c4bd3}\label{classmia__hand_1_1_r_o_s_driver_aa3cb6c5b0491b4749ad441ac329c4bd3}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mia\_@{mia\_}}
+\index{mia\_@{mia\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mia\_}{mia\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmia__hand_1_1_cpp_driver}{Cpp\+Driver}} mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mia\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Cpp driver of the Mia hand. 
+
+
+
+Definition at line 57 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a8b3e3fa6f2d2a65e54a60cb721bf3bcd}\label{classmia__hand_1_1_r_o_s_driver_a8b3e3fa6f2d2a65e54a60cb721bf3bcd}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mot\_cur\_info\_@{mot\_cur\_info\_}}
+\index{mot\_cur\_info\_@{mot\_cur\_info\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mot\_cur\_info\_}{mot\_cur\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mot\+\_\+cur\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Publisher of the current absorbed by the Mia hand motors. 
+
+
+
+Definition at line 114 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a179af004225e4acadebee250ae8da9c9}\label{classmia__hand_1_1_r_o_s_driver_a179af004225e4acadebee250ae8da9c9}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mot\_pos\_info\_@{mot\_pos\_info\_}}
+\index{mot\_pos\_info\_@{mot\_pos\_info\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mot\_pos\_info\_}{mot\_pos\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mot\+\_\+pos\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Publisher of the positions data of the Mia hand motors. 
+
+
+
+Definition at line 112 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a7e952df43c3dbf8ae02c19d4d8537cf1}\label{classmia__hand_1_1_r_o_s_driver_a7e952df43c3dbf8ae02c19d4d8537cf1}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mot\_spe\_info\_@{mot\_spe\_info\_}}
+\index{mot\_spe\_info\_@{mot\_spe\_info\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mot\_spe\_info\_}{mot\_spe\_info\_}}
+{\footnotesize\ttfamily ros\+::\+Publisher mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mot\+\_\+spe\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Publisher of the velocity data of the Mia hand motors. 
+
+
+
+Definition at line 113 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a3ce732b36dc41fc3718f2d75d0edf260}\label{classmia__hand_1_1_r_o_s_driver_a3ce732b36dc41fc3718f2d75d0edf260}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_cyl\_grasp\_ref\_@{mrl\_cyl\_grasp\_ref\_}}
+\index{mrl\_cyl\_grasp\_ref\_@{mrl\_cyl\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_cyl\_grasp\_ref\_}{mrl\_cyl\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for cylindrical grasp for the mrl flexion motor. 
+
+
+
+Definition at line 86 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a8d50c308577f1957a9ad598a3d889d87}\label{classmia__hand_1_1_r_o_s_driver_a8d50c308577f1957a9ad598a3d889d87}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_fin\_trgt\_for\_@{mrl\_fin\_trgt\_for\_}}
+\index{mrl\_fin\_trgt\_for\_@{mrl\_fin\_trgt\_for\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_fin\_trgt\_for\_}{mrl\_fin\_trgt\_for\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target force of the mrl flexion motor. 
+
+
+
+Definition at line 82 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aca0050425e062faa39f92b5b39c1276e}\label{classmia__hand_1_1_r_o_s_driver_aca0050425e062faa39f92b5b39c1276e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_lat\_grasp\_ref\_@{mrl\_lat\_grasp\_ref\_}}
+\index{mrl\_lat\_grasp\_ref\_@{mrl\_lat\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_lat\_grasp\_ref\_}{mrl\_lat\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for lateral grasp for the mrl flexion motor. 
+
+
+
+Definition at line 94 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a34449719a43b8749e56e389bbe9cc88e}\label{classmia__hand_1_1_r_o_s_driver_a34449719a43b8749e56e389bbe9cc88e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_mot\_trgt\_pos\_@{mrl\_mot\_trgt\_pos\_}}
+\index{mrl\_mot\_trgt\_pos\_@{mrl\_mot\_trgt\_pos\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_mot\_trgt\_pos\_}{mrl\_mot\_trgt\_pos\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target pose of the mrl flexion motor. 
+
+
+
+Definition at line 74 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a972295cebef7d12730c94797a27d970e}\label{classmia__hand_1_1_r_o_s_driver_a972295cebef7d12730c94797a27d970e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_mot\_trgt\_spe\_@{mrl\_mot\_trgt\_spe\_}}
+\index{mrl\_mot\_trgt\_spe\_@{mrl\_mot\_trgt\_spe\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_mot\_trgt\_spe\_}{mrl\_mot\_trgt\_spe\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target velocity of the mrl flexion motor. 
+
+
+
+Definition at line 78 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a6fbfc9e53a17d063e89d1cc330bd0c28}\label{classmia__hand_1_1_r_o_s_driver_a6fbfc9e53a17d063e89d1cc330bd0c28}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_pin\_grasp\_ref\_@{mrl\_pin\_grasp\_ref\_}}
+\index{mrl\_pin\_grasp\_ref\_@{mrl\_pin\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_pin\_grasp\_ref\_}{mrl\_pin\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for pinch grasp for the mrl flexion motor. 
+
+
+
+Definition at line 90 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a91bf76dda10a7082472f7f393604c456}\label{classmia__hand_1_1_r_o_s_driver_a91bf76dda10a7082472f7f393604c456}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_sph\_grasp\_ref\_@{mrl\_sph\_grasp\_ref\_}}
+\index{mrl\_sph\_grasp\_ref\_@{mrl\_sph\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_sph\_grasp\_ref\_}{mrl\_sph\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for spherical grasp for the mrl flexion motor. 
+
+
+
+Definition at line 98 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ad91e46a83ac6f407117b298b449219f0}\label{classmia__hand_1_1_r_o_s_driver_ad91e46a83ac6f407117b298b449219f0}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!mrl\_tri\_grasp\_ref\_@{mrl\_tri\_grasp\_ref\_}}
+\index{mrl\_tri\_grasp\_ref\_@{mrl\_tri\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_tri\_grasp\_ref\_}{mrl\_tri\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::mrl\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for tridigital grasp for the mrl flexion motor. 
+
+
+
+Definition at line 102 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_af248ab0b2fc0d7d2304cbfd4e9822757}\label{classmia__hand_1_1_r_o_s_driver_af248ab0b2fc0d7d2304cbfd4e9822757}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!nh\_@{nh\_}}
+\index{nh\_@{nh\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{nh\_}{nh\_}}
+{\footnotesize\ttfamily ros\+::\+Node\+Handle\& mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::nh\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reference to public node handle (for topics and services) 
+
+
+
+Definition at line 65 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_abd840506a33f853fe9ef5d1bfaa2891d}\label{classmia__hand_1_1_r_o_s_driver_abd840506a33f853fe9ef5d1bfaa2891d}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!nh\_priv\_@{nh\_priv\_}}
+\index{nh\_priv\_@{nh\_priv\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{nh\_priv\_}{nh\_priv\_}}
+{\footnotesize\ttfamily ros\+::\+Node\+Handle\& mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::nh\+\_\+priv\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reference to private node handle (for parameters) 
+
+
+
+Definition at line 67 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a924e6d80700d992442a898088f45f301}\label{classmia__hand_1_1_r_o_s_driver_a924e6d80700d992442a898088f45f301}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!open\_cyl\_grasp\_@{open\_cyl\_grasp\_}}
+\index{open\_cyl\_grasp\_@{open\_cyl\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{open\_cyl\_grasp\_}{open\_cyl\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+\_\+cyl\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the rest position of the cylindrical grasp. 
+
+
+
+Definition at line 127 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a84091da1c78aa78f86ffea93ba466871}\label{classmia__hand_1_1_r_o_s_driver_a84091da1c78aa78f86ffea93ba466871}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!open\_lat\_grasp\_@{open\_lat\_grasp\_}}
+\index{open\_lat\_grasp\_@{open\_lat\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{open\_lat\_grasp\_}{open\_lat\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+\_\+lat\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the rest position of the lateral grasp. 
+
+
+
+Definition at line 129 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a43b1a37c0aa008337658e84b07c23ea2}\label{classmia__hand_1_1_r_o_s_driver_a43b1a37c0aa008337658e84b07c23ea2}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!open\_pin\_grasp\_@{open\_pin\_grasp\_}}
+\index{open\_pin\_grasp\_@{open\_pin\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{open\_pin\_grasp\_}{open\_pin\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+\_\+pin\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the rest position of the pinch grasp. 
+
+
+
+Definition at line 128 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aeb42b71a2e7fa23f2ff8a8ef931b833b}\label{classmia__hand_1_1_r_o_s_driver_aeb42b71a2e7fa23f2ff8a8ef931b833b}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!open\_sph\_grasp\_@{open\_sph\_grasp\_}}
+\index{open\_sph\_grasp\_@{open\_sph\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{open\_sph\_grasp\_}{open\_sph\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+\_\+sph\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the rest position of the spherical grasp. 
+
+
+
+Definition at line 130 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a6e60c567b3bc5946268b1f33a179bf41}\label{classmia__hand_1_1_r_o_s_driver_a6e60c567b3bc5946268b1f33a179bf41}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!open\_tri\_grasp\_@{open\_tri\_grasp\_}}
+\index{open\_tri\_grasp\_@{open\_tri\_grasp\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{open\_tri\_grasp\_}{open\_tri\_grasp\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::open\+\_\+tri\+\_\+grasp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to move the Mia hand motors to the rest position of the tridigital grasp. 
+
+
+
+Definition at line 131 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a22cc579fd537f0c2ca67cc473a7d7fd9}\label{classmia__hand_1_1_r_o_s_driver_a22cc579fd537f0c2ca67cc473a7d7fd9}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!pin\_grasp\_percent\_@{pin\_grasp\_percent\_}}
+\index{pin\_grasp\_percent\_@{pin\_grasp\_percent\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{pin\_grasp\_percent\_}{pin\_grasp\_percent\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::pin\+\_\+grasp\+\_\+percent\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the closure percentage for pinch grasp. 
+
+
+
+Definition at line 105 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a53fda341c3544d599f0663d2e8dc407a}\label{classmia__hand_1_1_r_o_s_driver_a53fda341c3544d599f0663d2e8dc407a}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!publish\_data\_tmr\_@{publish\_data\_tmr\_}}
+\index{publish\_data\_tmr\_@{publish\_data\_tmr\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{publish\_data\_tmr\_}{publish\_data\_tmr\_}}
+{\footnotesize\ttfamily ros\+::\+Wall\+Timer mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::publish\+\_\+data\+\_\+tmr\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Timer to handle the Mia hand data publishing. 
+
+
+
+Definition at line 62 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ae5a45419dfc976f9ed4a8acf1d997282}\label{classmia__hand_1_1_r_o_s_driver_ae5a45419dfc976f9ed4a8acf1d997282}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!sph\_grasp\_percent\_@{sph\_grasp\_percent\_}}
+\index{sph\_grasp\_percent\_@{sph\_grasp\_percent\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{sph\_grasp\_percent\_}{sph\_grasp\_percent\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::sph\+\_\+grasp\+\_\+percent\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the closure percentage for sherical grasp. 
+
+
+
+Definition at line 107 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a1c335065269e64456a1e5f47a6b0f260}\label{classmia__hand_1_1_r_o_s_driver_a1c335065269e64456a1e5f47a6b0f260}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switch\_ana\_stream\_@{switch\_ana\_stream\_}}
+\index{switch\_ana\_stream\_@{switch\_ana\_stream\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switch\_ana\_stream\_}{switch\_ana\_stream\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+\_\+ana\+\_\+stream\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to manage a the streaming of the analog input data (i.\+e. force sensor outputs) sent by the Mia hand. 
+
+
+
+Definition at line 124 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a6cf652fdf909aa8347ecab8ee44aa7e5}\label{classmia__hand_1_1_r_o_s_driver_a6cf652fdf909aa8347ecab8ee44aa7e5}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switch\_cur\_stream\_@{switch\_cur\_stream\_}}
+\index{switch\_cur\_stream\_@{switch\_cur\_stream\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switch\_cur\_stream\_}{switch\_cur\_stream\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+\_\+cur\+\_\+stream\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to manage a the streaming of the current data (i.\+e. force sensor outputs) sent by the Mia hand. 
+
+
+
+Definition at line 125 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a4c8bba0f2ec75b4923f7c1e1d3ef257e}\label{classmia__hand_1_1_r_o_s_driver_a4c8bba0f2ec75b4923f7c1e1d3ef257e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switch\_pos\_stream\_@{switch\_pos\_stream\_}}
+\index{switch\_pos\_stream\_@{switch\_pos\_stream\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switch\_pos\_stream\_}{switch\_pos\_stream\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+\_\+pos\+\_\+stream\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to manage a the streaming of motor position data sent by the Mia hand. 
+
+
+
+Definition at line 122 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aca55d3f1691e9e551c6175c88749ac68}\label{classmia__hand_1_1_r_o_s_driver_aca55d3f1691e9e551c6175c88749ac68}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!switch\_spe\_stream\_@{switch\_spe\_stream\_}}
+\index{switch\_spe\_stream\_@{switch\_spe\_stream\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{switch\_spe\_stream\_}{switch\_spe\_stream\_}}
+{\footnotesize\ttfamily ros\+::\+Service\+Server mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::switch\+\_\+spe\+\_\+stream\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Service to manage a the streaming of motor velocity data sent by the Mia hand. 
+
+
+
+Definition at line 123 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_af71214d0f00f365d2cd8f12ea05b5d97}\label{classmia__hand_1_1_r_o_s_driver_af71214d0f00f365d2cd8f12ea05b5d97}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_cyl\_grasp\_ref\_@{thu\_cyl\_grasp\_ref\_}}
+\index{thu\_cyl\_grasp\_ref\_@{thu\_cyl\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_cyl\_grasp\_ref\_}{thu\_cyl\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+cyl\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for cylindrical grasp for the thumb flexion motor. 
+
+
+
+Definition at line 84 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a7b438ac66cf47c01b3f777b8476065d4}\label{classmia__hand_1_1_r_o_s_driver_a7b438ac66cf47c01b3f777b8476065d4}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_fin\_trgt\_for\_@{thu\_fin\_trgt\_for\_}}
+\index{thu\_fin\_trgt\_for\_@{thu\_fin\_trgt\_for\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_fin\_trgt\_for\_}{thu\_fin\_trgt\_for\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+fin\+\_\+trgt\+\_\+for\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target force of the tumb flexion motor. 
+
+
+
+Definition at line 80 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a20dbfc398f38b6826c42dee9f6c137bf}\label{classmia__hand_1_1_r_o_s_driver_a20dbfc398f38b6826c42dee9f6c137bf}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_lat\_grasp\_ref\_@{thu\_lat\_grasp\_ref\_}}
+\index{thu\_lat\_grasp\_ref\_@{thu\_lat\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_lat\_grasp\_ref\_}{thu\_lat\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+lat\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for lateral grasp for the thumb flexion motor. 
+
+
+
+Definition at line 92 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a995d6915c23c127d80440e74628312ab}\label{classmia__hand_1_1_r_o_s_driver_a995d6915c23c127d80440e74628312ab}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_mot\_trgt\_pos\_@{thu\_mot\_trgt\_pos\_}}
+\index{thu\_mot\_trgt\_pos\_@{thu\_mot\_trgt\_pos\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_mot\_trgt\_pos\_}{thu\_mot\_trgt\_pos\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+mot\+\_\+trgt\+\_\+pos\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target pose of the tumb flexion motor. 
+
+
+
+Definition at line 72 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a9f35f9c704ae08d3f1bc66452f0150d8}\label{classmia__hand_1_1_r_o_s_driver_a9f35f9c704ae08d3f1bc66452f0150d8}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_mot\_trgt\_spe\_@{thu\_mot\_trgt\_spe\_}}
+\index{thu\_mot\_trgt\_spe\_@{thu\_mot\_trgt\_spe\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_mot\_trgt\_spe\_}{thu\_mot\_trgt\_spe\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+mot\+\_\+trgt\+\_\+spe\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the target velocity of the tumb flexion motor. 
+
+
+
+Definition at line 76 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_aac32b7efa7cc418917c6b975068cddd2}\label{classmia__hand_1_1_r_o_s_driver_aac32b7efa7cc418917c6b975068cddd2}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_pin\_grasp\_ref\_@{thu\_pin\_grasp\_ref\_}}
+\index{thu\_pin\_grasp\_ref\_@{thu\_pin\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_pin\_grasp\_ref\_}{thu\_pin\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+pin\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for pinch grasp for the thumb flexion motor. 
+
+
+
+Definition at line 88 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}\label{classmia__hand_1_1_r_o_s_driver_a434de55951a7a2da7441af246fa43a5e}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_sph\_grasp\_ref\_@{thu\_sph\_grasp\_ref\_}}
+\index{thu\_sph\_grasp\_ref\_@{thu\_sph\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_sph\_grasp\_ref\_}{thu\_sph\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+sph\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for spherical grasp for the thumb flexion motor. 
+
+
+
+Definition at line 96 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a216efa6a501610b18c968d0ade18507d}\label{classmia__hand_1_1_r_o_s_driver_a216efa6a501610b18c968d0ade18507d}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!thu\_tri\_grasp\_ref\_@{thu\_tri\_grasp\_ref\_}}
+\index{thu\_tri\_grasp\_ref\_@{thu\_tri\_grasp\_ref\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{thu\_tri\_grasp\_ref\_}{thu\_tri\_grasp\_ref\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::thu\+\_\+tri\+\_\+grasp\+\_\+ref\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the parametrs for tridigital grasp for the thumb flexion motor. 
+
+
+
+Definition at line 100 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_a52e8f1bff6442f343c90b5de4eb826b1}\label{classmia__hand_1_1_r_o_s_driver_a52e8f1bff6442f343c90b5de4eb826b1}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!tri\_grasp\_percent\_@{tri\_grasp\_percent\_}}
+\index{tri\_grasp\_percent\_@{tri\_grasp\_percent\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{tri\_grasp\_percent\_}{tri\_grasp\_percent\_}}
+{\footnotesize\ttfamily ros\+::\+Subscriber mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::tri\+\_\+grasp\+\_\+percent\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to receive the closure percentage for tridigital grasp. 
+
+
+
+Definition at line 108 of file ros\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_r_o_s_driver_ac1b00400bd84db2353821c33ce2e881b}\label{classmia__hand_1_1_r_o_s_driver_ac1b00400bd84db2353821c33ce2e881b}} 
+\index{mia\_hand::ROSDriver@{mia\_hand::ROSDriver}!was\_connected\_@{was\_connected\_}}
+\index{was\_connected\_@{was\_connected\_}!mia\_hand::ROSDriver@{mia\_hand::ROSDriver}}
+\doxysubsubsection{\texorpdfstring{was\_connected\_}{was\_connected\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+R\+O\+S\+Driver\+::was\+\_\+connected\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+True if the Mia hand was connected, False otherwise. 
+
+
+
+Definition at line 60 of file ros\+\_\+driver.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+mia\+\_\+hand\+\_\+driver/include/mia\+\_\+hand\+\_\+driver/\mbox{\hyperlink{ros__driver_8h}{ros\+\_\+driver.\+h}}\item 
+mia\+\_\+hand\+\_\+driver/src/\mbox{\hyperlink{ros__driver_8cpp}{ros\+\_\+driver.\+cpp}}\end{DoxyCompactItemize}

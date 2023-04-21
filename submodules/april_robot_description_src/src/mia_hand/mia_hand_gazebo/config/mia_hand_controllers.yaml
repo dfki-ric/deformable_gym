@@ -1,0 +1,189 @@
+#---------------------------------------------------------------------
+# Controllers v1.1
+#---------------------------------------------------------------------
+
+
+
+#---------------------------------------------------------------------
+# Publish all joint states -----------------------------------
+#---------------------------------------------------------------------
+
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+    pid: {p: 100.0, i: 0.01, d: 3.0}
+
+#---------------------------------------------------------------------
+# Effort- Controllers ---------------------------------------
+#---------------------------------------------------------------------
+
+  j_thumb_fle_eff_controller:
+    type: effort_controllers/JointEffortController
+    joint: j_thumb_fle
+    pid: {p: 100.0, i: 0.01, d: 3.0}
+  j_index_fle_eff_controller:
+    type: effort_controllers/JointEffortController
+    joint: j_index_fle
+    pid: {p: 100.0, i: 0.01, d: 3.0}
+  j_mrl_fle_eff_controller:
+    type: effort_controllers/JointEffortController
+    joint: j_mrl_fle
+    pid: {p: 100.0, i: 0.01, d: 3.0}
+  j_thumb_opp_eff_controller:
+    type: effort_controllers/JointEffortController
+    joint: j_thumb_opp
+    pid: {p: 100.0, i: 0.01, d: 3.0}
+
+
+#---------------------------------------------------------------------
+# Effort-Position Controllers ---------------------------------------
+#---------------------------------------------------------------------
+
+  j_thumb_opp_eff_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j_thumb_opp
+    pid:
+      d: 0.005
+      i: 0.001
+      i_clamp: 5
+      p: 1.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 3.0
+
+  j_thumb_fle_eff_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j_thumb_fle
+    pid:
+      d: 0.005
+      i: 0.001
+      i_clamp: 0.4
+      p: 1.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 3.0
+  j_index_fle_eff_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j_index_fle
+    pid:
+      d: 0.005
+      i: 0.1
+      i_clamp: 0.05
+      p: 0.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 1.0
+  j_mrl_fle_eff_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j_mrl_fle
+    pid:
+      d: 0.005
+      i: 0.1
+      i_clamp: 0.05
+      p: 0.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 1.0
+
+
+
+#---------------------------------------------------------------------
+# Effort-Velocity Controllers -- NOT TUNED-----------------------------
+#---------------------------------------------------------------------
+
+  j_thumb_opp_eff_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: j_thumb_opp
+    pid:
+      d: 0.005
+      i: 0.001
+      i_clamp: 5
+      p: 1.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 3.0
+
+  j_thumb_fle_eff_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: j_thumb_fle
+    pid:
+      d: 0.005
+      i: 0.001
+      i_clamp: 0.4
+      p: 1.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 3.0
+  j_index_fle_eff_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: j_index_fle
+    pid:
+      d: 0.005
+      i: 0.1
+      i_clamp: 0.05
+      p: 0.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 1.0
+  j_mrl_fle_eff_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: j_mrl_fle
+    pid:
+      d: 0.005
+      i: 0.1
+      i_clamp: 0.05
+      p: 0.5
+      position_deadband: 0.0
+      friction_deadband: 0.0
+      max_force: 1.0
+
+
+
+#------------------------------------------------------------------
+# JointPosition Controllers ---------------------------------------
+#---------------------------------------------------------------------
+
+  j_thumb_fle_position_controller:
+    type: position_controllers/JointPositionController
+    joint: j_thumb_fle
+
+  j_index_fle_position_controller:
+    type: position_controllers/JointPositionController
+    joint: j_index_fle
+
+  j_mrl_fle_position_controller:
+    type: position_controllers/JointPositionController
+    joint: j_mrl_fle
+
+  j_thumb_opp_position_controller:
+    type: position_controllers/JointPositionController
+    joint: j_thumb_opp
+
+
+     #------------------------------------------------------------------
+    # JointVelocity Controllers ---------------------------------------
+    #---------------------------------------------------------------------
+
+  j_thumb_fle_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: j_thumb_fle
+
+  j_index_fle_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: j_index_fle
+
+  j_mrl_fle_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: j_mrl_fle
+
+  j_thumb_opp_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: j_thumb_opp
+
+ # Prova
+  torso_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+    - j_mrl_fle
+    gains:
+      j_mrl_fle: {d: 0.005,  i: 0.1,  p: 0.5,  i_clamp: 0.05 }

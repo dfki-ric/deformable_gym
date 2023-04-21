@@ -1,0 +1,11 @@
+# Goal
+# Fill in as much as you know about the object. Different planners will use
+# different information, see their docs.
+object_recognition_msgs/RecognizedObject object
+---
+# Result
+moveit_msgs/Grasp[] grasps
+---
+# Feedback
+# Number of grasps synthesized so far.
+int32 number_of_synthesized_grasps

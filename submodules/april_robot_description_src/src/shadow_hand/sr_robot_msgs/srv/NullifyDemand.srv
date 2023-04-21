@@ -1,0 +1,7 @@
+#This service is used to nullify the demand of the etherCAT
+# hand. If the nullify_demand parameter is set to True,
+# the demand sent to the robot will be 0, regardless of the
+# computed effort demanded by the controller.
+
+bool nullify_demand
+---

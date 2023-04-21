@@ -1,0 +1,9 @@
+std_msgs/Header header
+string[] joint_names
+float64[] joint_position
+float64[] joint_velocity
+float64[] requested_position
+float64[] position_error
+float64[] position_command_component
+float64[] force_command_component
+float64[] commanded_effort

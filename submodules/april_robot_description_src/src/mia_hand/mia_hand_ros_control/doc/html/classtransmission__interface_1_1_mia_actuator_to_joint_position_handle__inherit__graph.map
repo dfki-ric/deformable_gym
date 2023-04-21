@@ -1,0 +1,4 @@
+<map id="transmission_interface::MiaActuatorToJointPositionHandle" name="transmission_interface::MiaActuatorToJointPositionHandle">
+<area shape="rect" id="node1" title="Class handling for propagating actuator positions to joint positions for a given MiaIndexTransmission..." alt="" coords="5,95,209,151"/>
+<area shape="rect" id="node2" href="$classtransmission__interface_1_1_mia_transmission_handle.html" title="Base class to handle the MiaIndexTransmission." alt="" coords="14,5,201,47"/>
+</map>

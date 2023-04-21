@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="shadow_hand_on_ur10e">
+  
+  <!-- resolve prefix variable (useful for multi robot) -->
+  <xacro:include filename="$(find april_robot_description)/urdf/prefix.urdf.xacro" />
+
+  <!-- arm base, orange block/mount for ur5 or ur10 arm -->
+  <xacro:include filename="$(find april_robot_description)/urdf/stand.urdf.xacro" />
+
+  <!-- ur10e arm without ros control-->
+  <xacro:include filename="$(find april_robot_description)/urdf/ur10e.urdf.xacro" />
+
+  <!-- attach "arm" and "arm base" -->
+  <joint name="${prefix}arm_base_to_arm" type="fixed">
+    <parent link="${prefix}arm_base" />
+    <child link="${prefix}ur10e_base_link" />
+    <origin xyz="0 0 1.0" rpy="0 0 0" />
+  </joint>
+
+  <!-- shadow hand -->
+  <xacro:include filename="$(find april_robot_description)/urdf/shadow_hand.urdf.xacro"/>
+
+  <!-- make connection between ur10e arm and shadow hand -->
+  <joint name="ra_arm_to_hand" type="fixed">
+    <parent link="${prefix}ur10e_tool0"/>
+    <child link="rh_forearm"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+  </joint>
+
+</robot>

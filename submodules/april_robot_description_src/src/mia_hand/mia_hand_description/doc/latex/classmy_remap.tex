@@ -1,0 +1,209 @@
+\hypertarget{classmy_remap}{}\doxysection{my\+Remap Class Reference}
+\label{classmy_remap}\index{myRemap@{myRemap}}
+
+
+Class to remap Mia Joint\+State.  
+
+
+
+
+Collaboration diagram for my\+Remap\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{classmy_remap__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmy_remap_a3c3611693ac2705bc13c7866ec40c38a}{my\+Remap}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classmy_remap_abcc17c6552dcbf39f6c03f05bd932122}{chattercallback}} (const sensor\+\_\+msgs\+::\+Joint\+State\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback of the subscriber. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classmy_remap_a2a02670dca86d1a1db1dd83d602ba545}{remap\+\_\+th\+\_\+opp}}
+\begin{DoxyCompactList}\small\item\em Bool True to remap also the thumb opp position. \end{DoxyCompactList}\item 
+ros\+::\+Node\+Handle \mbox{\hyperlink{classmy_remap_ad4700b32ac6890aa7bcb53e7e1fe9d7e}{n}}
+\begin{DoxyCompactList}\small\item\em Ros node varibale. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{classmy_remap_ad8851852699eab42e04ddb8519214bdc}{pub}}
+\begin{DoxyCompactList}\small\item\em Publisher to publish remapped miajoint. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{classmy_remap_a6df33de3f7141f314b8d48fbe9765e30}{sub}}
+\begin{DoxyCompactList}\small\item\em Subscriber to publish listen to raw mia joint states. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classmy_remap_acd677fcc59a33231e970e26d2e432d7b}{j\+\_\+index\+\_\+name}}
+\begin{DoxyCompactList}\small\item\em Name of the index flex joint as declared in the U\+R\+DF. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classmy_remap_a38f0dd255deb4fd932c0bb590d719d07}{j\+\_\+thumb\+\_\+name}}
+\begin{DoxyCompactList}\small\item\em Name of the thumb opp joint as declared in the U\+R\+DF. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classmy_remap_a8f36439030ab81b46d020c4313735b41}{robot\+\_\+description\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Name of parameter link to the U\+R\+DF. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmia__hand_1_1thumb__opp__passive__joint}{mia\+\_\+hand\+::thumb\+\_\+opp\+\_\+passive\+\_\+joint}} \mbox{\hyperlink{classmy_remap_aafc4eff5227c9b0e38d87e03e5f82c74}{My\+Th\+\_\+opp\+\_\+passive\+Joint}}
+\begin{DoxyCompactList}\small\item\em Class describing the thumb\+\_\+opp and index flex passive joint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to remap Mia Joint\+State. 
+
+Definition at line 48 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmy_remap_a3c3611693ac2705bc13c7866ec40c38a}\label{classmy_remap_a3c3611693ac2705bc13c7866ec40c38a}} 
+\index{myRemap@{myRemap}!myRemap@{myRemap}}
+\index{myRemap@{myRemap}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{myRemap()}{myRemap()}}
+{\footnotesize\ttfamily my\+Remap\+::my\+Remap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. 
+
+
+
+Definition at line 56 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmy_remap_abcc17c6552dcbf39f6c03f05bd932122}\label{classmy_remap_abcc17c6552dcbf39f6c03f05bd932122}} 
+\index{myRemap@{myRemap}!chattercallback@{chattercallback}}
+\index{chattercallback@{chattercallback}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{chattercallback()}{chattercallback()}}
+{\footnotesize\ttfamily void my\+Remap\+::chattercallback (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Joint\+State\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Callback of the subscriber. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmy_remap_a6df33de3f7141f314b8d48fbe9765e30}{sub()}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 129 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classmy_remap_acd677fcc59a33231e970e26d2e432d7b}\label{classmy_remap_acd677fcc59a33231e970e26d2e432d7b}} 
+\index{myRemap@{myRemap}!j\_index\_name@{j\_index\_name}}
+\index{j\_index\_name@{j\_index\_name}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{j\_index\_name}{j\_index\_name}}
+{\footnotesize\ttfamily std\+::string my\+Remap\+::j\+\_\+index\+\_\+name\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Name of the index flex joint as declared in the U\+R\+DF. 
+
+
+
+Definition at line 107 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_a38f0dd255deb4fd932c0bb590d719d07}\label{classmy_remap_a38f0dd255deb4fd932c0bb590d719d07}} 
+\index{myRemap@{myRemap}!j\_thumb\_name@{j\_thumb\_name}}
+\index{j\_thumb\_name@{j\_thumb\_name}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{j\_thumb\_name}{j\_thumb\_name}}
+{\footnotesize\ttfamily std\+::string my\+Remap\+::j\+\_\+thumb\+\_\+name\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Name of the thumb opp joint as declared in the U\+R\+DF. 
+
+
+
+Definition at line 112 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_aafc4eff5227c9b0e38d87e03e5f82c74}\label{classmy_remap_aafc4eff5227c9b0e38d87e03e5f82c74}} 
+\index{myRemap@{myRemap}!MyTh\_opp\_passiveJoint@{MyTh\_opp\_passiveJoint}}
+\index{MyTh\_opp\_passiveJoint@{MyTh\_opp\_passiveJoint}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{MyTh\_opp\_passiveJoint}{MyTh\_opp\_passiveJoint}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmia__hand_1_1thumb__opp__passive__joint}{mia\+\_\+hand\+::thumb\+\_\+opp\+\_\+passive\+\_\+joint}} my\+Remap\+::\+My\+Th\+\_\+opp\+\_\+passive\+Joint\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Class describing the thumb\+\_\+opp and index flex passive joint. 
+
+
+
+Definition at line 122 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_ad4700b32ac6890aa7bcb53e7e1fe9d7e}\label{classmy_remap_ad4700b32ac6890aa7bcb53e7e1fe9d7e}} 
+\index{myRemap@{myRemap}!n@{n}}
+\index{n@{n}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{n}{n}}
+{\footnotesize\ttfamily ros\+::\+Node\+Handle my\+Remap\+::n\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Ros node varibale. 
+
+
+
+Definition at line 92 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_ad8851852699eab42e04ddb8519214bdc}\label{classmy_remap_ad8851852699eab42e04ddb8519214bdc}} 
+\index{myRemap@{myRemap}!pub@{pub}}
+\index{pub@{pub}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{pub}{pub}}
+{\footnotesize\ttfamily ros\+::\+Publisher my\+Remap\+::pub\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Publisher to publish remapped miajoint. 
+
+
+
+Definition at line 97 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_a2a02670dca86d1a1db1dd83d602ba545}\label{classmy_remap_a2a02670dca86d1a1db1dd83d602ba545}} 
+\index{myRemap@{myRemap}!remap\_th\_opp@{remap\_th\_opp}}
+\index{remap\_th\_opp@{remap\_th\_opp}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{remap\_th\_opp}{remap\_th\_opp}}
+{\footnotesize\ttfamily bool my\+Remap\+::remap\+\_\+th\+\_\+opp\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Bool True to remap also the thumb opp position. 
+
+
+
+Definition at line 87 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_a8f36439030ab81b46d020c4313735b41}\label{classmy_remap_a8f36439030ab81b46d020c4313735b41}} 
+\index{myRemap@{myRemap}!robot\_description\_@{robot\_description\_}}
+\index{robot\_description\_@{robot\_description\_}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{robot\_description\_}{robot\_description\_}}
+{\footnotesize\ttfamily std\+::string my\+Remap\+::robot\+\_\+description\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Name of parameter link to the U\+R\+DF. 
+
+
+
+Definition at line 117 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+\mbox{\Hypertarget{classmy_remap_a6df33de3f7141f314b8d48fbe9765e30}\label{classmy_remap_a6df33de3f7141f314b8d48fbe9765e30}} 
+\index{myRemap@{myRemap}!sub@{sub}}
+\index{sub@{sub}!myRemap@{myRemap}}
+\doxysubsubsection{\texorpdfstring{sub}{sub}}
+{\footnotesize\ttfamily ros\+::\+Subscriber my\+Remap\+::sub\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Subscriber to publish listen to raw mia joint states. 
+
+
+
+Definition at line 102 of file remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+description/src/\mbox{\hyperlink{remap__mia__joint__states_8cpp}{remap\+\_\+mia\+\_\+joint\+\_\+states.\+cpp}}\end{DoxyCompactItemize}

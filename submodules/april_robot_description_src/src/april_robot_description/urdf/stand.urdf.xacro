@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="stand">
+
+  <!-- arm base, orange block/mount for ur5 or ur10 arm -->
+
+  <!-- resolve prefix variable (useful for multi robot) -->
+  <xacro:include filename="$(find april_robot_description)/urdf/prefix.urdf.xacro" />
+
+  <!-- ################################################################### -->
+  <!-- "arm base" : make box to elevate the robot arm -->
+
+  <!-- fix arm base, so that it does not fall -->
+  <link name="world"/>
+  <joint name="world_to_robot" type="fixed">
+    <parent link="world"/>
+    <child link="arm_base"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="${prefix}arm_base">
+    <visual>
+      <origin xyz="0 0 0.5" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 1.0"/>
+      </geometry>
+      <material name="orange"> <!-- rviz will read this color -->
+        <color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.5" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 1.0"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="8.2573504e-01"/>
+      <inertia ixx="2.2124416e-03" ixy="-1.2294101e-05" ixz="3.4938785e-05"
+               iyy="2.1193702e-03" iyz="-5.0120904e-06"
+               izz="2.0064271e-03" />
+    </inertial>
+  </link>
+  <gazebo reference="arm_base">
+    <material>Gazebo/Orange</material> <!-- gazebo will read this color -->
+  </gazebo>
+
+</robot>

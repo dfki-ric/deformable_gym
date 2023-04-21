@@ -1,0 +1,17 @@
+# Move hand to pre-grasp pose then grasp pose for the given grasp.
+# When goal is preempted release the grasp by moving back to pre-grasp.
+# Note no object is involved, this is just for testing grasp positions etc.
+# Goal
+moveit_msgs/Grasp grasp
+bool pre_grasp
+---
+# Result
+---
+# Feedback
+# State shows what the node is currently doing.
+uint8 PRE_GRASPING=0
+uint8 GRASPING=1
+uint8 RELEASING=2
+uint8 state
+# A percentage or other measure of the quality of the grasp.
+float64 quality

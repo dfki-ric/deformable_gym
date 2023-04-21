@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="shadow_hand">
+
+  <xacro:include filename="$(find sr_description)/other/xacro/materials.urdf.xacro"/>
+  <xacro:include filename="$(find sr_description)/hand/xacro/hand.urdf.xacro"/>
+  <xacro:include filename="$(find sr_description)/other/xacro/gazebo.urdf.xacro"/>
+
+  <xacro:arg name="hand_type" default="hand_e"/>
+  <xacro:arg name="hand_version" default="E3M5"/>
+  <xacro:arg name="side" default="right"/>
+  <xacro:arg name="fingers" default="all"/>
+  <xacro:arg name="tip_sensors" default="pst"/>
+  <xacro:arg name="mid_sensors" default="none"/>
+  <xacro:arg name="prox_sensors" default="none"/>
+  <xacro:arg name="palm_sensor" default="none"/>
+  <xacro:arg name="mounting_plate" default="false"/>
+
+  <xacro:sr_hand hand_type="$(arg hand_type)" hand_version="$(arg hand_version)" side="$(arg side)"
+                 fingers="$(arg fingers)" tip_sensors="$(arg tip_sensors)" mid_sensors="$(arg mid_sensors)"
+                 prox_sensors="$(arg prox_sensors)" palm_sensor="$(arg palm_sensor)" mounting_plate="$(arg mounting_plate)"/>
+
+</robot>

@@ -1,0 +1,32 @@
+# mia hand trajectory controller params
+
+# joint (actionlib) trajectory controller
+# check http://wiki.ros.org/joint_trajectory_controller
+
+mia_hand_traj_controller:
+
+    type: effort_controllers/JointTrajectoryController
+
+    joints:
+      - j_thumb
+      - j_index
+      - j_mrl
+      - j_thumb_mcp
+
+    constraints:
+      goal_time: 4.0
+      stopped_velocity_tolerance: 1.0
+      j_thumb:
+        goal: &goal_pos_constraint 0.5
+        trajectory: &trajectory_pos_constraint 1.0
+      j_index:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      j_mrl:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      j_thumb_mcp:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+
+    stop_trajectory_duration: 1.0

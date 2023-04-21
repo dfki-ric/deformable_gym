@@ -1,0 +1,519 @@
+\hypertarget{classtransmission__interface_1_1_mia_mrl_transmission}{}\doxysection{transmission\+\_\+interface\+::Mia\+Mrl\+Transmission Class Reference}
+\label{classtransmission__interface_1_1_mia_mrl_transmission}\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+
+
+Implementation of the linear Mia mrl Transmission mapping the positions and velocity from the joint sapce to ros actuator-\/space (i.\+e.  
+
+
+
+
+{\ttfamily \#include $<$mia\+\_\+mrl\+\_\+transmission.\+h$>$}
+
+
+
+Inheritance diagram for transmission\+\_\+interface\+::Mia\+Mrl\+Transmission\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classtransmission__interface_1_1_mia_mrl_transmission__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for transmission\+\_\+interface\+::Mia\+Mrl\+Transmission\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classtransmission__interface_1_1_mia_mrl_transmission__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a6d298ba4e2de8216b067a0324a788d01}{Mia\+Mrl\+Transmission}} ()
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_aba1fdd3c707746af7043415733bfdb61}{test\+Actuator\+To\+Joint\+Position}} (double act\+\_\+data)
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ad6c11f312594294e0b6612665546e163}{test\+Joint\+To\+Actuator\+Position}} (double jnt\+\_\+data)
+\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a6d7d51f28e99f0ddac01b7f49fd717c0}{actuator\+To\+Joint\+Effort}} (const transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data, transmission\+\_\+interface\+::\+Joint\+Data \&jnt\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Do not use this methos since Mia hand has not effort control. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_aac2c2809a11d84ba7ddee36844b39447}{actuator\+To\+Joint\+Velocity}} (const transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data, transmission\+\_\+interface\+::\+Joint\+Data \&jnt\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Transform velocity variables from actuator to joint space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_afb22cf3fad8a82d7b1e1aa1974c94a15}{actuator\+To\+Joint\+Position}} (const transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data, transmission\+\_\+interface\+::\+Joint\+Data \&jnt\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Transform position variables from actuator to joint space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a5c86e40a1ab963505b1e9fb00b08b27e}{joint\+To\+Actuator\+Effort}} (const transmission\+\_\+interface\+::\+Joint\+Data \&jnt\+\_\+data, transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Do not use this methos since Mia hand has not effort control. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a11ad0812202938fc54212dadf684e56a}{joint\+To\+Actuator\+Velocity}} (const transmission\+\_\+interface\+::\+Joint\+Data \&jnt\+\_\+data, transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Transform velocity variables from joint to actuator space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a3658a51d48b62c3fd286554c2e94d3d7}{joint\+To\+Actuator\+Position}} (const transmission\+\_\+interface\+::\+Joint\+Data \&jnt\+\_\+data, transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Transform position variables from joint to actuator space. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ac70ef58fd2e905487f154905b5987cc0}{h\+\_\+mrl}} (const double pos)
+\begin{DoxyCompactList}\small\item\em Mrl transmission first step function for pose\+: mu = mu = h\+\_\+mrl(pos). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ad1054ea38dd258da8f3954a05c8d7821}{h\+\_\+mrl\+\_\+inv}} (const double mu)
+\begin{DoxyCompactList}\small\item\em Mrl transmission first step inverse function for pose\+: pos = h\+\_\+mrl\+\_\+inv(mu). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ac9048e9ebd45b173f4b28348614698cb}{h2\+\_\+mrl}} (const double mu)
+\begin{DoxyCompactList}\small\item\em Mrl transmission second step function for pose\+: fi = h2\+\_\+mrl(mu). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ab8250f921134af26c18e64442dbd1928}{h2\+\_\+mrl\+\_\+inv}} (const double fi)
+\begin{DoxyCompactList}\small\item\em Mrl transmission second step inverse function for pose\+: mu = h2\+\_\+mrl\+\_\+inv(fi). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a81e8c1c3117506912e053b7b0b2dbc1d}{dh}} (const double spe)
+\begin{DoxyCompactList}\small\item\em Mrl transmission first step function for velocity\+: pos = omega\+\_\+m = dh(spe). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_aef1d863af4d68be87e5b459194393763}{dh\+\_\+inv}} (const double omega\+\_\+m)
+\begin{DoxyCompactList}\small\item\em Mrl transmission first step inverse function for velocity\+: spe = dh\+\_\+inv(omega\+\_\+m). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_adc99d6da1262f57bb84784d067f46ce0}{get\+Actuator\+Reduction}} () const
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a828734e3f3528da730e1a9e2dece7fa7}{get\+Joint\+Offset}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a6a55cbfd7bf4676c4e65576002fbfea0}{reduction\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Linear second step reduction of the tranmission. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ad3f233f84716b262ed2f786fef141947}{jnt\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Offset of teh joint. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ac87cf57797a28fb2344ebfc9bc752f30}{h\+\_\+mrl\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a6c864ee6ae3ce47f6d5d06cd88974a04}{h\+\_\+mrl\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_aa20cc701bee99e67b016f5f6b5d9e19f}{h\+\_\+mrl\+\_\+inv\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_aa3a76b24eaa40734f96f9433f3a963d4}{h\+\_\+mrl\+\_\+inv\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_afcc775c48a2c2c48bc72e95d49aa2ca6}{h2\+\_\+mrl\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a8e64c10723be733d79adfb27185a3a0b}{h2\+\_\+mrl\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_a650fa5dc5a35a7fdeca9a219202f6fa9}{h2\+\_\+mrl\+\_\+inv\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_mrl_transmission_ae658743ca22a594f72914d7762f5107f}{h2\+\_\+mrl\+\_\+inv\+\_\+scale\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the linear Mia mrl Transmission mapping the positions and velocity from the joint sapce to ros actuator-\/space (i.\+e. 
+
+as returned by Mia hand \mbox{[}-\/255; +255\mbox{]} and \mbox{[}-\/90;+90\mbox{]}) and vice-\/versa. 
+
+Definition at line 50 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a6d298ba4e2de8216b067a0324a788d01}\label{classtransmission__interface_1_1_mia_mrl_transmission_a6d298ba4e2de8216b067a0324a788d01}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!MiaMrlTransmission@{MiaMrlTransmission}}
+\index{MiaMrlTransmission@{MiaMrlTransmission}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{MiaMrlTransmission()}{MiaMrlTransmission()}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::\+Mia\+Mrl\+Transmission (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class constructor. 
+
+
+
+Definition at line 45 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a6d7d51f28e99f0ddac01b7f49fd717c0}\label{classtransmission__interface_1_1_mia_mrl_transmission_a6d7d51f28e99f0ddac01b7f49fd717c0}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!actuatorToJointEffort@{actuatorToJointEffort}}
+\index{actuatorToJointEffort@{actuatorToJointEffort}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{actuatorToJointEffort()}{actuatorToJointEffort()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::actuator\+To\+Joint\+Effort (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Joint\+Data \&}]{jnt\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Do not use this methos since Mia hand has not effort control. 
+
+
+
+Definition at line 244 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_afb22cf3fad8a82d7b1e1aa1974c94a15}\label{classtransmission__interface_1_1_mia_mrl_transmission_afb22cf3fad8a82d7b1e1aa1974c94a15}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!actuatorToJointPosition@{actuatorToJointPosition}}
+\index{actuatorToJointPosition@{actuatorToJointPosition}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{actuatorToJointPosition()}{actuatorToJointPosition()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::actuator\+To\+Joint\+Position (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Joint\+Data \&}]{jnt\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Transform position variables from actuator to joint space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em act\+\_\+data} & mrl actuator actual state. \\
+\hline
+{\em jnt\+\_\+data} & returned mrl joint state. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 183 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_aac2c2809a11d84ba7ddee36844b39447}\label{classtransmission__interface_1_1_mia_mrl_transmission_aac2c2809a11d84ba7ddee36844b39447}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!actuatorToJointVelocity@{actuatorToJointVelocity}}
+\index{actuatorToJointVelocity@{actuatorToJointVelocity}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{actuatorToJointVelocity()}{actuatorToJointVelocity()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::actuator\+To\+Joint\+Velocity (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Joint\+Data \&}]{jnt\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Transform velocity variables from actuator to joint space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em act\+\_\+data} & mrl actuator actual state. \\
+\hline
+{\em jnt\+\_\+data} & returned mrl joint state. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 172 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a81e8c1c3117506912e053b7b0b2dbc1d}\label{classtransmission__interface_1_1_mia_mrl_transmission_a81e8c1c3117506912e053b7b0b2dbc1d}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!dh@{dh}}
+\index{dh@{dh}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{dh()}{dh()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::dh (\begin{DoxyParamCaption}\item[{const double}]{spe }\end{DoxyParamCaption})}
+
+
+
+Mrl transmission first step function for velocity\+: pos = omega\+\_\+m = dh(spe). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spe} & round velocity in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/90; +90\mbox{]}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+omega\+\_\+m velocity in the mia actuator space. 
+\end{DoxyReturn}
+
+
+Definition at line 132 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_aef1d863af4d68be87e5b459194393763}\label{classtransmission__interface_1_1_mia_mrl_transmission_aef1d863af4d68be87e5b459194393763}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!dh\_inv@{dh\_inv}}
+\index{dh\_inv@{dh\_inv}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{dh\_inv()}{dh\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::dh\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{omega\+\_\+m }\end{DoxyParamCaption})}
+
+
+
+Mrl transmission first step inverse function for velocity\+: spe = dh\+\_\+inv(omega\+\_\+m). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em omega\+\_\+m} & velocity in the mia actuator space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+spe\+: round velocity in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/90; +90\mbox{]}). 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_adc99d6da1262f57bb84784d067f46ce0}\label{classtransmission__interface_1_1_mia_mrl_transmission_adc99d6da1262f57bb84784d067f46ce0}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!getActuatorReduction@{getActuatorReduction}}
+\index{getActuatorReduction@{getActuatorReduction}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{getActuatorReduction()}{getActuatorReduction()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::get\+Actuator\+Reduction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 156 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a828734e3f3528da730e1a9e2dece7fa7}\label{classtransmission__interface_1_1_mia_mrl_transmission_a828734e3f3528da730e1a9e2dece7fa7}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!getJointOffset@{getJointOffset}}
+\index{getJointOffset@{getJointOffset}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{getJointOffset()}{getJointOffset()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::get\+Joint\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 157 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ac9048e9ebd45b173f4b28348614698cb}\label{classtransmission__interface_1_1_mia_mrl_transmission_ac9048e9ebd45b173f4b28348614698cb}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h2\_mrl@{h2\_mrl}}
+\index{h2\_mrl@{h2\_mrl}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_mrl()}{h2\_mrl()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h2\+\_\+mrl (\begin{DoxyParamCaption}\item[{const double}]{mu }\end{DoxyParamCaption})}
+
+
+
+Mrl transmission second step function for pose\+: fi = h2\+\_\+mrl(mu). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & pose in the mia actuator space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+fi\+: calibrated joint angle. 
+\end{DoxyReturn}
+
+
+Definition at line 150 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ab8250f921134af26c18e64442dbd1928}\label{classtransmission__interface_1_1_mia_mrl_transmission_ab8250f921134af26c18e64442dbd1928}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h2\_mrl\_inv@{h2\_mrl\_inv}}
+\index{h2\_mrl\_inv@{h2\_mrl\_inv}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_mrl\_inv()}{h2\_mrl\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h2\+\_\+mrl\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{fi }\end{DoxyParamCaption})}
+
+
+
+Mrl transmission second step inverse function for pose\+: mu = h2\+\_\+mrl\+\_\+inv(fi). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fi} & calibrated joint angle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mu\+: pose in the mia actuator space. 
+\end{DoxyReturn}
+
+
+Definition at line 160 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ac70ef58fd2e905487f154905b5987cc0}\label{classtransmission__interface_1_1_mia_mrl_transmission_ac70ef58fd2e905487f154905b5987cc0}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h\_mrl@{h\_mrl}}
+\index{h\_mrl@{h\_mrl}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_mrl()}{h\_mrl()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h\+\_\+mrl (\begin{DoxyParamCaption}\item[{const double}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Mrl transmission first step function for pose\+: mu = mu = h\+\_\+mrl(pos). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & pose in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/255; +255\mbox{]}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mu\+: pose in the mia actuator space. 
+\end{DoxyReturn}
+
+
+Definition at line 112 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ad1054ea38dd258da8f3954a05c8d7821}\label{classtransmission__interface_1_1_mia_mrl_transmission_ad1054ea38dd258da8f3954a05c8d7821}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h\_mrl\_inv@{h\_mrl\_inv}}
+\index{h\_mrl\_inv@{h\_mrl\_inv}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_mrl\_inv()}{h\_mrl\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h\+\_\+mrl\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{mu }\end{DoxyParamCaption})}
+
+
+
+Mrl transmission first step inverse function for pose\+: pos = h\+\_\+mrl\+\_\+inv(mu). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & pose in the mia actuator space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pos\+: round pose in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/255; +255\mbox{]}). 
+\end{DoxyReturn}
+
+
+Definition at line 123 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a5c86e40a1ab963505b1e9fb00b08b27e}\label{classtransmission__interface_1_1_mia_mrl_transmission_a5c86e40a1ab963505b1e9fb00b08b27e}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!jointToActuatorEffort@{jointToActuatorEffort}}
+\index{jointToActuatorEffort@{jointToActuatorEffort}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{jointToActuatorEffort()}{jointToActuatorEffort()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::joint\+To\+Actuator\+Effort (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{jnt\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Do not use this methos since Mia hand has not effort control. 
+
+
+
+Definition at line 251 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a3658a51d48b62c3fd286554c2e94d3d7}\label{classtransmission__interface_1_1_mia_mrl_transmission_a3658a51d48b62c3fd286554c2e94d3d7}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!jointToActuatorPosition@{jointToActuatorPosition}}
+\index{jointToActuatorPosition@{jointToActuatorPosition}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{jointToActuatorPosition()}{jointToActuatorPosition()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::joint\+To\+Actuator\+Position (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{jnt\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Transform position variables from joint to actuator space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jnt\+\_\+data} & mrl joint target. \\
+\hline
+{\em act\+\_\+data} & returned mrl actuator target. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 206 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a11ad0812202938fc54212dadf684e56a}\label{classtransmission__interface_1_1_mia_mrl_transmission_a11ad0812202938fc54212dadf684e56a}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!jointToActuatorVelocity@{jointToActuatorVelocity}}
+\index{jointToActuatorVelocity@{jointToActuatorVelocity}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{jointToActuatorVelocity()}{jointToActuatorVelocity()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::joint\+To\+Actuator\+Velocity (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{jnt\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Transform velocity variables from joint to actuator space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jnt\+\_\+data} & mrl joint target. \\
+\hline
+{\em act\+\_\+data} & returned mrl actuator target. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 195 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_aba1fdd3c707746af7043415733bfdb61}\label{classtransmission__interface_1_1_mia_mrl_transmission_aba1fdd3c707746af7043415733bfdb61}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!testActuatorToJointPosition@{testActuatorToJointPosition}}
+\index{testActuatorToJointPosition@{testActuatorToJointPosition}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{testActuatorToJointPosition()}{testActuatorToJointPosition()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::test\+Actuator\+To\+Joint\+Position (\begin{DoxyParamCaption}\item[{double}]{act\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 220 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ad6c11f312594294e0b6612665546e163}\label{classtransmission__interface_1_1_mia_mrl_transmission_ad6c11f312594294e0b6612665546e163}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!testJointToActuatorPosition@{testJointToActuatorPosition}}
+\index{testJointToActuatorPosition@{testJointToActuatorPosition}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{testJointToActuatorPosition()}{testJointToActuatorPosition()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::test\+Joint\+To\+Actuator\+Position (\begin{DoxyParamCaption}\item[{double}]{jnt\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 230 of file mia\+\_\+mrl\+\_\+transmission.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a650fa5dc5a35a7fdeca9a219202f6fa9}\label{classtransmission__interface_1_1_mia_mrl_transmission_a650fa5dc5a35a7fdeca9a219202f6fa9}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h2\_mrl\_inv\_offset\_@{h2\_mrl\_inv\_offset\_}}
+\index{h2\_mrl\_inv\_offset\_@{h2\_mrl\_inv\_offset\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_mrl\_inv\_offset\_}{h2\_mrl\_inv\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h2\+\_\+mrl\+\_\+inv\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 169 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ae658743ca22a594f72914d7762f5107f}\label{classtransmission__interface_1_1_mia_mrl_transmission_ae658743ca22a594f72914d7762f5107f}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h2\_mrl\_inv\_scale\_@{h2\_mrl\_inv\_scale\_}}
+\index{h2\_mrl\_inv\_scale\_@{h2\_mrl\_inv\_scale\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_mrl\_inv\_scale\_}{h2\_mrl\_inv\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h2\+\_\+mrl\+\_\+inv\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 170 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_afcc775c48a2c2c48bc72e95d49aa2ca6}\label{classtransmission__interface_1_1_mia_mrl_transmission_afcc775c48a2c2c48bc72e95d49aa2ca6}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h2\_mrl\_offset\_@{h2\_mrl\_offset\_}}
+\index{h2\_mrl\_offset\_@{h2\_mrl\_offset\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_mrl\_offset\_}{h2\_mrl\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h2\+\_\+mrl\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 167 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a8e64c10723be733d79adfb27185a3a0b}\label{classtransmission__interface_1_1_mia_mrl_transmission_a8e64c10723be733d79adfb27185a3a0b}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h2\_mrl\_scale\_@{h2\_mrl\_scale\_}}
+\index{h2\_mrl\_scale\_@{h2\_mrl\_scale\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_mrl\_scale\_}{h2\_mrl\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h2\+\_\+mrl\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 168 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_aa20cc701bee99e67b016f5f6b5d9e19f}\label{classtransmission__interface_1_1_mia_mrl_transmission_aa20cc701bee99e67b016f5f6b5d9e19f}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h\_mrl\_inv\_offset\_@{h\_mrl\_inv\_offset\_}}
+\index{h\_mrl\_inv\_offset\_@{h\_mrl\_inv\_offset\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_mrl\_inv\_offset\_}{h\_mrl\_inv\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h\+\_\+mrl\+\_\+inv\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 165 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_aa3a76b24eaa40734f96f9433f3a963d4}\label{classtransmission__interface_1_1_mia_mrl_transmission_aa3a76b24eaa40734f96f9433f3a963d4}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h\_mrl\_inv\_scale\_@{h\_mrl\_inv\_scale\_}}
+\index{h\_mrl\_inv\_scale\_@{h\_mrl\_inv\_scale\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_mrl\_inv\_scale\_}{h\_mrl\_inv\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h\+\_\+mrl\+\_\+inv\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 166 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ac87cf57797a28fb2344ebfc9bc752f30}\label{classtransmission__interface_1_1_mia_mrl_transmission_ac87cf57797a28fb2344ebfc9bc752f30}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h\_mrl\_offset\_@{h\_mrl\_offset\_}}
+\index{h\_mrl\_offset\_@{h\_mrl\_offset\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_mrl\_offset\_}{h\_mrl\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h\+\_\+mrl\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 163 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a6c864ee6ae3ce47f6d5d06cd88974a04}\label{classtransmission__interface_1_1_mia_mrl_transmission_a6c864ee6ae3ce47f6d5d06cd88974a04}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!h\_mrl\_scale\_@{h\_mrl\_scale\_}}
+\index{h\_mrl\_scale\_@{h\_mrl\_scale\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_mrl\_scale\_}{h\_mrl\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::h\+\_\+mrl\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 164 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_ad3f233f84716b262ed2f786fef141947}\label{classtransmission__interface_1_1_mia_mrl_transmission_ad3f233f84716b262ed2f786fef141947}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!jnt\_offset\_@{jnt\_offset\_}}
+\index{jnt\_offset\_@{jnt\_offset\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{jnt\_offset\_}{jnt\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::jnt\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Offset of teh joint. 
+
+
+
+Definition at line 161 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_mrl_transmission_a6a55cbfd7bf4676c4e65576002fbfea0}\label{classtransmission__interface_1_1_mia_mrl_transmission_a6a55cbfd7bf4676c4e65576002fbfea0}} 
+\index{transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}!reduction\_@{reduction\_}}
+\index{reduction\_@{reduction\_}!transmission\_interface::MiaMrlTransmission@{transmission\_interface::MiaMrlTransmission}}
+\doxysubsubsection{\texorpdfstring{reduction\_}{reduction\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Mrl\+Transmission\+::reduction\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Linear second step reduction of the tranmission. 
+
+
+
+Definition at line 160 of file mia\+\_\+mrl\+\_\+transmission.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/include/mia\+\_\+hand\+\_\+ros\+\_\+control/\mbox{\hyperlink{mia__mrl__transmission_8h}{mia\+\_\+mrl\+\_\+transmission.\+h}}\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/src/\mbox{\hyperlink{mia__mrl__transmission_8cpp}{mia\+\_\+mrl\+\_\+transmission.\+cpp}}\end{DoxyCompactItemize}

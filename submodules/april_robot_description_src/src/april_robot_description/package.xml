@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+    
+    <name>april_robot_description</name>
+    <version>0.0.0</version>
+    <description>
+        URDF model for the april robot.
+        This package was developed and tested in ROS noetic.
+    </description>
+
+    <maintainer email="oscar.lima@dfki.de">Oscar Lima</maintainer>
+
+    <license>BSD</license>
+
+    <author email="oscar.lima@dfki.de">Oscar Lima</author>
+
+    <!-- build dependencies -->
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <!-- run dependencies -->
+    <run_depend>joint_state_publisher</run_depend>
+    <run_depend>robot_state_publisher</run_depend>
+    <run_depend>mia_hand_description</run_depend>
+    <run_depend>ur_description</run_depend>
+
+</package>

@@ -1,0 +1,60 @@
+\hypertarget{mia__transmission__interface_8h}{}\doxysection{home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/include/mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+transmission\+\_\+interface.h File Reference}
+\label{mia__transmission__interface_8h}\index{home/prensila\_ros\_ws/src/mia\_hand\_ros\_pkgs/mia\_hand\_ros\_control/include/mia\_hand\_ros\_control/mia\_transmission\_interface.h@{home/prensila\_ros\_ws/src/mia\_hand\_ros\_pkgs/mia\_hand\_ros\_control/include/mia\_hand\_ros\_control/mia\_transmission\_interface.h}}
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$hardware\+\_\+interface/internal/resource\+\_\+manager.\+h$>$}\newline
+{\ttfamily \#include $<$transmission\+\_\+interface/transmission.\+h$>$}\newline
+{\ttfamily \#include $<$mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+index\+\_\+transmission.\+h$>$}\newline
+{\ttfamily \#include $<$transmission\+\_\+interface/transmission\+\_\+interface\+\_\+exception.\+h$>$}\newline
+Include dependency graph for mia\+\_\+transmission\+\_\+interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mia__transmission__interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mia__transmission__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_transmission_handle}{transmission\+\_\+interface\+::\+Mia\+Transmission\+Handle}}
+\begin{DoxyCompactList}\small\item\em Base class to handle the \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_state_handle}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+State\+Handle}}
+\begin{DoxyCompactList}\small\item\em Class handling for propagating actuator state (position, velocity and effort) to joint state for a given \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_position_handle}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Position\+Handle}}
+\begin{DoxyCompactList}\small\item\em Class handling for propagating actuator positions to joint positions for a given \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_velocity_handle}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Velocity\+Handle}}
+\begin{DoxyCompactList}\small\item\em Class handling for propagating actuator velocity to joint velocity for a given \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_state_handle}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+State\+Handle}}
+\begin{DoxyCompactList}\small\item\em Class handling for propagating joint state (position, velocity) to actuator state for a given \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_position_handle}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Position\+Handle}}
+\begin{DoxyCompactList}\small\item\em Class handling for propagating joint positions to actuator positions for a given \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_velocity_handle}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Velocity\+Handle}}
+\begin{DoxyCompactList}\small\item\em Class handling for propagating joint velocities to actuator velocities for a given \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission}{Mia\+Index\+Transmission}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_transmission_interface}{transmission\+\_\+interface\+::\+Mia\+Transmission\+Interface$<$ Handle\+Type $>$}}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_state_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+State\+Interface}}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_position_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Position\+Interface}}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_actuator_to_joint_velocity_interface}{transmission\+\_\+interface\+::\+Mia\+Actuator\+To\+Joint\+Velocity\+Interface}}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_state_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+State\+Interface}}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_position_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Position\+Interface}}
+\item 
+class \mbox{\hyperlink{classtransmission__interface_1_1_mia_joint_to_actuator_velocity_interface}{transmission\+\_\+interface\+::\+Mia\+Joint\+To\+Actuator\+Velocity\+Interface}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetransmission__interface}{transmission\+\_\+interface}}
+\end{DoxyCompactItemize}

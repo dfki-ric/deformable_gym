@@ -1,0 +1,3 @@
+gazebo_ros_control/pid_gains:
+  j_thumb_opp: {p: 1.5, i: 0.001, d: 0.005, i_clamp: 5}
+  

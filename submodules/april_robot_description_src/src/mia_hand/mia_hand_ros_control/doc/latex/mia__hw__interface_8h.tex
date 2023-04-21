@@ -1,0 +1,61 @@
+\hypertarget{mia__hw__interface_8h}{}\doxysection{home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/include/mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+hw\+\_\+interface.h File Reference}
+\label{mia__hw__interface_8h}\index{home/prensila\_ros\_ws/src/mia\_hand\_ros\_pkgs/mia\_hand\_ros\_control/include/mia\_hand\_ros\_control/mia\_hw\_interface.h@{home/prensila\_ros\_ws/src/mia\_hand\_ros\_pkgs/mia\_hand\_ros\_control/include/mia\_hand\_ros\_control/mia\_hw\_interface.h}}
+{\ttfamily \#include $<$hardware\+\_\+interface/joint\+\_\+state\+\_\+interface.\+h$>$}\newline
+{\ttfamily \#include $<$hardware\+\_\+interface/joint\+\_\+command\+\_\+interface.\+h$>$}\newline
+{\ttfamily \#include $<$hardware\+\_\+interface/robot\+\_\+hw.\+h$>$}\newline
+{\ttfamily \#include $<$joint\+\_\+limits\+\_\+interface/joint\+\_\+limits.\+h$>$}\newline
+{\ttfamily \#include $<$joint\+\_\+limits\+\_\+interface/joint\+\_\+limits\+\_\+interface.\+h$>$}\newline
+{\ttfamily \#include $<$joint\+\_\+limits\+\_\+interface/joint\+\_\+limits\+\_\+rosparam.\+h$>$}\newline
+{\ttfamily \#include $<$joint\+\_\+limits\+\_\+interface/joint\+\_\+limits\+\_\+urdf.\+h$>$}\newline
+{\ttfamily \#include $<$controller\+\_\+manager/controller\+\_\+manager.\+h$>$}\newline
+{\ttfamily \#include $<$boost/scoped\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$ros/ros.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+msgs/\+Fingers\+Data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+msgs/\+Fingers\+Strain\+Gauges.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+msgs/\+Grasp\+Ref.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+msgs/\+Connect\+Serial.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+msgs/\+Component\+Status.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Int16.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+String.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Empty.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Set\+Bool.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Trigger.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$urdf/model.\+h$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$transmission\+\_\+interface/transmission\+\_\+parser.\+h$>$}\newline
+{\ttfamily \#include $<$transmission\+\_\+interface/transmission\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$transmission\+\_\+interface/transmission\+\_\+interface.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+transmission\+\_\+interface.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+thfle\+\_\+transmission.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+mrl\+\_\+transmission.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+ros\+\_\+control/mia\+\_\+index\+\_\+transmission.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+driver/cpp\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mia\+\_\+hand\+\_\+description/mia\+\_\+thumb\+\_\+opp\+\_\+passivejoints.\+h\char`\"{}}\newline
+Include dependency graph for mia\+\_\+hw\+\_\+interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mia__hw__interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mia__hw__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmia__hand_1_1_joint__index__mapping}{mia\+\_\+hand\+::\+Joint\+\_\+index\+\_\+mapping}}
+\begin{DoxyCompactList}\small\item\em Struct to store the indexes of each joints in the \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface}{Mia\+H\+W\+Interface}} Class Index of each joint depends on the order of trasmission defined in the urdf file. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classmia__hand_1_1_mia_h_w_interface}{mia\+\_\+hand\+::\+Mia\+H\+W\+Interface}}
+\begin{DoxyCompactList}\small\item\em Class hardware interface of the real Mia hand. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacemia__hand}{mia\+\_\+hand}}
+\end{DoxyCompactItemize}

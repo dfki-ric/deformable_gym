@@ -1,0 +1,41 @@
+Package for controlling the real Mia Hand within R\+OS Control. The cpp class Mia\+H\+W\+Interface inherits from public hardware\+\_\+interface\+::\+Robot\+HW and allows to control the Mia Hand coupled fingers using the R\+OS controllers. In this package a specific transmission class has been declared for each of the three actuators of the Mia hand due to their non linear and peculiar behaviours.
+
+To launch the real mia hand it is necessary to launch the Mia\+\_\+hw\+\_\+node that implements the actual control loop. To do that one of the following pre-\/tested commands can be used\+:
+
+
+\begin{DoxyItemize}
+\item to launch the control loop (frequency 100Hz) with one controller (position controller as default) for each DoF of the Mia Hand, attaching the Mia hand at C\+OM 0 (default)\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_hw.launch
+\end{DoxyVerb}
+
+
+Other inputs arguments of the above launch file are\+: \begin{DoxyVerb}Mia_COM_:               default='0'            doc="Int number of the Mia hand COM port"
+Mia_fs_:                default='100'          doc="Hz, frequency of the control loop of the Mia Hw interface"
+controller_thumb_fle    default="position"     doc="type of feed forward controller for thumb flexion. Values: position, velocity"
+controller_index_fle    default="position"     doc="type of feed forward controller for indexe flexion. Values: position, velocity"
+controller_mrl_fle      default="position"     doc="type of feed forward controller for mrl flexion. Values: position, velocity"
+robotNamespace          default="mia_hand_hw"  doc="Namespace of the robot"
+\end{DoxyVerb}
+
+\item to launch the control loop (frequency 100Hz) with a traj controller (velocity traj controller as default) that control all the DoF of the Mia Hand, attaching the Mia hand at C\+OM 0 (default)\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_hw_traj.launch
+\end{DoxyVerb}
+
+
+Other inputs arguments of the above launch file are\+: \begin{DoxyVerb}Mia_COM_:               default='0'            doc="Int number of the Mia hand COM port"
+Mia_fs_:                default='100'          doc="Hz, frequency of the control loop of the Mia Hw interface"
+tc_type:                default="vel"          doc="type of trajectory controller to launch. Values: vel, pos"
+robotNamespace          default="mia_hand_hw"  doc="Namespace of the robot"
+\end{DoxyVerb}
+
+\item to launch the control loop (frequency 100Hz) with a traj controller (velocity traj controller as default) and the R\+V\+IZ Moveit G\+UI, attaching the Mia hand at C\+OM 0 (default)\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_hw_moveit.launch
+\end{DoxyVerb}
+
+
+Other inputs arguments of the above launch file are\+: \begin{DoxyVerb}Mia_COM_:               default='0'            doc="Int number of the Mia hand COM port"
+Mia_fs_:                default='100'          doc="Hz, frequency of the control loop of the Mia Hw interface"
+tc_type:                default="vel"          doc="type of trajectory controller to launch. Values: vel, pos"
+robotNamespace          default="mia_hand_hw"  doc="Namespace of the robot"
+\end{DoxyVerb}
+
+
+NB\+: to run this command the mia\+\_\+hand\+\_\+moveit\+\_\+config package is needed. When the R\+V\+Iz turns on it is possible to use the moveit plug-\/in to control the \mbox{\hyperlink{namespacemia__hand}{mia\+\_\+hand}} subgroup chains (thumb\+\_\+flexion, index\+\_\+flexion and mrl\+\_\+flexion). For the index two different links will be displayed (if the option to visualize the moveit goal position is selected)\+: one index link displays the signed target position (for exaple index in position -\/1.\+2 rad), the other index link displays the actual configuration of the index ( so after having reached the target position of -\/1.\+2 rad this index link will be at pos 1.\+2 rad flexed and the thumb will be adducted). 
+\end{DoxyItemize}

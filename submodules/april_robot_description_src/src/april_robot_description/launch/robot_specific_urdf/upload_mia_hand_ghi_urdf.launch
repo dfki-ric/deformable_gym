@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- full path to urdf model -->
+  <arg name="urdf_path" default="$(find april_robot_description)/urdf/mia_hand.urdf.xacro" />
+
+  <!--no arm required-->
+  <arg name="arm_urdf_args" value=""/>
+
+  <!--use DefaultRobotHWSim + mimic joint plugin-->
+  <arg name="hand_urdf_args" value="mia_hw_sim:=false"/>
+
+  <!--urdf_args = arm urdf args + hand urdf args-->
+  <arg name="urdf_args" value="$(arg arm_urdf_args) $(arg hand_urdf_args)" />
+
+  <!-- upload robot URDF model to parameter server -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro '$(arg urdf_path)' $(arg urdf_args)" />
+
+</launch>

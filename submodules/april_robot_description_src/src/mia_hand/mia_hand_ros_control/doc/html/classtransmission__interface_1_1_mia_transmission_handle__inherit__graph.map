@@ -1,0 +1,9 @@
+<map id="transmission_interface::MiaTransmissionHandle" name="transmission_interface::MiaTransmissionHandle">
+<area shape="rect" id="node1" title="Base class to handle the MiaIndexTransmission." alt="" coords="5,199,192,241"/>
+<area shape="rect" id="node2" href="$classtransmission__interface_1_1_mia_actuator_to_joint_position_handle.html" title="Class handling for propagating actuator positions to joint positions for a given MiaIndexTransmission..." alt="" coords="254,5,458,61"/>
+<area shape="rect" id="node3" href="$classtransmission__interface_1_1_mia_actuator_to_joint_state_handle.html" title="Class handling for propagating actuator state (position, velocity and effort) to joint state for a gi..." alt="" coords="240,86,472,127"/>
+<area shape="rect" id="node4" href="$classtransmission__interface_1_1_mia_actuator_to_joint_velocity_handle.html" title="Class handling for propagating actuator velocity to joint velocity for a given MiaIndexTransmission." alt="" coords="253,152,459,208"/>
+<area shape="rect" id="node5" href="$classtransmission__interface_1_1_mia_joint_to_actuator_position_handle.html" title="Class handling for propagating joint positions to actuator positions for a given MiaIndexTransmission..." alt="" coords="254,232,458,288"/>
+<area shape="rect" id="node6" href="$classtransmission__interface_1_1_mia_joint_to_actuator_state_handle.html" title="Class handling for propagating joint state (position, velocity) to actuator state for a given MiaInde..." alt="" coords="240,313,472,354"/>
+<area shape="rect" id="node7" href="$classtransmission__interface_1_1_mia_joint_to_actuator_velocity_handle.html" title="Class handling for propagating joint velocities to actuator velocities for a given MiaIndexTransmissi..." alt="" coords="253,379,459,435"/>
+</map>

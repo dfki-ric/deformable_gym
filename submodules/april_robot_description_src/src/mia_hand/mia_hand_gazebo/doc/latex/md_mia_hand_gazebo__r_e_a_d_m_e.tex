@@ -1,0 +1,39 @@
+Package for simulating Mia Hand in Gazebo environment, interfacing the simulated hardware with R\+OS Control. The cpp class Mia\+\_\+hw\+\_\+sim expand the gazebo class gazebo\+\_\+ros\+\_\+control/\+Default\+Robot\+H\+W\+Sim and allow to simulate the non linear behaviour of the Mia Hand coupled fingers. If the simulated Mia hand is attached to another robot the Mia\+\_\+hw\+\_\+sim class controls the joints of the additional robot as the gazebo\+\_\+ros\+\_\+control/\+Default\+Robot\+H\+W\+Sim does. This allow to use Mia\+\_\+hw\+\_\+sim with every robot.
+
+To be use add the Mia\+H\+W\+Sim plugin lib in the gazebo ros control plugin lines as shown in the following example\+:
+
+\begin{DoxyVerb}< gazebo >
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace> $(arg robotNamespace) </robotNamespace>
+        <robotSimType> mia/MiaHWSim </robotSimType>
+    </plugin>
+<gazebo>
+\end{DoxyVerb}
+
+
+In the folder config some simple controllers and trajectories controllers are provided. Please note that these controllers can be used in the robot\+Namespace \char`\"{}/\char`\"{}. If the exploited robotnamespace is different adjust the namespace by declaring the robot\+Namespace argumentes in the launch file listed below. By default robot\+Namespace\+:=mia\+\_\+hand\+\_\+sim.
+
+To launch the mia hand simulation you can use one of the following commands (please use robot\+Namespace arg to specify the namespace, by default robot\+Namespace\+:=mia\+\_\+hand\+\_\+sim)\+:
+
+
+\begin{DoxyItemize}
+\item to launch simulation with one controller (velocity controller as default) for each DoF of the Mia Hand\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_Sim.launch
+\end{DoxyVerb}
+
+\item to launch simulation with one controller for each DoF of the Mia Hand specifying its type (in the exaple Position controllers for the thumb, Effort controllers for the index and Velocity controller for the mrl fingers\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_Sim.launch hw_interface_thumb_fle:=PositionJointInterface controller_thumb_fle:=position hw_interface_index_fle:=EffortJointInterface controller_index_fle:=eff hw_interface_mrl_fle:=VelocityJointInterface controller_mrl_fle:=velocity
+\end{DoxyVerb}
+
+\item to launch simulation with trajectory controller (velocity controller as default)\+: \begin{DoxyVerb} roslaunch mia_hand_bringup mia_hand_Sim_traj.launch
+\end{DoxyVerb}
+
+\item to launch simulation with trajectory controller specifying the type
+\begin{DoxyItemize}
+\item (for example velocity)\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_Sim_traj.launch tc_type:=vel eff_interface:=false
+\end{DoxyVerb}
+
+\item (for example position)\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_Sim_traj.launch tc_type:=pos eff_interface:=false
+\end{DoxyVerb}
+
+\item Note that\+: Effort control is not implemented in the real Mia hand. 
+\end{DoxyItemize}
+\end{DoxyItemize}

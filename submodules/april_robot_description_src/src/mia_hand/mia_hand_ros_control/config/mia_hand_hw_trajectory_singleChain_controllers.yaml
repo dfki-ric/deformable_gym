@@ -1,0 +1,147 @@
+#---------------------------------------------------------------------
+# Traj Controllers for mia hand hw interface v1.0
+#---------------------------------------------------------------------
+
+
+#mia_hand:
+
+#------------------------------------------------------------------
+# Trajectory Position Controllers ---------------------------------------
+#--------------------------------------------------------------------
+
+  mia_hand_index_pos_trajectory_controller:
+      type: position_controllers/JointTrajectoryController
+      joints:
+        - j_index_fle
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 1.0
+        j_index_fle:
+          goal: &goal_tp_constraint 0.5
+          trajectory: &trajectory_tp_constraint 1.0
+
+
+      stop_trajectory_duration: 1.0
+
+
+
+  mia_hand_mrl_pos_trajectory_controller:
+      type: position_controllers/JointTrajectoryController
+      joints:
+        - j_mrl_fle
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 1.0
+        j_mrl_fle:
+          goal: *goal_tp_constraint
+          trajectory: *trajectory_tp_constraint
+
+      stop_trajectory_duration: 1.0
+
+
+
+  mia_hand_thumb_pos_trajectory_controller:
+      type: position_controllers/JointTrajectoryController
+      joints:
+        - j_thumb_fle
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 1.0
+        j_thumb_fle:
+          goal: *goal_tp_constraint
+          trajectory: *trajectory_tp_constraint
+
+      stop_trajectory_duration: 1.0
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------
+# Trajectory Velocity Controllers ---------------------------------------
+#--------------------------------------------------------------------
+
+  # joint (actionlib) trajectory controller
+  # check http://wiki.ros.org/joint_trajectory_controller
+  mia_hand_index_vel_trajectory_controller:
+      type: velocity_controllers/JointTrajectoryController
+      joints:
+        - j_index_fle
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 0
+        j_index_fle:
+          goal: &goal_tv_constraint 0.5
+          trajectory: &trajectory_tv_constraint 1.0
+
+      gains:
+        j_index_fle:
+          p: &p_tvi_gain 4.2
+          i: &i_tvi_gain 1
+          d: &d_tvi_gain 0.24
+          antiwindup: &a_tvi_value true
+          i_clamp_max: &i_tvi_clamp_max_value 0.5
+          i_clamp_min: &i_tvi_clamp_min_value -3
+
+      velocity_ff:
+        j_index_fle: 1.4
+
+      stop_trajectory_duration: 1.0
+
+
+  mia_hand_mrl_vel_trajectory_controller:
+      type: velocity_controllers/JointTrajectoryController
+      joints:
+        - j_mrl_fle
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 0
+        j_mrl_fle:
+          goal: *goal_tv_constraint
+          trajectory: *trajectory_tv_constraint
+
+      gains:
+        j_mrl_fle:
+          p: &p_tvm_gain 4.0
+          i: &i_tvm_gain 1.05
+          d: &d_tvm_gain 0.2
+          antiwindup: &a_tvm_value true
+          i_clamp_max: &i_tvm_clamp_max_value 0.5
+          i_clamp_min: &i_tvm_clamp_min_value -3
+
+      velocity_ff:
+        j_mrl_fle: 1.7
+
+      stop_trajectory_duration: 1.0
+
+  mia_hand_thumb_vel_trajectory_controller:
+      type: velocity_controllers/JointTrajectoryController
+      joints:
+        - j_thumb_fle
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 0
+        j_thumb_fle:
+          goal: *goal_tv_constraint
+          trajectory: *trajectory_tv_constraint
+
+
+      gains:
+        j_thumb_fle:
+          p: &p_tvt_gain 4.2
+          i: &i_tvt_gain 3
+          d: &d_tvt_gain 0.2
+          antiwindup: &a_tvt_value true
+          i_clamp_max: &i_tvt_clamp_max_value 00.5
+          i_clamp_min: &i_tvt_clamp_min_value -3
+
+
+      velocity_ff:
+        j_thumb_fle: 1.4
+
+      stop_trajectory_duration: 1.0

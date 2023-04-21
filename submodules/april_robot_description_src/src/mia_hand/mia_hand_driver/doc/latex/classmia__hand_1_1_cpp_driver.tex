@@ -1,0 +1,802 @@
+\hypertarget{classmia__hand_1_1_cpp_driver}{}\doxysection{mia\+\_\+hand\+::Cpp\+Driver Class Reference}
+\label{classmia__hand_1_1_cpp_driver}\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+
+
+{\ttfamily \#include $<$cpp\+\_\+driver.\+h$>$}
+
+
+
+Collaboration diagram for mia\+\_\+hand\+::Cpp\+Driver\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmia__hand_1_1_cpp_driver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver_aff1a0e65260b0c04c55746947da5b4d5}{Cpp\+Driver}} ()
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver_ad9fec80cea427c102c24ac843184723f}{$\sim$\+Cpp\+Driver}} ()
+\begin{DoxyCompactList}\small\item\em Class destructor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a699c952911440111a4d43880d54b6881}{connect\+To\+Port}} (uint16\+\_\+t port\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Open serial port used to plug Mia hand. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_abd016409162f6ec5f5e5a4d29e42808c}{disconnect}} ()
+\begin{DoxyCompactList}\small\item\em Disconnect the Mia hand closing the serial port. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_afb25716e2c30c089247304212adde07e}{is\+Connected}} ()
+\begin{DoxyCompactList}\small\item\em Function returning the connection status of the Mia hand. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a82044d90867462c299b7381c123a1fbc}{set\+Motor\+Pos}} (uint8\+\_\+t fin\+\_\+id, int16\+\_\+t mot\+\_\+pos)
+\begin{DoxyCompactList}\small\item\em Set the target position of a specific motor of the Mia hand. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a7f348563190402b9db574050e566992e}{set\+Motor\+Spe}} (uint8\+\_\+t fin\+\_\+id, int16\+\_\+t mot\+\_\+spe)
+\begin{DoxyCompactList}\small\item\em Set the target velocity of a specific motor of the Mia hand. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_ac26d6990ed0f8ea9818bb1808efd45ef}{set\+Finger\+For}} (uint8\+\_\+t fin\+\_\+id, int16\+\_\+t fin\+\_\+for)
+\begin{DoxyCompactList}\small\item\em Set the target force of a specific motor of the Mia hand. \end{DoxyCompactList}\item 
+int16\+\_\+t \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a076a0ef053e542f076ea0f6f32b75138}{get\+Motor\+Pos}} (uint8\+\_\+t fin\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Get the current position of a specific motor of the Mia hand. \end{DoxyCompactList}\item 
+int16\+\_\+t \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a0cd067eeedb9021563c49b0d0bec988c}{get\+Motor\+Spe}} (uint8\+\_\+t fin\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Get the current velocity of a specific motor of the Mia hand. \end{DoxyCompactList}\item 
+int16\+\_\+t \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a99bb849296de957fbe353ef40080f199}{get\+Motor\+Cur}} (uint8\+\_\+t fin\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Get the current currently absorbed by a specific motor of the Mia hand. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a8518e29b9907107216b5e02e8cab730f}{get\+Finger\+Sg\+Raw}} (uint8\+\_\+t fin\+\_\+id, int16\+\_\+t \&nor\+\_\+for, int16\+\_\+t \&tan\+\_\+for)
+\begin{DoxyCompactList}\small\item\em Get the current output of the force sensor of a specific finger of the Mia hand. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a68c3ce11dcaf7369ae2bea4d1eaddd22}{open\+Grasp}} (char grasp\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Go to rest pose of a grasp type Move all the Mia hand fingers to the rest pose of a specific grasp type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_abe36f25db08833416ea0b98da79c5bf4}{close\+Grasp}} (char grasp\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Go to closed pose of a grasp type Move all the Mia hand fingers to the closed pose of a specific grasp type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a013502c0ca2f8211b59f7f853b54b031}{close\+Grasp}} (char grasp\+\_\+id, int16\+\_\+t close\+\_\+percent)
+\begin{DoxyCompactList}\small\item\em Go to intermediate pose of a grasp type Move all the Mia hand fingers to a specific intermediate pose of a specific grasp type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_ad1e3500b9f4b2dce2e4ba768cc93d31c}{set\+Thu\+Grasp\+Ref}} (char grasp\+\_\+id, int16\+\_\+t rest, int16\+\_\+t pos, int16\+\_\+t delay)
+\begin{DoxyCompactList}\small\item\em Set grasp parameter for thumb flexion motor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a25cc8db4088f5a8e89769f4a9e3d7b2e}{set\+Ind\+Grasp\+Ref}} (char grasp\+\_\+id, int16\+\_\+t rest, int16\+\_\+t pos, int16\+\_\+t delay)
+\begin{DoxyCompactList}\small\item\em Set grasp parameter for Index flexion + thumb abduction motor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a0b6e6af5b7d9198ee3e9da1d194f0443}{set\+Mrl\+Grasp\+Ref}} (char grasp\+\_\+id, int16\+\_\+t rest, int16\+\_\+t pos, int16\+\_\+t delay)
+\begin{DoxyCompactList}\small\item\em Set grasp parameter for M\+RL flexion motor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a06969f2eae325f54f9e3571ebf6d6a6d}{switch\+Pos\+Stream}} (bool b\+\_\+on\+\_\+off)
+\begin{DoxyCompactList}\small\item\em Manage the streaming of the motors position data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_afdbde6f1a2f5a5fb0ab8d62235580698}{switch\+Spe\+Stream}} (bool b\+\_\+on\+\_\+off)
+\begin{DoxyCompactList}\small\item\em Manage the streaming of the motors velocity data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_ab82b97e83e3d4fd0ecdbf5d1d8ac8fa5}{switch\+Ana\+Stream}} (bool b\+\_\+on\+\_\+off)
+\begin{DoxyCompactList}\small\item\em Manage the streaming of analog input data (as the straing gauge force sensors). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a1485e7e0f667aba13e6a023b36d01f0f}{switch\+Cur\+Stream}} (bool b\+\_\+on\+\_\+off)
+\begin{DoxyCompactList}\small\item\em Manage the streaming of the current absorbed by Mi hand motors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a3642749f9e30f4d322f53e7721f53f39}{num\+To\+Str}} (int16\+\_\+t num, int8\+\_\+t n\+\_\+digits)
+\begin{DoxyCompactList}\small\item\em Convert integer number into string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a04cc855f067d15dea3b5ccd1fcc35776}{poll\+Serial\+Port}} ()
+\begin{DoxyCompactList}\small\item\em Function of the serial\+\_\+poll\+\_\+trd\+\_\+ thread. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a3e4669f1fb5e41b943d2c7e84d69b1ef}{check\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Function of the check\+\_\+connection\+\_\+trd\+\_\+ thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmia__hand_1_1_serial_port}{Serial\+Port}} \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a058d6e7b13b0913bb1a8999ed83fa30a}{serial\+\_\+port\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Hanlder of the serial port\+\_\+num. \end{DoxyCompactList}\item 
+std\+::thread \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a80c5cba5f6599d80d43b55bd69d620d3}{serial\+\_\+poll\+\_\+trd\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Thread to execute the parse of the data received by the Mia hand. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_afed04beb18471a3230e4783b2be3692e}{serial\+\_\+trd\+\_\+on\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a80c5cba5f6599d80d43b55bd69d620d3}{serial\+\_\+poll\+\_\+trd\+\_\+}} thread is running. \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_aa52ffa13f448bcae812515102def5819}{finger\+\_\+data\+\_\+mtx\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Mutex to handle the reading of the motors finger data. \end{DoxyCompactList}\item 
+std\+::thread \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a580785629c6354484097b8d5e0f7d4b9}{check\+\_\+connection\+\_\+trd\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Thread to execute the check of the Mia hand connection. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a5cd21e0d6628161f621d0cd0e638e2b8}{connection\+\_\+trd\+\_\+on\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a580785629c6354484097b8d5e0f7d4b9}{check\+\_\+connection\+\_\+trd\+\_\+}} thread is running. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_aba680f74568f9d08f69d5685ea2d4547}{is\+\_\+checking\+\_\+on\+\_\+}}
+\item 
+std\+::mutex \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_af0d9f5309891347310e89491691b04dc}{reply\+\_\+mtx\+\_\+}}
+\item 
+std\+::mutex \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a2a982f01ad501c5277ca0af79f8b3d40}{connection\+\_\+mtx\+\_\+}}
+\item 
+\mbox{\hyperlink{structmia__hand_1_1_finger_serial_info}{Finger\+Serial\+Info}} \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a372fee3bfdffb0fced033995a2582bc9}{thumb\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Info about the thumb flexion motor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmia__hand_1_1_finger_serial_info}{Finger\+Serial\+Info}} \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a78a1979258e3bd830d694864f9ae2c16}{index\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Info about the index flexion motor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmia__hand_1_1_finger_serial_info}{Finger\+Serial\+Info}} \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_aa3dc97fb83a164b785adf831888bd939}{mrl\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Info about the mrl flexion motor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_acdfdd69aaf46d47fbf0eeb5a969095f1}{is\+\_\+connected\+\_\+}}
+\begin{DoxyCompactList}\small\item\em True if the Mia hand is conncted, False otherwise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 24 of file cpp\+\_\+driver.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_aff1a0e65260b0c04c55746947da5b4d5}\label{classmia__hand_1_1_cpp_driver_aff1a0e65260b0c04c55746947da5b4d5}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!CppDriver@{CppDriver}}
+\index{CppDriver@{CppDriver}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{CppDriver()}{CppDriver()}}
+{\footnotesize\ttfamily mia\+\_\+hand\+::\+Cpp\+Driver\+::\+Cpp\+Driver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class constructor. 
+
+
+
+Definition at line 5 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_ad9fec80cea427c102c24ac843184723f}\label{classmia__hand_1_1_cpp_driver_ad9fec80cea427c102c24ac843184723f}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!````~CppDriver@{$\sim$CppDriver}}
+\index{````~CppDriver@{$\sim$CppDriver}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{$\sim$CppDriver()}{~CppDriver()}}
+{\footnotesize\ttfamily mia\+\_\+hand\+::\+Cpp\+Driver\+::$\sim$\+Cpp\+Driver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class destructor. 
+
+
+
+Definition at line 22 of file cpp\+\_\+driver.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a3e4669f1fb5e41b943d2c7e84d69b1ef}\label{classmia__hand_1_1_cpp_driver_a3e4669f1fb5e41b943d2c7e84d69b1ef}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!checkConnection@{checkConnection}}
+\index{checkConnection@{checkConnection}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{checkConnection()}{checkConnection()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::check\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function of the check\+\_\+connection\+\_\+trd\+\_\+ thread. 
+
+While the check\+\_\+connection\+\_\+trd\+\_\+ thread is active, check if the Mia hand is connected. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a580785629c6354484097b8d5e0f7d4b9}{check\+\_\+connection\+\_\+trd\+\_\+}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 479 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_abe36f25db08833416ea0b98da79c5bf4}\label{classmia__hand_1_1_cpp_driver_abe36f25db08833416ea0b98da79c5bf4}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!closeGrasp@{closeGrasp}}
+\index{closeGrasp@{closeGrasp}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{closeGrasp()}{closeGrasp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::close\+Grasp (\begin{DoxyParamCaption}\item[{char}]{grasp\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Go to closed pose of a grasp type Move all the Mia hand fingers to the closed pose of a specific grasp type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grasp\+\_\+id} & Type of grasp\+: \textquotesingle{}C\textquotesingle{} cylindical, \textquotesingle{}L\textquotesingle{} lateral, \textquotesingle{}P\textquotesingle{} pinch, \textquotesingle{}S\textquotesingle{} spherical, \textquotesingle{}T\textquotesingle{} tridigital grasp. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 284 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a013502c0ca2f8211b59f7f853b54b031}\label{classmia__hand_1_1_cpp_driver_a013502c0ca2f8211b59f7f853b54b031}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!closeGrasp@{closeGrasp}}
+\index{closeGrasp@{closeGrasp}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{closeGrasp()}{closeGrasp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::close\+Grasp (\begin{DoxyParamCaption}\item[{char}]{grasp\+\_\+id,  }\item[{int16\+\_\+t}]{close\+\_\+percent }\end{DoxyParamCaption})}
+
+
+
+Go to intermediate pose of a grasp type Move all the Mia hand fingers to a specific intermediate pose of a specific grasp type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grasp\+\_\+id} & Type of grasp\+: \textquotesingle{}C\textquotesingle{} cylindical, \textquotesingle{}L\textquotesingle{} lateral, \textquotesingle{}P\textquotesingle{} pinch, \textquotesingle{}S\textquotesingle{} spherical, \textquotesingle{}T\textquotesingle{} tridigital grasp. \\
+\hline
+{\em close\+\_\+percent} & Percentage of closure \mbox{[}0, 100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 292 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a699c952911440111a4d43880d54b6881}\label{classmia__hand_1_1_cpp_driver_a699c952911440111a4d43880d54b6881}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!connectToPort@{connectToPort}}
+\index{connectToPort@{connectToPort}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{connectToPort()}{connectToPort()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::connect\+To\+Port (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{port\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Open serial port used to plug Mia hand. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port\+\_\+num} & number of the serial port to open. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the port has been opened, False otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 30 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_abd016409162f6ec5f5e5a4d29e42808c}\label{classmia__hand_1_1_cpp_driver_abd016409162f6ec5f5e5a4d29e42808c}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disconnect the Mia hand closing the serial port. 
+
+\begin{DoxyReturn}{Returns}
+True if the serial port has been closed, False otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 37 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a8518e29b9907107216b5e02e8cab730f}\label{classmia__hand_1_1_cpp_driver_a8518e29b9907107216b5e02e8cab730f}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!getFingerSgRaw@{getFingerSgRaw}}
+\index{getFingerSgRaw@{getFingerSgRaw}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{getFingerSgRaw()}{getFingerSgRaw()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::get\+Finger\+Sg\+Raw (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id,  }\item[{int16\+\_\+t \&}]{nor\+\_\+for,  }\item[{int16\+\_\+t \&}]{tan\+\_\+for }\end{DoxyParamCaption})}
+
+
+
+Get the current output of the force sensor of a specific finger of the Mia hand. 
+
+Get the normal and tangential force signal output of the strain gauge included in the finger of the Mia hand 
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+{\em nor\+\_\+for} & sensor output describing the normal force applied on the finger. \\
+\hline
+{\em tan\+\_\+for} & sensor output describing the tangential force applied on the finger. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 238 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a99bb849296de957fbe353ef40080f199}\label{classmia__hand_1_1_cpp_driver_a99bb849296de957fbe353ef40080f199}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!getMotorCur@{getMotorCur}}
+\index{getMotorCur@{getMotorCur}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{getMotorCur()}{getMotorCur()}}
+{\footnotesize\ttfamily int16\+\_\+t mia\+\_\+hand\+::\+Cpp\+Driver\+::get\+Motor\+Cur (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Get the current currently absorbed by a specific motor of the Mia hand. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+position of the target motor as \mbox{[}0, +1024\mbox{]}. 
+\end{DoxyReturn}
+
+
+Definition at line 202 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a076a0ef053e542f076ea0f6f32b75138}\label{classmia__hand_1_1_cpp_driver_a076a0ef053e542f076ea0f6f32b75138}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!getMotorPos@{getMotorPos}}
+\index{getMotorPos@{getMotorPos}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{getMotorPos()}{getMotorPos()}}
+{\footnotesize\ttfamily int16\+\_\+t mia\+\_\+hand\+::\+Cpp\+Driver\+::get\+Motor\+Pos (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Get the current position of a specific motor of the Mia hand. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+position of the target motor as \mbox{[}-\/255, +255\mbox{]} for index motor and \mbox{[}0, 255\mbox{]} otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 130 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a0cd067eeedb9021563c49b0d0bec988c}\label{classmia__hand_1_1_cpp_driver_a0cd067eeedb9021563c49b0d0bec988c}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!getMotorSpe@{getMotorSpe}}
+\index{getMotorSpe@{getMotorSpe}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{getMotorSpe()}{getMotorSpe()}}
+{\footnotesize\ttfamily int16\+\_\+t mia\+\_\+hand\+::\+Cpp\+Driver\+::get\+Motor\+Spe (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Get the current velocity of a specific motor of the Mia hand. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+position of the target motor as \mbox{[}-\/90, +90\mbox{]}. 
+\end{DoxyReturn}
+
+
+Definition at line 166 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_afb25716e2c30c089247304212adde07e}\label{classmia__hand_1_1_cpp_driver_afb25716e2c30c089247304212adde07e}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::is\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function returning the connection status of the Mia hand. 
+
+\begin{DoxyReturn}{Returns}
+True if the Mia hand is attached to the sertial port, False otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 51 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a3642749f9e30f4d322f53e7721f53f39}\label{classmia__hand_1_1_cpp_driver_a3642749f9e30f4d322f53e7721f53f39}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!numToStr@{numToStr}}
+\index{numToStr@{numToStr}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{numToStr()}{numToStr()}}
+{\footnotesize\ttfamily std\+::string mia\+\_\+hand\+::\+Cpp\+Driver\+::num\+To\+Str (\begin{DoxyParamCaption}\item[{int16\+\_\+t}]{num,  }\item[{int8\+\_\+t}]{n\+\_\+digits }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Convert integer number into string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & Integer number to be converted. \\
+\hline
+{\em n\+\_\+digits} & Number of digits of the integer to be converted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string of the input integer. 
+\end{DoxyReturn}
+
+
+Definition at line 453 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a68c3ce11dcaf7369ae2bea4d1eaddd22}\label{classmia__hand_1_1_cpp_driver_a68c3ce11dcaf7369ae2bea4d1eaddd22}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!openGrasp@{openGrasp}}
+\index{openGrasp@{openGrasp}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{openGrasp()}{openGrasp()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::open\+Grasp (\begin{DoxyParamCaption}\item[{char}]{grasp\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Go to rest pose of a grasp type Move all the Mia hand fingers to the rest pose of a specific grasp type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grasp\+\_\+id} & Type of grasp\+: \textquotesingle{}C\textquotesingle{} cylindical, \textquotesingle{}L\textquotesingle{} lateral, \textquotesingle{}P\textquotesingle{} pinch, \textquotesingle{}S\textquotesingle{} spherical, \textquotesingle{}T\textquotesingle{} tridigital grasp. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 276 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a04cc855f067d15dea3b5ccd1fcc35776}\label{classmia__hand_1_1_cpp_driver_a04cc855f067d15dea3b5ccd1fcc35776}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!pollSerialPort@{pollSerialPort}}
+\index{pollSerialPort@{pollSerialPort}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{pollSerialPort()}{pollSerialPort()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::poll\+Serial\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function of the serial\+\_\+poll\+\_\+trd\+\_\+ thread. 
+
+While the serial\+\_\+poll\+\_\+trd\+\_\+ thread is active, parse the data received from the Mia hand. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a80c5cba5f6599d80d43b55bd69d620d3}{serial\+\_\+poll\+\_\+trd\+\_\+}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 468 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_ac26d6990ed0f8ea9818bb1808efd45ef}\label{classmia__hand_1_1_cpp_driver_ac26d6990ed0f8ea9818bb1808efd45ef}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!setFingerFor@{setFingerFor}}
+\index{setFingerFor@{setFingerFor}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{setFingerFor()}{setFingerFor()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::set\+Finger\+For (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id,  }\item[{int16\+\_\+t}]{fin\+\_\+for }\end{DoxyParamCaption})}
+
+
+
+Set the target force of a specific motor of the Mia hand. 
+
+This function can be used to move specific Mia hand finger with force control. 
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+{\em fin\+\_\+for} & target finger velocity \mbox{[}0, +1024\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 108 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a25cc8db4088f5a8e89769f4a9e3d7b2e}\label{classmia__hand_1_1_cpp_driver_a25cc8db4088f5a8e89769f4a9e3d7b2e}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!setIndGraspRef@{setIndGraspRef}}
+\index{setIndGraspRef@{setIndGraspRef}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{setIndGraspRef()}{setIndGraspRef()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::set\+Ind\+Grasp\+Ref (\begin{DoxyParamCaption}\item[{char}]{grasp\+\_\+id,  }\item[{int16\+\_\+t}]{rest,  }\item[{int16\+\_\+t}]{pos,  }\item[{int16\+\_\+t}]{delay }\end{DoxyParamCaption})}
+
+
+
+Set grasp parameter for Index flexion + thumb abduction motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grasp\+\_\+id} & Type of grasp to set\+: \textquotesingle{}C\textquotesingle{} cylindical, \textquotesingle{}L\textquotesingle{} lateral, \textquotesingle{}P\textquotesingle{} pinch, \textquotesingle{}S\textquotesingle{} spherical, \textquotesingle{}T\textquotesingle{} tridigital grasp. \\
+\hline
+{\em rest} & Rest reference position \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em pos} & Closure reference position \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em delay} & Time delay in milliseconds. Used to delay the movement of the target motor of a percentage of the total time needed to perform the grasp. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 347 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a82044d90867462c299b7381c123a1fbc}\label{classmia__hand_1_1_cpp_driver_a82044d90867462c299b7381c123a1fbc}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!setMotorPos@{setMotorPos}}
+\index{setMotorPos@{setMotorPos}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{setMotorPos()}{setMotorPos()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::set\+Motor\+Pos (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id,  }\item[{int16\+\_\+t}]{mot\+\_\+pos }\end{DoxyParamCaption})}
+
+
+
+Set the target position of a specific motor of the Mia hand. 
+
+This function can be used to move specific Mia hand finger in position. 
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+{\em mot\+\_\+pos} & target finger position \mbox{[}-\/255, +255\mbox{]} for index and \mbox{[}0, +255\mbox{]} otherwise. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 60 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a7f348563190402b9db574050e566992e}\label{classmia__hand_1_1_cpp_driver_a7f348563190402b9db574050e566992e}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!setMotorSpe@{setMotorSpe}}
+\index{setMotorSpe@{setMotorSpe}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{setMotorSpe()}{setMotorSpe()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::set\+Motor\+Spe (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fin\+\_\+id,  }\item[{int16\+\_\+t}]{mot\+\_\+spe }\end{DoxyParamCaption})}
+
+
+
+Set the target velocity of a specific motor of the Mia hand. 
+
+This function can be used to move a specific Mia hand finger in velocity. 
+\begin{DoxyParams}{Parameters}
+{\em fin\+\_\+id} & Mia hand finger id. 1 for thumb flexion, 2 for M\+RL flexion, 3 for index flexion + thumb abduction. \\
+\hline
+{\em mot\+\_\+spe} & target finger velocity \mbox{[}-\/90, +90\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 84 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a0b6e6af5b7d9198ee3e9da1d194f0443}\label{classmia__hand_1_1_cpp_driver_a0b6e6af5b7d9198ee3e9da1d194f0443}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!setMrlGraspRef@{setMrlGraspRef}}
+\index{setMrlGraspRef@{setMrlGraspRef}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{setMrlGraspRef()}{setMrlGraspRef()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::set\+Mrl\+Grasp\+Ref (\begin{DoxyParamCaption}\item[{char}]{grasp\+\_\+id,  }\item[{int16\+\_\+t}]{rest,  }\item[{int16\+\_\+t}]{pos,  }\item[{int16\+\_\+t}]{delay }\end{DoxyParamCaption})}
+
+
+
+Set grasp parameter for M\+RL flexion motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grasp\+\_\+id} & Type of grasp to set\+: \textquotesingle{}C\textquotesingle{} cylindical, \textquotesingle{}L\textquotesingle{} lateral, \textquotesingle{}P\textquotesingle{} pinch, \textquotesingle{}S\textquotesingle{} spherical, \textquotesingle{}T\textquotesingle{} tridigital grasp. \\
+\hline
+{\em rest} & Rest reference position \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em pos} & Closure reference position \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em delay} & Time delay in milliseconds. Used to delay the movement of the target motor of a percentage of the total time needed to perform the grasp. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 380 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_ad1e3500b9f4b2dce2e4ba768cc93d31c}\label{classmia__hand_1_1_cpp_driver_ad1e3500b9f4b2dce2e4ba768cc93d31c}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!setThuGraspRef@{setThuGraspRef}}
+\index{setThuGraspRef@{setThuGraspRef}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{setThuGraspRef()}{setThuGraspRef()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::set\+Thu\+Grasp\+Ref (\begin{DoxyParamCaption}\item[{char}]{grasp\+\_\+id,  }\item[{int16\+\_\+t}]{rest,  }\item[{int16\+\_\+t}]{pos,  }\item[{int16\+\_\+t}]{delay }\end{DoxyParamCaption})}
+
+
+
+Set grasp parameter for thumb flexion motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grasp\+\_\+id} & Type of grasp to set\+: \textquotesingle{}C\textquotesingle{} cylindical, \textquotesingle{}L\textquotesingle{} lateral, \textquotesingle{}P\textquotesingle{} pinch, \textquotesingle{}S\textquotesingle{} spherical, \textquotesingle{}T\textquotesingle{} tridigital grasp. \\
+\hline
+{\em rest} & Rest reference position \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em pos} & Closure reference position \mbox{[}0, 255\mbox{]}. \\
+\hline
+{\em delay} & Time delay in milliseconds. Used to delay the movement of the target motor of a percentage of the total time needed to perform the grasp. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 314 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_ab82b97e83e3d4fd0ecdbf5d1d8ac8fa5}\label{classmia__hand_1_1_cpp_driver_ab82b97e83e3d4fd0ecdbf5d1d8ac8fa5}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!switchAnaStream@{switchAnaStream}}
+\index{switchAnaStream@{switchAnaStream}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{switchAnaStream()}{switchAnaStream()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::switch\+Ana\+Stream (\begin{DoxyParamCaption}\item[{bool}]{b\+\_\+on\+\_\+off }\end{DoxyParamCaption})}
+
+
+
+Manage the streaming of analog input data (as the straing gauge force sensors). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em b\+\_\+on\+\_\+off} & True to enable the streaming, False to disable it. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 433 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a1485e7e0f667aba13e6a023b36d01f0f}\label{classmia__hand_1_1_cpp_driver_a1485e7e0f667aba13e6a023b36d01f0f}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!switchCurStream@{switchCurStream}}
+\index{switchCurStream@{switchCurStream}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{switchCurStream()}{switchCurStream()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::switch\+Cur\+Stream (\begin{DoxyParamCaption}\item[{bool}]{b\+\_\+on\+\_\+off }\end{DoxyParamCaption})}
+
+
+
+Manage the streaming of the current absorbed by Mi hand motors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em b\+\_\+on\+\_\+off} & True to enable the streaming, False to disable it. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 443 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a06969f2eae325f54f9e3571ebf6d6a6d}\label{classmia__hand_1_1_cpp_driver_a06969f2eae325f54f9e3571ebf6d6a6d}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!switchPosStream@{switchPosStream}}
+\index{switchPosStream@{switchPosStream}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{switchPosStream()}{switchPosStream()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::switch\+Pos\+Stream (\begin{DoxyParamCaption}\item[{bool}]{b\+\_\+on\+\_\+off }\end{DoxyParamCaption})}
+
+
+
+Manage the streaming of the motors position data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em b\+\_\+on\+\_\+off} & True to enable the streaming of the motors position data, False to disable it. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 413 of file cpp\+\_\+driver.\+cpp.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_afdbde6f1a2f5a5fb0ab8d62235580698}\label{classmia__hand_1_1_cpp_driver_afdbde6f1a2f5a5fb0ab8d62235580698}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!switchSpeStream@{switchSpeStream}}
+\index{switchSpeStream@{switchSpeStream}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{switchSpeStream()}{switchSpeStream()}}
+{\footnotesize\ttfamily void mia\+\_\+hand\+::\+Cpp\+Driver\+::switch\+Spe\+Stream (\begin{DoxyParamCaption}\item[{bool}]{b\+\_\+on\+\_\+off }\end{DoxyParamCaption})}
+
+
+
+Manage the streaming of the motors velocity data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em b\+\_\+on\+\_\+off} & True to enable the streaming, False to disable it. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 423 of file cpp\+\_\+driver.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a580785629c6354484097b8d5e0f7d4b9}\label{classmia__hand_1_1_cpp_driver_a580785629c6354484097b8d5e0f7d4b9}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!check\_connection\_trd\_@{check\_connection\_trd\_}}
+\index{check\_connection\_trd\_@{check\_connection\_trd\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{check\_connection\_trd\_}{check\_connection\_trd\_}}
+{\footnotesize\ttfamily std\+::thread mia\+\_\+hand\+::\+Cpp\+Driver\+::check\+\_\+connection\+\_\+trd\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Thread to execute the check of the Mia hand connection. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a3e4669f1fb5e41b943d2c7e84d69b1ef}{check\+Connection()}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 232 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a2a982f01ad501c5277ca0af79f8b3d40}\label{classmia__hand_1_1_cpp_driver_a2a982f01ad501c5277ca0af79f8b3d40}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!connection\_mtx\_@{connection\_mtx\_}}
+\index{connection\_mtx\_@{connection\_mtx\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{connection\_mtx\_}{connection\_mtx\_}}
+{\footnotesize\ttfamily std\+::mutex mia\+\_\+hand\+::\+Cpp\+Driver\+::connection\+\_\+mtx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 238 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a5cd21e0d6628161f621d0cd0e638e2b8}\label{classmia__hand_1_1_cpp_driver_a5cd21e0d6628161f621d0cd0e638e2b8}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!connection\_trd\_on\_@{connection\_trd\_on\_}}
+\index{connection\_trd\_on\_@{connection\_trd\_on\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{connection\_trd\_on\_}{connection\_trd\_on\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::connection\+\_\+trd\+\_\+on\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+True if \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a580785629c6354484097b8d5e0f7d4b9}{check\+\_\+connection\+\_\+trd\+\_\+}} thread is running. 
+
+
+
+Definition at line 234 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_aa52ffa13f448bcae812515102def5819}\label{classmia__hand_1_1_cpp_driver_aa52ffa13f448bcae812515102def5819}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!finger\_data\_mtx\_@{finger\_data\_mtx\_}}
+\index{finger\_data\_mtx\_@{finger\_data\_mtx\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{finger\_data\_mtx\_}{finger\_data\_mtx\_}}
+{\footnotesize\ttfamily std\+::mutex mia\+\_\+hand\+::\+Cpp\+Driver\+::finger\+\_\+data\+\_\+mtx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Mutex to handle the reading of the motors finger data. 
+
+
+
+Definition at line 225 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a78a1979258e3bd830d694864f9ae2c16}\label{classmia__hand_1_1_cpp_driver_a78a1979258e3bd830d694864f9ae2c16}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!index\_info\_@{index\_info\_}}
+\index{index\_info\_@{index\_info\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{index\_info\_}{index\_info\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmia__hand_1_1_finger_serial_info}{Finger\+Serial\+Info}} mia\+\_\+hand\+::\+Cpp\+Driver\+::index\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Info about the index flexion motor. 
+
+
+
+Definition at line 241 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_aba680f74568f9d08f69d5685ea2d4547}\label{classmia__hand_1_1_cpp_driver_aba680f74568f9d08f69d5685ea2d4547}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!is\_checking\_on\_@{is\_checking\_on\_}}
+\index{is\_checking\_on\_@{is\_checking\_on\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{is\_checking\_on\_}{is\_checking\_on\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::is\+\_\+checking\+\_\+on\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 235 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_acdfdd69aaf46d47fbf0eeb5a969095f1}\label{classmia__hand_1_1_cpp_driver_acdfdd69aaf46d47fbf0eeb5a969095f1}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!is\_connected\_@{is\_connected\_}}
+\index{is\_connected\_@{is\_connected\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{is\_connected\_}{is\_connected\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::is\+\_\+connected\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+True if the Mia hand is conncted, False otherwise. 
+
+
+
+Definition at line 244 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_aa3dc97fb83a164b785adf831888bd939}\label{classmia__hand_1_1_cpp_driver_aa3dc97fb83a164b785adf831888bd939}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!mrl\_info\_@{mrl\_info\_}}
+\index{mrl\_info\_@{mrl\_info\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{mrl\_info\_}{mrl\_info\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmia__hand_1_1_finger_serial_info}{Finger\+Serial\+Info}} mia\+\_\+hand\+::\+Cpp\+Driver\+::mrl\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Info about the mrl flexion motor. 
+
+
+
+Definition at line 242 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_af0d9f5309891347310e89491691b04dc}\label{classmia__hand_1_1_cpp_driver_af0d9f5309891347310e89491691b04dc}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!reply\_mtx\_@{reply\_mtx\_}}
+\index{reply\_mtx\_@{reply\_mtx\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{reply\_mtx\_}{reply\_mtx\_}}
+{\footnotesize\ttfamily std\+::mutex mia\+\_\+hand\+::\+Cpp\+Driver\+::reply\+\_\+mtx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 237 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a80c5cba5f6599d80d43b55bd69d620d3}\label{classmia__hand_1_1_cpp_driver_a80c5cba5f6599d80d43b55bd69d620d3}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!serial\_poll\_trd\_@{serial\_poll\_trd\_}}
+\index{serial\_poll\_trd\_@{serial\_poll\_trd\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{serial\_poll\_trd\_}{serial\_poll\_trd\_}}
+{\footnotesize\ttfamily std\+::thread mia\+\_\+hand\+::\+Cpp\+Driver\+::serial\+\_\+poll\+\_\+trd\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Thread to execute the parse of the data received by the Mia hand. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a04cc855f067d15dea3b5ccd1fcc35776}{poll\+Serial\+Port()}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 222 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a058d6e7b13b0913bb1a8999ed83fa30a}\label{classmia__hand_1_1_cpp_driver_a058d6e7b13b0913bb1a8999ed83fa30a}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!serial\_port\_@{serial\_port\_}}
+\index{serial\_port\_@{serial\_port\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{serial\_port\_}{serial\_port\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmia__hand_1_1_serial_port}{Serial\+Port}} mia\+\_\+hand\+::\+Cpp\+Driver\+::serial\+\_\+port\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Hanlder of the serial port\+\_\+num. 
+
+
+
+Definition at line 193 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_afed04beb18471a3230e4783b2be3692e}\label{classmia__hand_1_1_cpp_driver_afed04beb18471a3230e4783b2be3692e}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!serial\_trd\_on\_@{serial\_trd\_on\_}}
+\index{serial\_trd\_on\_@{serial\_trd\_on\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{serial\_trd\_on\_}{serial\_trd\_on\_}}
+{\footnotesize\ttfamily bool mia\+\_\+hand\+::\+Cpp\+Driver\+::serial\+\_\+trd\+\_\+on\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+True if \mbox{\hyperlink{classmia__hand_1_1_cpp_driver_a80c5cba5f6599d80d43b55bd69d620d3}{serial\+\_\+poll\+\_\+trd\+\_\+}} thread is running. 
+
+
+
+Definition at line 224 of file cpp\+\_\+driver.\+h.
+
+\mbox{\Hypertarget{classmia__hand_1_1_cpp_driver_a372fee3bfdffb0fced033995a2582bc9}\label{classmia__hand_1_1_cpp_driver_a372fee3bfdffb0fced033995a2582bc9}} 
+\index{mia\_hand::CppDriver@{mia\_hand::CppDriver}!thumb\_info\_@{thumb\_info\_}}
+\index{thumb\_info\_@{thumb\_info\_}!mia\_hand::CppDriver@{mia\_hand::CppDriver}}
+\doxysubsubsection{\texorpdfstring{thumb\_info\_}{thumb\_info\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmia__hand_1_1_finger_serial_info}{Finger\+Serial\+Info}} mia\+\_\+hand\+::\+Cpp\+Driver\+::thumb\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Info about the thumb flexion motor. 
+
+
+
+Definition at line 240 of file cpp\+\_\+driver.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+mia\+\_\+hand\+\_\+driver/include/mia\+\_\+hand\+\_\+driver/\mbox{\hyperlink{cpp__driver_8h}{cpp\+\_\+driver.\+h}}\item 
+mia\+\_\+hand\+\_\+driver/src/\mbox{\hyperlink{cpp__driver_8cpp}{cpp\+\_\+driver.\+cpp}}\end{DoxyCompactItemize}

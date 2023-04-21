@@ -1,0 +1,798 @@
+\hypertarget{classtransmission__interface_1_1_mia_index_transmission}{}\doxysection{transmission\+\_\+interface\+::Mia\+Index\+Transmission Class Reference}
+\label{classtransmission__interface_1_1_mia_index_transmission}\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+
+
+Implementation of the no-\/linear Mia Index Transmission.  
+
+
+
+
+{\ttfamily \#include $<$mia\+\_\+index\+\_\+transmission.\+h$>$}
+
+
+
+Inheritance diagram for transmission\+\_\+interface\+::Mia\+Index\+Transmission\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classtransmission__interface_1_1_mia_index_transmission__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for transmission\+\_\+interface\+::Mia\+Index\+Transmission\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classtransmission__interface_1_1_mia_index_transmission__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa3f826ffa1aaf6e2500bd9115f4952e4}{Mia\+Index\+Transmission}} ()
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a93a377e2aa1a80c6a4b46c29c8b9daf6}{test\+Actuator\+To\+Joint\+Position}} (double ind\+\_\+act\+\_\+state)
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_acc4ca8ce2a993229979dc093e2bb7da0}{test\+Joint\+To\+Actuator\+Position}} (double ind\+\_\+joint\+\_\+state)
+\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa2c9db4d2afcf4a54dfc6b50601428f6}{actuator\+To\+Joint\+Effort}} (const transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+state, transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data) override
+\begin{DoxyCompactList}\small\item\em Do not use this methos since Mia hand has not effort control. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_acd9c06915ba57b148c75d9e3deb1bd1e}{actuator\+To\+Joint\+Position}} (const transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+state, transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data) override
+\begin{DoxyCompactList}\small\item\em Transform position variables from actuator to joint space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a3c31e419c8247331d531b7fc84f29c91}{actuator\+To\+Joint\+Velocity}} (const transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+state, transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data) override
+\begin{DoxyCompactList}\small\item\em Transform velocity variables from actuator to joint space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a707528863b56818ab623a9e8cf45b060}{joint\+To\+Actuator\+Effort}} (const transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data, transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+cmd) override
+\begin{DoxyCompactList}\small\item\em Do not use this methos since Mia hand has not effort control. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a36ffc42f228689f610e5a9f869669b6b}{joint\+To\+Actuator\+Position}} (const transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data, transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+cmd) override
+\begin{DoxyCompactList}\small\item\em Transform position variables from joint to actuator space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a7156fac4712e1b4e425a3f0e3964b1a5}{joint\+To\+Actuator\+Velocity}} (const transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data, transmission\+\_\+interface\+::\+Actuator\+Data \&act\+\_\+data) override
+\begin{DoxyCompactList}\small\item\em unused \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_ac4c594cc5b6721a77dae2babe0bee46e}{Indexjoint\+To\+Actuator\+Velocity}} (const transmission\+\_\+interface\+::\+Joint\+Data \&ind\+\_\+jnt\+\_\+data, const transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+state, transmission\+\_\+interface\+::\+Actuator\+Data \&ind\+\_\+act\+\_\+cmd)
+\begin{DoxyCompactList}\small\item\em Transform velocity variables from joint to actuator space. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a09bac2cd6a9b9ae84f494c958f79b03d}{h\+\_\+i}} (const double pos)
+\begin{DoxyCompactList}\small\item\em Index transmission first step function for pose\+: mu = h\+\_\+i(pos). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_affda27a47b52c02f3d6f56ec9388f030}{h\+\_\+i\+\_\+inv}} (const double mu)
+\begin{DoxyCompactList}\small\item\em Index transmission first step inverse function for pose\+: pos = h\+\_\+i\+\_\+inv(mu) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a47eee6584c9b4f26952e35ae8bd76334}{h2\+\_\+i}} (const double mu)
+\begin{DoxyCompactList}\small\item\em Index transmission second step function for pose\+: alpha = h2\+\_\+i(mu). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a931d40acee412645f3d30257d25a8647}{h2\+\_\+i\+\_\+inv}} (const double alpha)
+\begin{DoxyCompactList}\small\item\em Index transmission first step inverse function for pose\+: pos = h\+\_\+i\+\_\+inv(mu) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a218db582520737c9168397aade844295}{dh\+\_\+i}} (const double spe)
+\begin{DoxyCompactList}\small\item\em Index transmission first step function for velocity\+: omega\+\_\+m = dh\+\_\+i(spe). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a39f0e0309ab0d7ab06ac43f8fc9990c7}{dh\+\_\+i\+\_\+inv}} (const double omega\+\_\+m)
+\begin{DoxyCompactList}\small\item\em Index transmission first step inverse function for velocity\+: spe = dh\+\_\+i\+\_\+inv(omega\+\_\+m) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a0b9fb5345775f2d23224278ead55821b}{f}} (const double alpha)
+\begin{DoxyCompactList}\small\item\em Index transmission second step function for position\+: delta = f(alpha) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa2e0692be110d8c5f31a66c6a2f03934}{f\+\_\+inv}} (const double delta)
+\begin{DoxyCompactList}\small\item\em Index transmission second step inverse function for position\+: alpha = f\+\_\+inv(delta) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_ae0171a2691e3abc675618eb9f737bc94}{f2}} (const double delta)
+\begin{DoxyCompactList}\small\item\em Index transmission final step function for position\+: delta\+\_\+calib = f(delta) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a2da1e0fc42b65a261596d73c53175a15}{f2\+\_\+inv}} (const double delta\+\_\+calib)
+\begin{DoxyCompactList}\small\item\em Index transmission second step inverse function for position\+: alpha = f\+\_\+inv(delta) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a461685e1d0f4d9a25b74a1616e4ee2e4}{df}} (const double omega\+\_\+a)
+\begin{DoxyCompactList}\small\item\em Index transmission second step function for velocity\+: alpha = f\+\_\+inv(delta) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa5b234d392fae0ac1bab391a39c6f0d4}{linear\+\_\+reduction\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Vars of the linear part of index transmission. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a4e002d14cd9f8b3df38524db3ac78efa}{h\+\_\+i\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a135a17f039297e2307cee7f33dec6e1e}{h\+\_\+i\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_acc83b005fce6d4e9ab0d32216ad718f4}{h\+\_\+i\+\_\+inv\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a00ea28ef300326c704a10ad6caf8b741}{h\+\_\+i\+\_\+inv\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_ac700393849f410dcc57f2d6bf7ee1321}{h2\+\_\+i\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_ae1a7c0c3d8198ed3142c4a7ca458b239}{h2\+\_\+i\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a3992891fe8f1819a74471c0c225669b0}{h2\+\_\+i\+\_\+inv\+\_\+offset\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a71d6e7c80d1d65592ca905dd4d8ecace}{h2\+\_\+i\+\_\+inv\+\_\+scale\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a6cb5226df3e1abc8e7b2e505f1a0e357}{f2\+\_\+offset\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a74f90e75c582fcd56190a37caf70393a}{x\+\_\+intervals\+\_\+f\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Upper limiits of the inputs intervals of the f funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a72264ddb18cccdd6d1e114ae3b24ad72}{x\+\_\+intervals\+\_\+f\+\_\+inv\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Upper limiits of the inputs intervals of the f\+\_\+inv funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a7c7b5bcb90059c6cb4a816c6f4146d90}{x\+\_\+intervals\+\_\+df\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Upper limiits of the inputs intervals of the df funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a659db1b4f39fb994c963dc52ae60230a}{f\+\_\+scale\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Scales factors of the f funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a93a3467a18feaa5da441b4cde46ce998}{f\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Offset factors of the f funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a5b0609c589d62aa170995567629430f1}{f\+\_\+inv\+\_\+scale\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Scale factors of the f\+\_\+inv funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_ab83291ea1e4e560e58eb9a94df6092aa}{f\+\_\+inv\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Offset factors of the f\+\_\+inv funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a26655d73f87db5d63222cac03329bfde}{df\+\_\+scale\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Scale factors of the df funtion. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a28557b9c35968d7d2d93ca7a542de35d}{df\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Offset factors of the df funtion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the no-\/linear Mia Index Transmission. 
+
+Definition at line 52 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_aa3f826ffa1aaf6e2500bd9115f4952e4}\label{classtransmission__interface_1_1_mia_index_transmission_aa3f826ffa1aaf6e2500bd9115f4952e4}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!MiaIndexTransmission@{MiaIndexTransmission}}
+\index{MiaIndexTransmission@{MiaIndexTransmission}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{MiaIndexTransmission()}{MiaIndexTransmission()}}
+{\footnotesize\ttfamily transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::\+Mia\+Index\+Transmission (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class constructor. 
+
+
+
+Definition at line 42 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_aa2c9db4d2afcf4a54dfc6b50601428f6}\label{classtransmission__interface_1_1_mia_index_transmission_aa2c9db4d2afcf4a54dfc6b50601428f6}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!actuatorToJointEffort@{actuatorToJointEffort}}
+\index{actuatorToJointEffort@{actuatorToJointEffort}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{actuatorToJointEffort()}{actuatorToJointEffort()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::actuator\+To\+Joint\+Effort (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+state,  }\item[{transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Do not use this methos since Mia hand has not effort control. 
+
+
+
+Definition at line 449 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_acd9c06915ba57b148c75d9e3deb1bd1e}\label{classtransmission__interface_1_1_mia_index_transmission_acd9c06915ba57b148c75d9e3deb1bd1e}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!actuatorToJointPosition@{actuatorToJointPosition}}
+\index{actuatorToJointPosition@{actuatorToJointPosition}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{actuatorToJointPosition()}{actuatorToJointPosition()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::actuator\+To\+Joint\+Position (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+state,  }\item[{transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Transform position variables from actuator to joint space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ind\+\_\+act\+\_\+state} & index actuator actual state. \\
+\hline
+{\em ind\+\_\+jnt\+\_\+data} & returned index joint state. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 349 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a3c31e419c8247331d531b7fc84f29c91}\label{classtransmission__interface_1_1_mia_index_transmission_a3c31e419c8247331d531b7fc84f29c91}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!actuatorToJointVelocity@{actuatorToJointVelocity}}
+\index{actuatorToJointVelocity@{actuatorToJointVelocity}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{actuatorToJointVelocity()}{actuatorToJointVelocity()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::actuator\+To\+Joint\+Velocity (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+state,  }\item[{transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Transform velocity variables from actuator to joint space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ind\+\_\+act\+\_\+state} & index actuator actual state. \\
+\hline
+{\em ind\+\_\+jnt\+\_\+data} & returned index joint joint. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 367 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a461685e1d0f4d9a25b74a1616e4ee2e4}\label{classtransmission__interface_1_1_mia_index_transmission_a461685e1d0f4d9a25b74a1616e4ee2e4}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!df@{df}}
+\index{df@{df}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{df()}{df()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::df (\begin{DoxyParamCaption}\item[{const double}]{omega\+\_\+a }\end{DoxyParamCaption})}
+
+
+
+Index transmission second step function for velocity\+: alpha = f\+\_\+inv(delta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em omega\+\_\+a} & velocity f the intermediate step of the transmission. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+omega\+\_\+d\+: velocity in the mia joint space. 
+\end{DoxyReturn}
+
+
+Definition at line 235 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a218db582520737c9168397aade844295}\label{classtransmission__interface_1_1_mia_index_transmission_a218db582520737c9168397aade844295}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!dh\_i@{dh\_i}}
+\index{dh\_i@{dh\_i}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{dh\_i()}{dh\_i()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::dh\+\_\+i (\begin{DoxyParamCaption}\item[{const double}]{spe }\end{DoxyParamCaption})}
+
+
+
+Index transmission first step function for velocity\+: omega\+\_\+m = dh\+\_\+i(spe). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spe} & velocity in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/90; +90\mbox{]}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+omega\+\_\+m\+: velocity in the mia actuator space. 
+\end{DoxyReturn}
+
+
+Definition at line 112 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a39f0e0309ab0d7ab06ac43f8fc9990c7}\label{classtransmission__interface_1_1_mia_index_transmission_a39f0e0309ab0d7ab06ac43f8fc9990c7}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!dh\_i\_inv@{dh\_i\_inv}}
+\index{dh\_i\_inv@{dh\_i\_inv}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{dh\_i\_inv()}{dh\_i\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::dh\+\_\+i\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{omega\+\_\+m }\end{DoxyParamCaption})}
+
+
+
+Index transmission first step inverse function for velocity\+: spe = dh\+\_\+i\+\_\+inv(omega\+\_\+m) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spe} & velocity in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/90; +90\mbox{]}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+omega\+\_\+m\+: velocity in the mia actuator space. 
+\end{DoxyReturn}
+
+
+Definition at line 121 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a0b9fb5345775f2d23224278ead55821b}\label{classtransmission__interface_1_1_mia_index_transmission_a0b9fb5345775f2d23224278ead55821b}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f@{f}}
+\index{f@{f}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f()}{f()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f (\begin{DoxyParamCaption}\item[{const double}]{alpha }\end{DoxyParamCaption})}
+
+
+
+Index transmission second step function for position\+: delta = f(alpha) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em alpha} & position of the intermediate step of the transmission. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+delta\+: position in the mia joint space. 
+\end{DoxyReturn}
+
+
+Definition at line 150 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_ae0171a2691e3abc675618eb9f737bc94}\label{classtransmission__interface_1_1_mia_index_transmission_ae0171a2691e3abc675618eb9f737bc94}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f2@{f2}}
+\index{f2@{f2}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f2()}{f2()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f2 (\begin{DoxyParamCaption}\item[{const double}]{delta }\end{DoxyParamCaption})}
+
+
+
+Index transmission final step function for position\+: delta\+\_\+calib = f(delta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta} & position in the mia joint space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+delta\+\_\+calib\+: calibrated position in the mia joint space. 
+\end{DoxyReturn}
+
+
+Definition at line 283 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a2da1e0fc42b65a261596d73c53175a15}\label{classtransmission__interface_1_1_mia_index_transmission_a2da1e0fc42b65a261596d73c53175a15}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f2\_inv@{f2\_inv}}
+\index{f2\_inv@{f2\_inv}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f2\_inv()}{f2\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f2\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{delta\+\_\+calib }\end{DoxyParamCaption})}
+
+
+
+Index transmission second step inverse function for position\+: alpha = f\+\_\+inv(delta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+calib} & calibrated position in the mia joint space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+delta\+: position in the mia joint space. 
+\end{DoxyReturn}
+
+
+Definition at line 313 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_aa2e0692be110d8c5f31a66c6a2f03934}\label{classtransmission__interface_1_1_mia_index_transmission_aa2e0692be110d8c5f31a66c6a2f03934}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f\_inv@{f\_inv}}
+\index{f\_inv@{f\_inv}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f\_inv()}{f\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{delta }\end{DoxyParamCaption})}
+
+
+
+Index transmission second step inverse function for position\+: alpha = f\+\_\+inv(delta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta} & position in the mia joint space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+delta\+: alpha\+: position of the intermediate step of the transmission. 
+\end{DoxyReturn}
+
+
+Definition at line 193 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a47eee6584c9b4f26952e35ae8bd76334}\label{classtransmission__interface_1_1_mia_index_transmission_a47eee6584c9b4f26952e35ae8bd76334}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h2\_i@{h2\_i}}
+\index{h2\_i@{h2\_i}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_i()}{h2\_i()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h2\+\_\+i (\begin{DoxyParamCaption}\item[{const double}]{mu }\end{DoxyParamCaption})}
+
+
+
+Index transmission second step function for pose\+: alpha = h2\+\_\+i(mu). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & motor position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+alpha\+: non linear transmission input angle . 
+\end{DoxyReturn}
+
+
+Definition at line 130 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a931d40acee412645f3d30257d25a8647}\label{classtransmission__interface_1_1_mia_index_transmission_a931d40acee412645f3d30257d25a8647}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h2\_i\_inv@{h2\_i\_inv}}
+\index{h2\_i\_inv@{h2\_i\_inv}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_i\_inv()}{h2\_i\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h2\+\_\+i\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{alpha }\end{DoxyParamCaption})}
+
+
+
+Index transmission first step inverse function for pose\+: pos = h\+\_\+i\+\_\+inv(mu) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em alpha} & non linear transmission input angle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mu motor position. 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a09bac2cd6a9b9ae84f494c958f79b03d}\label{classtransmission__interface_1_1_mia_index_transmission_a09bac2cd6a9b9ae84f494c958f79b03d}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h\_i@{h\_i}}
+\index{h\_i@{h\_i}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_i()}{h\_i()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h\+\_\+i (\begin{DoxyParamCaption}\item[{const double}]{pos }\end{DoxyParamCaption})}
+
+
+
+Index transmission first step function for pose\+: mu = h\+\_\+i(pos). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & pose in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/255; +255\mbox{]}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mu\+: pose in the mia actuator space. 
+\end{DoxyReturn}
+
+
+Definition at line 94 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_affda27a47b52c02f3d6f56ec9388f030}\label{classtransmission__interface_1_1_mia_index_transmission_affda27a47b52c02f3d6f56ec9388f030}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h\_i\_inv@{h\_i\_inv}}
+\index{h\_i\_inv@{h\_i\_inv}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_i\_inv()}{h\_i\_inv()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h\+\_\+i\+\_\+inv (\begin{DoxyParamCaption}\item[{const double}]{mu }\end{DoxyParamCaption})}
+
+
+
+Index transmission first step inverse function for pose\+: pos = h\+\_\+i\+\_\+inv(mu) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & pose in the mia actuator space \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pos\+: pose in the ros actuator-\/space (i.\+e. as returned by Mia hand \mbox{[}-\/255; +255\mbox{]}). 
+\end{DoxyReturn}
+
+
+Definition at line 103 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_ac4c594cc5b6721a77dae2babe0bee46e}\label{classtransmission__interface_1_1_mia_index_transmission_ac4c594cc5b6721a77dae2babe0bee46e}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!IndexjointToActuatorVelocity@{IndexjointToActuatorVelocity}}
+\index{IndexjointToActuatorVelocity@{IndexjointToActuatorVelocity}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{IndexjointToActuatorVelocity()}{IndexjointToActuatorVelocity()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::\+Indexjoint\+To\+Actuator\+Velocity (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data,  }\item[{const transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+state,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+cmd }\end{DoxyParamCaption})}
+
+
+
+Transform velocity variables from joint to actuator space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ind\+\_\+jnt\+\_\+data} & index joint target. \\
+\hline
+{\em ind\+\_\+act\+\_\+state} & index actuator \\
+\hline
+{\em ind\+\_\+act\+\_\+cmd} & returned actuator joint target. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 411 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a707528863b56818ab623a9e8cf45b060}\label{classtransmission__interface_1_1_mia_index_transmission_a707528863b56818ab623a9e8cf45b060}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!jointToActuatorEffort@{jointToActuatorEffort}}
+\index{jointToActuatorEffort@{jointToActuatorEffort}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{jointToActuatorEffort()}{jointToActuatorEffort()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::joint\+To\+Actuator\+Effort (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+cmd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Do not use this methos since Mia hand has not effort control. 
+
+
+
+Definition at line 461 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a36ffc42f228689f610e5a9f869669b6b}\label{classtransmission__interface_1_1_mia_index_transmission_a36ffc42f228689f610e5a9f869669b6b}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!jointToActuatorPosition@{jointToActuatorPosition}}
+\index{jointToActuatorPosition@{jointToActuatorPosition}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{jointToActuatorPosition()}{jointToActuatorPosition()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::joint\+To\+Actuator\+Position (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{ind\+\_\+act\+\_\+cmd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Transform position variables from joint to actuator space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ind\+\_\+jnt\+\_\+data} & index joint target. \\
+\hline
+{\em ind\+\_\+act\+\_\+cmd} & returned index actuator target. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 392 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a7156fac4712e1b4e425a3f0e3964b1a5}\label{classtransmission__interface_1_1_mia_index_transmission_a7156fac4712e1b4e425a3f0e3964b1a5}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!jointToActuatorVelocity@{jointToActuatorVelocity}}
+\index{jointToActuatorVelocity@{jointToActuatorVelocity}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{jointToActuatorVelocity()}{jointToActuatorVelocity()}}
+{\footnotesize\ttfamily void transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::joint\+To\+Actuator\+Velocity (\begin{DoxyParamCaption}\item[{const transmission\+\_\+interface\+::\+Joint\+Data \&}]{ind\+\_\+jnt\+\_\+data,  }\item[{transmission\+\_\+interface\+::\+Actuator\+Data \&}]{act\+\_\+data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+unused 
+
+
+
+Definition at line 436 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a93a377e2aa1a80c6a4b46c29c8b9daf6}\label{classtransmission__interface_1_1_mia_index_transmission_a93a377e2aa1a80c6a4b46c29c8b9daf6}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!testActuatorToJointPosition@{testActuatorToJointPosition}}
+\index{testActuatorToJointPosition@{testActuatorToJointPosition}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{testActuatorToJointPosition()}{testActuatorToJointPosition()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::test\+Actuator\+To\+Joint\+Position (\begin{DoxyParamCaption}\item[{double}]{ind\+\_\+act\+\_\+state }\end{DoxyParamCaption})}
+
+
+
+Definition at line 475 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_acc4ca8ce2a993229979dc093e2bb7da0}\label{classtransmission__interface_1_1_mia_index_transmission_acc4ca8ce2a993229979dc093e2bb7da0}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!testJointToActuatorPosition@{testJointToActuatorPosition}}
+\index{testJointToActuatorPosition@{testJointToActuatorPosition}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{testJointToActuatorPosition()}{testJointToActuatorPosition()}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::test\+Joint\+To\+Actuator\+Position (\begin{DoxyParamCaption}\item[{double}]{ind\+\_\+joint\+\_\+state }\end{DoxyParamCaption})}
+
+
+
+Definition at line 490 of file mia\+\_\+index\+\_\+transmission.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a28557b9c35968d7d2d93ca7a542de35d}\label{classtransmission__interface_1_1_mia_index_transmission_a28557b9c35968d7d2d93ca7a542de35d}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!df\_offset\_@{df\_offset\_}}
+\index{df\_offset\_@{df\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{df\_offset\_}{df\_offset\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::df\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Offset factors of the df funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a461685e1d0f4d9a25b74a1616e4ee2e4}{df()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 280 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a26655d73f87db5d63222cac03329bfde}\label{classtransmission__interface_1_1_mia_index_transmission_a26655d73f87db5d63222cac03329bfde}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!df\_scale\_@{df\_scale\_}}
+\index{df\_scale\_@{df\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{df\_scale\_}{df\_scale\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::df\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Scale factors of the df funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a461685e1d0f4d9a25b74a1616e4ee2e4}{df()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 274 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a6cb5226df3e1abc8e7b2e505f1a0e357}\label{classtransmission__interface_1_1_mia_index_transmission_a6cb5226df3e1abc8e7b2e505f1a0e357}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f2\_offset\_@{f2\_offset\_}}
+\index{f2\_offset\_@{f2\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f2\_offset\_}{f2\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f2\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 225 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_ab83291ea1e4e560e58eb9a94df6092aa}\label{classtransmission__interface_1_1_mia_index_transmission_ab83291ea1e4e560e58eb9a94df6092aa}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f\_inv\_offset\_@{f\_inv\_offset\_}}
+\index{f\_inv\_offset\_@{f\_inv\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f\_inv\_offset\_}{f\_inv\_offset\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f\+\_\+inv\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Offset factors of the f\+\_\+inv funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa2e0692be110d8c5f31a66c6a2f03934}{f\+\_\+inv()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 268 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a5b0609c589d62aa170995567629430f1}\label{classtransmission__interface_1_1_mia_index_transmission_a5b0609c589d62aa170995567629430f1}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f\_inv\_scale\_@{f\_inv\_scale\_}}
+\index{f\_inv\_scale\_@{f\_inv\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f\_inv\_scale\_}{f\_inv\_scale\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f\+\_\+inv\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Scale factors of the f\+\_\+inv funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa2e0692be110d8c5f31a66c6a2f03934}{f\+\_\+inv()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 262 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a93a3467a18feaa5da441b4cde46ce998}\label{classtransmission__interface_1_1_mia_index_transmission_a93a3467a18feaa5da441b4cde46ce998}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f\_offset\_@{f\_offset\_}}
+\index{f\_offset\_@{f\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f\_offset\_}{f\_offset\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Offset factors of the f funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a0b9fb5345775f2d23224278ead55821b}{f()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 256 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a659db1b4f39fb994c963dc52ae60230a}\label{classtransmission__interface_1_1_mia_index_transmission_a659db1b4f39fb994c963dc52ae60230a}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!f\_scale\_@{f\_scale\_}}
+\index{f\_scale\_@{f\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{f\_scale\_}{f\_scale\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::f\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Scales factors of the f funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a0b9fb5345775f2d23224278ead55821b}{f()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 250 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a3992891fe8f1819a74471c0c225669b0}\label{classtransmission__interface_1_1_mia_index_transmission_a3992891fe8f1819a74471c0c225669b0}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h2\_i\_inv\_offset\_@{h2\_i\_inv\_offset\_}}
+\index{h2\_i\_inv\_offset\_@{h2\_i\_inv\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_i\_inv\_offset\_}{h2\_i\_inv\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h2\+\_\+i\+\_\+inv\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 223 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a71d6e7c80d1d65592ca905dd4d8ecace}\label{classtransmission__interface_1_1_mia_index_transmission_a71d6e7c80d1d65592ca905dd4d8ecace}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h2\_i\_inv\_scale\_@{h2\_i\_inv\_scale\_}}
+\index{h2\_i\_inv\_scale\_@{h2\_i\_inv\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_i\_inv\_scale\_}{h2\_i\_inv\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h2\+\_\+i\+\_\+inv\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 224 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_ac700393849f410dcc57f2d6bf7ee1321}\label{classtransmission__interface_1_1_mia_index_transmission_ac700393849f410dcc57f2d6bf7ee1321}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h2\_i\_offset\_@{h2\_i\_offset\_}}
+\index{h2\_i\_offset\_@{h2\_i\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_i\_offset\_}{h2\_i\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h2\+\_\+i\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 221 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_ae1a7c0c3d8198ed3142c4a7ca458b239}\label{classtransmission__interface_1_1_mia_index_transmission_ae1a7c0c3d8198ed3142c4a7ca458b239}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h2\_i\_scale\_@{h2\_i\_scale\_}}
+\index{h2\_i\_scale\_@{h2\_i\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h2\_i\_scale\_}{h2\_i\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h2\+\_\+i\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 222 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_acc83b005fce6d4e9ab0d32216ad718f4}\label{classtransmission__interface_1_1_mia_index_transmission_acc83b005fce6d4e9ab0d32216ad718f4}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h\_i\_inv\_offset\_@{h\_i\_inv\_offset\_}}
+\index{h\_i\_inv\_offset\_@{h\_i\_inv\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_i\_inv\_offset\_}{h\_i\_inv\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h\+\_\+i\+\_\+inv\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 219 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a00ea28ef300326c704a10ad6caf8b741}\label{classtransmission__interface_1_1_mia_index_transmission_a00ea28ef300326c704a10ad6caf8b741}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h\_i\_inv\_scale\_@{h\_i\_inv\_scale\_}}
+\index{h\_i\_inv\_scale\_@{h\_i\_inv\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_i\_inv\_scale\_}{h\_i\_inv\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h\+\_\+i\+\_\+inv\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 220 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a4e002d14cd9f8b3df38524db3ac78efa}\label{classtransmission__interface_1_1_mia_index_transmission_a4e002d14cd9f8b3df38524db3ac78efa}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h\_i\_offset\_@{h\_i\_offset\_}}
+\index{h\_i\_offset\_@{h\_i\_offset\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_i\_offset\_}{h\_i\_offset\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h\+\_\+i\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 217 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a135a17f039297e2307cee7f33dec6e1e}\label{classtransmission__interface_1_1_mia_index_transmission_a135a17f039297e2307cee7f33dec6e1e}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!h\_i\_scale\_@{h\_i\_scale\_}}
+\index{h\_i\_scale\_@{h\_i\_scale\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{h\_i\_scale\_}{h\_i\_scale\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::h\+\_\+i\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 218 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_aa5b234d392fae0ac1bab391a39c6f0d4}\label{classtransmission__interface_1_1_mia_index_transmission_aa5b234d392fae0ac1bab391a39c6f0d4}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!linear\_reduction\_@{linear\_reduction\_}}
+\index{linear\_reduction\_@{linear\_reduction\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{linear\_reduction\_}{linear\_reduction\_}}
+{\footnotesize\ttfamily double transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::linear\+\_\+reduction\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Vars of the linear part of index transmission. 
+
+
+
+Definition at line 216 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a7c7b5bcb90059c6cb4a816c6f4146d90}\label{classtransmission__interface_1_1_mia_index_transmission_a7c7b5bcb90059c6cb4a816c6f4146d90}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!x\_intervals\_df\_@{x\_intervals\_df\_}}
+\index{x\_intervals\_df\_@{x\_intervals\_df\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{x\_intervals\_df\_}{x\_intervals\_df\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::x\+\_\+intervals\+\_\+df\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Upper limiits of the inputs intervals of the df funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a461685e1d0f4d9a25b74a1616e4ee2e4}{df()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 244 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a74f90e75c582fcd56190a37caf70393a}\label{classtransmission__interface_1_1_mia_index_transmission_a74f90e75c582fcd56190a37caf70393a}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!x\_intervals\_f\_@{x\_intervals\_f\_}}
+\index{x\_intervals\_f\_@{x\_intervals\_f\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{x\_intervals\_f\_}{x\_intervals\_f\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::x\+\_\+intervals\+\_\+f\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Upper limiits of the inputs intervals of the f funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_a0b9fb5345775f2d23224278ead55821b}{f()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 232 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+\mbox{\Hypertarget{classtransmission__interface_1_1_mia_index_transmission_a72264ddb18cccdd6d1e114ae3b24ad72}\label{classtransmission__interface_1_1_mia_index_transmission_a72264ddb18cccdd6d1e114ae3b24ad72}} 
+\index{transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}!x\_intervals\_f\_inv\_@{x\_intervals\_f\_inv\_}}
+\index{x\_intervals\_f\_inv\_@{x\_intervals\_f\_inv\_}!transmission\_interface::MiaIndexTransmission@{transmission\_interface::MiaIndexTransmission}}
+\doxysubsubsection{\texorpdfstring{x\_intervals\_f\_inv\_}{x\_intervals\_f\_inv\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ transmission\+\_\+interface\+::\+Mia\+Index\+Transmission\+::x\+\_\+intervals\+\_\+f\+\_\+inv\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Upper limiits of the inputs intervals of the f\+\_\+inv funtion. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtransmission__interface_1_1_mia_index_transmission_aa2e0692be110d8c5f31a66c6a2f03934}{f\+\_\+inv()}}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 238 of file mia\+\_\+index\+\_\+transmission.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/include/mia\+\_\+hand\+\_\+ros\+\_\+control/\mbox{\hyperlink{mia__index__transmission_8h}{mia\+\_\+index\+\_\+transmission.\+h}}\item 
+home/prensila\+\_\+ros\+\_\+ws/src/mia\+\_\+hand\+\_\+ros\+\_\+pkgs/mia\+\_\+hand\+\_\+ros\+\_\+control/src/\mbox{\hyperlink{mia__index__transmission_8cpp}{mia\+\_\+index\+\_\+transmission.\+cpp}}\end{DoxyCompactItemize}

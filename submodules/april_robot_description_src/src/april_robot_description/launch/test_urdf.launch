@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- complementary file to help in testing URDF models, what is missing? upload of the URDF model -->
+
+    <!-- send fake joint values from gui -->
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+
+    <!-- generate tf data from urdf model and joint states -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- visualize robot in Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find april_robot_description)/config/robot.rviz" />
+
+</launch>

@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: mia_hand_description
+    relative_path: urdf/mia_hand_launch.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/mia_hand.srdf
+  CONFIG:
+    author_name: Francesca Cini
+    author_email: francescaci@prensilia.com
+    generated_timestamp: 1635156056

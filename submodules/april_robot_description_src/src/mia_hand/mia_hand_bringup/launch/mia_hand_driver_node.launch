@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="mia" pkg="mia_hand_driver" type="mia_hand_driver_node"
+        output="screen" />
+
+</launch>

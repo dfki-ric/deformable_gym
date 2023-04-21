@@ -1,0 +1,14 @@
+Header header
+int8 set_valve_muscle_0
+int8 set_valve_muscle_1
+uint64 set_duration_muscle_0
+uint64 set_duration_muscle_1
+int8 current_valve_muscle_0
+int8 current_valve_muscle_1
+uint64 current_duration_muscle_0
+uint64 current_duration_muscle_1
+float64 packed_valve
+uint16 muscle_pressure_0
+uint16 muscle_pressure_1
+float64 time_step
+

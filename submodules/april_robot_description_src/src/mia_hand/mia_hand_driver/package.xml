@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<package format="2">
+
+  <name>mia_hand_driver</name>
+
+  <version>1.0.2</version>
+
+  <description>
+  	Package containing code for driving Mia Hand.
+	</description>
+
+  <author email="andreabu@prensilia.com">Andrea Burani</author>
+  <maintainer email="andreabu@prensilia.com">Andrea Burani</maintainer>
+  <maintainer email="francescaci@prensilia.com">Francesca Cini</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://wiki.ros.org/mia_hand_ros_pkgs</url>
+  <url type="repository">https://bitbucket.org/prensiliasrl/mia_hand_ros_pkgs.git</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>mia_hand_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>libserial-dev</build_depend>
+
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>mia_hand_msgs</build_export_depend>
+  <build_export_depend>std_srvs</build_export_depend>
+  <build_export_depend>libserial-dev</build_export_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>mia_hand_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>libserial-dev</exec_depend>
+
+  <doc_depend>doxygen</doc_depend>
+
+</package>

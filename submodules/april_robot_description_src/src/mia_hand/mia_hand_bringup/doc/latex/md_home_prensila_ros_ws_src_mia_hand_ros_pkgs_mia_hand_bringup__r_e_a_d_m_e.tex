@@ -1,0 +1,23 @@
+This package contains the launch files of the mia hand.
+
+
+\begin{DoxyItemize}
+\item to launch the node drive of the real Mia hand and send serial commands directly to the hand please use\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_driver_node.launch
+\end{DoxyVerb}
+
+
+See readme file and documentation of the mia\+\_\+hand\+\_\+driver pkg for further details.
+\item to launch the control loop (frequency 20Hz), the hardware interface of the real Mia Hand with ros controllers please use\+: \begin{DoxyVerb}roslaunch mia_hand_bringup mia_hand_hw.launch
+roslaunch mia_hand_bringup mia_hand_hw_traj.launch
+roslaunch mia_hand_bringup mia_hand_hw_moveit.launch
+\end{DoxyVerb}
+
+
+See readme file and documentation of the mia\+\_\+hand\+\_\+ros\+\_\+control pkg for further details.
+\item to launch the control the simulation of the Mia hand within Gazebo with controllers please use\+: \begin{DoxyVerb}  roslaunch mia_hand_bringup mia_hand_Sim.launch
+  roslaunch mia_hand_bringup mia_hand_Sim_traj.launch
+\end{DoxyVerb}
+
+
+See readme file and documentation of the mia\+\_\+hand\+\_\+gazebo pkg for further details. 
+\end{DoxyItemize}

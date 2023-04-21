@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Arguments you can pass this launch file, for example paused:=true -->
+  <arg name="Rviz_on" default="true" doc="If true, start Rviz and the joint state gui" />
+  <arg name="use_joint_gui" default="false" doc="If true, start Rviz and the joint state gui" />
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="Gazebo_gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="robotNamespace"         default="mia_hand_sim"/> <!-- /mia_hand -->
+  <arg name="load_default_mia_model" default="false" />
+
+
+  <!-- Arguments to upload hardware interface and controllers of each finger -->
+  <arg name="hw_interface_thumb_fle" default="VelocityJointInterface"
+       doc="type of hardware interface for thumb flexion. Values: EffortJointInterface, PositionJointInterface VelocityJointInterface"/>
+  <arg name="hw_interface_index_fle" default="VelocityJointInterface"
+       doc="type of hardware interface for index flexion. Values: EffortJointInterface, PositionJointInterface VelocityJointInterface"/>
+  <arg name="hw_interface_mrl_fle" default="VelocityJointInterface"
+       doc="type of hardware interface for mrl flexion. Values: EffortJointInterface, PositionJointInterface VelocityJointInterface"/>
+
+  <arg name="controller_thumb_fle" default="velocity"
+       doc="type of controller for thumb flexion. Values: position, velocity, eff, eff_position, (eff_velocity has not been tuned)"/>
+  <arg name="controller_index_fle" default="velocity"
+       doc="type of controller for index flexion + thumb abd. Values: position,velocity,eff, eff_position, (eff_velocity has not been tuned)"/>
+  <arg name="controller_mrl_fle"   default="velocity"
+       doc="type of controller for mrl fingers flexion. Values: position, velocity, eff, eff_position,(eff_velocity has not been tuned)"/>
+
+  <!-- Gazebo empty_world.launch -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg Gazebo_gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+
+  <!-- Load robot URDF to param server and run robot_state_publisher for rviz etc -->
+  <include file="$(find mia_hand_description)/launch/view_mia_hand_rviz.launch">
+    <arg name="Rviz_on" value="$(arg Rviz_on)"/>
+    <arg name="use_joint_gui" value="$(arg use_joint_gui)"/>
+    <arg name="hw_interface_thumb_fle" value="$(arg hw_interface_thumb_fle)"/>
+    <arg name="hw_interface_index_fle" value="$(arg hw_interface_index_fle)"/>
+    <arg name="hw_interface_mrl_fle" value="$(arg hw_interface_mrl_fle)"/>
+    <arg name="robotNamespace"   value="$(arg robotNamespace)"/> <!-- /mia_hand -->
+    <arg name="load_default_mia_model"   value="$(arg load_default_mia_model)"/>
+  </include>
+
+   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model mia_hand -param robot_description"/>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <group ns = "$(arg robotNamespace)">
+    <!-- Load the path of the config file of the MIA trasnsmission -->
+    <param name="mia_transmissions_config_" type="string" value="$(find mia_hand_description)/calibration/transmission_config.yaml " />
+
+    <rosparam file="$(find mia_hand_gazebo)/config/mia_hand_controllers.yaml" command="load"/>
+    <rosparam file="$(find mia_hand_gazebo)/config/gazebo_pid_thumb_opp.yaml" command="load"/>
+  </group>
+
+  <!-- load and start the controllers torso_controller -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="$(arg robotNamespace)" args="j_thumb_fle_$(arg controller_thumb_fle)_controller
+                                                     j_index_fle_$(arg controller_index_fle)_controller
+                                                     j_mrl_fle_$(arg controller_mrl_fle)_controller
+                                                     joint_state_controller"/>  <!-- j_thumb_opp_$(arg controller_index_fle)_controller -->
+
+</launch>

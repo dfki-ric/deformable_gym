@@ -1,0 +1,136 @@
+#---------------------------------------------------------------------
+# Controllers v1.0  Trajectory controllers
+#---------------------------------------------------------------------
+
+
+#------------------------------------------------------------------
+# Trajectory Position Controllers ---------------------------------------
+#--------------------------------------------------------------------
+
+  # joint (actionlib) trajectory controller
+  # check http://wiki.ros.org/joint_trajectory_controller
+  mia_hand_pos_trajectory_controller:
+      type: position_controllers/JointTrajectoryController
+      joints:
+        - j_index_fle
+        - j_mrl_fle
+        - j_thumb_fle
+
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 1.0
+        j_index_fle:
+          goal: &goal_tp_constraint 0.5
+          trajectory: &trajectory_tp_constraint 1.0
+        j_mrl_fle:
+          goal: *goal_tp_constraint
+          trajectory: *trajectory_tp_constraint
+        j_thumb_fle:
+          goal: *goal_tp_constraint
+          trajectory: *trajectory_tp_constraint
+
+      stop_trajectory_duration: 1.0
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------
+# Trajectory Velocity Controllers ---------------------------------------
+#--------------------------------------------------------------------
+
+  # joint (actionlib) trajectory controller
+  # check http://wiki.ros.org/joint_trajectory_controller
+  mia_hand_vel_trajectory_controller:
+      type: velocity_controllers/JointTrajectoryController
+      joints:
+        - j_index_fle
+        - j_mrl_fle
+        - j_thumb_fle
+
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 1.0
+        j_index_fle:
+          goal: &goal_tv_constraint 0.5
+          trajectory: &trajectory_tv_constraint 1.0
+        j_mrl_fle:
+          goal: *goal_tv_constraint
+          trajectory: *trajectory_tv_constraint
+        j_thumb_fle:
+          goal: *goal_tv_constraint
+          trajectory: *trajectory_tv_constraint
+
+
+      gains:
+        j_index_fle:
+          p: &p_tv_gain 10.0
+          i: &i_tv_gain 1.0
+          d: &d_tv_gain 0.0
+          antiwindup: &a_tv_value false
+          i_clamp_max: &i_tv_clamp_max_value 10.0
+          i_clamp_min: &i_tv_clamp_min_value 0.03
+        j_mrl_fle: { p: *p_tv_gain, i: *i_tv_gain, d: *d_tv_gain, antiwindup: *a_tv_value, i_clamp_max: *i_tv_clamp_max_value, i_clamp_min: *i_tv_clamp_min_value}
+        j_thumb_fle: { p: *p_tv_gain, i: *i_tv_gain, d: *d_tv_gain, antiwindup: *a_tv_value, i_clamp_max: *i_tv_clamp_max_value, i_clamp_min: *i_tv_clamp_min_value}
+
+      velocity_ff:
+        j_index_fle: 1.4
+        j_mrl_fle: 1.4
+        j_thumb_fle: 1.4
+
+      stop_trajectory_duration: 1.0
+
+
+
+
+
+
+#------------------------------------------------------------------
+# Trajectory Effort Controllers -- NOT IMPLEMENTED IN THE REAL MIA HAND
+#--------------------------------------------------------------------
+
+  # joint (actionlib) trajectory controller
+  # check http://wiki.ros.org/joint_trajectory_controller
+  mia_hand_eff_trajectory_controller:
+      type: effort_controllers/JointTrajectoryController
+      joints:
+        - j_index_fle
+        - j_mrl_fle
+        - j_thumb_fle
+
+
+      constraints:
+        goal_time: 4.0
+        stopped_velocity_tolerance: 1.0
+        j_index_fle:
+          goal: &goal_te_constraint 0.5
+          trajectory: &trajectory_te_constraint 1.0
+        j_mrl_fle:
+          goal: *goal_te_constraint
+          trajectory: *trajectory_te_constraint
+        j_thumb_fle:
+          goal: *goal_te_constraint
+          trajectory: *trajectory_te_constraint
+
+
+      gains:
+        j_index_fle:
+          p: 0.5
+          i: 0.1
+          d: 0.005
+          antiwindup: false
+          i_clamp_max: 5.0
+          i_clamp_min: 0.03
+
+        j_mrl_fle:
+          p: &p_te_gain 1.5
+          i: &i_te_gain 0.001
+          d: &d_te_gain 0.005
+          antiwindup: &a_te_value false
+          i_clamp_max: &i_te_clamp_max_value 5.0
+          i_clamp_min: &i_te_clamp_min_value 0.03
+
+        j_thumb_fle: { p: *p_te_gain, i: *i_te_gain, d: *d_te_gain, antiwindup: *a_te_value, i_clamp_max: *i_te_clamp_max_value, i_clamp_min: *i_te_clamp_min_value}
+
+      stop_trajectory_duration: 1.0

@@ -1,0 +1,6 @@
+MotorSystemControls[] motor_system_controls
+---
+int8 result
+
+int8 SUCCESS=0
+int8 MOTOR_ID_OUT_OF_RANGE=-1

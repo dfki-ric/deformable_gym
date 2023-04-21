@@ -1,0 +1,25 @@
+# mia hand position controller parameters
+
+thumb_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: j_thumb
+  pid: {p: &p_gain 500.0, i: &i_gain 5.0, d: &d_gain 1.0,
+        i_clamp_min: &i_min 0.0, i_clamp_max: &i_max 10.0, antiwindup: &awup false} # define gains one time only and then replicate using *p_gain (for example)
+
+index_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: j_index
+  pid: {p: *p_gain, i: *i_gain, d: *d_gain,
+            i_clamp_min: *i_min, i_clamp_max: *i_max, antiwindup: *awup}
+
+mrl_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: j_mrl
+  pid: {p: *p_gain, i: *i_gain, d: *d_gain,
+        i_clamp_min: *i_min, i_clamp_max: *i_max, antiwindup: *awup}
+
+thumb_mcp_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: j_thumb_mcp
+  pid: {p: *p_gain, i: *i_gain, d: *d_gain,
+        i_clamp_min: *i_min, i_clamp_max: *i_max, antiwindup: *awup}

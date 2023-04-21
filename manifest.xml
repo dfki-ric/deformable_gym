@@ -1,0 +1,34 @@
+package>
+  <description brief="A benchmark for grasping deformable 3D objects">
+    This repository contains a collection of RL gym environments built with PyBullet. In these environments, the agent needs to learn to grasp deformable object such as shoe insoles or pillows.
+  </description>
+  <author>Melvin Laux/melvin.laux@uni-bremen.de</author>
+  <maintainer>Melvin Laux/melvin.laux@uni-bremen.de</maintainer>
+  <license>BSD-3-clause</license>
+  <url>https://github.com/dfki-ric/deformable_gym</url>
+  <logo>none</logo>
+
+  <depend package="python" />
+  <depend package="python-pip" />
+  <depend package="python-matplotlib" />
+  <depend package="pybullet" />
+  <depend package="numpy" />
+  <depend package="gym" />
+  <depend package="pytransform3d" />
+
+  <keywords>
+    <keyword>Benchmark</keyword>
+    <keyword>Gym</keyword>
+    <keyword>Deformable</keyword>
+  </keywords>
+  <stage>2</stage>
+  <use>multi project</use>
+  <activity>active</activity>
+  <classifiers>
+    <classifier>python</classifier>
+    <classifier>gym</classifier>
+    <classifier>learning</classifier>
+    <classifier>ubuntu</classifier>
+    <classifier>windows</classifier>
+  </classifiers>
+</package>

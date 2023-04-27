@@ -4,11 +4,13 @@ from typing import Union
 import numpy as np
 import numpy.typing as npt
 
+import os
+
 from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper, HandMixin
 from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
 
 
-URDF_PATH = "submodules/april_robot_description/urdf/shadow_hand.urdf"
+URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "urdf/shadow_hand.urdf")
 
 
 class ShadowHand(HandMixin, BulletRobot, abc.ABC):

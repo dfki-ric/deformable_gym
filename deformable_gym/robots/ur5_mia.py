@@ -1,6 +1,7 @@
 import abc
 
 import numpy.typing as npt
+import os
 
 from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper
 from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
@@ -11,7 +12,8 @@ from .mia_hand import MiaHandMixin
 # Mia freq = 20 Hz
 # UR5 freq = 125 Hz
 
-URDF_PATH = "submodules/april_robot_description/urdf/mia_hand_on_ur5.urdf"
+URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "urdf/mia_hand_on_ur5.urdf")
+
 
 
 class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):

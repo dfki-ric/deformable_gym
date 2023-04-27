@@ -10,9 +10,7 @@ from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper,
 from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from deformable_gym.robots.sensors import MiaHandForceSensors
 
-
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(),
-                         "submodules/april_robot_description_src/src/april_robot_description/urdf/mia_hand.urdf")
+URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/mia_hand.urdf")
 
 
 class MiaHandMixin(HandMixin):

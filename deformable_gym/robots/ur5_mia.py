@@ -2,6 +2,7 @@ import abc
 
 import numpy.typing as npt
 import os
+from pathlib import Path
 
 from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper
 from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin

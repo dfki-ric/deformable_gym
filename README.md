@@ -3,6 +3,9 @@
 This repository contains a collection of RL gym environments built with PyBullet. In these environments, the agent 
 needs to learn to grasp deformable object such as shoe insoles or pillows.
 
+<p align="center">
+  <img src="doc/source/_static/defgym.svg" />
+</p>
 
 
 ## Installation 
@@ -34,17 +37,49 @@ In this case, install the following dependency via conda-forge:
 conda install -c conda-forge libstdcxx-ng
 ```
 
+## Example
+
+Here is an example of how to run a random agent in the FloatingMiaEnv. More can be found in the `examples/` folder.
+
+```python
+from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
+
+env = FloatingMiaGraspEnv(
+        gui=True,
+        horizon=100,
+        object_name="insole_on_conveyor_belt/back",
+        early_episode_termination=False,
+        observable_time_step=False,
+        observable_object_pos=True,
+        difficulty_mode="hard")
+
+env.reset()
+episode_return = 0
+num_episodes = 0
+
+while num_episodes <= 10:
+
+    action = env.action_space.sample()
+
+    state, reward, done, _ = env.step(action)
+    episode_return += reward
+
+    if done:
+        print(f"Episode finished with return {episode_return}!")
+        num_episodes += 1
+```
+
 
 ## Documentation
 The documentation can be found in the directory doc. To build the documentation, run e.g. (on linux):
 
-```
+```bash
 cd doc
 make html
 ```
 The HTML documentation is now located at doc/build/html/index.html. You need the following packages to build the documentation:
 
-```
+```bash
 pip install numpydoc sphinx sphinx-gallery sphinx-bootstrap-theme
 ```
 

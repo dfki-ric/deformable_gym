@@ -66,8 +66,9 @@ class Joint:
         """Sets the target position of the joint."""
 
         if self.max_vel + 0.1 < self.get_velocity():
-            print(f"Joint {self.name} has max velocity of {self.max_vel}"
-                  f" but is moving with velocity {self.get_velocity()}")
+            if self.verbose:
+                print(f"Joint {self.name} has max velocity of {self.max_vel}"
+                      f" but is moving with velocity {self.get_velocity()}")
 
         if self.activated:
             pb.setJointMotorControl2(self.body_id, self.joint_idx,

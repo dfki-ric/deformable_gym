@@ -2,6 +2,8 @@ import abc
 
 import numpy as np
 import pybullet as pb
+import os
+from pathlib import Path
 
 from deformable_gym.objects.bullet_object import Pose
 from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper, HandMixin
@@ -11,7 +13,7 @@ from deformable_gym.robots.inverse_kinematics import UniversalRobotAnalyticalInv
 # Shadow freq = 500 Hz
 # UR5 freq = 125 Hz
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "urdf/shadow_hand_on_ur10.urdf")
+URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/shadow_hand_on_ur10.urdf")
 
 
 class UR10Shadow(HandMixin, BulletRobot, abc.ABC):

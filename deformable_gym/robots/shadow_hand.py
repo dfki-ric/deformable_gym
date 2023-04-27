@@ -11,7 +11,7 @@ from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper,
 from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
 
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "urdf/shadow_hand.urdf")
+URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/shadow_hand.urdf")
 
 
 class ShadowHand(HandMixin, BulletRobot, abc.ABC):

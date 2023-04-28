@@ -1,4 +1,4 @@
-# APRIL Deformable Grasping Gym
+# DeformableGym
 
 This repository contains a collection of RL gym environments built with PyBullet. In these environments, the agent 
 needs to learn to grasp deformable object such as shoe insoles or pillows.
@@ -105,7 +105,7 @@ It is forbidden to directly push to the main branch. Each new version has its ow
 @MISC{Laux2023,
 author = {Melvin Laux and Alexander Fabisch and Chandandeep Singh and Johannes Brust},
 title = {DeformableGym, a Reinforcement Learning Benchmark for Grasping 3D Deformable Objects},
-howpublished = {\url{TODO}},
+howpublished = {\url{https://github.com/dfki-ric/deformable_gym}},
 year = {2023}
 }
 ```

@@ -14,6 +14,7 @@ from pathlib import Path
 
 base_path = Path(os.path.dirname(__file__)).parent.parent.absolute()
 
+
 class BulletObjectBase(abc.ABC):
     """Base class of objects that can be loaded in bullet.
 
@@ -82,6 +83,7 @@ class PositionEulerAngleMixin:
 
 class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
     """Simple primitive object base."""
+
     def __init__(
             self, mass=1.0, world_pos=None,
             world_orn=None, fixed=False, lateralFriction=None,
@@ -152,6 +154,7 @@ class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
 
 class MeshObject(RigidPrimitiveObject):
     """Simple mesh object."""
+
     def __init__(
             self, filename, world_pos=None, world_orn=None, mass=1.0, scale=(1, 1, 1),
             fixed=False, lateralFriction=None,
@@ -173,6 +176,7 @@ class MeshObject(RigidPrimitiveObject):
 
 class BoxObject(RigidPrimitiveObject):
     """Simple box object."""
+
     def __init__(
             self, half_extents=(1, 1, 1), mass=1.0, world_pos=None,
             world_orn=None, fixed=False, lateralFriction=None,
@@ -193,6 +197,7 @@ class BoxObject(RigidPrimitiveObject):
 
 class SphereObject(RigidPrimitiveObject):
     """Simple sphere object."""
+
     def __init__(
             self, radius=1.0, mass=1.0, world_pos=None,
             world_orn=None, fixed=False, lateralFriction=None,
@@ -212,6 +217,7 @@ class SphereObject(RigidPrimitiveObject):
 
 class CylinderObject(RigidPrimitiveObject):
     """Simple cylinder object."""
+
     def __init__(
             self, radius=1.0, height=1.0, mass=1.0, world_pos=None,
             world_orn=None, fixed=False, lateralFriction=None,
@@ -233,6 +239,7 @@ class CylinderObject(RigidPrimitiveObject):
 
 class CapsuleObject(RigidPrimitiveObject):
     """Simple capsule object."""
+
     def __init__(
             self, radius=1.0, height=1.0, mass=1.0, world_pos=None,
             world_orn=None, fixed=False, lateralFriction=None,
@@ -257,6 +264,7 @@ class UrdfObject(PositionEulerAngleMixin, BulletObjectBase):
 
     Provides some basic meta functionality for URDF-based objects.
     """
+
     def __init__(self, filename, verbose=0, world_pos=None, world_orn=None,
                  fixed=False, client_id=0):
         super().__init__(client_id)
@@ -364,6 +372,7 @@ class SoftObjectBase(BulletObjectBase):
 
 class SoftObject(PositionEulerAngleMixin, SoftObjectBase):
     """Soft Bullet Object."""
+
     def __init__(self, filename, world_pos=None, world_orn=None, fixed=False,
                  scale=1.0, nu=0.2, E=100000.0, damping=0.005,
                  repulsion_stiffness=8000.0, mass=0.1, fixed_nodes=None,
@@ -425,6 +434,7 @@ class Insole(MocapObjectMixin, SoftObjectBase):
     def __init__(
             self, insole_markers2world, scale=1.0, E=100000.0, fixed=False,
             client_id=0):
+        print(os.path.join(base_path, "object_data/insole.vtk"))
         super().__init__(
             os.path.join(base_path, "object_data/insole.vtk"), fixed=fixed, fixed_nodes=[0, 40, 45],
             scale=scale, nu=0.2, E=E, damping=0.005,
@@ -445,7 +455,7 @@ class Insole(MocapObjectMixin, SoftObjectBase):
         pq = pt.pq_from_transform(
             pt.concat(pt.invert_transform(VisualInsole.markers2mesh),
                       object_markers2world))
-                      
+
         '''
 
         # copied from hand_embodiment.vis_utils.Insole
@@ -475,10 +485,13 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
 
     @staticmethod
     def mesh_pose(insole_markers2world):
-        from hand_embodiment.vis_utils import PillowSmall as VisualPillowSmall
-        pq = pt.pq_from_transform(
-            pt.concat(pt.invert_transform(VisualPillowSmall.markers2mesh),
-                      insole_markers2world))
+
+        markers2mesh = pt.transform_from(
+            R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(np.deg2rad([0, 0, 90])),
+            p=np.array([0.0, -0.02, 0.095]))
+
+        pq = pt.pq_from_transform(pt.concat(pt.invert_transform(markers2mesh), insole_markers2world))
+
         return pq[:3], pr.quaternion_xyzw_from_wxyz(pq[3:])
 
 
@@ -498,7 +511,7 @@ class InsoleOnConveyorBelt(Insole):
         object_id = super()._load_object()
 
         # extents: width, length, height
-        conveyor_extents = np.array([0.5, 1.5, self.init_pos[2]-.02])
+        conveyor_extents = np.array([0.5, 1.5, self.init_pos[2] - .02])
 
         if self.grasp_point_name == "back":
             conveyor_pos = (0, self.init_pos[1] + 0.88, self.init_pos[2] / 2)
@@ -556,9 +569,9 @@ class ObjectFactory:
     OBJECT_ORIENTATIONS = {
         "insole": [0, 0, 0],
         "pillow_small": [0.5, 0, 0],
-        "insole2": [0, 0, np.pi/2],
+        "insole2": [0, 0, np.pi / 2],
         "pillow_small2": [0, 0, 0],
-        "insole_on_conveyor_belt": [0, 0, np.pi/2],
+        "insole_on_conveyor_belt": [0, 0, np.pi / 2],
         "box": [0, 0, 0],
         "sphere": [0, 0, 0],
         "cylinder": [0, 0, 0],

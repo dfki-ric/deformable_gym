@@ -50,8 +50,7 @@ class MiaHandMixin(HandMixin):
         :param motors: Joints.
         :param command: 3D joint command array (fle_index, fle_mrl, fle_thumb)
         """
-        assert len(command) == 3, \
-            f"expected command to have length 3, got {command=} instead"
+        assert len(command) == 3, f"expected command to have length 3, got {command=} instead"
 
         hand_joint_target = self.convert_action_to_pybullet(command)
 
@@ -73,7 +72,7 @@ class MiaHandMixin(HandMixin):
                                       self.motors["j_thumb_opp"].init_pos)
         return hand_joint_target
 
-    def get_joint_limits(self) -> Tuple[np.ndarray, np.ndarray]:
+    def get_joint_limits(self) -> Tuple[npt.ArrayLike, npt.ArrayLike]:
         """Get joint limits.
 
         :return: Array of lower limits and array of upper limits.
@@ -117,17 +116,19 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
     space).
     """
     def __init__(
-            self, verbose: int = 0,
-            task_space_limit: Union[npt.ArrayLike, None] = None,
-            orn_limit: Union[npt.ArrayLike, None] = None,
-            world_pos: npt.ArrayLike = (0, 0, 1),
-            world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
+            self, #verbose: int = 0,
+            #task_space_limit: Union[npt.ArrayLike, None] = None,
+            #orn_limit: Union[npt.ArrayLike, None] = None,
+            #world_pos: npt.ArrayLike = (0, 0, 1),
+            #world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
             debug_visualization: bool = True,
             **kwargs):
         super().__init__(
-            urdf_path=URDF_PATH, verbose=verbose, world_pos=world_pos,
-            world_orn=world_orn, task_space_limit=task_space_limit,
-            orn_limit=orn_limit, **kwargs)
+            urdf_path=URDF_PATH, #verbose=verbose,
+            #world_pos=world_pos,
+            #world_orn=world_orn, task_space_limit=task_space_limit,
+            #orn_limit=orn_limit,
+            **kwargs)
         self.debug_visualization = debug_visualization
 
         rcw = RobotCommandWrapper(self, self.actuated_simulated_joints)
@@ -152,13 +153,17 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
         # check if the base of the robot is controlled
         if self.base_commands:
             hand_joint_target = command[7:]
-            self.move_base(command[:7])
+            if self.via_point:
+                # self.reset_base(command[:7])
+                self.move_base_to(command[:7], 0.0000001)
+            else:
+                self.move_base(command[:7])
         else:
             hand_joint_target = command
 
         self.update_current_hand_command(self.motors, hand_joint_target)
 
-    def reset(self, keys=None):
+    def reset(self, keys=None) -> None:
         """Resets all joints and sensors.
 
         :param keys: Names of joints to reset. Default is all.

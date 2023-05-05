@@ -127,18 +127,15 @@ class MiaHandForceSensors:
         if out is None:
             out = np.empty(6)
 
-        _, _, _, T_ind_x, _, T_ind_z = -np.array(
-            pb.getJointState(self.robot_id, self.index_sensor_id)[2])
+        _, _, _, T_ind_x, _, T_ind_z = -np.array(pb.getJointState(self.robot_id, self.index_sensor_id)[2])
         out[1] = T_ind_z * MM_PER_M / 2.006
         out[2] = T_ind_x * MM_PER_M / 2.854
 
-        _, _, _, T_mrl_x, _, T_mrl_z = -np.array(
-            pb.getJointState(self.robot_id, self.middle_sensor_id)[2])
+        _, _, _, T_mrl_x, _, T_mrl_z = -np.array(pb.getJointState(self.robot_id, self.middle_sensor_id)[2])
         out[5] = T_mrl_z * MM_PER_M / 2.006
         out[0] = T_mrl_x * MM_PER_M / 2.854
 
-        _, F_th_y, _, _, T_th_y, _ = -np.array(
-            pb.getJointState(self.robot_id, self.thumb_sensor_id)[2])
+        _, F_th_y, _, _, T_th_y, _ = -np.array(pb.getJointState(self.robot_id, self.thumb_sensor_id)[2])
         out[3] = T_th_y * MM_PER_M / 3.673
         out[4] = F_th_y / 0.056
 

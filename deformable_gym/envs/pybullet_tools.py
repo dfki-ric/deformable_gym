@@ -1,6 +1,8 @@
 import pybullet as pb
 import pybullet_data
+
 from deformable_gym.robots.bullet_robot import BulletRobot
+from typing import Callable, Any
 
 
 class BulletSimulation:
@@ -28,8 +30,7 @@ class BulletSimulation:
         self.real_time = real_time
 
         self._client = pb.connect(self.mode, options=pybullet_options)
-        self.timing = BulletTiming(dt=time_delta, verbose_dt=verbose_dt,
-                                   client_id=self._client)
+        self.timing = BulletTiming(dt=time_delta, verbose_dt=verbose_dt, client_id=self._client)
 
         pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
@@ -64,7 +65,7 @@ class BulletSimulation:
         :param robot: Robot that should be simulated.
         """
         for name, sys in robot.subsystems.items():
-            if name in self.timing.subsystems:
+            if name in self.timing.triggers:
                 self.timing.remove_subsystem(name)
             self.timing.add_subsystem(name, sys[0], sys[1])
 
@@ -74,13 +75,13 @@ class BulletSimulation:
         :param trigger_name: Name of the event trigger for which we wait.
         """
         self.timing.step()
-        triggers = self.timing.get_triggered_subsystems()
+        triggers = self.timing.get_triggers()
 
         while trigger_name not in triggers:
             self.timing.step()
-            triggers = self.timing.get_triggered_subsystems()
+            triggers = self.timing.get_triggers()
 
-    def simulate_time(self, time):
+    def simulate_time(self, time: float):
         """Simulate for a given time without control input.
 
         :param time: Amount of time in seconds to simulate.
@@ -102,10 +103,9 @@ class BulletSimulation:
 
 class BulletTiming:
     """This class handles all timing issues for a single BulletSimulation."""
-    def __init__(self, dt=0.001, verbose_dt=0.01, client_id=0):
 
-        """
-        Create new BulletTiming instance.
+    def __init__(self, dt: float = .001, verbose_dt: float = .01, client_id=0):
+        """Create new BulletTiming instance.
 
         :param dt: The time delta used in the BulletSimulation.
         :param verbose_dt: Time after we print debug info.
@@ -119,9 +119,10 @@ class BulletTiming:
         self.time_step = 0
         self.sim_time = 0.0
 
-        self.subsystems = {}
+        # self.subsystems = {}
+        self.triggers = {}
 
-    def add_subsystem(self, name, frequency, callback=None):
+    def add_subsystem(self, name: str, frequency: int, callback=None):
         """
         Adds a new (robot) subsystem to the timing module.
 
@@ -134,46 +135,54 @@ class BulletTiming:
         :param callback: The callback function to be called when the subsystem
         is triggered.
         """
-        if name not in self.subsystems.keys():
-            self.subsystems[name] = (max(1, round(1.0/frequency/self.dt)),
-                                     callback)
 
-    def remove_subsystem(self, name):
+        def check_fn() -> bool:
+            return self.time_step % max(1, round(1.0/frequency/self.dt)) == 0
+
+        if name not in self.triggers.keys():
+            self.add_trigger(name, check_fn, callback)
+
+        # if name not in self.subsystems.keys():
+        #    self.subsystems[name] = (max(1, round(1.0/frequency/self.dt)), callback)
+
+    def add_trigger(self, name: str, check_function: Callable[..., bool], callback=None):
+        self.triggers[name] = (check_function, callback)
+
+    def remove_trigger(self, name: str):
         """
-        Removes a (robot) subsystem from the timing module.
+        Removes a trigger from the timing module.
 
-        :param name: The name of the subsystem to be removed.
+        :param name: The name of the trigger to be removed.
         """
-        if name in self.subsystems.keys():
-            del self.subsystems[name]
+        if name in self.triggers.keys():
+            del self.triggers[name]
 
-    def get_triggered_subsystems(self):
+    def get_triggers(self):
         triggered_systems = []
-        for name, sys in self.subsystems.items():
-            if self.time_step % sys[0] == 0:
+        for name, system in self.triggers.items():
+            if system[0]():
                 triggered_systems.append(name)
 
         return triggered_systems
 
     def _run_callbacks(self, systems):
         for name in systems:
-            if self.subsystems[name][1] is not None:
-                self.subsystems[name][1]()
+            if self.triggers[name][1] is not None:
+                self.triggers[name][1]()
 
     def step(self):
         """
         Performs a single time step in the simulation and triggers subsystems
         if necessary.
         """
-        triggers = self.get_triggered_subsystems()
+        triggers = self.get_triggers()
         self._run_callbacks(triggers)
         pb.stepSimulation(physicsClientId=self._client)
         self.time_step += 1
         self.sim_time += self.dt
 
         if (self.sim_time % self.verbose_dt) < self.dt:
-            print(f"Step: {self.time_step}, Time: {self.sim_time}, "
-                  f"Triggers: {triggers}")
+            print(f"Step: {self.time_step}, Time: {self.sim_time}, Triggers: {triggers}")
 
     def reset(self):
         self.time_step = 0
@@ -195,8 +204,7 @@ class BulletCamera:
 
     def start_recording(self, path):
         if not self._active:
-            self._logging_id = pb.startStateLogging(pb.STATE_LOGGING_VIDEO_MP4,
-                                                    path)
+            self._logging_id = pb.startStateLogging(pb.STATE_LOGGING_VIDEO_MP4, path)
             return self._logging_id
         else:
             return None

@@ -12,7 +12,7 @@ from deformable_gym.objects.bullet_object import Pose
 class BulletRobot(abc.ABC):
     """Base Bullet Robot interface.
 
-    Provides some basic meta functionality.
+    Provides some basic functionality.
 
     :param urdf_path: Path to URDF file of robot.
     :param verbose: Verbosity level.
@@ -31,7 +31,8 @@ class BulletRobot(abc.ABC):
             control_mode: int = pb.POSITION_CONTROL,
             task_space_limit: Union[npt.ArrayLike, None] = None,
             orn_limit: Union[npt.ArrayLike, None] = None,
-            base_commands: bool = False):
+            base_commands: bool = False,
+            via_point: bool = False):
         self.path = urdf_path
         self.verbose = verbose
         self.control_mode = control_mode
@@ -41,6 +42,11 @@ class BulletRobot(abc.ABC):
         self.orn_limit = orn_limit
         self.subsystems = {}
         self.base_commands = base_commands
+        self.via_point = via_point
+
+        # HACK: define target pose as separate attributes, should be combined with current command
+        self.target_pos = None
+        self.target_orn = None
 
         if self.task_space_limit is not None and verbose:
             draw_limits(self.task_space_limit)
@@ -316,11 +322,8 @@ class BulletRobot(abc.ABC):
         :param target_pos: Target position as (x, y, z).
         :param target_orn: Target orientation as (qx, qy, qz, qw).
         """
-        joint_pos = self.compute_ik(
-            self.get_joint_positions()[:6], target_pos, target_orn,
-            velocities=False)
-        position_dict = {joint: pos for joint, pos in
-                         zip(self.motors.keys(), joint_pos)}
+        joint_pos = self.compute_ik(self.get_joint_positions()[:6], target_pos, target_orn, velocities=False)
+        position_dict = {joint: pos for joint, pos in zip(self.motors.keys(), joint_pos)}
         self.set_joint_positions(position_dict)
 
     def reset(self, keys: Union[Iterable[str], None] = None):
@@ -366,22 +369,31 @@ class BulletRobot(abc.ABC):
 
         target_pos, target_orn = self._enforce_limits(pose)
 
-        target_pos, target_orn = self.multibody_pose.translate_pose(
-            target_pos, target_orn)
-        pb.changeConstraint(self.base_constraint, target_pos,
-                            jointChildFrameOrientation=target_orn,
-                            maxForce=100000)
+        self.target_pos, self.target_orn = self.multibody_pose.translate_pose(target_pos, target_orn)
+        pb.changeConstraint(self.base_constraint, target_pos, jointChildFrameOrientation=target_orn, maxForce=100000)
+
+    def move_base_to(self, target_pose, speed) -> None:
+        """Move the robot base to the target pose with a given speed.
+
+        :param target_pose: The target pose to move to.
+        :param speed: The speed to move to the target with.
+        """
+
+        # calculate and clip offset
+        offset = target_pose - np.hstack((self.multibody_pose.get_pose()))
+        clipped_offset = np.clip(offset, -speed, speed)
+
+        self.move_base(clipped_offset)
 
     def _enforce_limits(self, pose):
-        assert self.base_commands, "tried to move base, but base commands " \
-                                   "are not enabled"
+        """TODO: Document!"""
+        assert self.base_commands, "tried to move base, but base commands are not enabled"
         if self.task_space_limit is not None:
-            target_pos = np.clip(
-                pose[:3], self.task_space_limit[0], self.task_space_limit[1])
+            target_pos = np.clip(pose[:3], self.task_space_limit[0], self.task_space_limit[1])
         else:
             target_pos = pose[:3]
         target_orn = pose[3:]
-        # TODO enforce orn_limit
+        # TODO: enforce orn_limit
         return target_pos, target_orn
 
     def reset_base(self, pose: npt.ArrayLike):
@@ -396,7 +408,7 @@ class BulletRobot(abc.ABC):
             target_pos, target_orn)
         pb.changeConstraint(self.base_constraint, target_pos,
                             jointChildFrameOrientation=target_orn,
-                            maxForce=100000)
+                            maxForce=10000)
 
     def _get_link_id(self, link_name: str) -> int:
         """Get PyBullet link ID for link name.
@@ -436,6 +448,7 @@ class RobotCommandWrapper:
 
 
 class HandMixin:
+    """TODO: Document!"""
     debug_visualization: bool
     contact_normals: List[Any]
 

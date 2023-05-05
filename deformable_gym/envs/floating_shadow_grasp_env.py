@@ -1,12 +1,11 @@
 import random
-
 import numpy as np
+
 from gym import spaces
 from deformable_gym.robots import shadow_hand
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
-import pytransform3d.transformations as pt
 
 
 class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
@@ -38,9 +37,13 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                       [-0.8, 0.2, 1.6],
                       [-0.8, 0.0, 1.6])
 
-    def __init__(self, object_name="insole",
-                 horizon=200, train=True,
-                 compute_reward=True, object_scale=1.0,  **kwargs):
+    def __init__(self,
+                 object_name="insole",
+                 train=True,
+                 compute_reward=True,
+                 object_scale=1.0,
+                 **kwargs):
+
         self.insole = None
         self.train = train
         self.velocity_commands = False
@@ -49,7 +52,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.compute_reward = compute_reward
         self.object_scale = object_scale
 
-        super().__init__(horizon=horizon, soft=True, load_plane=True, **kwargs)
+        super().__init__(**kwargs)
 
         self.hand_world_pose = (0, -0.5, 1, -np.pi/2, np.pi, 0)
         self.robot = self._create_robot()
@@ -74,8 +77,8 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             np.ones(7)*0.01, limits[1], [1]], axis=0)
 
         if self.early_episode_termination:
-            lower.append([0.0])
-            upper.append([1.0])
+            lower_actions.append([0.0])
+            upper_actions.append([1.0])
 
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 
@@ -106,8 +109,9 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             ObjectFactory().create(self.object_name)
 
     def reset(self, hard_reset=False):
+        """Resets the environment."""
         if self.verbose:
-            print("Performing reset (april)")
+            print("Resetting!")
 
         if self.randomised:
             if self.train:
@@ -124,6 +128,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().reset()
 
     def is_done(self, state, action, next_state):
+        """Checks whether the episode is over."""
 
         # check if insole is exploded
         if self._deformable_is_exploded():
@@ -133,13 +138,12 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().is_done(state, action, next_state)
 
     def observe_state(self):
+        """Observers the current state of the environment."""
         finger_pos = self.robot.get_joint_positions()[6:]
         return np.concatenate([finger_pos], axis=0)
 
     def calculate_reward(self, state, action, next_state, done):
-        """
-        Calculates the reward by counting how many insole vertices are in the
-        target position.
+        """Calculates the reward by counting how many insole vertices are in the target position.
         """
         if done:
             if not self.compute_reward:

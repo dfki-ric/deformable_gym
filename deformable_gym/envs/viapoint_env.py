@@ -12,7 +12,7 @@ from deformable_gym.helpers.pybullet_helper import MultibodyPose
 from typing import Any
 
 
-class BaseBulletEnv(Env, abc.ABC):
+class ViapointBulletEnv(Env, abc.ABC):
     """Configures PyBullet for the gym environment.
 
     :param gui: Show PyBullet GUI.
@@ -40,11 +40,11 @@ class BaseBulletEnv(Env, abc.ABC):
             gui: bool = True,
             real_time: bool = False,
             horizon: int = 100,
-            soft: bool = False,
+            soft: bool = True,
             load_plane: bool = True,
             verbose: bool = False,
             time_delta: float = .0001,
-            verbose_dt: float = 10.00,
+            verbose_dt: float = 10.0,
             early_episode_termination: bool = True,
             pybullet_options: str = ""):
         self.gui = gui
@@ -59,8 +59,6 @@ class BaseBulletEnv(Env, abc.ABC):
             soft=soft, time_delta=time_delta, real_time=real_time, mode=mode,
             verbose_dt=verbose_dt, pybullet_options=pybullet_options)
 
-        # TODO should we make this configurable? this results in 100 Hz
-        self.simulation.timing.add_subsystem("time_step", 100)
         self._load_objects()
         self.step_counter = 0
 
@@ -74,7 +72,8 @@ class BaseBulletEnv(Env, abc.ABC):
         If a plane should be loaded, it will have the position (0, 0, 0).
         """
         if self.__load_plane:
-            self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
+            PLANE_POSITION = (0, 0, 0)
+            self.plane = pb.loadURDF("plane.urdf", PLANE_POSITION, useFixedBase=1)
 
     def _hard_reset(self):
         """Hard reset.
@@ -121,9 +120,9 @@ class BaseBulletEnv(Env, abc.ABC):
         if mode == "human":
             assert self.gui
         else:
-            raise NotImplementedError(f"Render mode '{mode}' not supported")
+            raise NotImplementedError("Render mode '%s' not supported" % mode)
 
-    def observe_state(self) -> npt.ArrayLike:
+    def observe_state(self) -> np.ndarray:
         """Returns the current environment state.
 
         :return: The observation
@@ -168,7 +167,7 @@ class BaseBulletEnv(Env, abc.ABC):
             self.robot.perform_command(action)
 
         # simulate until next time step
-        self.simulation.step_to_trigger("time_step")
+        self.simulation.step_to_trigger("reached_next")
 
         # observe new state
         next_state = self.observe_state()
@@ -183,7 +182,7 @@ class BaseBulletEnv(Env, abc.ABC):
         reward = self.calculate_reward(state, action, next_state, done)
 
         if self.verbose:
-            print(f"Finished environment step: {action=}, {next_state=}, {reward=}, {self.step_counter=}, {done=}")
+            print(f"Finished environment step: {next_state=}, {reward}, {done=}")
 
         return next_state, reward, done, {}
 
@@ -209,7 +208,6 @@ class BaseBulletEnv(Env, abc.ABC):
 
 
 class GraspDeformableMixin:
-    """TODO: document"""
     object_to_grasp: Any  # TODO common base class for all objects
     object_position: npt.ArrayLike
     object_orientation: npt.ArrayLike
@@ -232,9 +230,10 @@ class GraspDeformableMixin:
             return True
 
     def _check_forces(self, robot, high_force_threshold, verbose):
-        """TODO: Document!"""
+        contact_points = robot.get_contact_points(
+            self.object_to_grasp.get_id())
         accumulated_forces = 0.0
-        for contact_point in robot.get_contact_points(self.object_to_grasp.get_id()):
+        for contact_point in contact_points:
             _, _, _, _, _, _, _, _, dist, force, _, _, _, _ = contact_point
             accumulated_forces += force
         high_forces = accumulated_forces > high_force_threshold
@@ -256,7 +255,6 @@ class GraspDeformableMixin:
 
 
 class FloatingHandMixin:
-    """TODO: document"""
     hand_world_pose: npt.ArrayLike
     multibody_pose: MultibodyPose
 

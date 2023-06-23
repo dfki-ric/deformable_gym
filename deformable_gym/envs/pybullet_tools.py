@@ -20,7 +20,7 @@ class BulletSimulation:
     def __init__(
             self, time_delta: float = 0.001, mode: int = pb.GUI,
             gravity: float = -9.81, soft: bool = False,
-            real_time: bool = False, verbose_dt: float = 0.01,
+            real_time: bool = False, verbose_dt: float = 0.2,
             pybullet_options: str = ""):
 
         self.time_delta = time_delta
@@ -66,7 +66,7 @@ class BulletSimulation:
         """
         for name, sys in robot.subsystems.items():
             if name in self.timing.triggers:
-                self.timing.remove_subsystem(name)
+                self.timing.remove_trigger(name)
             self.timing.add_subsystem(name, sys[0], sys[1])
 
     def step_to_trigger(self, trigger_name: str):
@@ -82,7 +82,7 @@ class BulletSimulation:
             triggers = self.timing.get_triggers()
 
     def simulate_time(self, time: float):
-        """Simulate for a given time without control input.
+        """Simulate for a given time.
 
         :param time: Amount of time in seconds to simulate.
         """
@@ -119,7 +119,6 @@ class BulletTiming:
         self.time_step = 0
         self.sim_time = 0.0
 
-        # self.subsystems = {}
         self.triggers = {}
 
     def add_subsystem(self, name: str, frequency: int, callback=None):
@@ -141,9 +140,6 @@ class BulletTiming:
 
         if name not in self.triggers.keys():
             self.add_trigger(name, check_fn, callback)
-
-        # if name not in self.subsystems.keys():
-        #    self.subsystems[name] = (max(1, round(1.0/frequency/self.dt)), callback)
 
     def add_trigger(self, name: str, check_function: Callable[..., bool], callback=None):
         self.triggers[name] = (check_function, callback)

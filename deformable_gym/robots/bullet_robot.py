@@ -22,7 +22,7 @@ class BulletRobot(abc.ABC):
     :param control_mode: PyBullet control mode.
     :param task_space_limit: Task space limits (position).
     :param orn_limit: Orientation limits.
-    :param base_commands: Control pose of the hand (add 7 components to action
+    :param base_commands: Control pose of the robot (add 7 components to action
     space).
     """
     def __init__(
@@ -33,6 +33,7 @@ class BulletRobot(abc.ABC):
             orn_limit: Union[npt.ArrayLike, None] = None,
             base_commands: bool = False,
             via_point: bool = False):
+
         self.path = urdf_path
         self.verbose = verbose
         self.control_mode = control_mode
@@ -68,7 +69,7 @@ class BulletRobot(abc.ABC):
         self._joint_name_to_joint_id, self._link_name_to_link_id = \
             pbh.analyze_robot(robot=self._id, verbose=verbose)
 
-        self.all_joints = pbh.build_joint_list(self._id, verbose=1)
+        self.all_joints = pbh.build_joint_list(self._id, verbose=False)
 
         # separate fixed joints from controllable ones
         self.fixed_joints = {
@@ -101,7 +102,7 @@ class BulletRobot(abc.ABC):
             self.base_constraint = \
                 pb.createConstraint(self._id,        # parent body id
                                     -1,              # parent link id, -1 for base
-                                    -1,              # child body id, -1 for static frame in world coords
+                                    -1,              # child body id, -1 for static frame in world coordinates
                                     -1,              # child link id, -1 for base
                                     pb.JOINT_FIXED,  # joint type
                                     [0, 0, 0],       # joint axis in child frame
@@ -115,7 +116,7 @@ class BulletRobot(abc.ABC):
             self.get_id(), self.init_pos, self.init_rot)
 
     def initialise(self) -> int:
-        """Initialize robot in simulation.
+        """Initialise robot in simulation.
 
         :return: PyBullet UUID for loaded multi-body.
         """
@@ -370,9 +371,10 @@ class BulletRobot(abc.ABC):
         target_pos, target_orn = self._enforce_limits(pose)
 
         self.target_pos, self.target_orn = self.multibody_pose.translate_pose(target_pos, target_orn)
+
         pb.changeConstraint(self.base_constraint, target_pos, jointChildFrameOrientation=target_orn, maxForce=100000)
 
-    def move_base_to(self, target_pose, speed) -> None:
+    def move_base_to(self, target_pose: npt.ArrayLike, speed: npt.ArrayLike) -> None:
         """Move the robot base to the target pose with a given speed.
 
         :param target_pose: The target pose to move to.
@@ -380,10 +382,16 @@ class BulletRobot(abc.ABC):
         """
 
         # calculate and clip offset
-        offset = target_pose - np.hstack((self.multibody_pose.get_pose()))
-        clipped_offset = np.clip(offset, -speed, speed)
+        current_pose = np.hstack((self.multibody_pose.get_pose()))
 
-        self.move_base(clipped_offset)
+        while not np.allclose(target_pose, current_pose, atol=0.0001):
+
+            offset = target_pose - current_pose
+            clipped_offset = np.clip(offset, -speed, speed)
+
+            self.move_base(clipped_offset)
+            pb.stepSimulation()
+            current_pose = np.hstack((self.multibody_pose.get_pose()))
 
     def _enforce_limits(self, pose):
         """TODO: Document!"""
@@ -482,13 +490,11 @@ class HandMixin:
 
             self.contact_normals = []
             for contact_point in contact_points:
-                _, _, _, _, _, _, position_on_object, \
-                contact_normal_on_object, _, normal_force, _, _, _, _ = \
-                    contact_point
+                _, _, _, _, _, _, position_on_object, contact_normal_on_object, _, \
+                    normal_force, _, _, _, _ = contact_point
 
-                object_normal_end = (
-                        np.array(position_on_object)
-                        + normal_force * np.array(contact_normal_on_object))
+                object_normal_end = (np.array(position_on_object) +
+                                     normal_force * np.array(contact_normal_on_object))
                 contact_normal_line = pb.addUserDebugLine(
                     position_on_object, object_normal_end, [1, 1, 1])
                 self.contact_normals.append(contact_normal_line)

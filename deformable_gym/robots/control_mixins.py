@@ -3,7 +3,7 @@ from typing import Union, List
 
 class PositionControlMixin:
     """Mixin for position-controlled robots."""
-    velocity_commands = False
+    # velocity_commands = False
 
     def actuate_motors(self, keys: Union[List[str], None] = None):
         """
@@ -15,12 +15,13 @@ class PositionControlMixin:
         if keys is None:
             keys = self.motors.keys()
         for key in keys:
-            self.motors[key].set_target_position(self.current_command[key])
+            if self.current_command[key] is not None:
+                self.motors[key].set_target_position(self.current_command[key])
 
 
 class VelocityControlMixin:
     """Mixin for velocity-controlled robots."""
-    velocity_commands = True
+    # velocity_commands = True
 
     def actuate_motors(self, keys: Union[List[str], None] = None):
         """
@@ -32,4 +33,5 @@ class VelocityControlMixin:
         if keys is None:
             keys = self.motors.keys()
         for key in keys:
-            self.motors[key].set_target_velocity(self.current_command[key])
+            if self.current_command[key] is not None:
+                self.motors[key].set_target_velocity(self.current_command[key])

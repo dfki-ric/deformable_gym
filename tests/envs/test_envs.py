@@ -3,18 +3,19 @@ from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 
 env = FloatingMiaGraspEnv(
         gui=False,
-        verbose=True,
-        horizon=100,
+        horizon=20,
         object_name="insole_on_conveyor_belt/back",
         early_episode_termination=False,
         observable_time_step=False,
         observable_object_pos=True,
-        difficulty_mode="hard")
+        difficulty_mode="hard",
+        initial_pos_epsilon=0.00,
+        verbose=True
+)
 
 action_space_dims_expected = 10
 
-
-if env._observable_object_pos == True:
+if env._observable_object_pos:
     obs_space_dims_expected = 19
 else:
     obs_space_dims_expected = 16

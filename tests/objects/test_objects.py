@@ -11,12 +11,12 @@ def test_sphere():
 
     try:
         obj, _, _ = ObjectFactory().create("sphere")
-        #obj = SphereObject(client_id=simulation.get_physics_client_id())
-        pose = obj.get_pose()
+        # obj = SphereObject(client_id=simulation.get_physics_client_id())
+        # pose = obj.get_pose()
         # assert_array_almost_equal(pose, np.array([0, 0, 0, 1, 0, 0, 0]))
 
         vertices = obj.get_vertices()
-        # assert len(vertices) == 0
+        assert len(vertices) == 0
 
         obj.remove_anchors()
         simulation.step_to_trigger("time_step")
@@ -70,18 +70,18 @@ def test_insole():
         pose = obj.get_pose()
         # assert_array_almost_equal(pose, np.array([0, 0, 0, 1, 0, 0, 0]))
 
-        #vertices = obj.get_vertices()
-        #assert len(vertices) == 516
+        # vertices = obj.get_vertices()
+        # assert len(vertices) == 516
 
         obj.remove_anchors()
         simulation.step_to_trigger("time_step")
 
         pose = obj.get_pose()
-        #assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
+        # assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
 
-        #obj.reset()
+        # obj.reset()
         pose = obj.get_pose()
-        #assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
+        # assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
 
         # assert obj.get_id() == 0
     finally:
@@ -96,22 +96,22 @@ def test_pillow():
 
     try:
         obj, _, _ = ObjectFactory().create("pillow_small")
-        #obj = PillowSmall(pillow_markers2world=np.eye(4), fixed=False, client_id=simulation.get_physics_client_id())
+        # obj = PillowSmall(pillow_markers2world=np.eye(4), fixed=False, client_id=simulation.get_physics_client_id())
         pose = obj.get_pose()
-        #assert_array_almost_equal(pose, np.array([0, 0, 0, 1, 0, 0, 0]))
+        # assert_array_almost_equal(pose, np.array([0, 0, 0, 1, 0, 0, 0]))
 
-        #vertices = obj.get_vertices()
-        #assert len(vertices) == 516
+        # vertices = obj.get_vertices()
+        # assert len(vertices) == 516
 
         obj.remove_anchors()
         simulation.step_to_trigger("time_step")
 
         pose = obj.get_pose()
-        #assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
+        # assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
 
         obj.reset()
         pose = obj.get_pose()
-        #assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
+        # assert_array_almost_equal(pose, np.array([-0.52, 0.0, 1.05, 1, 0, 0, 0]))
 
         assert obj.get_id() == 0
     finally:

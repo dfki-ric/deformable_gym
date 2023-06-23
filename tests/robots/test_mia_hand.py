@@ -30,3 +30,5 @@ def test_mia_hand_velocity():
     joint_positions = robot.get_joint_positions()
     expected_angles = [0.5, 0.5, 0.5, 0.5, 0.0, 0.5]
     #assert_almost_equal(joint_positions, expected_angles)
+
+    simulation.disconnect()

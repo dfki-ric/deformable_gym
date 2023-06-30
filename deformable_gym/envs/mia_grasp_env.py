@@ -57,7 +57,7 @@ class MiaGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
         is in collision with the object.
     """
 
-    HORIZON = 500
+    HORIZON = 100
     ACCUMULATED_FORCES_THRESHOLD = 200.0  # greater forces end the episode
     DROP_TEST_TIME = 0.5  # time to test grasp stability in the end
 
@@ -66,14 +66,12 @@ class MiaGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
             gui: bool = True,
             real_time: bool = False,
             object_name: str = "insole",
-            initial_joint_positions: npt.ArrayLike = (0, 0, 0, 0, 0, 0),
             thumb_adducted: bool = True,
             verbose: bool = False,
             time_delta: float = 0.0001,
             verbose_dt: float = 0.1,
             velocity_control: bool = False,
             abort_on_first_step_with_collision: bool = False):
-        self.initial_joint_positions = np.array(initial_joint_positions)
         self.thumb_adducted = thumb_adducted
         self.object_name = object_name
         self.verbose = verbose
@@ -115,7 +113,7 @@ class MiaGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
 
         self._init_hand_pose(robot)
 
-        robot.set_initial_joint_positions(self.initial_joint_positions)
+        #robot.set_initial_joint_positions(self.initial_joint_positions)
         robot.set_thumb_opp(self.thumb_adducted)
 
         return robot

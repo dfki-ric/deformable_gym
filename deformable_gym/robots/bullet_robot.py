@@ -26,8 +26,11 @@ class BulletRobot(abc.ABC):
     space).
     """
     def __init__(
-            self, urdf_path: str, verbose: int = 0,
-            world_pos: npt.ArrayLike = None, world_orn: npt.ArrayLike = None,
+            self,
+            urdf_path: str,
+            verbose: int = 0,
+            world_pos: npt.ArrayLike = None,
+            world_orn: npt.ArrayLike = None,
             control_mode: int = pb.POSITION_CONTROL,
             task_space_limit: Union[npt.ArrayLike, None] = None,
             orn_limit: Union[npt.ArrayLike, None] = None,

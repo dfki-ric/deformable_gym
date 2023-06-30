@@ -5,12 +5,12 @@ import numpy.typing as npt
 import pybullet as pb
 from gym import spaces
 from deformable_gym.robots import mia_hand
-from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
+from deformable_gym.envs.base_env import ServoingEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
 
 
-class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
+class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
     """Grasp an insole with a floating Mia hand.
 
     **State space:**

@@ -1,4 +1,6 @@
 import abc
+from abc import ABC
+
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
@@ -7,12 +9,12 @@ import pytransform3d.rotations as pr
 from gym.core import Env
 from gym import spaces
 from deformable_gym.robots.bullet_robot import BulletRobot
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.helpers.pybullet_helper import MultibodyPose
 from typing import Any
 
 
-class BaseBulletEnv(Env, abc.ABC):
+class BaseBulletEnv(Env, ABC):
     """Configures PyBullet for the gym environment.
 
     :param gui: Show PyBullet GUI.
@@ -45,13 +47,12 @@ class BaseBulletEnv(Env, abc.ABC):
             verbose: bool = False,
             time_delta: float = .0001,
             verbose_dt: float = 10.00,
-            early_episode_termination: bool = True,
             pybullet_options: str = ""):
         self.gui = gui
         self.verbose = verbose
         self.__load_plane = load_plane
         self.horizon = horizon
-        self.early_episode_termination = early_episode_termination
+
 
         mode = pb.GUI if gui else pb.DIRECT
 
@@ -59,8 +60,7 @@ class BaseBulletEnv(Env, abc.ABC):
             soft=soft, time_delta=time_delta, real_time=real_time, mode=mode,
             verbose_dt=verbose_dt, pybullet_options=pybullet_options)
 
-        # TODO should we make this configurable? this results in 100 Hz
-        self.simulation.timing.add_subsystem("time_step", 100)
+
         self._load_objects()
         self.step_counter = 0
 
@@ -138,9 +138,6 @@ class BaseBulletEnv(Env, abc.ABC):
         :param next_state: State after action was taken
         :return: Is the current episode done?
         """
-        # check for termination action
-        if self.early_episode_termination and round(action[-1]) == 1:
-            return True
 
         return self.step_counter >= self.horizon
 
@@ -162,10 +159,7 @@ class BaseBulletEnv(Env, abc.ABC):
         state = self.observe_state()
 
         # execute action
-        if self.early_episode_termination:
-            self.robot.perform_command(action[:-1])
-        else:
-            self.robot.perform_command(action)
+        self.robot.perform_command(action)
 
         # simulate until next time step
         self.simulation.step_to_trigger("time_step")
@@ -206,6 +200,23 @@ class BaseBulletEnv(Env, abc.ABC):
         :return: robot_id - Object unique ID that identifies robot's multi-body.
         """
         return self.robot.get_id()
+
+
+class ServoingMixin:
+
+    def set_time_step(self):
+        self.simulation.timing.add_subsystem("time_step", 100)
+
+
+class ViapointMixin:
+
+    def set_time_step(self):
+        self.simulation.timing.add_subsystem("time_step", self._check_action_complete())
+
+    def _check_action_complete(self) -> bool:
+        """Checks whether the current action was completed."""
+
+        return self.robot.current_command
 
 
 class GraspDeformableMixin:

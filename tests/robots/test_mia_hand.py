@@ -1,6 +1,6 @@
 import numpy as np
 import pybullet as pb
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.robots.mia_hand import MiaHandVelocity
 from numpy.testing import assert_almost_equal
 
@@ -20,7 +20,7 @@ def test_mia_hand_velocity():
         simulation.step_to_trigger("time_step")
 
     joint_positions = robot.get_joint_positions()
-    expected_angles = [0.5, 0.5, 0.5, 0.5, 0.0, 0.5]
+    expected_angles = np.array([0.5, 0.5, 0.5, 0.5, 0.0, 0.5])
     #assert_almost_equal(joint_positions, expected_angles)
 
     robot.perform_command(np.array([0.0, 0.0, 0.0]))
@@ -28,7 +28,7 @@ def test_mia_hand_velocity():
         simulation.step_to_trigger("time_step")
 
     joint_positions = robot.get_joint_positions()
-    expected_angles = [0.5, 0.5, 0.5, 0.5, 0.0, 0.5]
+    expected_angles = np.array([0.5, 0.5, 0.5, 0.5, 0.0, 0.5])
     #assert_almost_equal(joint_positions, expected_angles)
 
     simulation.disconnect()

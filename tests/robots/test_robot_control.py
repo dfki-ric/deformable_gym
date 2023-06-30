@@ -1,6 +1,6 @@
 import numpy as np
 import pybullet as pb
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.robots.mia_hand import MiaHandPosition
 from numpy.testing import assert_array_almost_equal
 

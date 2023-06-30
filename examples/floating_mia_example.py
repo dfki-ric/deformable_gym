@@ -4,7 +4,6 @@ env = FloatingMiaGraspEnv(
         gui=True,
         horizon=100,
         object_name="insole_on_conveyor_belt/back",
-        early_episode_termination=False,
         observable_time_step=False,
         observable_object_pos=True,
         difficulty_mode="hard",

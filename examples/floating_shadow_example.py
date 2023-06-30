@@ -4,7 +4,6 @@ env = FloatingShadowGraspEnv(
         gui=True,
         horizon=100,
         object_name="insole",
-        early_episode_termination=False
 )
 
 

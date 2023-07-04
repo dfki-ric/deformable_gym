@@ -17,11 +17,10 @@
   <depend package="pytransform3d" />
 
   <keywords>
-    <keyword>Benchmark</keyword>
-    <keyword>Gym</keyword>
-    <keyword>Deformable</keyword>
+    <keyword>simulation</keyword>
+    <keyword>learning</keyword>
   </keywords>
-  <stage>2</stage>
+  <stage>1</stage>
   <use>multi project</use>
   <activity>active</activity>
   <classifiers>

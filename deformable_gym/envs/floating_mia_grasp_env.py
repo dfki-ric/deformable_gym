@@ -5,12 +5,12 @@ import numpy.typing as npt
 import pybullet as pb
 from gym import spaces
 from deformable_gym.robots import mia_hand
-from deformable_gym.envs.base_env import ServoingEnv, GraspDeformableMixin
+from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin, ServoingMixin, ViapointMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
 
 
-class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
+class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv, ViapointMixin):
     """Grasp an insole with a floating Mia hand.
 
     **State space:**
@@ -85,10 +85,11 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
         self._initial_pos_epsilon = initial_pos_epsilon
         self._initial_pos_it = initial_pos_it
 
-        super().__init__(soft=True, **kwargs)
 
         self.hand_world_pose = self._STANDARD_INITIAL_POSE.copy()
-        self.robot = self._create_robot()
+        super().__init__(soft=True, **kwargs)
+
+        # self.robot = self._create_robot()
 
         limits = pbh.get_limit_array(self.robot.motors.values())
         self.actuated_finger_ids = np.array([0, 1, 5], dtype=int)
@@ -139,7 +140,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
                 world_pos=self.hand_world_pose[:3],
                 world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
                 task_space_limit=self.task_space_limit,
-                verbose=self.verbose,
                 orn_limit=orn_limit,
                 base_commands=True)
         else:
@@ -147,7 +147,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
                 world_pos=self.hand_world_pose[:3],
                 world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
                 task_space_limit=self.task_space_limit,
-                verbose=self.verbose,
                 orn_limit=orn_limit,
                 base_commands=True)
 
@@ -202,6 +201,11 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
 
         return super().reset()
 
+    def _check_action_complete(self) -> bool:
+        """Checks whether the current action was completed."""
+        if self.robot is not None:
+            return self.robot.get_current_command() - self.robot.get_joint_positions() < 0.001
+
     def is_done(self, state, action, next_state):
 
         # check if insole is exploded
@@ -238,7 +242,7 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, ServoingEnv):
             if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
                 return -100
 
-            # self.robot.deactivate_motors()
+            self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
             for _ in range(50):

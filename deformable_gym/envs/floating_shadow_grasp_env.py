@@ -76,10 +76,6 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         upper_actions = np.concatenate([
             np.ones(7)*0.01, limits[1], [1]], axis=0)
 
-        if self.early_episode_termination:
-            lower_actions.append([0.0])
-            upper_actions.append([1.0])
-
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 
     def _create_robot(self):

@@ -41,3 +41,7 @@ def test_via_point_control():
 
     finally:
         simulation.disconnect()
+
+
+if __name__ == '__main__':
+    test_via_point_control()

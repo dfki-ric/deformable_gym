@@ -5,7 +5,6 @@ env = FloatingMiaGraspEnv(
         gui=False,
         horizon=20,
         object_name="insole_on_conveyor_belt/back",
-        early_episode_termination=False,
         observable_time_step=False,
         observable_object_pos=True,
         difficulty_mode="hard",
@@ -39,7 +38,7 @@ def test_initial_obs():
 
 
 def test_eps_done():
-    for t in range(10):
+    for _ in range(10):
         action = env.action_space.sample()
         obs, reward, done, info = env.step(action)
         assert len(obs) == obs_space_dims_expected

@@ -94,3 +94,31 @@ class Joint:
     def activate(self):
         """Activates the motor."""
         self.activated = True
+
+
+class RobotBase:
+
+    def __init__(self, parent_id, position, velocity, position_limits, velocity_limits):
+        self.position = position
+        self.velocity = velocity
+
+        self.position_limits = position_limits
+        self.velocity_limits = velocity_limits
+
+        # create fixed constraint for base if robot base is controllable
+        self.base_constraint = \
+            pb.createConstraint(parent_id,  # parent body id
+                                -1,  # parent link id, -1 for base
+                                -1,  # child body id, -1 for static frame in world coordinates
+                                -1,  # child link id, -1 for base
+                                pb.JOINT_FIXED,  # joint type
+                                [0, 0, 0],  # joint axis in child frame
+                                [0, 0, 0],  # parent frame position
+                                [0, 0, 1])  # child frame position
+
+    def set_target_position(self, target_position):
+
+        pb.changeConstraint(self.base_constraint, target_position[:3],
+                            jointChildFrameOrientation=target_position[3:], maxForce=100)
+
+

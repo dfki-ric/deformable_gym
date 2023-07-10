@@ -112,9 +112,6 @@ class BulletRobot(abc.ABC):
                                     [0, 0, 0],       # parent frame position
                                     [0, 0, 1])       # child frame position
 
-        if verbose:
-            print(self.all_joints)
-
         self.multibody_pose = pbh.MultibodyPose(
             self.get_id(), self.init_pos, self.init_rot)
 

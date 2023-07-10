@@ -18,9 +18,13 @@ class BulletSimulation:
     connection command.
     """
     def __init__(
-            self, time_delta: float = 0.001, mode: int = pb.GUI,
-            gravity: float = -9.81, soft: bool = False,
-            real_time: bool = False, verbose_dt: float = 0.2,
+            self,
+            time_delta: float = .001,
+            mode: int = pb.GUI,
+            gravity: float = -9.81,
+            soft: bool = False,
+            real_time: bool = False,
+            verbose_dt: float = .2,
             pybullet_options: str = ""):
 
         self.time_delta = time_delta
@@ -45,7 +49,7 @@ class BulletSimulation:
         else:
             pb.resetSimulation()
 
-        print(f"resetting client {self._client}")
+        print(f"Resetting client {self._client}")
 
         pb.setGravity(0, 0, self.gravity, physicsClientId=self._client)
         pb.setRealTimeSimulation(self.real_time, physicsClientId=self._client)

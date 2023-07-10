@@ -33,7 +33,7 @@ class BaseBulletEnv(Env, ABC):
     simulation: BulletSimulation
     step_counter: int
 
-    robot: BulletRobot
+    # robot: BulletRobot
     observation_space: spaces.Box
     action_space: spaces.Box
 
@@ -53,16 +53,22 @@ class BaseBulletEnv(Env, ABC):
         self.__load_plane = load_plane
         self.horizon = horizon
 
-
         mode = pb.GUI if gui else pb.DIRECT
 
         self.simulation = BulletSimulation(
             soft=soft, time_delta=time_delta, real_time=real_time, mode=mode,
             verbose_dt=verbose_dt, pybullet_options=pybullet_options)
 
+        self.robot = self._create_robot()
 
+        # self.simulation.timing.add_subsystem("time_step", 100)
+        self.set_time_step()
         self._load_objects()
         self.step_counter = 0
+
+
+
+
 
     @abc.abstractmethod
     def _create_robot(self):
@@ -213,10 +219,9 @@ class ViapointMixin:
     def set_time_step(self):
         self.simulation.timing.add_subsystem("time_step", self._check_action_complete())
 
-    def _check_action_complete(self) -> bool:
-        """Checks whether the current action was completed."""
-
-        return self.robot.current_command
+    #def _check_action_complete(self) -> bool:
+    #    """Checks whether the current action was completed."""
+    #    return self.robot.current_command - self.robot.get_joint_positions < 0.001
 
 
 class GraspDeformableMixin:

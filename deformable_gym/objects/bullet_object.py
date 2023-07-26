@@ -7,12 +7,12 @@ import os
 import pybullet as pb
 import pytransform3d.rotations as pr
 import pytransform3d.transformations as pt
-import sys
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.robots.bullet_utils import draw_pose
 from pathlib import Path
 
 base_path = Path(os.path.dirname(__file__)).parent.parent.absolute()
+
 
 class BulletObjectBase(abc.ABC):
     """Base class of objects that can be loaded in bullet.
@@ -440,15 +440,6 @@ class Insole(MocapObjectMixin, SoftObjectBase):
         """
         Returns the mesh pose.
         """
-        ''' Take out this implementation to avoid import of open3d on the cluster
-        from hand_embodiment.vis_utils import Insole as VisualInsole
-        pq = pt.pq_from_transform(
-            pt.concat(pt.invert_transform(VisualInsole.markers2mesh),
-                      object_markers2world))
-                      
-        '''
-
-        # copied from hand_embodiment.vis_utils.Insole
         markers2mesh = pt.transform_from(
             R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(
                 np.deg2rad([180, 0, -4.5])),
@@ -475,10 +466,13 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
 
     @staticmethod
     def mesh_pose(insole_markers2world):
-        from hand_embodiment.vis_utils import PillowSmall as VisualPillowSmall
-        pq = pt.pq_from_transform(
-            pt.concat(pt.invert_transform(VisualPillowSmall.markers2mesh),
-                      insole_markers2world))
+
+        markers2mesh = pt.transform_from(
+            R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(np.deg2rad([0, 0, 90])),
+            p=np.array([0.0, -0.02, 0.095]))
+
+        pq = pt.pq_from_transform(pt.concat(pt.invert_transform(markers2mesh), insole_markers2world))
+
         return pq[:3], pr.quaternion_xyzw_from_wxyz(pq[3:])
 
 

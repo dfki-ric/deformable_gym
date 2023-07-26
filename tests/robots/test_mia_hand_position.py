@@ -41,6 +41,3 @@ def test_mia_hand_position(simulation, robot):
     actual_pose = np.concatenate(robot.multibody_pose.get_pose())
     expected_pose = np.array([0.3, -0.2, 1.1, 0.0, 0.0, 0.0, 1.0])
     assert_almost_equal(actual_pose, expected_pose)
-
-
-

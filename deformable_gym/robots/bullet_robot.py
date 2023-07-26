@@ -239,10 +239,6 @@ class BulletRobot(abc.ABC):
         """
         assert self.end_effector is not None
 
-        if self.verbose > 0:
-            print(f"{pos_command=}")
-            print(f"{orn_command=}")
-
         # calculate target position
         if velocities:
             current_pose = self.get_ee_pose()
@@ -279,19 +275,10 @@ class BulletRobot(abc.ABC):
         if target_orn is not None and np.isnan(target_orn).any():
             print("FOUND NAN IN TARGET ORN!")
 
-        if self.verbose > 0:
-            print(f"{target_pos=}")
-            print(f"{target_orn=}")
-            print(f"{joint_positions=}")
-
         target = self.inverse_kinematics_solver(
             target_pos, target_orn, joint_positions)
 
         assert np.isfinite(target).all(), f"IK produced NAN:{target=}"
-
-        if self.verbose > 0:
-            print(f"{target=}")
-            print(f"joint difference = {joint_positions-target}")
 
         return target
 

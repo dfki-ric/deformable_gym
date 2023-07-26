@@ -39,19 +39,31 @@ conda install -c conda-forge libstdcxx-ng
 
 ## Example
 
+<p align="center">
+  <img src="doc/source/_static/grasp_grid.gif" />
+</p>
+
 Here is an example of how to run a random agent in the FloatingMiaEnv. More can be found in the `examples/` folder.
 
-```python
+```Python
 from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
+
+"""
+=========
+Floating Mia Example
+=========
+
+This is an example of how to use the FloatingMiaGraspEnv. A random policy is then 
+used to generate ten episodes. 
+
+"""
 
 env = FloatingMiaGraspEnv(
         gui=True,
         horizon=100,
         object_name="insole_on_conveyor_belt/back",
-        early_episode_termination=False,
         observable_time_step=False,
-        observable_object_pos=True,
-        difficulty_mode="hard")
+        observable_object_pos=True)
 
 env.reset()
 episode_return = 0
@@ -67,6 +79,7 @@ while num_episodes <= 10:
     if done:
         print(f"Episode finished with return {episode_return}!")
         num_episodes += 1
+
 ```
 
 

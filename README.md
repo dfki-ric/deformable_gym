@@ -39,9 +39,13 @@ conda install -c conda-forge libstdcxx-ng
 
 ## Example
 
+<p align="center">
+  <img src="doc/source/_static/grasp_grid.gif" />
+</p>
+
 Here is an example of how to run a random agent in the FloatingMiaEnv. More can be found in the `examples/` folder.
 
-```python
+```Python
 from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 
 env = FloatingMiaGraspEnv(

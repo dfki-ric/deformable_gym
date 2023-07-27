@@ -7,7 +7,7 @@ def env():
     return FloatingMiaGraspEnv(
         gui=False,
         verbose=True,
-        horizon=100,
+        horizon=10,
         object_name="insole_on_conveyor_belt/back",
         early_episode_termination=False,
         observable_object_pos=True,
@@ -47,12 +47,16 @@ def test_eps_done(env):
     else:
         obs_space_dims_expected = 16
 
-    done = False
-    for t in range(10):
+    for t in range(9):
         action = env.action_space.sample()
         obs, reward, done, info = env.step(action)
+
         assert len(obs) == obs_space_dims_expected
         assert isinstance(reward, float)
         assert isinstance(done, bool)
-        if done:
-            obs = env.reset()
+        assert not done
+
+    action = env.action_space.sample()
+    obs, reward, done, info = env.step(action)
+
+    assert done

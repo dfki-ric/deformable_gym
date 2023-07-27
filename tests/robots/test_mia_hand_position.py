@@ -19,14 +19,6 @@ def robot():
     return robot
 
 
-@pytest.fixture
-def simulation():
-    sim = BulletSimulation(mode=pb.DIRECT, verbose_dt=10000)
-    sim.timing.add_subsystem("time_step", 100, None)
-
-    return sim
-
-
 def test_mia_hand_position(simulation, robot):
 
     actual_pose = np.concatenate(robot.multibody_pose.get_pose())

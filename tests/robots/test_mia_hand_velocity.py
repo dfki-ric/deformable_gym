@@ -1,6 +1,4 @@
 import numpy as np
-import pybullet as pb
-from deformable_gym.envs.pybullet_tools import BulletSimulation
 from deformable_gym.robots.mia_hand import MiaHandVelocity
 from numpy.testing import assert_almost_equal
 
@@ -17,14 +15,6 @@ def robot():
     robot.set_thumb_opp(thumb_adducted=True)
 
     return robot
-
-
-@pytest.fixture
-def simulation():
-    sim = BulletSimulation(mode=pb.DIRECT, verbose_dt=10000)
-    sim.timing.add_subsystem("time_step", 100, None)
-
-    return sim
 
 
 def test_mia_hand_velocity(simulation, robot):

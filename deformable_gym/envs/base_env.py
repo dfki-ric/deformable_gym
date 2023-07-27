@@ -40,13 +40,11 @@ class BaseBulletEnv(Env, abc.ABC):
             horizon: int = 100, soft: bool = False,
             load_plane: bool = True, verbose: bool = False,
             time_delta: float = 0.0001, verbose_dt: float = 10.00,
-            early_episode_termination: bool = True,
             pybullet_options: str = ""):
         self.gui = gui
         self.verbose = verbose
         self.__load_plane = load_plane
         self.horizon = horizon
-        self.early_episode_termination = early_episode_termination
 
         mode = pb.GUI if gui else pb.DIRECT
 
@@ -69,9 +67,7 @@ class BaseBulletEnv(Env, abc.ABC):
         If a plane should be loaded, it will have the position (0, 0, 0).
         """
         if self.__load_plane:
-            PLANE_POSITION = (0, 0, 0)
-            self.plane = pb.loadURDF(
-                "plane.urdf", PLANE_POSITION, useFixedBase=1)
+            self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
 
     def _hard_reset(self):
         """Hard reset.
@@ -136,10 +132,6 @@ class BaseBulletEnv(Env, abc.ABC):
         :param next_state: State after action was taken
         :return: Is the current episode done?
         """
-        # check for termination action
-        if self.early_episode_termination and round(action[-1]) == 1:
-            return True
-
         return self.step_counter >= self.horizon
 
     def step(self, action: npt.ArrayLike):
@@ -160,10 +152,7 @@ class BaseBulletEnv(Env, abc.ABC):
         state = self.observe_state()
 
         # execute action
-        if self.early_episode_termination:
-            self.robot.perform_command(action[:-1])
-        else:
-            self.robot.perform_command(action)
+        self.robot.perform_command(action)
 
         # simulate until next time step
         self.simulation.step_to_trigger("time_step")
@@ -187,8 +176,8 @@ class BaseBulletEnv(Env, abc.ABC):
 
     @abc.abstractmethod
     def calculate_reward(
-            self, state: np.ndarray, action: np.ndarray,
-            next_state: np.ndarray, done: bool):
+            self, state: npt.ArrayLike, action: npt.ArrayLike,
+            next_state: npt.ArrayLike, done: bool):
         """Calculate reward.
 
         :param state: State of the environment.

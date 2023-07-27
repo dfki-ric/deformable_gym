@@ -42,7 +42,7 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                                      p=np.array([-0.7, 0.1, 1.8]))
 
     def __init__(self, gui=True, real_time=False, object_name="insole",
-                 verbose=False, horizon=200, train=True,
+                 verbose=False, horizon=100, train=True,
                  compute_reward=True, object_scale=1.0, verbose_dt=10.0):
         self.insole = None
         self.train = train

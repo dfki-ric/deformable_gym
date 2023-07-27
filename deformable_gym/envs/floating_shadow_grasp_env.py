@@ -38,7 +38,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                       [-0.8, 0.0, 1.6])
 
     def __init__(self, object_name="insole",
-                 horizon=200, train=True,
+                 horizon=100, train=True,
                  compute_reward=True, object_scale=1.0,  **kwargs):
         self.insole = None
         self.train = train

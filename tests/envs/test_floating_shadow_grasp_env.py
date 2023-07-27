@@ -9,7 +9,6 @@ def env():
         verbose=True,
         horizon=10,
         object_name="insole_on_conveyor_belt/back",
-        early_episode_termination=False,
         # observable_object_pos=True,
         #  difficulty_mode="hard"
         )
@@ -32,7 +31,6 @@ def test_initial_obs(env):
     assert len(obs) == 18
 
 
-@pytest.mark.skip("TODO")
 def test_eps_done(env):
     env.reset()
     for t in range(9):

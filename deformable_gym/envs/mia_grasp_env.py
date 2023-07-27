@@ -57,7 +57,6 @@ class MiaGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
         is in collision with the object.
     """
 
-    HORIZON = 500
     ACCUMULATED_FORCES_THRESHOLD = 200.0  # greater forces end the episode
     DROP_TEST_TIME = 0.5  # time to test grasp stability in the end
 
@@ -81,7 +80,7 @@ class MiaGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
         self.abort_on_first_step_with_collision = abort_on_first_step_with_collision
 
         super().__init__(
-            gui=gui, real_time=real_time, horizon=self.HORIZON, soft=True,
+            gui=gui, real_time=real_time, horizon=100, soft=True,
             load_plane=True, verbose=verbose, time_delta=time_delta,
             verbose_dt=verbose_dt)
 

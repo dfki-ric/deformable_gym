@@ -31,7 +31,6 @@ class ShadowGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
         timing information (default: 0.1).
     """
 
-    HORIZON = 500
     ACCUMULATED_FORCES_THRESHOLD = 200.0  # greater forces end the episode
     DROP_TEST_TIME = 0.5  # time to test grasp stability in the end
 
@@ -54,7 +53,7 @@ class ShadowGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
         self.velocity_control = velocity_control
 
         super().__init__(
-            gui=gui, real_time=real_time, horizon=self.HORIZON, soft=True,
+            gui=gui, real_time=real_time, horizon=100, soft=True,
             load_plane=True, verbose=verbose, time_delta=time_delta,
             verbose_dt=verbose_dt)
 

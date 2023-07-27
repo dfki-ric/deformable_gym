@@ -120,7 +120,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             high=upper_observations)
 
         # build the action space
-
         lower = [-np.ones(3) * .0005,  # max negative base pos offset
                  -np.ones(4) * .000005,  # max negative base orn offset
                  limits[0][self.actuated_finger_ids]]  # negative joint limits
@@ -128,10 +127,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         upper = [np.ones(3) * .0005,  # max positive base pos offset
                  np.ones(4) * .000005,  # max positive base orn offset
                  limits[1][self.actuated_finger_ids]]  # positive joint limits
-
-        if self.early_episode_termination:
-            lower.append([0.0])
-            upper.append([1.0])
 
         self.action_space = spaces.Box(low=np.concatenate(lower), high=np.concatenate(upper))
 

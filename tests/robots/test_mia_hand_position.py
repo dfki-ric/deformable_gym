@@ -1,6 +1,4 @@
 import numpy as np
-import pybullet as pb
-from deformable_gym.envs.pybullet_tools import BulletSimulation
 from deformable_gym.robots.mia_hand import MiaHandPosition
 from numpy.testing import assert_almost_equal
 
@@ -19,11 +17,26 @@ def robot():
     return robot
 
 
-def test_mia_hand_position(simulation, robot):
+def test_mia_hand_position_initial_pose(simulation, robot):
 
     actual_pose = np.concatenate(robot.multibody_pose.get_pose())
     expected_pose = np.array([0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0])
     assert_almost_equal(actual_pose, expected_pose)
+
+
+def test_mia_hand_position_creation(simulation, robot, mia_motors, mia_sensors):
+
+    found_motors = robot.motors.keys()
+
+    # check motor creation
+    for motor in mia_motors:
+        assert motor in found_motors
+
+    found_sensors = robot.sensors.keys()
+
+    # check sensor creation
+    for sensor in mia_sensors:
+        assert sensor in found_sensors
 
 
 @pytest.mark.skip("TODO")

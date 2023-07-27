@@ -18,12 +18,23 @@ def robot():
     return robot
 
 
-def test_shadow_hand_velocity_creation(simulation, robot):
+def test_shadow_hand_velocity_initial_pose(simulation, robot):
     simulation.add_robot(robot)
 
     actual_pose = np.concatenate(robot.multibody_pose.get_pose())
     expected_pose = np.array([0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0])
     assert_almost_equal(actual_pose, expected_pose)
+
+
+def test_shadow_hand_velocity_motor_creation(simulation, robot, shadow_motors):
+
+    simulation.add_robot(robot)
+
+    found_motors = robot.motors.keys()
+
+    # check motor creation
+    for motor in shadow_motors:
+        assert motor in found_motors
 
 
 @pytest.mark.skip("TODO")

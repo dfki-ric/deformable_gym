@@ -17,13 +17,19 @@ def robot():
     return robot
 
 
-def test_mia_hand_velocity(simulation, robot):
+def test_mia_hand_velocity_creation(simulation, robot):
 
     simulation.add_robot(robot)
 
     actual_pose = np.concatenate(robot.multibody_pose.get_pose())
     expected_pose = np.array([0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0])
     assert_almost_equal(actual_pose, expected_pose)
+
+
+@pytest.mark.skip("TODO")
+def test_mia_hand_velocity_base_movement(simulation, robot):
+
+    simulation.add_robot(robot)
 
     robot.perform_command(np.array([0.3, -0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
 

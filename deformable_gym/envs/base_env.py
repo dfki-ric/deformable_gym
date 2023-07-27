@@ -8,7 +8,7 @@ import pytransform3d.rotations as pr
 from gym.core import Env
 from gym import spaces
 from deformable_gym.robots.bullet_robot import BulletRobot
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.helpers.pybullet_helper import MultibodyPose
 
 

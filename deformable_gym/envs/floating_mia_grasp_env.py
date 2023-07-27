@@ -139,14 +139,16 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                 world_pos=self.hand_world_pose[:3],
                 world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
                 task_space_limit=self.task_space_limit,
-                verbose=self.verbose, orn_limit=orn_limit,
+                verbose=self.verbose,
+                orn_limit=orn_limit,
                 base_commands=True)
         else:
             robot = mia_hand.MiaHandPosition(
                 world_pos=self.hand_world_pose[:3],
                 world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
                 task_space_limit=self.task_space_limit,
-                verbose=self.verbose, orn_limit=orn_limit,
+                verbose=self.verbose,
+                orn_limit=orn_limit,
                 base_commands=True)
 
         self.simulation.add_robot(robot)
@@ -179,10 +181,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             raise ValueError(f"Received unknown difficulty mode {mode}!")
 
     def reset(self, hard_reset=False, pos=None):
-
-        if self.verbose:
-            print("Performing reset (april)")
-            print("Pose:", self.hand_world_pose)
 
         if pos is None:
             self.robot.reset_base(self.hand_world_pose)
@@ -235,12 +233,12 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             self.object_to_grasp.remove_anchors()
             for _ in range(50):
                 if self._deformable_is_exploded():
-                    return -1
+                    return -1.0
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
             if height < 0.9:
-                return -1
+                return -1.0
             else:
-                return 1
+                return 1.0
         else:
             return 0.0

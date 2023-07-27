@@ -8,8 +8,8 @@ def env():
         gui=False,
         verbose=True,
         horizon=10,
-        object_name="insole_on_conveyor_belt/back",
-        # observable_object_pos=True,
+        object_name="insole",
+        observable_object_pos=True,
         #  difficulty_mode="hard"
         )
 

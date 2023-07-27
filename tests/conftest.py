@@ -1,6 +1,6 @@
 import pytest
 import pybullet as pb
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 
 
 @pytest.fixture

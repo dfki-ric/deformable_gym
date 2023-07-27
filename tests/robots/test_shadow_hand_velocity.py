@@ -1,6 +1,6 @@
 import numpy as np
 import pybullet as pb
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.robots.shadow_hand import ShadowHandVelocity
 from numpy.testing import assert_almost_equal
 

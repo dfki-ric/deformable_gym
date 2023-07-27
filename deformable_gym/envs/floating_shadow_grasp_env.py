@@ -6,7 +6,6 @@ from deformable_gym.robots import shadow_hand
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
-import pytransform3d.transformations as pt
 
 
 class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
@@ -72,10 +71,6 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         upper_actions = np.concatenate([
             np.ones(7)*0.01, limits[1], [1]], axis=0)
-
-        if self.early_episode_termination:
-            lower.append([0.0])
-            upper.append([1.0])
 
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 

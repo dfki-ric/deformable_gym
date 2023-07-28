@@ -171,8 +171,6 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                 scale=self.object_scale)
 
     def reset(self, hard_reset=False):
-        if self.verbose:
-            print("Performing reset (april)")
 
         if self.randomised:
             if self.train:
@@ -188,10 +186,6 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().reset()
 
     def is_done(self, state, action, next_state):
-
-        # check for termination action
-        # if round(action[-1]) == 1:
-        #    return True
 
         # check if insole is exploded
         if self._deformable_is_exploded():

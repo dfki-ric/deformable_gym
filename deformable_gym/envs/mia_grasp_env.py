@@ -81,7 +81,7 @@ class MiaGraspEnv(FloatingHandMixin, GraspDeformableMixin, BaseBulletEnv):
 
         super().__init__(
             gui=gui, real_time=real_time, horizon=100, soft=True,
-            load_plane=True, verbose=verbose, time_delta=time_delta,
+            verbose=verbose, time_delta=time_delta,
             verbose_dt=verbose_dt)
 
         self.hand_world_pose = (0, 0, 1, -np.pi / 8, np.pi, 0)

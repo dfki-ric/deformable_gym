@@ -38,12 +38,11 @@ class BaseBulletEnv(Env, abc.ABC):
     def __init__(
             self, gui: bool = True, real_time: bool = False,
             horizon: int = 100, soft: bool = False,
-            load_plane: bool = True, verbose: bool = False,
+            verbose: bool = False,
             time_delta: float = 0.0001, verbose_dt: float = 10.00,
             pybullet_options: str = ""):
         self.gui = gui
         self.verbose = verbose
-        self.__load_plane = load_plane
         self.horizon = horizon
 
         mode = pb.GUI if gui else pb.DIRECT
@@ -62,12 +61,8 @@ class BaseBulletEnv(Env, abc.ABC):
         """Load (or reload) robot to PyBullet simulation."""
 
     def _load_objects(self):
-        """Load objects to PyBullet simulation.
-
-        If a plane should be loaded, it will have the position (0, 0, 0).
-        """
-        if self.__load_plane:
-            self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
+        """Load objects to PyBullet simulation."""
+        self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
 
     def _hard_reset(self):
         """Hard reset.

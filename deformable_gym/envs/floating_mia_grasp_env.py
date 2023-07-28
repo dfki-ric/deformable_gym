@@ -85,7 +85,7 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self._observable_object_pos = observable_object_pos
         self._observable_time_step = observable_time_step
 
-        super().__init__(soft=True, load_plane=True, **kwargs)
+        super().__init__(soft=True, **kwargs)
 
         self.hand_world_pose = self._STANDARD_INITIAL_POSE
         self.robot = self._create_robot()

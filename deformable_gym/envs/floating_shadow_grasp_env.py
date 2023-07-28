@@ -45,7 +45,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self._observable_object_pos = observable_object_pos
         self._observable_time_step = observable_time_step
 
-        super().__init__(horizon=horizon, soft=True, load_plane=True, **kwargs)
+        super().__init__(horizon=horizon, soft=True, **kwargs)
 
         self.hand_world_pose = (0, -0.5, 1, -np.pi/2, np.pi, 0)
         self.robot = self._create_robot()

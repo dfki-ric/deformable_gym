@@ -110,7 +110,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_scale = object_scale
 
         super().__init__(gui=gui, real_time=real_time, horizon=horizon,
-                         soft=True, load_plane=True, verbose=verbose,
+                         soft=True, verbose=verbose,
                          verbose_dt=verbose_dt,
                          pybullet_options=pybullet_options)
 

@@ -1,4 +1,4 @@
-from deformable_gym.envs.mia_grasp_env import MiaGraspEnv
+from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 
 """
 =========
@@ -10,9 +10,9 @@ used to generate ten episodes.
 
 """
 
-env = MiaGraspEnv(
+env = UR5MiaGraspEnv(
         gui=True,
-        object_name="insole_on_conveyor_belt/back"
+        object_name="insole2"
 )
 
 env.reset()

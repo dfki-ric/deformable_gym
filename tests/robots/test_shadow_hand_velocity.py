@@ -28,13 +28,9 @@ def test_shadow_hand_velocity_initial_pose(simulation, robot):
 
 def test_shadow_hand_velocity_motor_creation(simulation, robot, shadow_motors):
 
-    simulation.add_robot(robot)
-
-    found_motors = robot.motors.keys()
-
     # check motor creation
-    for motor in shadow_motors:
-        assert motor in found_motors
+    assert set(robot.motors.keys()) == set(shadow_motors)
+
 
 
 @pytest.mark.skip("TODO")

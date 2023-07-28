@@ -28,17 +28,10 @@ def test_mia_hand_velocity_initial_pose(simulation, robot):
 
 def test_mia_hand_velocity_motor_creation(simulation, robot, mia_motors, mia_sensors):
 
-    found_motors = robot.motors.keys()
-
     # check motor creation
-    for motor in mia_motors:
-        assert motor in found_motors
-
-    found_sensors = robot.sensors.keys()
-
+    assert set(robot.motors.keys()) == set(mia_motors)
     # check sensor creation
-    for sensor in mia_sensors:
-        assert sensor in found_sensors
+    assert set(robot.sensors.keys()) == set(mia_sensors)
 
 
 @pytest.mark.skip("TODO")

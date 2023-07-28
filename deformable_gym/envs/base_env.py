@@ -19,7 +19,6 @@ class BaseBulletEnv(Env, abc.ABC):
     :param real_time: Run PyBullet in real time.
     :param horizon: Maximum number of steps in an episode.
     :param soft: Activate soft body simulation.
-    :param load_plane: Load plane from URDF.
     :param verbose: Print debug information.
     :param time_delta: Time between PyBullet simulation steps.
     :param verbose_dt: Time after which simulation info should be printed.
@@ -36,11 +35,16 @@ class BaseBulletEnv(Env, abc.ABC):
     action_space: spaces.Box
 
     def __init__(
-            self, gui: bool = True, real_time: bool = False,
-            horizon: int = 100, soft: bool = False,
+            self,
+            gui: bool = True,
+            real_time: bool = False,
+            horizon: int = 100,
+            soft: bool = False,
             verbose: bool = False,
-            time_delta: float = 0.0001, verbose_dt: float = 10.00,
+            time_delta: float = 0.0001,
+            verbose_dt: float = 10.00,
             pybullet_options: str = ""):
+
         self.gui = gui
         self.verbose = verbose
         self.horizon = horizon
@@ -65,10 +69,8 @@ class BaseBulletEnv(Env, abc.ABC):
         self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
 
     def _hard_reset(self):
-        """Hard reset.
-
-        Fully reset the PyBullet simulation and reload all objects. May be
-        necessary, for example, when soft-bodies in the environment explode.
+        """Hard reset the PyBullet simulation and reload all objects. May be necessary, e.g., if soft-bodies in the
+        environment explode.
         """
         if self.verbose:
             print("Performing hard reset!")
@@ -109,7 +111,7 @@ class BaseBulletEnv(Env, abc.ABC):
         if mode == "human":
             assert self.gui
         else:
-            raise NotImplementedError("Render mode '%s' not supported" % mode)
+            raise NotImplementedError(f"Render mode {mode} not supported")
 
     def observe_state(self) -> np.ndarray:
         """Returns the current environment state.
@@ -118,8 +120,7 @@ class BaseBulletEnv(Env, abc.ABC):
         """
         return self.robot.get_joint_positions()
 
-    def is_done(self, state: np.ndarray, action: np.ndarray,
-                next_state: np.ndarray) -> bool:
+    def is_done(self, state: np.ndarray, action: np.ndarray, next_state: np.ndarray) -> bool:
         """Checks whether the current episode is over or not.
 
         :param state: State
@@ -165,14 +166,12 @@ class BaseBulletEnv(Env, abc.ABC):
         reward = self.calculate_reward(state, action, next_state, done)
 
         if self.verbose:
-            print(f"Finished environment step: {next_state=}, {reward}, {done=}")
+            print(f"Finished environment step: {next_state=}, {reward=}, {done=}")
 
         return next_state, reward, done, {}
 
     @abc.abstractmethod
-    def calculate_reward(
-            self, state: npt.ArrayLike, action: npt.ArrayLike,
-            next_state: npt.ArrayLike, done: bool):
+    def calculate_reward(self, state: npt.ArrayLike, action: npt.ArrayLike, next_state: npt.ArrayLike, done: bool):
         """Calculate reward.
 
         :param state: State of the environment.
@@ -213,18 +212,19 @@ class GraspDeformableMixin:
             return True
 
     def _check_forces(self, robot, high_force_threshold, verbose):
-        contact_points = robot.get_contact_points(
-            self.object_to_grasp.get_id())
+        contact_points = robot.get_contact_points(self.object_to_grasp.get_id())
         accumulated_forces = 0.0
         for contact_point in contact_points:
             _, _, _, _, _, _, _, _, dist, force, _, _, _, _ = contact_point
             accumulated_forces += force
         high_forces = accumulated_forces > high_force_threshold
         contact_forces = accumulated_forces > 0
+
         if high_forces:
-            print("Accumulated force too high: %g" % accumulated_forces)
+            print(f"Accumulated force too high: {accumulated_forces}")
         elif verbose:
-            print("Accumulated force: %g" % accumulated_forces)
+            print(f"{accumulated_forces=}")
+
         return high_forces, contact_forces
 
     def get_object_pose(self):

@@ -32,7 +32,6 @@ def test_shadow_hand_velocity_motor_creation(simulation, robot, shadow_motors):
     assert set(robot.motors.keys()) == set(shadow_motors)
 
 
-
 @pytest.mark.skip("TODO")
 def test_shadow_hand_velocity_base_movement(simulation, robot):
 

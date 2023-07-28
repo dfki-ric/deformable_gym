@@ -24,17 +24,9 @@ def test_ur5_mia_position_initial_position(simulation, robot):
     assert_almost_equal(actual_pose, expected_pose)
 
 
-def test_mia_hand_position_creation(simulation, robot, mia_motors, mia_sensors):
-
-    found_motors = robot.motors.keys()
+def test_ur5_mia_position_creation(simulation, robot, ur5_mia_motors, ur5_mia_sensors):
 
     # check motor creation
-    for motor in mia_motors:
-        assert motor in found_motors
-
-    found_sensors = robot.sensors.keys()
-
+    assert set(robot.motors.keys()) == set(ur5_mia_motors)
     # check sensor creation
-    for sensor in mia_sensors:
-        assert sensor in found_sensors
-
+    assert set(robot.sensors.keys()) == set(ur5_mia_sensors)

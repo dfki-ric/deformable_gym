@@ -18,6 +18,7 @@ def test_action_space_dims(env):
     action_space = env.action_space
     assert action_space.shape[0] == 10
 
+
 @pytest.mark.skip("TODO")
 def test_obs_space_dims(env):
     obs_space = env.observation_space

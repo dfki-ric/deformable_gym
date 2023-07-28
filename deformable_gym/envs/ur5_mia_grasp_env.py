@@ -132,12 +132,14 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         actuated_finger_ids = np.array([6, 7, 11], dtype=int)
 
         lower_actions = np.concatenate([
-            np.array([-2, -2, 0]), -np.ones(4), limits[0][actuated_finger_ids],
-            [0]], axis=0)
+            np.array([-2, -2, 0]),
+            -np.ones(4),
+            limits[0][actuated_finger_ids]], axis=0)
 
         upper_actions = np.concatenate([
-            np.array([2, 2, 2]), np.ones(4), limits[1][actuated_finger_ids],
-            [1]], axis=0)
+            np.array([2, 2, 2]),
+            np.ones(4),
+            limits[1][actuated_finger_ids]], axis=0)
 
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 
@@ -166,9 +168,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _load_objects(self):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(
-                self.object_name, object2world=self.object2world,
-                scale=self.object_scale)
+            ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
     def reset(self, hard_reset=False):
 
@@ -195,8 +195,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().is_done(state, action, next_state)
 
     def observe_state(self):
-        joint_pos = self.robot.get_joint_positions(
-            self.robot.actuated_real_joints)
+        joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 
@@ -222,9 +221,10 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                     return -100
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
-            if height < 0.5:
-                return -50
+
+            if height > 0.9:
+                return 1.0
             else:
-                return 0.0
+                return -1.0
         else:
             return 0.0

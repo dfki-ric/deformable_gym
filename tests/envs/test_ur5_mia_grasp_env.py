@@ -37,7 +37,7 @@ def test_eps_done(env):
         action = env.action_space.sample()
         obs, reward, done, info = env.step(action)
 
-        assert len(obs) == 18
+        assert len(obs) == 16
         assert isinstance(reward, float)
         assert isinstance(done, bool)
         assert not done

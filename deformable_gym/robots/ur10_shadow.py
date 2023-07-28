@@ -57,10 +57,6 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
                 end_effector_name=end_effector_link,
                 fallback=self.inverse_kinematics_solver))
 
-    def get_joint_limits(self):
-        """Get joint limits."""
-        return self._get_joint_limits(self.motors)
-
     def perform_command(self, command):
         """
         Performs the provided arm and hand commands. Assumes task-space arm

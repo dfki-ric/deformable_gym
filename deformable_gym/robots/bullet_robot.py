@@ -7,6 +7,7 @@ from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.robots.bullet_utils import draw_limits
 from deformable_gym.robots.inverse_kinematics import PyBulletSolver
 from deformable_gym.objects.bullet_object import Pose
+from gym.spaces import Box
 
 
 class BulletRobot(abc.ABC):
@@ -107,6 +108,11 @@ class BulletRobot(abc.ABC):
 
         self.multibody_pose = pbh.MultibodyPose(
             self.get_id(), self.init_pos, self.init_rot)
+
+        # create observation and action spaces
+        # TODO: fix to include base actions and sensor observations
+        self.action_space = Box(np.full(len(self.motors), -1.0), np.full(len(self.motors), 1.0))
+        self.observation_space = Box(np.full(len(self.motors), -1.0), np.full(len(self.motors), 1.0))
 
     def initialise(self) -> int:
         """Initialize robot in simulation.
@@ -251,10 +257,11 @@ class BulletRobot(abc.ABC):
         target_pos = current_pos + pos_command
 
         if self.task_space_limit is not None:
-            print(f"Original {target_pos=}")
-            target_pos = np.clip(
-                target_pos, self.task_space_limit[0], self.task_space_limit[1])
-            print(f"Clipped {target_pos=}")
+            if self.verbose:
+                print(f"Original {target_pos=}")
+            target_pos = np.clip(target_pos, self.task_space_limit[0], self.task_space_limit[1])
+            if self.verbose:
+                print(f"Clipped {target_pos=}")
 
         # calculate target rotation if orientation is provided
         target_orn = None
@@ -393,7 +400,7 @@ class BulletRobot(abc.ABC):
         """
         return self._link_name_to_link_id[link_name]
 
-    def _get_joint_limits(self, joints: List[str]) -> Tuple[np.ndarray, np.ndarray]:
+    def get_joint_limits(self, joints: List[str]) -> Tuple[np.ndarray, np.ndarray]:
         """Get array of lower limits and array of upper limits of joints.
 
         :param joints: Names of joints for which we request limits.

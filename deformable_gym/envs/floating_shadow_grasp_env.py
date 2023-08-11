@@ -109,13 +109,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         if self.verbose:
             print("Performing reset (april)")
 
-        if self.randomised:
-            if self.train:
-                pos = random.choice(self.train_positions)
-            else:
-                pos = random.choice(self.test_positions)
-        else:
-            pos = None
+        pos = None
 
         self.object_to_grasp.reset(pos=pos)
 
@@ -147,7 +141,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
                 return -100
 
-            # self.robot.deactivate_motors()
+            self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
             for _ in range(50):

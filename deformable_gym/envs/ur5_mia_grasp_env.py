@@ -3,8 +3,7 @@ import random
 import numpy as np
 from gym import spaces
 from deformable_gym.robots import ur5_mia
-from deformable_gym.envs.base_env import BaseBulletEnv
-from deformable_gym.envs.mia_grasp_env import GraspDeformableMixin
+from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
 import pytransform3d.transformations as pt
@@ -172,13 +171,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def reset(self, hard_reset=False):
 
-        if self.randomised:
-            if self.train:
-                pos = random.choice(self.train_positions)
-            else:
-                pos = random.choice(self.test_positions)
-        else:
-            pos = None
+        pos = None
 
         self.object_to_grasp.reset(pos=pos)
         self.robot.activate_motors()

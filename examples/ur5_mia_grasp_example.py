@@ -29,3 +29,4 @@ while num_episodes <= 10:
     if done:
         print(f"Episode finished with return {episode_return}!")
         num_episodes += 1
+        env.reset()

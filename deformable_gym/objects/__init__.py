@@ -4,7 +4,6 @@ from .bullet_object import (
     MocapObjectMixin, RigidPrimitiveObject, Insole, InsoleOnConveyorBelt,
     PillowSmall, PositionEulerAngleMixin)
 from .conveyor import Conveyor
-from .rigid_bag import RigidBag
 
 
 __all__ = [
@@ -12,5 +11,5 @@ __all__ = [
     "UrdfObject", "SphereObject", "CylinderObject", "ObjectFactory",
     "CapsuleObject", "SoftObject", "MocapObjectMixin", "RigidPrimitiveObject",
     "Insole", "InsoleOnConveyorBelt", "PillowSmall", "PositionEulerAngleMixin",
-    "Conveyor", "RigidBag"
+    "Conveyor"
 ]

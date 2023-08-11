@@ -228,7 +228,7 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
                 return -100
 
-            # self.robot.deactivate_motors()
+            self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
             for _ in range(50):

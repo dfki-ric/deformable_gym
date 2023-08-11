@@ -203,13 +203,7 @@ class GraspDeformableMixin:
 
         :return: Whether the deformable is exploded or not.
         """
-        pose = self.object_to_grasp.get_pose()
-
-        if np.isfinite(pose).all():
-            return np.any(np.abs(pose[:3]) > 3)
-        else:
-            print("NAN in insole pose -> exploded?!")
-            return True
+        return not np.isfinite(self.object_to_grasp.get_pose()).all()
 
     def _check_forces(self, robot, high_force_threshold, verbose):
         contact_points = robot.get_contact_points(self.object_to_grasp.get_id())
@@ -248,8 +242,7 @@ class FloatingHandMixin:
         """
         desired_robot2world_pos = self.hand_world_pose[:3]
         desired_robot2world_orn = pb.getQuaternionFromEuler(self.hand_world_pose[3:])
-        self.multibody_pose = MultibodyPose(
-            robot.get_id(), desired_robot2world_pos, desired_robot2world_orn)
+        self.multibody_pose = MultibodyPose(robot.get_id(), desired_robot2world_pos, desired_robot2world_orn)
 
     def set_world_pose(self, world_pose):
         """Set pose of the hand.

@@ -30,14 +30,6 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     object should be sampled from the training or the test set.
     """
 
-    train_positions = ([-0.7, 0.1, 1.6],
-                       [-0.7, 0.2, 1.6],
-                       [-0.7, 0.0, 1.6])
-
-    test_positions = ([-0.8, 0.1, 1.6],
-                      [-0.8, 0.2, 1.6],
-                      [-0.8, 0.0, 1.6])
-
     object2world = pt.transform_from(R=np.eye(3),
                                      p=np.array([-0.7, 0.1, 1.8]))
 
@@ -104,20 +96,13 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _load_objects(self):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(
-                self.object_name, object2world=self.object2world,
-                scale=self.object_scale)
+            ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
     def reset(self, hard_reset=False):
-        if self.randomised:
-            if self.train:
-                pos = random.choice(self.train_positions)
-            else:
-                pos = random.choice(self.test_positions)
-        else:
-            pos = None
 
-        self.object_to_grasp.reset(pos=pos)
+        pos = None
+
+        self.object_to_grasp.reset(pos)
         self.robot.activate_motors()
 
         return super().reset()

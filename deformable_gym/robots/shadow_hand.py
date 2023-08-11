@@ -55,10 +55,6 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
         if self.debug_visualization:
             self._init_debug_visualizations()
 
-    def get_joint_limits(self):
-        """Get joint limits."""
-        return self._get_joint_limits(self.motors)
-
     def perform_command(self, command: npt.ArrayLike):
         """Translates hand commands and updates current command.
 

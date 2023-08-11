@@ -30,19 +30,11 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     object should be sampled from the training or the test set.
     """
 
-    train_positions = ([-0.7, 0.1, 1.6],
-                       [-0.7, 0.2, 1.6],
-                       [-0.7, 0.0, 1.6])
-
-    test_positions = ([-0.8, 0.1, 1.6],
-                      [-0.8, 0.2, 1.6],
-                      [-0.8, 0.0, 1.6])
-
     object2world = pt.transform_from(R=np.eye(3),
                                      p=np.array([-0.7, 0.1, 1.8]))
 
     def __init__(self, gui=True, real_time=False, object_name="insole",
-                 verbose=False, horizon=200, train=True,
+                 verbose=False, horizon=100, train=True,
                  compute_reward=True, object_scale=1.0, verbose_dt=10.0):
         self.insole = None
         self.train = train
@@ -53,7 +45,7 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_scale = object_scale
 
         super().__init__(gui=gui, real_time=real_time, horizon=horizon,
-                         soft=True, load_plane=True, verbose=verbose,
+                         soft=True, verbose=verbose,
                          verbose_dt=verbose_dt)
 
         self.robot = self._create_robot()
@@ -72,12 +64,10 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             low=lower_observations, high=upper_observations)
 
         lower_actions = np.concatenate([
-            np.array([-2, -2, 0]), -np.ones(4), limits[0][6:],
-            [0]], axis=0)
+            np.array([-2, -2, 0]), -np.ones(4), limits[0][6:]], axis=0)
 
         upper_actions = np.concatenate([
-            np.array([2, 2, 2]), np.ones(4), limits[1][6:],
-            [1]], axis=0)
+            np.array([2, 2, 2]), np.ones(4), limits[1][6:]], axis=0)
 
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 
@@ -97,19 +87,7 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                 end_effector_link="rh_forearm",
                 verbose=self.verbose, orn_limit=orn_limit)
 
-        # robot.set_ee_pose([-0.3, 0.2, 1.5],
-        #                  [-0.69284743, 0.69317556, 0.14108795, -0.13987236])
-
-        robot.set_initial_joint_positions(dict(zip(robot.motors,
-                                                   robot.get_joint_positions())))
-
-        """
-        robot.set_initial_joint_positions(np.array(
-            [2.44388798, -2.01664781, 1.72892952, -0.3965438, 1.18004689,
-             0.18013334, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-             0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]
-        ))
-        """
+        robot.set_initial_joint_positions(dict(zip(robot.motors, robot.get_joint_positions())))
 
         self.simulation.add_robot(robot)
 
@@ -118,24 +96,13 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _load_objects(self):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(
-                self.object_name, object2world=self.object2world,
-                scale=self.object_scale)
+            ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
     def reset(self, hard_reset=False):
-        if self.verbose:
-            print("Performing reset (april)")
 
-        if self.randomised:
-            if self.train:
-                pos = random.choice(self.train_positions)
-            else:
-                pos = random.choice(self.test_positions)
-        else:
-            pos = None
+        pos = None
 
-        self.object_to_grasp.reset(pos=pos)
-
+        self.object_to_grasp.reset(pos)
         self.robot.activate_motors()
 
         return super().reset()
@@ -174,9 +141,9 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                     return -100
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
-            if height < 0.5:
-                return -50
+            if height > 0.9:
+                return 1.0
             else:
-                return 0.0
+                return -1.0
         else:
             return 0.0

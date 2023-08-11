@@ -3,8 +3,7 @@ import random
 import numpy as np
 from gym import spaces
 from deformable_gym.robots import ur5_mia
-from deformable_gym.envs.base_env import BaseBulletEnv
-from deformable_gym.envs.mia_grasp_env import GraspDeformableMixin
+from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
 import pytransform3d.transformations as pt
@@ -97,7 +96,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def __init__(
             self, gui: bool = True, real_time: bool = False,
             object_name: str = "insole", verbose: bool = False,
-            horizon: int = 200, train: bool = True,
+            horizon: int = 100, train: bool = True,
             thumb_adducted: bool = True, compute_reward: bool = True,
             object_scale: float = 1.0, verbose_dt: float = 10.0,
             pybullet_options: str = ""):
@@ -110,7 +109,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_scale = object_scale
 
         super().__init__(gui=gui, real_time=real_time, horizon=horizon,
-                         soft=True, load_plane=True, verbose=verbose,
+                         soft=True, verbose=verbose,
                          verbose_dt=verbose_dt,
                          pybullet_options=pybullet_options)
 
@@ -132,12 +131,14 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         actuated_finger_ids = np.array([6, 7, 11], dtype=int)
 
         lower_actions = np.concatenate([
-            np.array([-2, -2, 0]), -np.ones(4), limits[0][actuated_finger_ids],
-            [0]], axis=0)
+            np.array([-2, -2, 0]),
+            -np.ones(4),
+            limits[0][actuated_finger_ids]], axis=0)
 
         upper_actions = np.concatenate([
-            np.array([2, 2, 2]), np.ones(4), limits[1][actuated_finger_ids],
-            [1]], axis=0)
+            np.array([2, 2, 2]),
+            np.ones(4),
+            limits[1][actuated_finger_ids]], axis=0)
 
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 
@@ -166,21 +167,11 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _load_objects(self):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(
-                self.object_name, object2world=self.object2world,
-                scale=self.object_scale)
+            ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
     def reset(self, hard_reset=False):
-        if self.verbose:
-            print("Performing reset (april)")
 
-        if self.randomised:
-            if self.train:
-                pos = random.choice(self.train_positions)
-            else:
-                pos = random.choice(self.test_positions)
-        else:
-            pos = None
+        pos = None
 
         self.object_to_grasp.reset(pos=pos)
         self.robot.activate_motors()
@@ -188,10 +179,6 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().reset()
 
     def is_done(self, state, action, next_state):
-
-        # check for termination action
-        # if round(action[-1]) == 1:
-        #    return True
 
         # check if insole is exploded
         if self._deformable_is_exploded():
@@ -201,8 +188,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().is_done(state, action, next_state)
 
     def observe_state(self):
-        joint_pos = self.robot.get_joint_positions(
-            self.robot.actuated_real_joints)
+        joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 
@@ -228,9 +214,10 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                     return -100
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
-            if height < 0.5:
-                return -50
+
+            if height > 0.9:
+                return 1.0
             else:
-                return 0.0
+                return -1.0
         else:
             return 0.0

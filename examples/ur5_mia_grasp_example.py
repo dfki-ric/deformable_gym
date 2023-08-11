@@ -1,4 +1,4 @@
-from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
+from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 
 """
 =========
@@ -10,12 +10,10 @@ used to generate ten episodes.
 
 """
 
-env = FloatingMiaGraspEnv(
+env = UR5MiaGraspEnv(
         gui=True,
-        horizon=100,
-        object_name="insole_on_conveyor_belt/back",
-        observable_time_step=False,
-        observable_object_pos=True)
+        object_name="insole2"
+)
 
 env.reset()
 episode_return = 0
@@ -31,5 +29,4 @@ while num_episodes <= 10:
     if done:
         print(f"Episode finished with return {episode_return}!")
         num_episodes += 1
-
         env.reset()

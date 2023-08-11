@@ -8,7 +8,7 @@ import pytransform3d.rotations as pr
 from gym.core import Env
 from gym import spaces
 from deformable_gym.robots.bullet_robot import BulletRobot
-from deformable_gym.envs.pybullet_tools import BulletSimulation
+from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.helpers.pybullet_helper import MultibodyPose
 
 
@@ -19,7 +19,6 @@ class BaseBulletEnv(Env, abc.ABC):
     :param real_time: Run PyBullet in real time.
     :param horizon: Maximum number of steps in an episode.
     :param soft: Activate soft body simulation.
-    :param load_plane: Load plane from URDF.
     :param verbose: Print debug information.
     :param time_delta: Time between PyBullet simulation steps.
     :param verbose_dt: Time after which simulation info should be printed.
@@ -36,17 +35,19 @@ class BaseBulletEnv(Env, abc.ABC):
     action_space: spaces.Box
 
     def __init__(
-            self, gui: bool = True, real_time: bool = False,
-            horizon: int = 100, soft: bool = False,
-            load_plane: bool = True, verbose: bool = False,
-            time_delta: float = 0.0001, verbose_dt: float = 10.00,
-            early_episode_termination: bool = True,
+            self,
+            gui: bool = True,
+            real_time: bool = False,
+            horizon: int = 100,
+            soft: bool = False,
+            verbose: bool = False,
+            time_delta: float = 0.0001,
+            verbose_dt: float = 10.00,
             pybullet_options: str = ""):
+
         self.gui = gui
         self.verbose = verbose
-        self.__load_plane = load_plane
         self.horizon = horizon
-        self.early_episode_termination = early_episode_termination
 
         mode = pb.GUI if gui else pb.DIRECT
 
@@ -64,20 +65,12 @@ class BaseBulletEnv(Env, abc.ABC):
         """Load (or reload) robot to PyBullet simulation."""
 
     def _load_objects(self):
-        """Load objects to PyBullet simulation.
-
-        If a plane should be loaded, it will have the position (0, 0, 0).
-        """
-        if self.__load_plane:
-            PLANE_POSITION = (0, 0, 0)
-            self.plane = pb.loadURDF(
-                "plane.urdf", PLANE_POSITION, useFixedBase=1)
+        """Load objects to PyBullet simulation."""
+        self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
 
     def _hard_reset(self):
-        """Hard reset.
-
-        Fully reset the PyBullet simulation and reload all objects. May be
-        necessary, for example, when soft-bodies in the environment explode.
+        """Hard reset the PyBullet simulation and reload all objects. May be necessary, e.g., if soft-bodies in the
+        environment explode.
         """
         if self.verbose:
             print("Performing hard reset!")
@@ -118,7 +111,7 @@ class BaseBulletEnv(Env, abc.ABC):
         if mode == "human":
             assert self.gui
         else:
-            raise NotImplementedError("Render mode '%s' not supported" % mode)
+            raise NotImplementedError(f"Render mode {mode} not supported")
 
     def observe_state(self) -> np.ndarray:
         """Returns the current environment state.
@@ -127,8 +120,7 @@ class BaseBulletEnv(Env, abc.ABC):
         """
         return self.robot.get_joint_positions()
 
-    def is_done(self, state: np.ndarray, action: np.ndarray,
-                next_state: np.ndarray) -> bool:
+    def is_done(self, state: np.ndarray, action: np.ndarray, next_state: np.ndarray) -> bool:
         """Checks whether the current episode is over or not.
 
         :param state: State
@@ -136,10 +128,6 @@ class BaseBulletEnv(Env, abc.ABC):
         :param next_state: State after action was taken
         :return: Is the current episode done?
         """
-        # check for termination action
-        if self.early_episode_termination and round(action[-1]) == 1:
-            return True
-
         return self.step_counter >= self.horizon
 
     def step(self, action: npt.ArrayLike):
@@ -160,10 +148,7 @@ class BaseBulletEnv(Env, abc.ABC):
         state = self.observe_state()
 
         # execute action
-        if self.early_episode_termination:
-            self.robot.perform_command(action[:-1])
-        else:
-            self.robot.perform_command(action)
+        self.robot.perform_command(action)
 
         # simulate until next time step
         self.simulation.step_to_trigger("time_step")
@@ -181,14 +166,12 @@ class BaseBulletEnv(Env, abc.ABC):
         reward = self.calculate_reward(state, action, next_state, done)
 
         if self.verbose:
-            print(f"Finished environment step: {next_state=}, {reward}, {done=}")
+            print(f"Finished environment step: {next_state=}, {reward=}, {done=}")
 
         return next_state, reward, done, {}
 
     @abc.abstractmethod
-    def calculate_reward(
-            self, state: np.ndarray, action: np.ndarray,
-            next_state: np.ndarray, done: bool):
+    def calculate_reward(self, state: npt.ArrayLike, action: npt.ArrayLike, next_state: npt.ArrayLike, done: bool):
         """Calculate reward.
 
         :param state: State of the environment.
@@ -220,27 +203,22 @@ class GraspDeformableMixin:
 
         :return: Whether the deformable is exploded or not.
         """
-        pose = self.object_to_grasp.get_pose()
-
-        if np.isfinite(pose).all():
-            return np.any(np.abs(pose[:3]) > 3)
-        else:
-            print("NAN in insole pose -> exploded?!")
-            return True
+        return not np.isfinite(self.object_to_grasp.get_pose()).all()
 
     def _check_forces(self, robot, high_force_threshold, verbose):
-        contact_points = robot.get_contact_points(
-            self.object_to_grasp.get_id())
+        contact_points = robot.get_contact_points(self.object_to_grasp.get_id())
         accumulated_forces = 0.0
         for contact_point in contact_points:
             _, _, _, _, _, _, _, _, dist, force, _, _, _, _ = contact_point
             accumulated_forces += force
         high_forces = accumulated_forces > high_force_threshold
         contact_forces = accumulated_forces > 0
+
         if high_forces:
-            print("Accumulated force too high: %g" % accumulated_forces)
+            print(f"Accumulated force too high: {accumulated_forces}")
         elif verbose:
-            print("Accumulated force: %g" % accumulated_forces)
+            print(f"{accumulated_forces=}")
+
         return high_forces, contact_forces
 
     def get_object_pose(self):
@@ -264,8 +242,7 @@ class FloatingHandMixin:
         """
         desired_robot2world_pos = self.hand_world_pose[:3]
         desired_robot2world_orn = pb.getQuaternionFromEuler(self.hand_world_pose[3:])
-        self.multibody_pose = MultibodyPose(
-            robot.get_id(), desired_robot2world_pos, desired_robot2world_orn)
+        self.multibody_pose = MultibodyPose(robot.get_id(), desired_robot2world_pos, desired_robot2world_orn)
 
     def set_world_pose(self, world_pose):
         """Set pose of the hand.

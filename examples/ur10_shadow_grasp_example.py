@@ -1,4 +1,4 @@
-from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
+from deformable_gym.envs.ur10_shadow_grasp_env import UR10ShadowGraspEnv
 
 """
 =========
@@ -10,12 +10,10 @@ used to generate ten episodes.
 
 """
 
-env = FloatingMiaGraspEnv(
+env = UR10ShadowGraspEnv(
         gui=True,
-        horizon=100,
-        object_name="insole_on_conveyor_belt/back",
-        observable_time_step=False,
-        observable_object_pos=True)
+        object_name="insole"
+)
 
 env.reset()
 episode_return = 0

@@ -29,17 +29,12 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     object should be sampled from the training or the test set.
     """
 
-    train_positions = ([-0.7, 0.1, 1.6],
-                       [-0.7, 0.2, 1.6],
-                       [-0.7, 0.0, 1.6])
-
-    test_positions = ([-0.8, 0.1, 1.6],
-                      [-0.8, 0.2, 1.6],
-                      [-0.8, 0.0, 1.6])
-
     def __init__(self, object_name="insole",
-                 horizon=200, train=True,
-                 compute_reward=True, object_scale=1.0,  **kwargs):
+                 horizon=100, train=True,
+                 compute_reward=True, object_scale=1.0,
+                 observable_object_pos: bool = False,
+                 observable_time_step: bool = False,
+                 **kwargs):
         self.insole = None
         self.train = train
         self.velocity_commands = False
@@ -47,8 +42,10 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.randomised = False
         self.compute_reward = compute_reward
         self.object_scale = object_scale
+        self._observable_object_pos = observable_object_pos
+        self._observable_time_step = observable_time_step
 
-        super().__init__(horizon=horizon, soft=True, load_plane=True, **kwargs)
+        super().__init__(horizon=horizon, soft=True, **kwargs)
 
         self.hand_world_pose = (0, -0.5, 1, -np.pi/2, np.pi, 0)
         self.robot = self._create_robot()
@@ -62,6 +59,14 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         upper_observations = np.concatenate([
             np.array([2, 2, 2]), np.ones(4), limits[1][6:],
             np.array([5, 5, 5])], axis=0)
+
+        if self._observable_object_pos:
+            lower_observations = np.append(lower_observations, np.ones(3))
+            upper_observations = np.append(upper_observations, -np.ones(3))
+
+        if self._observable_time_step:
+            lower_observations = np.append(lower_observations, 0)
+            upper_observations = np.append(upper_observations, self.horizon)
 
         self.observation_space = spaces.Box(
             low=lower_observations, high=upper_observations)
@@ -104,13 +109,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         if self.verbose:
             print("Performing reset (april)")
 
-        if self.randomised:
-            if self.train:
-                pos = random.choice(self.train_positions)
-            else:
-                pos = random.choice(self.test_positions)
-        else:
-            pos = None
+        pos = None
 
         self.object_to_grasp.reset(pos=pos)
 
@@ -142,7 +141,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
                 return -100
 
-            # self.robot.deactivate_motors()
+            self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
             for _ in range(50):

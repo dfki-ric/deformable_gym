@@ -85,7 +85,7 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self._observable_object_pos = observable_object_pos
         self._observable_time_step = observable_time_step
 
-        super().__init__(soft=True, load_plane=True, **kwargs)
+        super().__init__(soft=True, **kwargs)
 
         self.hand_world_pose = self._STANDARD_INITIAL_POSE
         self.robot = self._create_robot()
@@ -120,7 +120,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             high=upper_observations)
 
         # build the action space
-
         lower = [-np.ones(3) * .0005,  # max negative base pos offset
                  -np.ones(4) * .000005,  # max negative base orn offset
                  limits[0][self.actuated_finger_ids]]  # negative joint limits
@@ -128,10 +127,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         upper = [np.ones(3) * .0005,  # max positive base pos offset
                  np.ones(4) * .000005,  # max positive base orn offset
                  limits[1][self.actuated_finger_ids]]  # positive joint limits
-
-        if self.early_episode_termination:
-            lower.append([0.0])
-            upper.append([1.0])
 
         self.action_space = spaces.Box(low=np.concatenate(lower), high=np.concatenate(upper))
 
@@ -144,14 +139,16 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                 world_pos=self.hand_world_pose[:3],
                 world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
                 task_space_limit=self.task_space_limit,
-                verbose=self.verbose, orn_limit=orn_limit,
+                verbose=self.verbose,
+                orn_limit=orn_limit,
                 base_commands=True)
         else:
             robot = mia_hand.MiaHandPosition(
                 world_pos=self.hand_world_pose[:3],
                 world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
                 task_space_limit=self.task_space_limit,
-                verbose=self.verbose, orn_limit=orn_limit,
+                verbose=self.verbose,
+                orn_limit=orn_limit,
                 base_commands=True)
 
         self.simulation.add_robot(robot)
@@ -184,10 +181,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             raise ValueError(f"Received unknown difficulty mode {mode}!")
 
     def reset(self, hard_reset=False, pos=None):
-
-        if self.verbose:
-            print("Performing reset (april)")
-            print("Pose:", self.hand_world_pose)
 
         if pos is None:
             self.robot.reset_base(self.hand_world_pose)
@@ -235,17 +228,17 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
                 return -100
 
-            # self.robot.deactivate_motors()
+            self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
             for _ in range(50):
                 if self._deformable_is_exploded():
-                    return -1
+                    return -1.0
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
             if height < 0.9:
-                return -1
+                return -1.0
             else:
-                return 1
+                return 1.0
         else:
             return 0.0

@@ -14,8 +14,7 @@ entrypoints==0.4
 executing==1.2.0
 fastjsonschema==2.16.2
 fonttools==4.38.0
-gym==0.26.2
-gym-notices==0.0.8
+gymnasium==0.29.1
 ipykernel==6.17.1
 ipython==8.6.0
 ipywidgets==8.0.2

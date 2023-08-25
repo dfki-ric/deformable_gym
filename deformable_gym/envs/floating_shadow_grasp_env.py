@@ -1,7 +1,7 @@
 import random
 
 import numpy as np
-from gym import spaces
+from gymnasium import spaces
 from deformable_gym.robots import shadow_hand
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
@@ -61,8 +61,8 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             np.array([5, 5, 5])], axis=0)
 
         if self._observable_object_pos:
-            lower_observations = np.append(lower_observations, np.ones(3))
-            upper_observations = np.append(upper_observations, -np.ones(3))
+            lower_observations = np.append(lower_observations, -np.ones(3))
+            upper_observations = np.append(upper_observations, np.ones(3))
 
         if self._observable_time_step:
             lower_observations = np.append(lower_observations, 0)
@@ -105,28 +105,16 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_to_grasp, self.object_position, self.object_orientation = \
             ObjectFactory().create(self.object_name)
 
-    def reset(self, hard_reset=False):
-        if self.verbose:
-            print("Performing reset (april)")
-
-        pos = None
-
-        self.object_to_grasp.reset(pos=pos)
-
+    def reset(self, seed=None, hard_reset=False):
+        self.object_to_grasp.reset()
         self.robot.activate_motors()
 
-        return super().reset()
+        return super().reset(seed)
 
-    def is_done(self, state, action, next_state):
+    def _is_truncated(self, state, action, next_state):
+        return self._deformable_is_exploded()
 
-        # check if insole is exploded
-        if self._deformable_is_exploded():
-            print("Exploded insole")
-            return True
-
-        return super().is_done(state, action, next_state)
-
-    def observe_state(self):
+    def _get_observation(self):
         finger_pos = self.robot.get_joint_positions()[6:]
         return np.concatenate([finger_pos], axis=0)
 

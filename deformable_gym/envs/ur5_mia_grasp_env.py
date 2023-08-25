@@ -1,7 +1,5 @@
-import random
-
 import numpy as np
-from gym import spaces
+from gymnasium import spaces
 from deformable_gym.robots import ur5_mia
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
@@ -145,7 +143,6 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _create_robot(self):
         task_space_limit = None
         orn_limit = None
-        # orn_limit = [[0, 0, 0], [0, 0, 0]]
 
         if self.velocity_commands:
             robot = ur5_mia.UR5MiaVelocity(
@@ -180,14 +177,10 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def is_done(self, state, action, next_state):
 
-        # check if insole is exploded
-        if self._deformable_is_exploded():
-            print("Exploded insole")
-            return True
 
         return super().is_done(state, action, next_state)
 
-    def observe_state(self):
+    def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()

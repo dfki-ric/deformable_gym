@@ -7,7 +7,7 @@ from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.robots.bullet_utils import draw_limits
 from deformable_gym.robots.inverse_kinematics import PyBulletSolver
 from deformable_gym.objects.bullet_object import Pose
-from gym.spaces import Box
+from gymnasium.spaces import Box
 
 
 class BulletRobot(abc.ABC):

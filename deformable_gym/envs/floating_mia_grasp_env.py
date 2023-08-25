@@ -1,11 +1,9 @@
-import random
-import time
 from typing import Union
 
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
-from gym import spaces
+from gymnasium import spaces
 from deformable_gym.robots import mia_hand
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
@@ -108,8 +106,8 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             np.ones(6)*5])
 
         if self._observable_object_pos:
-            lower_observations = np.append(lower_observations, np.ones(3))
-            upper_observations = np.append(upper_observations, -np.ones(3))
+            lower_observations = np.append(lower_observations, -np.ones(3))
+            upper_observations = np.append(upper_observations, np.ones(3))
 
         if self._observable_time_step:
             lower_observations = np.append(lower_observations, 0)
@@ -132,7 +130,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _create_robot(self):
         orn_limit = None
-        # orn_limit = [[0, 0, 0], [0, 0, 0]]
 
         if self.velocity_commands:
             robot = mia_hand.MiaHandVelocity(
@@ -157,8 +154,7 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _load_objects(self):
         super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(self.object_name)
+        self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
 
     def set_difficulty_mode(self, mode: str):
         """
@@ -192,16 +188,11 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         return super().reset()
 
-    def is_done(self, state, action, next_state):
-
+    def _is_truncated(self, state, action, next_state):
         # check if insole is exploded
-        if self._deformable_is_exploded():
-            print("Exploded insole")
-            return True
+        return self._deformable_is_exploded()
 
-        return super().is_done(state, action, next_state)
-
-    def observe_state(self):
+    def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
@@ -217,17 +208,12 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         return state
 
-    def calculate_reward(self, state, action, next_state, done):
+    def calculate_reward(self, state, action, next_state, terminated):
         """
         Calculates the reward by counting how many insole vertices are in the
         target position.
         """
-        if done:
-            if not self.compute_reward:
-                return 0.0
-            if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
-                return -100
-
+        if terminated:
             self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()

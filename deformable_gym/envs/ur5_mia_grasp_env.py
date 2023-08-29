@@ -166,19 +166,14 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_to_grasp, self.object_position, self.object_orientation = \
             ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
-    def reset(self, hard_reset=False):
+    def reset(self, seed=None, options=None, hard_reset=False):
 
         pos = None
 
         self.object_to_grasp.reset(pos=pos)
         self.robot.activate_motors()
 
-        return super().reset()
-
-    def is_done(self, state, action, next_state):
-
-
-        return super().is_done(state, action, next_state)
+        return super().reset(seed, options)
 
     def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)

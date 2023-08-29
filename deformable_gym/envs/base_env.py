@@ -129,12 +129,12 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         return {}
 
-    def _is_terminated(self, state: npt.ArrayLike, action: npt.ArrayLike, next_state: npt.ArrayLike) -> bool:
+    def _is_terminated(self, observation: npt.ArrayLike, action: npt.ArrayLike, next_observation: npt.ArrayLike) -> bool:
         """Checks whether the current episode is terminated.
 
-        :param state: State
-        :param action: Action taken in this state
-        :param next_state: State after action was taken
+        :param observation: observation before action was taken
+        :param action: Action taken in this step
+        :param next_observation: Observation after action was taken
         :return: Is the current episode done?
         """
         return self.step_counter >= self.horizon
@@ -188,6 +188,9 @@ class BaseBulletEnv(gym.Env, abc.ABC):
             print(f"Finished environment step: {next_observation=}, {reward=}, {terminated=}, {truncated=}")
 
         return next_observation, reward, terminated, truncated, {}
+
+    def close(self):
+        self.simulation.disconnect()
 
     @abc.abstractmethod
     def calculate_reward(self,

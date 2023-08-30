@@ -35,15 +35,15 @@ def test_eps_done(env):
     env.reset()
     for t in range(9):
         action = env.action_space.sample()
-        obs, reward, done, info = env.step(action)
+        obs, reward, truncated, terminated, info = env.step(action)
 
         assert len(obs) == 18
         assert isinstance(reward, float)
-        assert isinstance(done, bool)
-        assert not done
+        assert isinstance(terminated, bool)
+        assert not terminated
 
     action = env.action_space.sample()
-    obs, reward, done, info = env.step(action)
+    obs, reward, terminated, truncated, info = env.step(action)
 
-    assert done
+    assert terminated
 

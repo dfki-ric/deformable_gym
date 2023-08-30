@@ -27,23 +27,23 @@ def test_obs_space_dims(env):
 
 @pytest.mark.skip("TODO")
 def test_initial_obs(env):
-    obs = env.reset()
+    obs, info = env.reset()
     assert len(obs) == 18
 
 
-def test_eps_done(env):
+def test_ep_termination(env):
     env.reset()
     for t in range(9):
         action = env.action_space.sample()
-        obs, reward, done, info = env.step(action)
+        obs, reward, terminated, truncated, info = env.step(action)
 
         assert len(obs) == 18
         assert isinstance(reward, float)
-        assert isinstance(done, bool)
-        assert not done
+        assert isinstance(terminated, bool)
+        assert not terminated
 
     action = env.action_space.sample()
-    obs, reward, done, info = env.step(action)
+    obs, reward, terminated, truncated, info = env.step(action)
 
-    assert done
+    assert terminated
 

@@ -1,18 +1,19 @@
 import abc
 from typing import Any
 
+import gymnasium as gym
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
 import pytransform3d.rotations as pr
-from gym.core import Env
-from gym import spaces
+
+from gymnasium import spaces
 from deformable_gym.robots.bullet_robot import BulletRobot
 from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.helpers.pybullet_helper import MultibodyPose
 
 
-class BaseBulletEnv(Env, abc.ABC):
+class BaseBulletEnv(gym.Env, abc.ABC):
     """Configures PyBullet for the gym environment.
 
     :param gui: Show PyBullet GUI.
@@ -79,14 +80,12 @@ class BaseBulletEnv(Env, abc.ABC):
         self._load_objects()
         self.robot = self._create_robot()
 
-    def reset(self) -> np.ndarray:
+    def reset(self, seed=None, options=None) -> npt.ArrayLike:
         """Reset the environment to its initial state and returns it.
 
         :return: Initial state.
         """
-
-        if self.verbose:
-            print("Performing reset (base)")
+        super().reset(seed=seed)
 
         assert isinstance(self.robot, BulletRobot)
 
@@ -94,10 +93,13 @@ class BaseBulletEnv(Env, abc.ABC):
         self.step_counter = 0
         self.simulation.timing.reset()
 
-        if self.verbose:
-            print(f"Resetting env: {self.observe_state()}")
+        observation = self._get_observation()
+        info = self._get_info()
 
-        return self.observe_state()
+        if self.verbose:
+            print(f"Resetting env: {observation}")
+
+        return observation, info
 
     def render(self, mode: str = "human"):
         """Render environment.
@@ -113,22 +115,39 @@ class BaseBulletEnv(Env, abc.ABC):
         else:
             raise NotImplementedError(f"Render mode {mode} not supported")
 
-    def observe_state(self) -> np.ndarray:
+    def _get_observation(self) -> npt.ArrayLike:
         """Returns the current environment state.
 
         :return: The observation
         """
         return self.robot.get_joint_positions()
 
-    def is_done(self, state: np.ndarray, action: np.ndarray, next_state: np.ndarray) -> bool:
-        """Checks whether the current episode is over or not.
+    def _get_info(self):
+        """Returns the current environment state.
+
+        :return: The observation
+        """
+        return {}
+
+    def _is_terminated(self, observation: npt.ArrayLike, action: npt.ArrayLike, next_observation: npt.ArrayLike) -> bool:
+        """Checks whether the current episode is terminated.
+
+        :param observation: observation before action was taken
+        :param action: Action taken in this step
+        :param next_observation: Observation after action was taken
+        :return: Is the current episode done?
+        """
+        return self.step_counter >= self.horizon
+
+    def _is_truncated(self, state: npt.ArrayLike, action: npt.ArrayLike, next_state: npt.ArrayLike) -> bool:
+        """Checks whether the current episode is truncated.
 
         :param state: State
         :param action: Action taken in this state
         :param next_state: State after action was taken
         :return: Is the current episode done?
         """
-        return self.step_counter >= self.horizon
+        return False
 
     def step(self, action: npt.ArrayLike):
         """Take a step in the environment.
@@ -145,7 +164,7 @@ class BaseBulletEnv(Env, abc.ABC):
         for gym environments. Info dict is currently unused.
         """
         # observe current state
-        state = self.observe_state()
+        observation = self._get_observation()
 
         # execute action
         self.robot.perform_command(action)
@@ -153,31 +172,38 @@ class BaseBulletEnv(Env, abc.ABC):
         # simulate until next time step
         self.simulation.step_to_trigger("time_step")
 
-        # observe new state
-        next_state = self.observe_state()
+        next_observation = self._get_observation()
 
         # update time step
         self.step_counter += 1
 
         # check if episode is over
-        done = self.is_done(state, action, next_state)
+        terminated = self._is_terminated(observation, action, next_observation)
+        truncated = self._is_truncated(observation, action, next_observation)
 
         # calculate the reward
-        reward = self.calculate_reward(state, action, next_state, done)
+        reward = self.calculate_reward(observation, action, next_observation, terminated)
 
         if self.verbose:
-            print(f"Finished environment step: {next_state=}, {reward=}, {done=}")
+            print(f"Finished environment step: {next_observation=}, {reward=}, {terminated=}, {truncated=}")
 
-        return next_state, reward, done, {}
+        return next_observation, reward, terminated, truncated, {}
+
+    def close(self):
+        self.simulation.disconnect()
 
     @abc.abstractmethod
-    def calculate_reward(self, state: npt.ArrayLike, action: npt.ArrayLike, next_state: npt.ArrayLike, done: bool):
+    def calculate_reward(self,
+                         state: npt.ArrayLike,
+                         action: npt.ArrayLike,
+                         next_state: npt.ArrayLike,
+                         terminated: bool):
         """Calculate reward.
 
         :param state: State of the environment.
         :param action: Action that has been executed in the state.
         :param next_state: State after executing the action.
-        :param done: Is the episode done?
+        :param terminated: Is the episode terminated?
         :return: Measured reward.
         """
 
@@ -209,8 +235,7 @@ class GraspDeformableMixin:
         contact_points = robot.get_contact_points(self.object_to_grasp.get_id())
         accumulated_forces = 0.0
         for contact_point in contact_points:
-            _, _, _, _, _, _, _, _, dist, force, _, _, _, _ = contact_point
-            accumulated_forces += force
+            accumulated_forces += contact_point[9]
         high_forces = accumulated_forces > high_force_threshold
         contact_forces = accumulated_forces > 0
 

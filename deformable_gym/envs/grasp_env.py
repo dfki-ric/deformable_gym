@@ -36,7 +36,7 @@ class GraspEnv(BaseBulletEnv, ABC):
 
         return super().reset()
 
-    def observe_state(self):
+    def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
         sensor_readings = self.robot.get_sensor_readings()
 

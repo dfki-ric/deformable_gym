@@ -1,7 +1,7 @@
 import random
 
 import numpy as np
-from gym import spaces
+from gymnasium import spaces
 from deformable_gym.robots import shadow_hand
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
@@ -54,22 +54,22 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         lower_observations = np.concatenate([
             np.array([-2, -2, 0]), -np.ones(4), limits[0][6:],
-            np.array([-5, -5, -5])], axis=0)
+            np.array([-10, -10, -10])], axis=0)
 
         upper_observations = np.concatenate([
             np.array([2, 2, 2]), np.ones(4), limits[1][6:],
-            np.array([5, 5, 5])], axis=0)
+            np.array([10, 10, 10])], axis=0)
 
         if self._observable_object_pos:
-            lower_observations = np.append(lower_observations, np.ones(3))
-            upper_observations = np.append(upper_observations, -np.ones(3))
+            lower_observations = np.append(lower_observations, -np.ones(3)*2)
+            upper_observations = np.append(upper_observations, np.ones(3)*2)
 
         if self._observable_time_step:
             lower_observations = np.append(lower_observations, 0)
             upper_observations = np.append(upper_observations, self.horizon)
 
         self.observation_space = spaces.Box(
-            low=lower_observations, high=upper_observations)
+            low=lower_observations, high=upper_observations, dtype=np.float64)
 
         lower_actions = np.concatenate([
             -np.ones(7)*0.01, limits[0], [0]], axis=0)
@@ -77,7 +77,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         upper_actions = np.concatenate([
             np.ones(7)*0.01, limits[1], [1]], axis=0)
 
-        self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
+        self.action_space = spaces.Box(low=lower_actions, high=upper_actions, dtype=np.float64)
 
     def _create_robot(self):
         task_space_limit = None
@@ -102,31 +102,18 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _load_objects(self):
         super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(self.object_name)
+        self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
 
-    def reset(self, hard_reset=False):
-        if self.verbose:
-            print("Performing reset (april)")
-
-        pos = None
-
-        self.object_to_grasp.reset(pos=pos)
-
+    def reset(self, seed=None, options=None, hard_reset=False):
+        self.object_to_grasp.reset()
         self.robot.activate_motors()
 
-        return super().reset()
+        return super().reset(seed, options)
 
-    def is_done(self, state, action, next_state):
+    def _is_truncated(self, state, action, next_state):
+        return self._deformable_is_exploded()
 
-        # check if insole is exploded
-        if self._deformable_is_exploded():
-            print("Exploded insole")
-            return True
-
-        return super().is_done(state, action, next_state)
-
-    def observe_state(self):
+    def _get_observation(self):
         finger_pos = self.robot.get_joint_positions()[6:]
         return np.concatenate([finger_pos], axis=0)
 

@@ -32,7 +32,7 @@ def test_obs_space_dims(env):
 
 
 def test_initial_obs(env):
-    obs = env.reset()
+    obs, info = env.reset()
     if env._observable_object_pos:
         obs_space_dims_expected = 19
     else:
@@ -48,14 +48,14 @@ def test_eps_done(env):
 
     for t in range(9):
         action = env.action_space.sample()
-        obs, reward, done, info = env.step(action)
+        obs, reward, terminated, truncated, info = env.step(action)
 
         assert len(obs) == obs_space_dims_expected
         assert isinstance(reward, float)
-        assert isinstance(done, bool)
-        assert not done
+        assert isinstance(terminated, bool)
+        assert not terminated
 
     action = env.action_space.sample()
-    obs, reward, done, info = env.step(action)
+    obs, reward, terminated, truncated, info = env.step(action)
 
-    assert done
+    assert terminated

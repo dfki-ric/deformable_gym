@@ -1,12 +1,11 @@
-import random
-
+import pytransform3d.transformations as pt
 import numpy as np
-from gym import spaces
+
 from deformable_gym.robots import ur10_shadow
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
-import pytransform3d.transformations as pt
+from gymnasium import spaces
 
 
 class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
@@ -116,7 +115,7 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         return super().is_done(state, action, next_state)
 
-    def observe_state(self):
+    def _get_observation(self):
         finger_pos = self.robot.get_joint_positions()[6:]
         ee_pose = self.robot.get_ee_pose()
 

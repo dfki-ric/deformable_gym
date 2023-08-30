@@ -23,11 +23,12 @@ while num_episodes <= 10:
 
     action = env.action_space.sample()
 
-    state, reward, done, _ = env.step(action)
+    state, reward, terminated, truncated, _ = env.step(action)
     episode_return += reward
 
-    if done:
+    if terminated or truncated:
         print(f"Episode finished with return {episode_return}!")
         num_episodes += 1
+        episode_return = 0
 
         env.reset()

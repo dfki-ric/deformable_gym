@@ -48,7 +48,7 @@ conda install -c conda-forge libstdcxx-ng
 Here is an example of how to run a random agent in the FloatingMiaEnv. More can be found in the `examples/` folder.
 
 ```Python
-from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
+import gymnasium
 
 """
 =========
@@ -60,12 +60,7 @@ used to generate ten episodes.
 
 """
 
-env = FloatingMiaGraspEnv(
-        gui=True,
-        horizon=100,
-        object_name="insole_on_conveyor_belt/back",
-        observable_time_step=False,
-        observable_object_pos=True)
+env = gymnasium.make("FloatingMiaGraspInsole-v0")
 
 env.reset()
 episode_return = 0
@@ -126,6 +121,8 @@ howpublished = {\url{https://github.com/dfki-ric/deformable_gym}},
 year = {2023}
 }
 ```
+
+[Link to Workshop Paper](https://deformable-workshop.github.io/icra2023/spotlight/03-Laux-spotlight.pdf)
 
 ## Releases
 

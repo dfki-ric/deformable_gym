@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml/badge.svg)](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml)
 
-This repository contains a collection of RL gym environments built with PyBullet. In these environments, the agent 
+This repository contains a collection of [gymnasium](https://github.com/Farama-Foundation/Gymnasium) environments built with [PyBullet](https://pybullet.org/). In these environments, the agent 
 needs to learn to grasp deformable object such as shoe insoles or pillows from sparse reward signals.
 
 <p align="center">

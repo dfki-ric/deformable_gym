@@ -113,16 +113,20 @@ It is forbidden to directly push to the main branch. Each new version has its ow
 
 ## Referencing
 
+If you use DeformableGym in your research, please consider citing it. You may find the paper [here](https://deformable-workshop.github.io/icra2023/spotlight/03-Laux-spotlight.pdf).
+
 ```
-@MISC{Laux2023,
-author = {Melvin Laux and Alexander Fabisch and Chandandeep Singh and Johannes Brust},
-title = {DeformableGym, a Reinforcement Learning Benchmark for Grasping 3D Deformable Objects},
-howpublished = {\url{https://github.com/dfki-ric/deformable_gym}},
-year = {2023}
+@inproceedings{Laux2023,
+title = {Grasping 3D Deformable Objects via Reinforcement Learning: A Benchmark and Evaluation},
+booktitle = {3rd Workshop on Representing and Manipulating Deformable Objects @ ICRA2023},
+author = {Melvin Laux and Chandandeep Singh and Alexander Fabisch},
+month = {May},
+year = {2023},
+url = {https://deformable-workshop.github.io/icra2023/},
 }
 ```
 
-[Link to Workshop Paper](https://deformable-workshop.github.io/icra2023/spotlight/03-Laux-spotlight.pdf)
+
 
 ## Releases
 

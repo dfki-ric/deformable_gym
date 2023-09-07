@@ -2,8 +2,8 @@
 
 [![Tests](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml/badge.svg)](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml)
 
-This repository contains a collection of RL gym environments built with PyBullet. In these environments, the agent 
-needs to learn to grasp deformable object such as shoe insoles or pillows.
+This repository contains a collection of [gymnasium](https://github.com/Farama-Foundation/Gymnasium) environments built with [PyBullet](https://pybullet.org/). In these environments, the agent 
+needs to learn to grasp deformable object such as shoe insoles or pillows from sparse reward signals.
 
 <p align="center">
   <img src="doc/source/_static/defgym.svg"/>
@@ -109,20 +109,24 @@ The recommended workflow to add a new feature, add documentation, or fix a bug i
 
 Note that there is a checklist for new features.
 
-It is forbidden to directly push to the main branch. Each new version has its own development branch from which a pull request will be opened to the main branch. Only the maintainer of the software is allowed to merge a development branch to the main branch.
+It is forbidden to directly push to the main branch. Each new version has its own development branch from which a pull request will be opened to the main branch. Only the maintainers of the software are allowed to merge a development branch to the main branch.
 
 ## Referencing
 
+If you use DeformableGym in your research, please consider citing it. You may find the paper [here](https://deformable-workshop.github.io/icra2023/spotlight/03-Laux-spotlight.pdf).
+
 ```
-@MISC{Laux2023,
-author = {Melvin Laux and Alexander Fabisch and Chandandeep Singh and Johannes Brust},
-title = {DeformableGym, a Reinforcement Learning Benchmark for Grasping 3D Deformable Objects},
-howpublished = {\url{https://github.com/dfki-ric/deformable_gym}},
-year = {2023}
+@inproceedings{Laux2023,
+title = {Grasping 3D Deformable Objects via Reinforcement Learning: A Benchmark and Evaluation},
+booktitle = {3rd Workshop on Representing and Manipulating Deformable Objects @ ICRA2023},
+author = {Melvin Laux and Chandandeep Singh and Alexander Fabisch},
+month = {May},
+year = {2023},
+url = {https://deformable-workshop.github.io/icra2023/},
 }
 ```
 
-[Link to Workshop Paper](https://deformable-workshop.github.io/icra2023/spotlight/03-Laux-spotlight.pdf)
+
 
 ## Releases
 

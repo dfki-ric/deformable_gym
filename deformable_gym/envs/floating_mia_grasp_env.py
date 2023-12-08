@@ -122,7 +122,9 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                  np.ones(4) * .000005,  # max positive base orn offset
                  limits[1][self.actuated_finger_ids]]  # positive joint limits
 
-        self.action_space = spaces.Box(low=np.concatenate(lower), high=np.concatenate(upper), dtype=np.float64)
+        self.action_space = spaces.Box(low=np.concatenate(lower),
+                                       high=np.concatenate(upper),
+                                       dtype=np.float64)
 
     def _create_robot(self):
         orn_limit = None

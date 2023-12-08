@@ -1,5 +1,6 @@
 import gymnasium
 
+from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 """
 =========
 Floating Mia Example

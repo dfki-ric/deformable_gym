@@ -1,5 +1,8 @@
 import pytest
 from deformable_gym.envs.floating_shadow_grasp_env import FloatingShadowGraspEnv
+from numpy.testing import assert_allclose
+
+SEED = 42
 
 
 @pytest.fixture
@@ -47,3 +50,18 @@ def test_ep_termination(env):
 
     assert terminated
 
+
+def test_initial_sensor_info(env: FloatingShadowGraspEnv):
+    sensor_readings = []
+    env.action_space.seed(SEED)
+
+    for _ in range(2):
+        observation, _ = env.reset(seed=SEED)
+        sensor_readings.append(observation)
+
+        n_steps = 5
+        for _ in range(n_steps):
+            action = env.action_space.sample()
+            env.step(action)
+
+    assert_allclose(sensor_readings[0], sensor_readings[1])

@@ -9,7 +9,6 @@ def env():
         verbose=True,
         horizon=10,
         object_name="insole",
-        #observable_object_pos=True,
     )
 
 
@@ -17,6 +16,7 @@ def env():
 def test_action_space_dims(env):
     action_space = env.action_space
     assert action_space.shape[0] == 10
+
 
 @pytest.mark.skip("TODO")
 def test_obs_space_dims(env):

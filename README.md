@@ -149,7 +149,7 @@ This library has been developed initially at the
 Commission (870142).
 
 <p float="left">
-    <img src="doc/source/_static/DFKI_Logo.jpg" height="100px" />
+    <img src="doc/source/_static/DFKI_Logo.png" height="100px" />
     <img src="doc/source/_static/Uni_Logo.png" height="100px" />
 </p>
 

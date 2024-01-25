@@ -111,8 +111,10 @@ class BulletRobot(abc.ABC):
 
         # create observation and action spaces
         # TODO: fix to include base actions and sensor observations
-        self.action_space = Box(np.full(len(self.motors), -1.0), np.full(len(self.motors), 1.0))
-        self.observation_space = Box(np.full(len(self.motors), -1.0), np.full(len(self.motors), 1.0))
+        self.action_space = Box(np.full(len(self.motors), -1.0),
+                                np.full(len(self.motors), 1.0))
+        self.observation_space = Box(np.full(len(self.motors), -1.0),
+                                     np.full(len(self.motors), 1.0))
 
     def initialise(self) -> int:
         """Initialize robot in simulation.
@@ -146,7 +148,7 @@ class BulletRobot(abc.ABC):
         """
         self.inverse_kinematics_solver = inverse_kinematics_solver
 
-    def set_endeffector(self, link_id: int):
+    def set_endeffector(self, link_id: int) -> None:
         """Set PyBullet id of end-effector link.
 
         Note that this only has an effect if the PyBulletSolver is used as IK
@@ -207,7 +209,9 @@ class BulletRobot(abc.ABC):
         for key in command.keys():
             self.current_command[key] = command[key]
 
-    def send_current_command(self, keys: Union[Iterable[str], None] = None):
+    def send_current_command(self,
+                             keys: Union[Iterable[str], None] = None
+                             ) -> None:
         """Sends the currently stored commands to the selected motors.
 
         :param keys: The names of the motors to send commands to.
@@ -216,14 +220,14 @@ class BulletRobot(abc.ABC):
             self.actuate_motors(keys)
 
     @abc.abstractmethod
-    def perform_command(self, command: npt.ArrayLike):
+    def perform_command(self, command: npt.ArrayLike) -> None:
         """Sends a command to the robot.
 
         :param command: Robot command.
         """
 
     @abc.abstractmethod
-    def actuate_motors(self, keys: Union[Iterable[str], None] = None):
+    def actuate_motors(self, keys: Union[Iterable[str], None] = None) -> None:
         """Takes the provided action and sends the joint controls to the robot.
 
         :param keys: List of the motor keys to be actuated, if None all motor
@@ -301,8 +305,10 @@ class BulletRobot(abc.ABC):
             current_pos, current_orn = pb.getBasePositionAndOrientation(self._id)
         return np.concatenate((current_pos, current_orn), axis=0)
 
-    def set_ee_pose(
-            self, target_pos: np.ndarray, target_orn: np.ndarray):
+    def set_ee_pose(self,
+                    target_pos: np.ndarray,
+                    target_orn: np.ndarray
+                    ) -> None:
         """Sets the pose of the end-effector instantly.
 
         No physics simulation steps required.
@@ -317,7 +323,9 @@ class BulletRobot(abc.ABC):
                          zip(self.motors.keys(), joint_pos)}
         self.set_joint_positions(position_dict)
 
-    def reset(self, keys: Union[Iterable[str], None] = None):
+    def reset(self,
+              keys: Union[Iterable[str], None] = None
+              ) -> None:
         """Resets actuators and sensors.
 
         :param keys: Names of joints to reset. Default is all.
@@ -332,7 +340,9 @@ class BulletRobot(abc.ABC):
             self.motors[key].reset()
             self.current_command[key] = self.motors[key].get_position()
 
-    def set_joint_positions(self, position_dict: Dict[str, float]):
+    def set_joint_positions(self,
+                            position_dict: Dict[str, float]
+                            ) -> None:
         """Sets the joint positions of the robot.
 
         :param position_dict: Maps joint names to angles.
@@ -340,17 +350,17 @@ class BulletRobot(abc.ABC):
         for key in position_dict.keys():
             self.motors[key].set_position(position_dict[key])
 
-    def deactivate_motors(self):
+    def deactivate_motors(self) -> None:
         """Deactivates all motors of the robot."""
         for motor in self.motors.values():
             motor.deactivate()
 
-    def activate_motors(self):
+    def activate_motors(self) -> None:
         """Activates all motors of the robot."""
         for motor in self.motors.values():
             motor.activate()
 
-    def move_base(self, offset: npt.ArrayLike):
+    def move_base(self, offset: npt.ArrayLike) -> None:
         """Moves the robot base.
 
         :param offset: Pose offset of the robot given as position and
@@ -366,7 +376,7 @@ class BulletRobot(abc.ABC):
                             jointChildFrameOrientation=target_orn,
                             maxForce=100000)
 
-    def _enforce_limits(self, pose):
+    def _enforce_limits(self, pose) -> Tuple[Any, Any]:
         assert self.base_commands, "tried to move base, but base commands " \
                                    "are not enabled"
         if self.task_space_limit is not None:
@@ -378,7 +388,7 @@ class BulletRobot(abc.ABC):
         # TODO enforce orn_limit
         return target_pos, target_orn
 
-    def reset_base(self, pose: npt.ArrayLike):
+    def reset_base(self, pose: npt.ArrayLike) -> None:
         """Resets the robot base.
 
         :param pose: Pose of the robot given as position and
@@ -436,11 +446,15 @@ class HandMixin:
     def _init_debug_visualizations(self):
         """Initialize debug visualizations."""
         self.robot_pose = Pose(
-            np.array([0.0, 0.0, 0.0]), np.array([0.0, 0.0, 0.0, 1.0]),
-            scale=0.1, line_width=1)
+            np.zeros(3),
+            np.array([0.0, 0.0, 0.0, 1.0]),
+            scale=0.1,
+            line_width=1)
         self.object_pose = Pose(
-            np.array([0.0, 0.0, 0.0]), np.array([0.0, 0.0, 0.0, 1.0]),
-            scale=0.1, line_width=1)
+            np.zeros(3),
+            np.array([0.0, 0.0, 0.0, 1.0]),
+            scale=0.1,
+            line_width=1)
         self.contact_normals = []
 
     def get_contact_points(self, object_id: int):

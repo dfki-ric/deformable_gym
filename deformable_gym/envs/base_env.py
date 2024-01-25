@@ -67,11 +67,12 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
     def _load_objects(self):
         """Load objects to PyBullet simulation."""
-        self.plane = pb.loadURDF("plane.urdf", (0, 0, 0), useFixedBase=1)
+        self.plane = pb.loadURDF("plane.urdf", (0, 0, 0),
+                                 useFixedBase=1)
 
     def _hard_reset(self):
-        """Hard reset the PyBullet simulation and reload all objects. May be necessary, e.g., if soft-bodies in the
-        environment explode.
+        """Hard reset the PyBullet simulation and reload all objects. May be
+        necessary, e.g., if soft-bodies in the environment explode.
         """
         if self.verbose:
             print("Performing hard reset!")

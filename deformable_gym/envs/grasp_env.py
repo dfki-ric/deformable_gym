@@ -9,12 +9,10 @@ class GraspEnv(BaseBulletEnv, ABC):
 
     def __init__(self,
                  object_name,
-                 observable_object_pos: bool = False,
-                 observable_time_step: bool = False):
+                 observable_object_pos: bool = False):
 
         self.object_name = object_name
         self._observable_object_pos = observable_object_pos
-        self._observable_time_step = observable_time_step
 
         super().__init__(soft=True)
 
@@ -45,9 +43,6 @@ class GraspEnv(BaseBulletEnv, ABC):
         if self._observable_object_pos:
             obj_pos = self.object_to_grasp.get_pose()[:3]
             state = np.append(state, obj_pos)
-
-        if self._observable_time_step:
-            state = np.append(state, self.step_counter)
 
         return state
 

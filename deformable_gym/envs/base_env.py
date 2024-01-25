@@ -67,7 +67,8 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
     def _load_objects(self):
         """Load objects to PyBullet simulation."""
-        self.plane = pb.loadURDF("plane.urdf", (0, 0, 0),
+        self.plane = pb.loadURDF("plane.urdf",
+                                 (0, 0, 0),
                                  useFixedBase=1)
 
     def _hard_reset(self):
@@ -132,7 +133,11 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         return {}
 
-    def _is_terminated(self, observation: npt.ArrayLike, action: npt.ArrayLike, next_observation: npt.ArrayLike) -> bool:
+    def _is_terminated(self,
+                       observation: npt.ArrayLike,
+                       action: npt.ArrayLike,
+                       next_observation: npt.ArrayLike
+                       ) -> bool:
         """Checks whether the current episode is terminated.
 
         :param observation: observation before action was taken
@@ -142,7 +147,10 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         return self.step_counter >= self.horizon
 
-    def _is_truncated(self, state: npt.ArrayLike, action: npt.ArrayLike, next_state: npt.ArrayLike) -> bool:
+    def _is_truncated(self,
+                      state: npt.ArrayLike,
+                      action: npt.ArrayLike,
+                      next_state: npt.ArrayLike) -> bool:
         """Checks whether the current episode is truncated.
 
         :param state: State

@@ -92,11 +92,17 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                                      p=np.array([-0.7, 0.1, 1.8]))
 
     def __init__(
-            self, gui: bool = True, real_time: bool = False,
-            object_name: str = "insole", verbose: bool = False,
-            horizon: int = 100, train: bool = True,
-            thumb_adducted: bool = True, compute_reward: bool = True,
-            object_scale: float = 1.0, verbose_dt: float = 10.0,
+            self,
+            gui: bool = True,
+            real_time: bool = False,
+            object_name: str = "insole",
+            verbose: bool = False,
+            horizon: int = 100,
+            train: bool = True,
+            thumb_adducted: bool = True,
+            compute_reward: bool = True,
+            object_scale: float = 1.0,
+            verbose_dt: float = 10.0,
             pybullet_options: str = ""):
         self.train = train
         self.velocity_commands = False

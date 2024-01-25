@@ -6,7 +6,7 @@ if __name__ == "__main__":
         long_description = f.read()
 
     setup(name='deformable_gym',
-          version="0.2.1",
+          version="0.2.2",
           maintainer='Melvin Laux',
           maintainer_email='melvin.laux@uni-bremen.de',
           description='Gym environments for grasping deformable objects',

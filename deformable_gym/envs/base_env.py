@@ -89,6 +89,9 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         super().reset(seed=seed)
 
+        if options is not None and "hard_reset" in options:
+            self._hard_reset()
+
         assert isinstance(self.robot, BulletRobot)
 
         self.robot.reset()

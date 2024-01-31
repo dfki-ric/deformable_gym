@@ -172,7 +172,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_to_grasp, self.object_position, self.object_orientation = \
             ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
-    def reset(self, seed=None, options=None, hard_reset=False):
+    def reset(self, seed=None, options=None):
 
         pos = None
 

@@ -98,7 +98,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
 
-    def reset(self, seed=None, options=None, hard_reset=False):
+    def reset(self, seed=None, options=None):
         self.object_to_grasp.reset()
         self.robot.activate_motors()
 

@@ -97,14 +97,14 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.object_to_grasp, self.object_position, self.object_orientation = \
             ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
 
-    def reset(self, hard_reset=False):
+    def reset(self, seed=None, options=None):
 
         pos = None
 
         self.object_to_grasp.reset(pos)
         self.robot.activate_motors()
 
-        return super().reset()
+        return super().reset(seed, options)
 
     def is_done(self, state, action, next_state):
 

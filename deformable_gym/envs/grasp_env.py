@@ -26,13 +26,16 @@ class GraspEnv(BaseBulletEnv, ABC):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
 
-    def reset(self, hard_reset=False, pos=None):
+    def reset(self, seed=None, options=None):
+
+        if options is not None and "pos" in options:
+            pos = options["pos"]
 
         self.robot.reset(pos)
         self.object_to_grasp.reset()
         self.robot.activate_motors()
 
-        return super().reset()
+        return super().reset(seed, options)
 
     def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)

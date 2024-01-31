@@ -20,8 +20,16 @@ class JointType(Enum):
 
 class Joint:
 
-    def __init__(self, name, joint_idx, joint_type, pos_idx, vel_idx, low, high,
-                 max_force, max_vel, body_id):
+    def __init__(self, name: str,
+                 joint_idx: int,
+                 joint_type: JointType,
+                 pos_idx: int,
+                 vel_idx: int,
+                 low: float,
+                 high: float,
+                 max_force: float,
+                 max_vel: float,
+                 body_id: int) -> None:
         self.name = name
         self.joint_idx = joint_idx
         self.joint_type = joint_type
@@ -40,29 +48,33 @@ class Joint:
     def __repr__(self):
         return f"Joint({', '.join([f'{k}={v}' for k,v in vars(self).items()])})"
 
-    def reset(self):
+    def reset(self) -> None:
         """Resets the joint to its initial position."""
         self.set_position(self.init_pos)
 
-    def set_position(self, position):
+    def set_position(self, position: float) -> None:
         """Sets the joint to target position."""
-        pb.resetJointState(self.body_id, self.joint_idx,
-                           targetValue=position, targetVelocity=0.0)
+        pb.resetJointState(self.body_id,
+                           self.joint_idx,
+                           targetValue=position,
+                           targetVelocity=0.0)
 
-    def set_limits(self, low, high):
+    def set_limits(self, low: float, high: float) -> None:
         """Sets the joint limits."""
-        pb.changeDynamics(self.body_id, self.joint_idx,
-                          jointLowerLimit=low, jointUpperLimit=high)
+        pb.changeDynamics(self.body_id,
+                          self.joint_idx,
+                          jointLowerLimit=low,
+                          jointUpperLimit=high)
 
-    def get_position(self):
+    def get_position(self) -> float:
         """Gets the current position of the joint."""
         return pb.getJointState(self.body_id, self.joint_idx)[0]
 
-    def get_velocity(self):
+    def get_velocity(self) -> float:
         """Gets the current velocity of the joint."""
         return pb.getJointState(self.body_id, self.joint_idx)[1]
 
-    def set_target_position(self, position):
+    def set_target_position(self, position: float) -> None:
         """Sets the target position of the joint."""
 
         if self.max_vel + 0.1 < self.get_velocity():
@@ -82,7 +94,7 @@ class Joint:
             if self.verbose:
                 print(f"Warning: Trying to control deactivated motor {self.name}.")
 
-    def set_target_velocity(self, velocity):
+    def set_target_velocity(self, velocity: float) -> None:
         """Sets the target position of the joint."""
         if self.activated:
             pb.setJointMotorControl2(self.body_id, self.joint_idx,

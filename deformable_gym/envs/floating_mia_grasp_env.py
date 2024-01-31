@@ -34,10 +34,10 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         object should be sampled from the training or the test set.
     """
 
-    _STANDARD_INITIAL_POSE = np.r_[0.03, -0.005, 1.0,
+    STANDARD_INITIAL_POSE = np.r_[0.03, -0.005, 1.0,
                                    pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
-    _HARD_INITIAL_POSE = np.r_[0.03, -0.025, 1.0,
+    HARD_INITIAL_POSE = np.r_[0.03, -0.025, 1.0,
                                pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
     _FINGERS_OPEN = {"j_index_fle": 0.0,
@@ -58,13 +58,15 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                        "j_ring_fle": 0.71,
                        "j_thumb_fle": 0.3}
 
+    _MAX_POS_OFFSET = .0005
+    _MAX_ORN_OFFSET = .000005
+
     def __init__(
             self,
             object_name: str = "insole",
             compute_reward: bool = True,
             object_scale: float = 1.0,
             observable_object_pos: bool = False,
-            observable_time_step: bool = False,
             difficulty_mode: str = "hard",
             **kwargs):
 
@@ -75,11 +77,10 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.compute_reward = compute_reward
         self.object_scale = object_scale
         self._observable_object_pos = observable_object_pos
-        self._observable_time_step = observable_time_step
 
         super().__init__(soft=True, **kwargs)
 
-        self.hand_world_pose = self._STANDARD_INITIAL_POSE
+        self.hand_world_pose = self.STANDARD_INITIAL_POSE
         self.robot = self._create_robot()
 
         limits = pbh.get_limit_array(self.robot.motors.values())
@@ -91,21 +92,19 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             np.array([-2, -2, 0]),
             -np.ones(4),
             limits[0][self.actuated_finger_ids],
-            -np.ones(6)*10])
+            -np.full(6, 10)])
 
         upper_observations = np.concatenate([
             np.array([2, 2, 2]),
             np.ones(4),
             limits[1][self.actuated_finger_ids],
-            np.ones(6)*10])
+            np.full(6, 10.)])
 
         if self._observable_object_pos:
-            lower_observations = np.append(lower_observations, -np.ones(3)*2)
-            upper_observations = np.append(upper_observations, np.ones(3)*2)
-
-        if self._observable_time_step:
-            lower_observations = np.append(lower_observations, 0)
-            upper_observations = np.append(upper_observations, self.horizon)
+            lower_observations = np.append(lower_observations,
+                                           -np.full(3, 2.))
+            upper_observations = np.append(upper_observations,
+                                           np.full(3, 2.))
 
         self.observation_space = spaces.Box(
             low=lower_observations,
@@ -114,12 +113,12 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         )
 
         # build the action space
-        lower = [-np.ones(3) * .0005,  # max negative base pos offset
-                 -np.ones(4) * .000005,  # max negative base orn offset
+        lower = [-np.full(3, self._MAX_POS_OFFSET),  # max negative base pos offset
+                 -np.full(4, self._MAX_ORN_OFFSET),  # max negative base orn offset
                  limits[0][self.actuated_finger_ids]]  # negative joint limits
 
-        upper = [np.ones(3) * .0005,  # max positive base pos offset
-                 np.ones(4) * .000005,  # max positive base orn offset
+        upper = [np.full(3, self._MAX_POS_OFFSET),  # max positive base pos offset
+                 np.full(4, self._MAX_ORN_OFFSET),  # max positive base orn offset
                  limits[1][self.actuated_finger_ids]]  # positive joint limits
 
         self.action_space = spaces.Box(low=np.concatenate(lower),
@@ -162,22 +161,22 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         if mode == "hard":
             self.robot.set_initial_joint_positions(self._FINGERS_OPEN)
-            self.hand_world_pose = self._HARD_INITIAL_POSE
+            self.hand_world_pose = self.HARD_INITIAL_POSE
         elif mode == "medium":
             self.robot.set_initial_joint_positions(self._FINGERS_HALFWAY_CLOSED)
-            self.hand_world_pose = self._STANDARD_INITIAL_POSE
+            self.hand_world_pose = self.STANDARD_INITIAL_POSE
         elif mode == "easy":
             self.robot.set_initial_joint_positions(self._FINGERS_CLOSED)
-            self.hand_world_pose = self._STANDARD_INITIAL_POSE
+            self.hand_world_pose = self.STANDARD_INITIAL_POSE
         else:
             raise ValueError(f"Received unknown difficulty mode {mode}!")
 
-    def reset(self, seed=None, options=None, hard_reset=False, pos=None):
+    def reset(self, seed=None, options=None):
 
-        if pos is None:
-            self.robot.reset_base(self.hand_world_pose)
+        if options is not None and "initial_pose" in options:
+            self.robot.reset_base(options["initial_pose"])
         else:
-            self.robot.reset_base(pos)
+            self.robot.reset_base(self.hand_world_pose)
 
         self.object_to_grasp.reset()
         self.robot.activate_motors()
@@ -198,9 +197,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         if self._observable_object_pos:
             obj_pos = self.object_to_grasp.get_pose()[:3]
             state = np.append(state, obj_pos)
-
-        if self._observable_time_step:
-            state = np.append(state, self.step_counter)
 
         return state
 

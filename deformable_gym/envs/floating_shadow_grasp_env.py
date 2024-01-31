@@ -33,7 +33,6 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                  horizon=100, train=True,
                  compute_reward=True, object_scale=1.0,
                  observable_object_pos: bool = False,
-                 observable_time_step: bool = False,
                  **kwargs):
         self.insole = None
         self.train = train
@@ -43,7 +42,6 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.compute_reward = compute_reward
         self.object_scale = object_scale
         self._observable_object_pos = observable_object_pos
-        self._observable_time_step = observable_time_step
 
         super().__init__(horizon=horizon, soft=True, **kwargs)
 
@@ -63,10 +61,6 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         if self._observable_object_pos:
             lower_observations = np.append(lower_observations, -np.ones(3)*2)
             upper_observations = np.append(upper_observations, np.ones(3)*2)
-
-        if self._observable_time_step:
-            lower_observations = np.append(lower_observations, 0)
-            upper_observations = np.append(upper_observations, self.horizon)
 
         self.observation_space = spaces.Box(
             low=lower_observations, high=upper_observations, dtype=np.float64)
@@ -104,7 +98,7 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
 
-    def reset(self, seed=None, options=None, hard_reset=False):
+    def reset(self, seed=None, options=None):
         self.object_to_grasp.reset()
         self.robot.activate_motors()
 

@@ -67,9 +67,13 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
     def _load_objects(self):
         """Load objects to PyBullet simulation."""
-        self.plane = pb.loadURDF("plane.urdf",
-                                 (0, 0, 0),
-                                 useFixedBase=1)
+        self.plane = pb.loadURDF(
+            "plane.urdf",
+            (0, 0, 0),
+            useFixedBase=1,
+            physicsClientId=self.simulation.get_physics_client_id(),
+
+        )
 
     def _hard_reset(self):
         """Hard reset the PyBullet simulation and reload all objects. May be

@@ -16,9 +16,13 @@ class BulletSimulation:
     connection command.
     """
     def __init__(
-            self, time_delta: float = 0.001, mode: int = pb.GUI,
-            gravity: float = -9.81, soft: bool = False,
-            real_time: bool = False, verbose_dt: float = 0.01,
+            self,
+            time_delta: float = 0.001,
+            mode: int = pb.GUI,
+            gravity: float = -9.81,
+            soft: bool = False,
+            real_time: bool = False,
+            verbose_dt: float = 0.01,
             pybullet_options: str = ""):
 
         self.time_delta = time_delta
@@ -27,9 +31,16 @@ class BulletSimulation:
         self.soft = soft
         self.real_time = real_time
 
-        self._client = pb.connect(self.mode, options=pybullet_options)
-        self.timing = BulletTiming(dt=time_delta, verbose_dt=verbose_dt,
-                                   client_id=self._client)
+        self._client = pb.connect(
+            self.mode,
+            options=pybullet_options
+        )
+
+        self.timing = BulletTiming(
+            dt=time_delta,
+            verbose_dt=verbose_dt,
+            client_id=self._client
+        )
 
         pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
@@ -135,8 +146,8 @@ class BulletTiming:
         is triggered.
         """
         if name not in self.subsystems.keys():
-            self.subsystems[name] = (max(1, round(1.0/frequency/self.dt)),
-                                     callback)
+            self.subsystems[name] = (
+                max(1, round(1.0/frequency/self.dt)), callback)
 
     def remove_subsystem(self, name):
         """
@@ -195,8 +206,8 @@ class BulletCamera:
 
     def start_recording(self, path):
         if not self._active:
-            self._logging_id = pb.startStateLogging(pb.STATE_LOGGING_VIDEO_MP4,
-                                                    path)
+            self._logging_id = pb.startStateLogging(
+                pb.STATE_LOGGING_VIDEO_MP4, path)
             return self._logging_id
         else:
             return None

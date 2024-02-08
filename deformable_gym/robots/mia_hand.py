@@ -6,11 +6,15 @@ import os
 from pathlib import Path
 
 from deformable_gym.helpers.pybullet_helper import Joint
-from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper, HandMixin
-from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
+from deformable_gym.robots.bullet_robot import (
+    BulletRobot, RobotCommandWrapper, HandMixin)
+from deformable_gym.robots.control_mixins import (
+    PositionControlMixin, VelocityControlMixin)
 from deformable_gym.robots.sensors import MiaHandForceSensors
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/mia_hand.urdf")
+URDF_PATH = os.path.join(
+    Path(os.path.dirname(__file__)).parent.parent.absolute(),
+    "robots/urdf/mia_hand.urdf")
 
 
 class MiaHandMixin(HandMixin):
@@ -20,7 +24,8 @@ class MiaHandMixin(HandMixin):
         "j_index_fle", "j_little_fle", "j_mrl_fle", "j_ring_fle", "j_thumb_fle"
     ]
     actuated_real_joints: List[str] = [
-        "j_index_fle", "j_mrl_fle", "j_thumb_fle"]
+        "j_index_fle", "j_mrl_fle", "j_thumb_fle"
+    ]
 
     mia_hand_force_sensors: MiaHandForceSensors
 
@@ -117,7 +122,8 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
     space).
     """
     def __init__(
-            self, verbose: int = 0,
+            self,
+            verbose: int = 0,
             task_space_limit: Union[npt.ArrayLike, None] = None,
             orn_limit: Union[npt.ArrayLike, None] = None,
             world_pos: npt.ArrayLike = (0, 0, 1),

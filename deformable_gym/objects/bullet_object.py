@@ -40,7 +40,8 @@ class BulletObjectBase(abc.ABC):
 
         :return: list of vertices
         """
-        return pb.getMeshData(self.object_id, physicsClientId=self.client_id)[1]
+        return pb.getMeshData(self.object_id,
+                              physicsClientId=self.client_id)[1]
 
     def get_id(self):
         """Get UUID of object."""
@@ -118,7 +119,7 @@ class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
         if self.fixed:
             self.anchor = pb.createConstraint(
                 self.object, -1, -1, -1, pb.JOINT_FIXED, [0, 0, 1], [0, 0, 0],
-                self.init_pos)
+                self.init_pos, physicsClientId=self.client_id)
             self.anchored = True
 
         dynamics_config = {}
@@ -133,13 +134,16 @@ class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
         if self.contactDamping is not None:
             dynamics_config["contactDamping"] = self.contactDamping
         if dynamics_config:
-            pb.changeDynamics(self.object, -1, **dynamics_config)
+            pb.changeDynamics(
+                self.object, -1, **dynamics_config,
+                physicsClientId=self.client_id)
 
         return self.object
 
     def remove_anchors(self):
         if self.fixed and self.anchored:
-            pb.removeConstraint(self.anchor)
+            pb.removeConstraint(
+                self.anchor, physicsClientId=self.client_id)
             self.anchored = False
 
     def reset(self):
@@ -503,7 +507,7 @@ class InsoleOnConveyorBelt(Insole):
         self.conveyor = BoxObject(
             half_extents=0.5 * conveyor_extents,
             world_pos=conveyor_pos, world_orn=(0, 0, 0), fixed=True,
-            lateralFriction=0.3, rollingFriction=0.3)
+            lateralFriction=0.3, rollingFriction=0.3, client_id=self.client_id)
         return object_id
 
     def remove_anchors(self):
@@ -564,6 +568,7 @@ class ObjectFactory:
             object_position: Union[npt.ArrayLike, None] = None,
             object_orientation: Union[npt.ArrayLike, None] = None,
             object2world: Union[npt.ArrayLike, None] = None,
+            pb_client_id: int = 0,
             **additional_args
     ) -> Tuple[BulletObjectBase, np.ndarray, np.ndarray]:
         """Create object to grasp.
@@ -591,49 +596,76 @@ class ObjectFactory:
                         fixed_nodes=[0, 40, 45])
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "object_data/insole.vtk"), world_pos=object_position,
-                world_orn=object_orientation, **args)
+                os.path.join(base_path, "object_data/insole.vtk"),
+                world_pos=object_position,
+                world_orn=object_orientation,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "pillow_small":
             args = dict(fixed=True, mass=0.5, nu=0.1, E=20000.0,
                         fixed_nodes=[0, 40, 45])
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "object_data/pillow_small.vtk"), world_pos=object_position,
-                world_orn=object_orientation, **args)
+                os.path.join(base_path, "object_data/pillow_small.vtk"),
+                world_pos=object_position,
+                world_orn=object_orientation,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "insole2":
             args = dict(scale=1.0, fixed=True)
             args.update(additional_args)
-            object_to_grasp = Insole(object2world, **args)
+            object_to_grasp = Insole(
+                object2world,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "pillow_small2":
             args = dict(scale=1.0, fixed=True)
             args.update(additional_args)
-            object_to_grasp = PillowSmall(object2world, **args)
+            object_to_grasp = PillowSmall(
+                object2world,
+                client_id=pb_client_id,
+                **args)
         elif object_name.startswith("insole_on_conveyor_belt"):
             # TODO hacked special case, refactor this
             args = dict(scale=1.0)
             args.update(additional_args)
             args["grasp_point_name"] = object_name.split("/")[-1]
-            object_to_grasp = InsoleOnConveyorBelt(object2world, **args)
+            object_to_grasp = InsoleOnConveyorBelt(
+                object2world,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "box":
             args = dict(half_extents=(0.1, 0.02, 0.02), mass=0.1, fixed=True)
             args.update(additional_args)
             object_to_grasp = BoxObject(
-                world_pos=object_position, world_orn=object_orientation, **args)
+                world_pos=object_position,
+                world_orn=object_orientation,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "sphere":
             args = dict(radius=0.05, mass=0.1, fixed=True)
             args.update(additional_args)
             object_to_grasp = SphereObject(
-                world_pos=object_position, world_orn=object_orientation, **args)
+                world_pos=object_position,
+                world_orn=object_orientation,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "cylinder":
             args = dict(radius=0.025, height=0.05, mass=0.1, fixed=True)
             args.update(additional_args)
             object_to_grasp = CylinderObject(
-                world_pos=object_position, world_orn=object_orientation, **args)
+                world_pos=object_position,
+                world_orn=object_orientation,
+                client_id=pb_client_id,
+                **args)
         elif object_name == "capsule":
             args = dict(radius=0.025, height=0.05, mass=0.1, fixed=True)
             args.update(additional_args)
             object_to_grasp = CapsuleObject(
-                world_pos=object_position, world_orn=object_orientation, **args)
+                world_pos=object_position,
+                world_orn=object_orientation,
+                client_id=pb_client_id,
+                **args)
         else:
             raise KeyError(f"Object '{object_name}' not available.")
 
@@ -679,19 +711,27 @@ class ObjectFactory:
 
 
 class Pose(object):
-    def __init__(self, position, orientation, scale=0.1, line_width=10):
+    def __init__(
+            self,
+            position,
+            orientation,
+            scale=0.1,
+            line_width=10,
+            pb_client_id=0):
         self.position = position
         self.orientation = orientation
         self.scale = scale
         self.line_width = line_width
+        self.pb_client_id = pb_client_id
         self.ids = draw_pose(self.position, self.orientation, s=self.scale,
                              lw=self.line_width)
 
     def update(self, position, orientation):
         self.position = position
         self.orientation = orientation
-        draw_pose(self.position, self.orientation, s=self.scale,
-                  lw=self.line_width, replace_item_unique_ids=self.ids)
+        draw_pose(
+            self.position, self.orientation, s=self.scale, lw=self.line_width,
+            replace_item_unique_ids=self.ids, client_id=self.pb_client_id)
 
     def remove(self):
         for item in self.ids:

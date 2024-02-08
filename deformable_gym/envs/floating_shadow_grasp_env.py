@@ -96,7 +96,11 @@ class FloatingShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _load_objects(self):
         super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
+        (self.object_to_grasp,
+         self.object_position,
+         self.object_orientation) = ObjectFactory().create(
+            self.object_name,
+            pb_client_id=self.simulation.get_physics_client_id())
 
     def reset(self, seed=None, options=None):
         self.object_to_grasp.reset()

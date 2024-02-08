@@ -11,7 +11,9 @@ from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper,
 from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
 
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/shadow_hand.urdf")
+URDF_PATH = os.path.join(
+    Path(os.path.dirname(__file__)).parent.parent.absolute(),
+    "robots/urdf/shadow_hand.urdf")
 
 
 class ShadowHand(HandMixin, BulletRobot, abc.ABC):
@@ -44,9 +46,13 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
             world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
             debug_visualization: bool = True, **kwargs):
         super().__init__(
-            urdf_path=URDF_PATH, verbose=verbose, world_pos=world_pos,
-            world_orn=world_orn, task_space_limit=task_space_limit,
-            orn_limit=orn_limit, **kwargs)
+            urdf_path=URDF_PATH,
+            verbose=verbose,
+            world_pos=world_pos,
+            world_orn=world_orn,
+            task_space_limit=task_space_limit,
+            orn_limit=orn_limit,
+            **kwargs)
         self.debug_visualization = debug_visualization
 
         hand_command_wrapper = RobotCommandWrapper(self, self.motors)

@@ -71,16 +71,29 @@ class MiaHandForceSensors:
     SENSOR_NAMES = ["middle tangential", "index normal", "index tangential",
                     "thumb tangential", "thumb normal", "middle normal"]
 
-    def __init__(self, robot_id, joint_name_to_joint_id, debug=False):
+    def __init__(
+            self,
+            robot_id,
+            joint_name_to_joint_id,
+            debug=False,
+            pb_client_id=0
+    ):
         self.robot_id = robot_id
         self.index_sensor_id = joint_name_to_joint_id[INDEX_SENSOR_NAME]
         self.middle_sensor_id = joint_name_to_joint_id[MIDDLE_SENSOR_NAME]
         self.thumb_sensor_id = joint_name_to_joint_id[THUMB_SENSOR_NAME]
         self.debug = debug
+        self.pb_client_id = pb_client_id
 
-        for sensor_id in [self.index_sensor_id, self.middle_sensor_id,
-                          self.thumb_sensor_id]:
-            pb.enableJointForceTorqueSensor(self.robot_id, sensor_id)
+        for sensor_id in [
+            self.index_sensor_id,
+            self.middle_sensor_id,
+            self.thumb_sensor_id
+        ]:
+            pb.enableJointForceTorqueSensor(
+                self.robot_id,
+                sensor_id,
+                physicsClientId=self.pb_client_id)
 
         if self.debug:
             self.history = []
@@ -128,17 +141,29 @@ class MiaHandForceSensors:
             out = np.empty(6)
 
         _, _, _, T_ind_x, _, T_ind_z = -np.array(
-            pb.getJointState(self.robot_id, self.index_sensor_id)[2])
+            pb.getJointState(
+                self.robot_id,
+                self.index_sensor_id,
+                physicsClientId=self.pb_client_id
+            )[2])
         out[1] = T_ind_z * MM_PER_M / 2.006
         out[2] = T_ind_x * MM_PER_M / 2.854
 
         _, _, _, T_mrl_x, _, T_mrl_z = -np.array(
-            pb.getJointState(self.robot_id, self.middle_sensor_id)[2])
+            pb.getJointState(
+                self.robot_id,
+                self.middle_sensor_id,
+                physicsClientId=self.pb_client_id
+            )[2])
         out[5] = T_mrl_z * MM_PER_M / 2.006
         out[0] = T_mrl_x * MM_PER_M / 2.854
 
         _, F_th_y, _, _, T_th_y, _ = -np.array(
-            pb.getJointState(self.robot_id, self.thumb_sensor_id)[2])
+            pb.getJointState(
+                self.robot_id,
+                self.thumb_sensor_id,
+                physicsClientId=self.pb_client_id
+            )[2])
         out[3] = T_th_y * MM_PER_M / 3.673
         out[4] = F_th_y / 0.056
 

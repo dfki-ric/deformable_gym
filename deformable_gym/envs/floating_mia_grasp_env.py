@@ -34,29 +34,35 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         object should be sampled from the training or the test set.
     """
 
-    STANDARD_INITIAL_POSE = np.r_[0.03, -0.005, 1.0,
-                                   pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
+    STANDARD_INITIAL_POSE = np.r_[
+        0.03, -0.005, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
-    HARD_INITIAL_POSE = np.r_[0.03, -0.025, 1.0,
-                               pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
+    HARD_INITIAL_POSE = np.r_[
+        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
-    _FINGERS_OPEN = {"j_index_fle": 0.0,
-                     "j_little_fle": 0.0,
-                     "j_mrl_fle": 0.0,
-                     "j_ring_fle": 0.0,
-                     "j_thumb_fle": 0.0}
+    _FINGERS_OPEN = {
+        "j_index_fle": 0.0,
+        "j_little_fle": 0.0,
+        "j_mrl_fle": 0.0,
+        "j_ring_fle": 0.0,
+        "j_thumb_fle": 0.0
+    }
 
-    _FINGERS_HALFWAY_CLOSED = {"j_index_fle": 0.5,
-                               "j_little_fle": 0.5,
-                               "j_mrl_fle": 0.5,
-                               "j_ring_fle": 0.5,
-                               "j_thumb_fle": 0.3}
+    _FINGERS_HALFWAY_CLOSED = {
+        "j_index_fle": 0.5,
+        "j_little_fle": 0.5,
+        "j_mrl_fle": 0.5,
+        "j_ring_fle": 0.5,
+        "j_thumb_fle": 0.3
+    }
 
-    _FINGERS_CLOSED = {"j_index_fle": 0.71,
-                       "j_little_fle": 0.71,
-                       "j_mrl_fle": 0.71,
-                       "j_ring_fle": 0.71,
-                       "j_thumb_fle": 0.3}
+    _FINGERS_CLOSED = {
+        "j_index_fle": 0.71,
+        "j_little_fle": 0.71,
+        "j_mrl_fle": 0.71,
+        "j_ring_fle": 0.71,
+        "j_thumb_fle": 0.3
+    }
 
     _MAX_POS_OFFSET = .0005
     _MAX_ORN_OFFSET = .000005
@@ -101,10 +107,10 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             np.full(6, 10.)])
 
         if self._observable_object_pos:
-            lower_observations = np.append(lower_observations,
-                                           -np.full(3, 2.))
-            upper_observations = np.append(upper_observations,
-                                           np.full(3, 2.))
+            lower_observations = np.append(
+                lower_observations, -np.full(3, 2.))
+            upper_observations = np.append(
+                upper_observations, np.full(3, 2.))
 
         self.observation_space = spaces.Box(
             low=lower_observations,
@@ -113,17 +119,22 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         )
 
         # build the action space
-        lower = [-np.full(3, self._MAX_POS_OFFSET),  # max negative base pos offset
-                 -np.full(4, self._MAX_ORN_OFFSET),  # max negative base orn offset
-                 limits[0][self.actuated_finger_ids]]  # negative joint limits
+        lower = [
+            -np.full(3, self._MAX_POS_OFFSET),  # max negative base pos offset
+            -np.full(4, self._MAX_ORN_OFFSET),  # max negative base orn offset
+            limits[0][self.actuated_finger_ids]
+        ]  # negative joint limits
 
-        upper = [np.full(3, self._MAX_POS_OFFSET),  # max positive base pos offset
-                 np.full(4, self._MAX_ORN_OFFSET),  # max positive base orn offset
-                 limits[1][self.actuated_finger_ids]]  # positive joint limits
+        upper = [
+            np.full(3, self._MAX_POS_OFFSET),  # max positive base pos offset
+            np.full(4, self._MAX_ORN_OFFSET),  # max positive base orn offset
+            limits[1][self.actuated_finger_ids]
+        ]  # positive joint limits
 
-        self.action_space = spaces.Box(low=np.concatenate(lower),
-                                       high=np.concatenate(upper),
-                                       dtype=np.float64)
+        self.action_space = spaces.Box(
+            low=np.concatenate(lower),
+            high=np.concatenate(upper),
+            dtype=np.float64)
 
     def _create_robot(self):
         orn_limit = None
@@ -149,7 +160,8 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _load_objects(self):
         super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
+        self.object_to_grasp, self.object_position, self.object_orientation = (
+            ObjectFactory().create(self.object_name))
 
     def set_difficulty_mode(self, mode: str):
         """
@@ -188,7 +200,8 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return self._deformable_is_exploded()
 
     def _get_observation(self):
-        joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
+        joint_pos = self.robot.get_joint_positions(
+            self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 

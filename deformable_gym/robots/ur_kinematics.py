@@ -42,20 +42,20 @@ TWO_PI = 2.0 * math.pi
 ee_kin2ee_options = {
     # see experimental/test_ur5_mia_cartesian.py
     "palm": np.array([
-        [ 5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
-        [ 9.68930791e-01,  5.69331010e-05,  2.47332003e-01, 1.72392460e-02],
+        [5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
+        [9.68930791e-01,  5.69331010e-05,  2.47332003e-01, 1.72392460e-02],
         [-2.47332002e-01, -1.45329037e-05,  9.68930792e-01, -4.44860194e-03],
-        [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]]),
+        [0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]]),
     "ur5_tool0": np.array([
         [5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
-        [ 7.22061953e-04,  4.24274124e-08, -9.99999739e-01, 5.94256999e-05],
-        [ 9.99999738e-01,  5.87586715e-05,  7.22061954e-04, -1.96120385e-04],
-        [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]]),
+        [7.22061953e-04,  4.24274124e-08, -9.99999739e-01, 5.94256999e-05],
+        [9.99999738e-01,  5.87586715e-05,  7.22061954e-04, -1.96120385e-04],
+        [0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]]),
     "rh_forearm": np.array([  # TODO: configure this?
         [6.34136230e-07, -9.99999683e-01, -7.96326458e-04, 0.00000000e+00],
         [7.96326458e-04, 7.96326711e-04, -9.99999366e-01, 0.00000000e+00],
         [9.99999683e-01, 0.00000000e+00, 7.96326711e-04, 0.00000000e+00],
-        [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]])
+        [0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]])
 }
 
 urdf_base2kin_base = np.array([
@@ -81,9 +81,12 @@ joint_max = [3.141592653589793, 0.7400196028455958, 2.93005874824808,
 
 
 def analytical_ik(
-        pose, last_joint_angles, params=UR5Params,
+        pose,
+        last_joint_angles,
+        params=UR5Params,
         urdf_base2kin_base=urdf_base2kin_base,
-        ee_kin2ee=ee_kin2ee_options["ur5_tool0"]):
+        ee_kin2ee=ee_kin2ee_options["ur5_tool0"]
+):
     """Analytical inverse kinematics for universal robot arms."""
     ee_link2urdf_base = pt.transform_from(
         R=pr.matrix_from_quaternion([pose[-1], pose[3], pose[4], pose[5]]),
@@ -94,7 +97,9 @@ def analytical_ik(
 
 
 def analytical_ik_homogeneous(
-        ee_link2urdf_base, last_joint_angles, params=UR5Params,
+        ee_link2urdf_base,
+        last_joint_angles,
+        params=UR5Params,
         urdf_base2kin_base=urdf_base2kin_base,
         ee_kin2ee=ee_kin2ee_options["ur5_tool0"]):
     """Analytical inverse kinematics for universal robot arms."""

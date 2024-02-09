@@ -80,16 +80,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     """
     robot: ur5_mia.UR5Mia
 
-    train_positions = ([-0.7, 0.1, 1.6],
-                       [-0.7, 0.2, 1.6],
-                       [-0.7, 0.0, 1.6])
-
-    test_positions = ([-0.8, 0.1, 1.6],
-                      [-0.8, 0.2, 1.6],
-                      [-0.8, 0.0, 1.6])
-
-    object2world = pt.transform_from(R=np.eye(3),
-                                     p=np.array([-0.7, 0.1, 1.8]))
+    object2world = pt.transform_from(R=np.eye(3), p=np.array([-0.7, 0.1, 1.8]))
 
     def __init__(
             self,
@@ -169,46 +160,42 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _load_objects(self):
         super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
+        (self.object_to_grasp,
+         self.object_position,
+         self.object_orientation) = ObjectFactory().create(
+            self.object_name,
+            object2world=self.object2world,
+            scale=self.object_scale)
 
     def reset(self, seed=None, options=None):
 
-        pos = None
-
-        self.object_to_grasp.reset(pos=pos)
+        self.object_to_grasp.reset()
         self.robot.activate_motors()
 
         return super().reset(seed, options)
 
     def _get_observation(self):
-        joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
+        joint_pos = self.robot.get_joint_positions(
+            self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 
         return np.concatenate([ee_pose, joint_pos, sensor_readings], axis=0)
 
-    def calculate_reward(self, state, action, next_state, done):
+    def calculate_reward(self, state, action, next_state, terminated):
         """
         Calculates the reward by counting how many insole vertices are in the
         target position.
         """
-        # TODO: integrate contact points when available!
-        if done:
-            if not self.compute_reward:
-                return 0.0
-            if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
-                return -100
-
+        if terminated:
             self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
             for _ in range(50):
                 if self._deformable_is_exploded():
-                    return -100
+                    return -1.0
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
-
             if height > 0.9:
                 return 1.0
             else:

@@ -36,8 +36,7 @@ class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
         super()._load_objects()
         (self.object_to_grasp,
          self.object_position,
-         self.object_orientation) = ObjectFactory().create(
-            self.object_name)
+         self.object_orientation) = ObjectFactory().create(self.object_name)
 
     def reset(self, seed=None, options=None):
 

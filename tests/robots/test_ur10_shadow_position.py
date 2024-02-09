@@ -7,7 +7,7 @@ import pytest
 
 
 TEST_POS = np.array([0, 0, 1])
-TEST_ORN = np.array([0, 0, 0])
+TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))
 
 
 @pytest.fixture

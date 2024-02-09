@@ -1,17 +1,20 @@
 import numpy as np
+import pybullet as pb
 from deformable_gym.robots.mia_hand import MiaHandPosition
 from numpy.testing import assert_almost_equal
+
 
 import pytest
 
 
 TEST_POS = np.array([0, 0, 1])
-TEST_ORN = np.array([0, 0, 0])
+TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))
 
 
 @pytest.fixture
 def robot():
-    robot = MiaHandPosition(world_pos=TEST_POS, world_orn=TEST_ORN, base_commands=True)
+    robot = MiaHandPosition(
+        world_pos=TEST_POS, world_orn=TEST_ORN, base_commands=True)
     robot.set_thumb_opp(thumb_adducted=True)
 
     return robot

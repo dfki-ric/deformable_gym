@@ -1,13 +1,16 @@
 import abc
-
-import numpy.typing as npt
 import os
 from pathlib import Path
 
+import numpy.typing as npt
+
 from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper
-from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
-from deformable_gym.robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
+from deformable_gym.robots.control_mixins import (PositionControlMixin,
+                                                  VelocityControlMixin)
+from deformable_gym.robots.inverse_kinematics import \
+    UniversalRobotAnalyticalInverseKinematics
 from deformable_gym.robots.sensors import MiaHandForceSensors
+
 from .mia_hand import MiaHandMixin
 
 # Mia freq = 20 Hz

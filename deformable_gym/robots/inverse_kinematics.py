@@ -1,7 +1,10 @@
 import numpy as np
 import pybullet as pb
-from deformable_gym.robots.ur_kinematics import (
-    analytical_ik, urdf_base2kin_base, ee_kin2ee_options, robot_params)
+
+from deformable_gym.robots.ur_kinematics import (analytical_ik,
+                                                 ee_kin2ee_options,
+                                                 robot_params,
+                                                 urdf_base2kin_base)
 
 
 class PyBulletSolver:

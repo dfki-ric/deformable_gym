@@ -1,10 +1,9 @@
 import numpy as np
 import pybullet as pb
-from deformable_gym.robots.ur10_shadow import UR10ShadowPosition
+import pytest
 from numpy.testing import assert_almost_equal
 
-import pytest
-
+from deformable_gym.robots.ur10_shadow import UR10ShadowPosition
 
 TEST_POS = np.array([0, 0, 1])
 TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))

@@ -1,13 +1,15 @@
 import abc
-from typing import Tuple, List, Union, Dict, Iterable, Any
+from typing import Any, Dict, Iterable, List, Tuple, Union
+
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
+from gymnasium.spaces import Box
+
 from deformable_gym.helpers import pybullet_helper as pbh
+from deformable_gym.objects.bullet_object import Pose
 from deformable_gym.robots.bullet_utils import draw_limits
 from deformable_gym.robots.inverse_kinematics import PyBulletSolver
-from deformable_gym.objects.bullet_object import Pose
-from gymnasium.spaces import Box
 
 
 class BulletRobot(abc.ABC):

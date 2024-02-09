@@ -1,5 +1,6 @@
-import pytest
 import pybullet as pb
+import pytest
+
 from deformable_gym.envs.bullet_simulation import BulletSimulation
 
 

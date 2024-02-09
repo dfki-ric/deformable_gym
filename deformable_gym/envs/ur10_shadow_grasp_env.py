@@ -1,11 +1,11 @@
-import pytransform3d.transformations as pt
 import numpy as np
+import pytransform3d.transformations as pt
+from gymnasium import spaces
 
-from deformable_gym.robots import ur10_shadow
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
-from gymnasium import spaces
+from deformable_gym.robots import ur10_shadow
 
 
 class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):

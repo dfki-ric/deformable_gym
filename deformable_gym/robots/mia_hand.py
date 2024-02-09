@@ -1,15 +1,16 @@
 import abc
-from typing import Union, Tuple, List, Dict
-import numpy as np
-import numpy.typing as npt
 import os
 from pathlib import Path
+from typing import Dict, List, Tuple, Union
+
+import numpy as np
+import numpy.typing as npt
 
 from deformable_gym.helpers.pybullet_helper import Joint
-from deformable_gym.robots.bullet_robot import (
-    BulletRobot, RobotCommandWrapper, HandMixin)
-from deformable_gym.robots.control_mixins import (
-    PositionControlMixin, VelocityControlMixin)
+from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
+                                                RobotCommandWrapper)
+from deformable_gym.robots.control_mixins import (PositionControlMixin,
+                                                  VelocityControlMixin)
 from deformable_gym.robots.sensors import MiaHandForceSensors
 
 URDF_PATH = os.path.join(

@@ -1,15 +1,15 @@
 import abc
+import os
+from pathlib import Path
 from typing import Union
 
 import numpy as np
 import numpy.typing as npt
 
-import os
-from pathlib import Path
-
-from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper, HandMixin
-from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
-
+from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
+                                                RobotCommandWrapper)
+from deformable_gym.robots.control_mixins import (PositionControlMixin,
+                                                  VelocityControlMixin)
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),

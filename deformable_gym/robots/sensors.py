@@ -1,6 +1,6 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pybullet as pb
-import matplotlib.pyplot as plt
 
 INDEX_SENSOR_NAME = "j_index_sensor"
 MIDDLE_SENSOR_NAME = "j_middle_sensor"

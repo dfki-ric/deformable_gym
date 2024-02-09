@@ -1,11 +1,11 @@
 import numpy as np
+import pytransform3d.transformations as pt
 from gymnasium import spaces
-from deformable_gym.robots import ur5_mia
+
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
-import pytransform3d.transformations as pt
-
+from deformable_gym.robots import ur5_mia
 
 INITIAL_JOINT_ANGLES = {
     "ur5_shoulder_pan_joint": 2.44388798,

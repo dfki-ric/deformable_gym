@@ -1,7 +1,7 @@
 import numpy as np
-from deformable_gym.objects.bullet_object import ObjectFactory
 from numpy.testing import assert_array_almost_equal
 
+from deformable_gym.objects.bullet_object import ObjectFactory
 
 TEST_POS = np.array([0, 0, 1])
 TEST_ORN = np.array([0, 0, 0])

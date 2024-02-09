@@ -1,9 +1,10 @@
 import numpy as np
 import pybullet as pb
 from gymnasium import spaces
-from deformable_gym.robots import mia_hand
+
 from deformable_gym.envs.grasp_env import GraspEnv
 from deformable_gym.helpers import pybullet_helper as pbh
+from deformable_gym.robots import mia_hand
 
 
 class FloatingMiaGraspEnv(GraspEnv):

@@ -133,7 +133,13 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         return self.robot.get_joint_positions()
 
-    def _get_info(self):
+    def _get_info(
+            self,
+            observation: npt.ArrayLike = None,
+            action: npt.ArrayLike = None,
+            reward: float = None,
+            next_observation: npt.ArrayLike = None
+    ) -> dict:
         """Returns the current environment state.
 
         :return: The observation
@@ -200,22 +206,30 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         truncated = self._is_truncated(observation, action, next_observation)
 
         # calculate the reward
-        reward = self.calculate_reward(observation, action, next_observation, terminated)
+        reward = self.calculate_reward(
+            observation, action, next_observation, terminated)
+
+        info = self._get_info(observation, action, reward)
 
         if self.verbose:
-            print(f"Finished environment step: {next_observation=}, {reward=}, {terminated=}, {truncated=}")
+            print(f"Finished environment step: "
+                  f"{next_observation=}, "
+                  f"{reward=}, "
+                  f"{terminated=}, "
+                  f"{truncated=}")
 
-        return next_observation, reward, terminated, truncated, {}
+        return next_observation, reward, terminated, truncated, info
 
     def close(self):
         self.simulation.disconnect()
 
     @abc.abstractmethod
-    def calculate_reward(self,
-                         state: npt.ArrayLike,
-                         action: npt.ArrayLike,
-                         next_state: npt.ArrayLike,
-                         terminated: bool):
+    def calculate_reward(
+            self,
+            state: npt.ArrayLike,
+            action: npt.ArrayLike,
+            next_state: npt.ArrayLike,
+            terminated: bool):
         """Calculate reward.
 
         :param state: State of the environment.
@@ -284,8 +298,13 @@ class FloatingHandMixin:
         :param robot: Floating hand.
         """
         desired_robot2world_pos = self.hand_world_pose[:3]
-        desired_robot2world_orn = pb.getQuaternionFromEuler(self.hand_world_pose[3:])
-        self.multibody_pose = MultibodyPose(robot.get_id(), desired_robot2world_pos, desired_robot2world_orn)
+        desired_robot2world_orn = pb.getQuaternionFromEuler(
+            self.hand_world_pose[3:])
+        self.multibody_pose = MultibodyPose(
+            robot.get_id(),
+            desired_robot2world_pos,
+            desired_robot2world_orn
+        )
 
     def set_world_pose(self, world_pose):
         """Set pose of the hand.
@@ -293,10 +312,14 @@ class FloatingHandMixin:
         :param world_pose: world pose of hand given as position and
                            quaternion: (x, y, z, qw, qx, qy, qz)
         """
-        self.hand_world_pose = MultibodyPose.external_pose_to_internal_pose(world_pose)
+        self.hand_world_pose = MultibodyPose.external_pose_to_internal_pose(
+            world_pose)
         desired_robot2world_pos = self.hand_world_pose[:3]
-        desired_robot2world_orn = pb.getQuaternionFromEuler(self.hand_world_pose[3:])
-        self.multibody_pose.set_pose(desired_robot2world_pos, desired_robot2world_orn)
+        desired_robot2world_orn = pb.getQuaternionFromEuler(
+            self.hand_world_pose[3:])
+        self.multibody_pose.set_pose(
+            desired_robot2world_pos,
+            desired_robot2world_orn)
 
     def get_world_pose(self):
         """Get pose of the hand.

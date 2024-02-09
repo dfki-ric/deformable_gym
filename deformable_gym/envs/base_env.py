@@ -72,7 +72,6 @@ class BaseBulletEnv(gym.Env, abc.ABC):
             (0, 0, 0),
             useFixedBase=1,
             physicsClientId=self.simulation.get_physics_client_id(),
-
         )
 
     def _hard_reset(self):
@@ -146,11 +145,12 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         return {}
 
-    def _is_terminated(self,
-                       observation: npt.ArrayLike,
-                       action: npt.ArrayLike,
-                       next_observation: npt.ArrayLike
-                       ) -> bool:
+    def _is_terminated(
+            self,
+            observation: npt.ArrayLike,
+            action: npt.ArrayLike,
+            next_observation: npt.ArrayLike
+    ) -> bool:
         """Checks whether the current episode is terminated.
 
         :param observation: observation before action was taken
@@ -160,10 +160,12 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         """
         return self.step_counter >= self.horizon
 
-    def _is_truncated(self,
-                      state: npt.ArrayLike,
-                      action: npt.ArrayLike,
-                      next_state: npt.ArrayLike) -> bool:
+    def _is_truncated(
+            self,
+            state: npt.ArrayLike,
+            action: npt.ArrayLike,
+            next_state: npt.ArrayLike
+    ) -> bool:
         """Checks whether the current episode is truncated.
 
         :param state: State
@@ -229,7 +231,8 @@ class BaseBulletEnv(gym.Env, abc.ABC):
             state: npt.ArrayLike,
             action: npt.ArrayLike,
             next_state: npt.ArrayLike,
-            terminated: bool):
+            terminated: bool
+    ) -> float:
         """Calculate reward.
 
         :param state: State of the environment.

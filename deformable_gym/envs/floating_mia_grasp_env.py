@@ -2,12 +2,11 @@ import numpy as np
 import pybullet as pb
 from gymnasium import spaces
 from deformable_gym.robots import mia_hand
-from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
+from deformable_gym.envs.grasp_env import GraspEnv
 from deformable_gym.helpers import pybullet_helper as pbh
-from deformable_gym.objects.bullet_object import ObjectFactory
 
 
-class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
+class FloatingMiaGraspEnv(GraspEnv):
     """Grasp an insole with a floating Mia hand.
 
     **State space:**
@@ -70,21 +69,18 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def __init__(
             self,
             object_name: str = "insole",
-            compute_reward: bool = True,
             object_scale: float = 1.0,
             observable_object_pos: bool = False,
             difficulty_mode: str = "hard",
             **kwargs):
 
-        self.insole = None
         self.velocity_commands = False
-        self.object_name = object_name
-        self.randomised = False
-        self.compute_reward = compute_reward
-        self.object_scale = object_scale
-        self._observable_object_pos = observable_object_pos
 
-        super().__init__(soft=True, **kwargs)
+        super().__init__(
+            object_name=object_name,
+            object_scale=object_scale,
+            observable_object_pos=observable_object_pos,
+            **kwargs)
 
         self.hand_world_pose = self.STANDARD_INITIAL_POSE
         self.robot = self._create_robot()
@@ -158,11 +154,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         return robot
 
-    def _load_objects(self):
-        super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = (
-            ObjectFactory().create(self.object_name))
-
     def set_difficulty_mode(self, mode: str):
         """
         Sets the difficulty of the environment by changing the initial hand
@@ -183,22 +174,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         else:
             raise ValueError(f"Received unknown difficulty mode {mode}!")
 
-    def reset(self, seed=None, options=None):
-
-        if options is not None and "initial_pose" in options:
-            self.robot.reset_base(options["initial_pose"])
-        else:
-            self.robot.reset_base(self.hand_world_pose)
-
-        self.object_to_grasp.reset()
-        self.robot.activate_motors()
-
-        return super().reset(seed, options)
-
-    def _is_truncated(self, state, action, next_state):
-        # check if insole is exploded
-        return self._deformable_is_exploded()
-
     def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(
             self.robot.actuated_real_joints)
@@ -212,24 +187,3 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             state = np.append(state, obj_pos)
 
         return state
-
-    def calculate_reward(self, state, action, next_state, terminated):
-        """
-        Calculates the reward by counting how many insole vertices are in the
-        target position.
-        """
-        if terminated:
-            self.robot.deactivate_motors()
-            # remove insole anchors and simulate steps
-            self.object_to_grasp.remove_anchors()
-            for _ in range(50):
-                if self._deformable_is_exploded():
-                    return -1.0
-                self.simulation.step_to_trigger("time_step")
-            height = self.object_to_grasp.get_pose()[2]
-            if height < 0.9:
-                return -1.0
-            else:
-                return 1.0
-        else:
-            return 0.0

@@ -25,6 +25,9 @@ class FloatingShadowGraspEnv(GraspEnv):
     :param horizon: Number of steps in simulation.
     """
 
+    STANDARD_INITIAL_POSE = np.r_[
+        0, -0.5, 1, pb.getQuaternionFromEuler([-np.pi/2, np.pi, 0])]
+
     def __init__(
             self,
             object_name: str = "insole",
@@ -38,7 +41,7 @@ class FloatingShadowGraspEnv(GraspEnv):
                          observable_object_pos=observable_object_pos,
                          **kwargs)
 
-        self.hand_world_pose = (0, -0.5, 1, -np.pi/2, np.pi, 0)
+        self.hand_world_pose = self.STANDARD_INITIAL_POSE
         self.robot = self._create_robot()
 
         limits = pbh.get_limit_array(self.robot.motors.values())

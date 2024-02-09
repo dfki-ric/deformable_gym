@@ -138,14 +138,14 @@ class FloatingMiaGraspEnv(GraspEnv):
         if self.velocity_commands:
             robot = mia_hand.MiaHandVelocity(
                 world_pos=self.hand_world_pose[:3],
-                world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
+                world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
                 orn_limit=orn_limit,
                 base_commands=True)
         else:
             robot = mia_hand.MiaHandPosition(
                 world_pos=self.hand_world_pose[:3],
-                world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
+                world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
                 orn_limit=orn_limit,
                 base_commands=True)

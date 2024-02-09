@@ -61,8 +61,8 @@ class BulletRobot(abc.ABC):
         if world_orn is None:
             self.init_rot = pb.getQuaternionFromEuler((0, 0, 0))
         else:
-            assert len(world_orn) == 3
-            self.init_rot = pb.getQuaternionFromEuler(world_orn)
+            assert len(world_orn) == 4
+            self.init_rot = world_orn
 
         self._id = self.initialise()
 
@@ -115,7 +115,7 @@ class BulletRobot(abc.ABC):
             self.base_constraint = pb.createConstraint(
                 self._id,
                 -1,              # parent link id, -1 for base
-                -1,              # child body id, -1 for static frame in world coords
+                -1,              # child body id, -1 for static frame
                 -1,              # child link id, -1 for base
                 pb.JOINT_FIXED,  # joint type
                 [0, 0, 0],       # joint axis in child frame

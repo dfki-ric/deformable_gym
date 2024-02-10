@@ -1,17 +1,13 @@
 import numpy as np
-import pybullet as pb
 import pytest
 from numpy.testing import assert_almost_equal
 
 from deformable_gym.robots.ur5_mia import UR5MiaPosition
 
-TEST_POS = np.array([0, 0, 1])
-TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))
-
 
 @pytest.fixture
-def robot():
-    robot = UR5MiaPosition()
+def robot(simulation):
+    robot = UR5MiaPosition(pb_client_id=simulation.get_physics_client_id())
 
     return robot
 

@@ -10,8 +10,12 @@ TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))
 
 
 @pytest.fixture
-def robot():
-    robot = ShadowHandVelocity(world_pos=TEST_POS, world_orn=TEST_ORN, base_commands=True)
+def robot(simulation):
+    robot = ShadowHandVelocity(
+        pb_client_id=simulation.get_physics_client_id(),
+        world_pos=TEST_POS,
+        world_orn=TEST_ORN,
+        base_commands=True)
 
     return robot
 

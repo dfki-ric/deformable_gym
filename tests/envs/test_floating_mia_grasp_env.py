@@ -62,27 +62,29 @@ def test_episode_reproducibility():
     observations = []
     termination_flags = []
 
-    env = FloatingMiaGraspEnv(verbose=False,
-                              horizon=10,
-                              gui=False,
-                              observable_object_pos=True,
-                              object_name="insole_on_conveyor_belt/back",
-                              difficulty_mode="hard",
-                              )
+    env = FloatingMiaGraspEnv(
+        verbose=False,
+        horizon=10,
+        gui=False,
+        observable_object_pos=True,
+        object_name="insole_on_conveyor_belt/back",
+        difficulty_mode="hard",
+    )
     env = RescaleAction(env, 0., 1.)
 
     env.action_space.seed(SEED)
 
     for _ in range(2):
         observation, _ = env.reset(seed=SEED)
-        observations.append(observation)
+        observations.append([observation])
         terminated = False
+        termination_flags.append([terminated])
         while not terminated:
             action = env.action_space.sample()
             observation, reward, terminated, truncated, info = env.step(action)
 
-            observations.append(observation)
-            termination_flags.append(terminated)
+            observations[-1].append(observation)
+            termination_flags[-1].append(terminated)
 
     assert_allclose(observations[0], observations[1])
     assert_allclose(termination_flags[0], termination_flags[1])

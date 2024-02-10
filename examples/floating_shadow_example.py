@@ -1,7 +1,6 @@
 import gymnasium
 
-from deformable_gym.envs.floating_shadow_grasp_env import \
-    FloatingShadowGraspEnv
+from deformable_gym.envs.floating_shadow_grasp_env import FloatingShadowGraspEnv
 
 """
 =========

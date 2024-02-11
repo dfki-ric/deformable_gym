@@ -1,5 +1,7 @@
 import pybullet as pb
 import pybullet_data
+
+from pybullet_utils import bullet_client as bc
 from deformable_gym.robots.bullet_robot import BulletRobot
 
 
@@ -16,9 +18,13 @@ class BulletSimulation:
     connection command.
     """
     def __init__(
-            self, time_delta: float = 0.001, mode: int = pb.GUI,
-            gravity: float = -9.81, soft: bool = False,
-            real_time: bool = False, verbose_dt: float = 0.01,
+            self,
+            time_delta: float = 0.001,
+            mode: int = pb.GUI,
+            gravity: float = -9.81,
+            soft: bool = False,
+            real_time: bool = False,
+            verbose_dt: float = 0.01,
             pybullet_options: str = ""):
 
         self.time_delta = time_delta
@@ -27,33 +33,37 @@ class BulletSimulation:
         self.soft = soft
         self.real_time = real_time
 
-        self._client = pb.connect(self.mode, options=pybullet_options)
-        self.timing = BulletTiming(dt=time_delta, verbose_dt=verbose_dt,
-                                   client_id=self._client)
+        self.pb_client = bc.BulletClient(
+            connection_mode=self.mode,
+            options=pybullet_options
+        )
+        self.pb_client.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-        pb.setAdditionalSearchPath(pybullet_data.getDataPath())
+        self.timing = BulletTiming(
+            pb_client=self.pb_client,
+            dt=time_delta,
+            verbose_dt=verbose_dt,
+        )
 
         self.reset()
 
-        self.camera = BulletCamera()
+        self.camera = BulletCamera(self.pb_client)
 
     def reset(self):
         """Reset and initialize simulation."""
         if self.soft:
-            pb.resetSimulation(pb.RESET_USE_DEFORMABLE_WORLD)
+            self.pb_client.resetSimulation(pb.RESET_USE_DEFORMABLE_WORLD)
         else:
-            pb.resetSimulation()
+            self.pb_client.resetSimulation()
 
-        print(f"resetting client {self._client}")
+        print(f"resetting client {self.pb_client}")
 
-        pb.setGravity(0, 0, self.gravity, physicsClientId=self._client)
-        pb.setRealTimeSimulation(self.real_time, physicsClientId=self._client)
-        pb.setTimeStep(self.time_delta, physicsClientId=self._client)
+        self.pb_client.setGravity(0, 0, self.gravity)
+        self.pb_client.setRealTimeSimulation(self.real_time)
+        self.pb_client.setTimeStep(self.time_delta)
 
-        pb.configureDebugVisualizer(
-            pb.COV_ENABLE_RENDERING, 1, physicsClientId=self._client)
-        pb.configureDebugVisualizer(
-            pb.COV_ENABLE_GUI, 0, physicsClientId=self._client)
+        self.pb_client.configureDebugVisualizer(pb.COV_ENABLE_RENDERING, 1)
+        self.pb_client.configureDebugVisualizer(pb.COV_ENABLE_GUI, 0)
 
     def add_robot(self, robot: BulletRobot):
         """Add robot to this simulation.
@@ -88,34 +98,32 @@ class BulletSimulation:
         for _ in range(int(time / self.time_delta)):
             self.timing.step()
 
-    def get_physics_client_id(self):
-        """Get physics client ID of PyBullet instance.
-
-        :return: Physics client ID.
-        """
-        return self._client
-
-    def disconnect(self):
+    def disconnect(self) -> None:
         """Shut down physics client instance."""
-        pb.disconnect(self._client)
+        self.pb_client.disconnect()
 
 
 class BulletTiming:
     """This class handles all timing issues for a single BulletSimulation."""
-    def __init__(self, dt=0.001, verbose_dt=0.01, client_id=0):
+    def __init__(
+            self,
+            pb_client: bc.BulletClient,
+            dt: float = 0.001,
+            verbose_dt: float = 0.01,
+    ):
 
         """
         Create new BulletTiming instance.
 
         :param dt: The time delta used in the BulletSimulation.
         :param verbose_dt: Time after we print debug info.
-        :param client_id: PyBullet instance ID.
+        :param pb_client: PyBullet instance ID.
         """
 
         # initialise values
         self.dt = dt
         self.verbose_dt = verbose_dt
-        self._client = client_id
+        self._pb_client = pb_client
         self.time_step = 0
         self.sim_time = 0.0
 
@@ -135,8 +143,8 @@ class BulletTiming:
         is triggered.
         """
         if name not in self.subsystems.keys():
-            self.subsystems[name] = (max(1, round(1.0/frequency/self.dt)),
-                                     callback)
+            self.subsystems[name] = (
+                max(1, round(1.0/frequency/self.dt)), callback)
 
     def remove_subsystem(self, name):
         """
@@ -167,7 +175,7 @@ class BulletTiming:
         """
         triggers = self.get_triggered_subsystems()
         self._run_callbacks(triggers)
-        pb.stepSimulation(physicsClientId=self._client)
+        self._pb_client.stepSimulation()
         self.time_step += 1
         self.sim_time += self.dt
 
@@ -182,28 +190,36 @@ class BulletTiming:
 
 class BulletCamera:
     """This class handles all camera operations for one BulletSimulation."""
-    def __init__(self, position=(0, 0, 0), pitch=-52, yaw=30, distance=3):
+    def __init__(
+            self,
+            pb_client: bc.BulletClient,
+            position: tuple = (0, 0, 0),
+            pitch: int = -52,
+            yaw: int = 30,
+            distance: int = 3,
+    ):
         self.position = position
         self.pitch = pitch
         self.yaw = yaw
         self.distance = distance
+        self.pb_client = pb_client
 
         self._active = False
         self._logging_id = None
 
-        pb.resetDebugVisualizerCamera(distance, yaw, pitch, position)
+        self.pb_client.resetDebugVisualizerCamera(distance, yaw, pitch, position)
 
     def start_recording(self, path):
         if not self._active:
-            self._logging_id = pb.startStateLogging(pb.STATE_LOGGING_VIDEO_MP4,
-                                                    path)
+            self._logging_id = self.pb_client.startStateLogging(
+                pb.STATE_LOGGING_VIDEO_MP4, path)
             return self._logging_id
         else:
             return None
 
     def stop_recording(self):
         if self._active:
-            pb.stopStateLogging(self._logging_id)
+            self.pb_client.stopStateLogging(self._logging_id)
 
     def reset(self, position, pitch, yaw, distance):
         self.position = position
@@ -211,4 +227,5 @@ class BulletCamera:
         self.yaw = yaw
         self.distance = distance
 
-        pb.resetDebugVisualizerCamera(distance, yaw, pitch, position)
+        self.pb_client.resetDebugVisualizerCamera(
+            distance, yaw, pitch, position)

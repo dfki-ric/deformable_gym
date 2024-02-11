@@ -1,20 +1,24 @@
 import abc
-
-import numpy.typing as npt
 import os
 from pathlib import Path
 
+import numpy.typing as npt
+
 from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper
-from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
-from deformable_gym.robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
+from deformable_gym.robots.control_mixins import (PositionControlMixin,
+                                                  VelocityControlMixin)
+from deformable_gym.robots.inverse_kinematics import \
+    UniversalRobotAnalyticalInverseKinematics
 from deformable_gym.robots.sensors import MiaHandForceSensors
+
+from pybullet_utils import bullet_client as bc
+
 from .mia_hand import MiaHandMixin
 
 # Mia freq = 20 Hz
 # UR5 freq = 125 Hz
 
 URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/mia_hand_on_ur5.urdf")
-
 
 
 class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
@@ -26,11 +30,17 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
     TODO Can (and should) be extended eventually to allow other control
     methods, e.g. velocity or torque control.
     """
-    def __init__(self, verbose=0, task_space_limit=None,
-                 end_effector_link="ur5_tool0", orn_limit=None,
-                 debug_visualization=True):
-        super().__init__(urdf_path=URDF_PATH, verbose=verbose,
-                         task_space_limit=task_space_limit, orn_limit=orn_limit)
+    def __init__(
+            self,
+            pb_client: bc.BulletClient,
+            verbose: bool = False,
+            task_space_limit=None,
+            end_effector_link="ur5_tool0",
+            orn_limit=None,
+            debug_visualization=True):
+        super().__init__(
+            urdf_path=URDF_PATH, pb_client=pb_client, verbose=verbose,
+            task_space_limit=task_space_limit, orn_limit=orn_limit)
         self.debug_visualization = debug_visualization
 
         self._arm_motors = {k: v for k, v in self.motors.items() if "ur5_" in k}
@@ -43,7 +53,7 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
         self.subsystems["arm"] = (125, arm_command_wrapper)
 
         self.mia_hand_force_sensors = MiaHandForceSensors(
-            self._id, self._joint_name_to_joint_id, debug=False)
+            self._id, self._joint_name_to_joint_id, self.pb_client)
 
         if self.debug_visualization:
             self._init_debug_visualizations()

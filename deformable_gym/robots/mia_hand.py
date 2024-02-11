@@ -1,16 +1,23 @@
 import abc
-from typing import Union, Tuple, List, Dict
-import numpy as np
-import numpy.typing as npt
 import os
 from pathlib import Path
+from typing import Dict, List, Tuple, Union
+
+import numpy as np
+import numpy.typing as npt
 
 from deformable_gym.helpers.pybullet_helper import Joint
-from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper, HandMixin
-from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
+from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
+                                                RobotCommandWrapper)
+from deformable_gym.robots.control_mixins import (PositionControlMixin,
+                                                  VelocityControlMixin)
 from deformable_gym.robots.sensors import MiaHandForceSensors
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/mia_hand.urdf")
+from pybullet_utils import bullet_client as bc
+
+URDF_PATH = os.path.join(
+    Path(os.path.dirname(__file__)).parent.parent.absolute(),
+    "robots/urdf/mia_hand.urdf")
 
 
 class MiaHandMixin(HandMixin):
@@ -20,7 +27,8 @@ class MiaHandMixin(HandMixin):
         "j_index_fle", "j_little_fle", "j_mrl_fle", "j_ring_fle", "j_thumb_fle"
     ]
     actuated_real_joints: List[str] = [
-        "j_index_fle", "j_mrl_fle", "j_thumb_fle"]
+        "j_index_fle", "j_mrl_fle", "j_thumb_fle"
+    ]
 
     mia_hand_force_sensors: MiaHandForceSensors
 
@@ -69,8 +77,8 @@ class MiaHandMixin(HandMixin):
         mrl_command = command[1]
         hand_joint_target = np.insert(command, [1, 2], mrl_command)
         # fill j_thumb_opp with target value
-        hand_joint_target = np.insert(hand_joint_target, 4,
-                                      self.motors["j_thumb_opp"].init_pos)
+        hand_joint_target = np.insert(
+            hand_joint_target, 4, self.motors["j_thumb_opp"].init_pos)
         return hand_joint_target
 
     def get_joint_limits(self) -> Tuple[np.ndarray, np.ndarray]:
@@ -91,7 +99,7 @@ class MiaHandMixin(HandMixin):
         - (4) normal force at thumb,
         - (5) normal force at middle finger.
         """
-        return self.mia_hand_force_sensors.measure()
+        return self.mia_hand_force_sensors.measure().copy()
 
     def get_sensor_limits(self) -> Tuple[np.ndarray, np.ndarray]:
         return self.mia_hand_force_sensors.get_limits()
@@ -117,7 +125,9 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
     space).
     """
     def __init__(
-            self, verbose: int = 0,
+            self,
+            pb_client: bc.BulletClient,
+            verbose: bool = False,
             task_space_limit: Union[npt.ArrayLike, None] = None,
             orn_limit: Union[npt.ArrayLike, None] = None,
             world_pos: npt.ArrayLike = (0, 0, 1),
@@ -125,9 +135,9 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
             debug_visualization: bool = True,
             **kwargs):
         super().__init__(
-            urdf_path=URDF_PATH, verbose=verbose, world_pos=world_pos,
-            world_orn=world_orn, task_space_limit=task_space_limit,
-            orn_limit=orn_limit, **kwargs)
+            pb_client=pb_client, urdf_path=URDF_PATH, verbose=verbose,
+            world_pos=world_pos, world_orn=world_orn,
+            task_space_limit=task_space_limit, orn_limit=orn_limit, **kwargs)
         self.debug_visualization = debug_visualization
 
         rcw = RobotCommandWrapper(self, self.actuated_simulated_joints)
@@ -136,7 +146,7 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
         self._correct_index_limit()
 
         self.mia_hand_force_sensors = MiaHandForceSensors(
-            self._id, self._joint_name_to_joint_id, debug=False)
+            self._id, self._joint_name_to_joint_id, self.pb_client)
 
         self.thumb_adducted = True
 

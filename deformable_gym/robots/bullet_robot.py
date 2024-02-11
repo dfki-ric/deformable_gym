@@ -1,13 +1,16 @@
 import abc
-from typing import Tuple, List, Union, Dict, Iterable, Any
+from typing import Any, Dict, Iterable, List, Tuple, Union
+
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
+from pybullet_utils import bullet_client as bc
+from gymnasium.spaces import Box
+
 from deformable_gym.helpers import pybullet_helper as pbh
+from deformable_gym.objects.bullet_object import Pose
 from deformable_gym.robots.bullet_utils import draw_limits
 from deformable_gym.robots.inverse_kinematics import PyBulletSolver
-from deformable_gym.objects.bullet_object import Pose
-from gymnasium.spaces import Box
 
 
 class BulletRobot(abc.ABC):
@@ -27,12 +30,17 @@ class BulletRobot(abc.ABC):
     space).
     """
     def __init__(
-            self, urdf_path: str, verbose: int = 0,
-            world_pos: npt.ArrayLike = None, world_orn: npt.ArrayLike = None,
+            self,
+            urdf_path: str,
+            pb_client: bc.BulletClient,
+            verbose: bool = False,
+            world_pos: npt.ArrayLike = None,
+            world_orn: npt.ArrayLike = None,
             control_mode: int = pb.POSITION_CONTROL,
             task_space_limit: Union[npt.ArrayLike, None] = None,
             orn_limit: Union[npt.ArrayLike, None] = None,
-            base_commands: bool = False):
+            base_commands: bool = False,
+    ):
         self.path = urdf_path
         self.verbose = verbose
         self.control_mode = control_mode
@@ -42,6 +50,7 @@ class BulletRobot(abc.ABC):
         self.orn_limit = orn_limit
         self.subsystems = {}
         self.base_commands = base_commands
+        self.pb_client = pb_client
 
         if self.task_space_limit is not None and verbose:
             draw_limits(self.task_space_limit)
@@ -55,15 +64,20 @@ class BulletRobot(abc.ABC):
         if world_orn is None:
             self.init_rot = pb.getQuaternionFromEuler((0, 0, 0))
         else:
-            assert len(world_orn) == 3
-            self.init_rot = pb.getQuaternionFromEuler(world_orn)
+            assert len(world_orn) == 4
+            self.init_rot = world_orn
 
         self._id = self.initialise()
 
         self._joint_name_to_joint_id, self._link_name_to_link_id = \
-            pbh.analyze_robot(robot=self._id, verbose=verbose)
+            pbh.analyze_robot(
+                robot=self._id,
+                pb_client=self.pb_client,
+                verbose=verbose,
+            )
 
-        self.all_joints = pbh.build_joint_list(self._id, verbose=1)
+        self.all_joints = pbh.build_joint_list(
+            self._id, self.pb_client, verbose=self.verbose)
 
         # separate fixed joints from controllable ones
         self.fixed_joints = {
@@ -82,49 +96,63 @@ class BulletRobot(abc.ABC):
         for name, joint in self.fixed_joints.items():
             if "sensor" in name:
                 self.sensors[name] = joint
-                pb.enableJointForceTorqueSensor(self._id, joint.joint_idx, 1)
+                self.pb_client.enableJointForceTorqueSensor(
+                    self._id,
+                    joint.joint_idx,
+                    enableSensor=True
+                )
 
         # set the joints initial positions
         for j in self.all_joints:
-            j.init_pos = pb.getJointState(self._id, j.joint_idx)[0]
+            j.init_pos = self.pb_client.getJointState(
+                self._id,
+                j.joint_idx,
+            )[0]
 
         # set initial command
         self.current_command = {k: None for k in self.motors.keys()}
 
         # create fixed constraint for base if robot base is controllable
         if self.base_commands:
-            self.base_constraint = \
-                pb.createConstraint(self._id,        # parent body id
-                                    -1,              # parent link id, -1 for base
-                                    -1,              # child body id, -1 for static frame in world coords
-                                    -1,              # child link id, -1 for base
-                                    pb.JOINT_FIXED,  # joint type
-                                    [0, 0, 0],       # joint axis in child frame
-                                    [0, 0, 0],       # parent frame position
-                                    [0, 0, 1])       # child frame position
+            self.base_constraint = self.pb_client.createConstraint(
+                self._id,
+                -1,              # parent link id, -1 for base
+                -1,              # child body id, -1 for static frame
+                -1,              # child link id, -1 for base
+                pb.JOINT_FIXED,  # joint type
+                [0, 0, 0],       # joint axis in child frame
+                [0, 0, 0],       # parent frame position
+                [0, 0, 1],       # child frame position
+            )
 
         if verbose:
             print(self.all_joints)
 
         self.multibody_pose = pbh.MultibodyPose(
-            self.get_id(), self.init_pos, self.init_rot)
+            self.get_id(), self.init_pos, self.init_rot,
+            pb_client=self.pb_client)
 
         # create observation and action spaces
         # TODO: fix to include base actions and sensor observations
-        self.action_space = Box(np.full(len(self.motors), -1.0),
-                                np.full(len(self.motors), 1.0))
-        self.observation_space = Box(np.full(len(self.motors), -1.0),
-                                     np.full(len(self.motors), 1.0))
+        self.action_space = Box(
+            np.full(len(self.motors), -1.0),
+            np.full(len(self.motors), 1.0))
+        self.observation_space = Box(
+            np.full(len(self.motors), -1.0),
+            np.full(len(self.motors), 1.0))
 
     def initialise(self) -> int:
         """Initialize robot in simulation.
 
         :return: PyBullet UUID for loaded multi-body.
         """
-        return pb.loadURDF(
-            self.path, self.init_pos, self.init_rot,
+        return self.pb_client.loadURDF(
+            self.path,
+            self.init_pos,
+            self.init_rot,
             useFixedBase=not self.base_commands,
-            flags=pb.URDF_USE_SELF_COLLISION | pb.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT)
+            flags=pb.URDF_USE_SELF_COLLISION
+                  | pb.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT)
 
     def get_id(self) -> int:
         """Get PyBullet UUID for the robot multi-body.
@@ -175,7 +203,9 @@ class BulletRobot(abc.ABC):
         return np.array([self.motors[k].get_position() for k in keys])
 
     def get_joint_velocities(
-            self, keys: Union[Iterable[str], None] = None) -> np.ndarray:
+            self,
+            keys: Union[Iterable[str], None] = None
+    ) -> np.ndarray:
         """Returns the robot's current joint velocities.
 
         :param keys: Names of joints from which velocities are requested.
@@ -192,7 +222,7 @@ class BulletRobot(abc.ABC):
         :return: Array of sensor readings.
         """
         return np.array(
-            [el[2][-1] for el in pb.getJointStates(
+            [el[2][-1] for el in self.pb_client.getJointStates(
                 self._id, [j.joint_idx for j in self.sensors.values()])])
 
     def update_current_command(self, command: Dict[str, float]):
@@ -209,9 +239,10 @@ class BulletRobot(abc.ABC):
         for key in command.keys():
             self.current_command[key] = command[key]
 
-    def send_current_command(self,
-                             keys: Union[Iterable[str], None] = None
-                             ) -> None:
+    def send_current_command(
+            self,
+            keys: Union[Iterable[str], None] = None
+    ) -> None:
         """Sends the currently stored commands to the selected motors.
 
         :param keys: The names of the motors to send commands to.
@@ -235,9 +266,12 @@ class BulletRobot(abc.ABC):
         """
 
     def compute_ik(
-            self, joint_positions: np.ndarray, pos_command: np.ndarray,
+            self,
+            joint_positions: np.ndarray,
+            pos_command: np.ndarray,
             orn_command: Union[np.ndarray, None] = None,
-            velocities: bool = True) -> np.ndarray:
+            velocities: bool = True
+    ) -> np.ndarray:
         """Translates task space command to motor commands.
 
         :param joint_positions: Current joint angles
@@ -263,7 +297,12 @@ class BulletRobot(abc.ABC):
         if self.task_space_limit is not None:
             if self.verbose:
                 print(f"Original {target_pos=}")
-            target_pos = np.clip(target_pos, self.task_space_limit[0], self.task_space_limit[1])
+
+            target_pos = np.clip(
+                target_pos,
+                self.task_space_limit[0],
+                self.task_space_limit[1])
+
             if self.verbose:
                 print(f"Clipped {target_pos=}")
 
@@ -276,7 +315,8 @@ class BulletRobot(abc.ABC):
                 target_orn_euler = pb.getEulerFromQuaternion(target_orn)
                 target_orn_euler_clipped = np.clip(
                     target_orn_euler, self.orn_limit[0], self.orn_limit[1])
-                target_orn = pb.getQuaternionFromEuler(target_orn_euler_clipped)
+                target_orn = pb.getQuaternionFromEuler(
+                    target_orn_euler_clipped)
 
             target_orn /= np.maximum(np.linalg.norm(target_orn), 1e-10)
 
@@ -300,15 +340,18 @@ class BulletRobot(abc.ABC):
         quaternion: (x, y, z, qx, qy, qz, qw).
         """
         if self.end_effector is not None:
-            current_pos, current_orn = pbh.link_pose(self._id, self.end_effector)
+            current_pos, current_orn = pbh.link_pose(
+                self._id, self.end_effector)
         else:
-            current_pos, current_orn = pb.getBasePositionAndOrientation(self._id)
+            current_pos, current_orn = (
+                self.pb_client.getBasePositionAndOrientation(self._id))
         return np.concatenate((current_pos, current_orn), axis=0)
 
-    def set_ee_pose(self,
-                    target_pos: np.ndarray,
-                    target_orn: np.ndarray
-                    ) -> None:
+    def set_ee_pose(
+            self,
+            target_pos: np.ndarray,
+            target_orn: np.ndarray
+    ) -> None:
         """Sets the pose of the end-effector instantly.
 
         No physics simulation steps required.
@@ -317,15 +360,18 @@ class BulletRobot(abc.ABC):
         :param target_orn: Target orientation as (qx, qy, qz, qw).
         """
         joint_pos = self.compute_ik(
-            self.get_joint_positions()[:6], target_pos, target_orn,
+            self.get_joint_positions()[:6],
+            target_pos,
+            target_orn,
             velocities=False)
         position_dict = {joint: pos for joint, pos in
                          zip(self.motors.keys(), joint_pos)}
         self.set_joint_positions(position_dict)
 
-    def reset(self,
-              keys: Union[Iterable[str], None] = None
-              ) -> None:
+    def reset(
+            self,
+            keys: Union[Iterable[str], None] = None
+    ) -> None:
         """Resets actuators and sensors.
 
         :param keys: Names of joints to reset. Default is all.
@@ -340,9 +386,10 @@ class BulletRobot(abc.ABC):
             self.motors[key].reset()
             self.current_command[key] = self.motors[key].get_position()
 
-    def set_joint_positions(self,
-                            position_dict: Dict[str, float]
-                            ) -> None:
+    def set_joint_positions(
+            self,
+            position_dict: Dict[str, float]
+    ) -> None:
         """Sets the joint positions of the robot.
 
         :param position_dict: Maps joint names to angles.
@@ -372,9 +419,11 @@ class BulletRobot(abc.ABC):
 
         target_pos, target_orn = self.multibody_pose.translate_pose(
             target_pos, target_orn)
-        pb.changeConstraint(self.base_constraint, target_pos,
-                            jointChildFrameOrientation=target_orn,
-                            maxForce=100000)
+        self.pb_client.changeConstraint(
+            self.base_constraint,
+            target_pos,
+            jointChildFrameOrientation=target_orn,
+            maxForce=100000)
 
     def _enforce_limits(self, pose) -> Tuple[Any, Any]:
         assert self.base_commands, "tried to move base, but base commands " \
@@ -398,9 +447,12 @@ class BulletRobot(abc.ABC):
 
         target_pos, target_orn = self.multibody_pose.set_pose(
             target_pos, target_orn)
-        pb.changeConstraint(self.base_constraint, target_pos,
-                            jointChildFrameOrientation=target_orn,
-                            maxForce=100000)
+        self.pb_client.changeConstraint(
+            self.base_constraint,
+            target_pos,
+            jointChildFrameOrientation=target_orn,
+            maxForce=100000
+        )
 
     def _get_link_id(self, link_name: str) -> int:
         """Get PyBullet link ID for link name.
@@ -410,7 +462,10 @@ class BulletRobot(abc.ABC):
         """
         return self._link_name_to_link_id[link_name]
 
-    def get_joint_limits(self, joints: List[str]) -> Tuple[np.ndarray, np.ndarray]:
+    def get_joint_limits(
+            self,
+            joints: List[str]
+    ) -> Tuple[np.ndarray, np.ndarray]:
         """Get array of lower limits and array of upper limits of joints.
 
         :param joints: Names of joints for which we request limits.
@@ -448,11 +503,14 @@ class HandMixin:
         self.robot_pose = Pose(
             np.zeros(3),
             np.array([0.0, 0.0, 0.0, 1.0]),
+            pb_client=self.pb_client,
             scale=0.1,
             line_width=1)
+
         self.object_pose = Pose(
             np.zeros(3),
             np.array([0.0, 0.0, 0.0, 1.0]),
+            pb_client=self.pb_client,
             scale=0.1,
             line_width=1)
         self.contact_normals = []
@@ -463,28 +521,33 @@ class HandMixin:
         :param object_id: UUID of object.
         :return: List of contact point information from PyBullet.
         """
-        contact_points = pb.getContactPoints(self.get_id(), object_id)
+        contact_points = self.pb_client.getContactPoints(
+            self.get_id(), object_id)
+
         if self.debug_visualization:
             for contact_point_id in self.contact_normals:
                 pb.removeUserDebugItem(contact_point_id)
 
-            robot_position, robot_orientation = \
-                pb.getBasePositionAndOrientation(self.get_id())
+            robot_position, robot_orientation = (
+                self.pb_client.getBasePositionAndOrientation(
+                    self.get_id()))
             self.robot_pose.update(robot_position, robot_orientation)
-            object_position, object_orientation = \
-                pb.getBasePositionAndOrientation(object_id)
+            object_position, object_orientation = (
+                self.pb_client.getBasePositionAndOrientation(object_id))
             self.object_pose.update(object_position, object_orientation)
 
             self.contact_normals = []
             for contact_point in contact_points:
-                _, _, _, _, _, _, position_on_object, \
-                contact_normal_on_object, _, normal_force, _, _, _, _ = \
-                    contact_point
+                position_on_object = contact_point[6]
+                contact_normal_on_object = contact_point[7]
+                normal_force = contact_point[9]
 
                 object_normal_end = (
                         np.array(position_on_object)
                         + normal_force * np.array(contact_normal_on_object))
-                contact_normal_line = pb.addUserDebugLine(
-                    position_on_object, object_normal_end, [1, 1, 1])
+                contact_normal_line = self.pb_client.addUserDebugLine(
+                    position_on_object,
+                    object_normal_end, 
+                    [1, 1, 1])
                 self.contact_normals.append(contact_normal_line)
         return contact_points

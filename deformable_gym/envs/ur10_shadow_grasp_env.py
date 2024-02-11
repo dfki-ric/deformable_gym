@@ -1,11 +1,11 @@
-import pytransform3d.transformations as pt
 import numpy as np
+import pytransform3d.transformations as pt
+from gymnasium import spaces
 
-from deformable_gym.robots import ur10_shadow
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import ObjectFactory
-from gymnasium import spaces
+from deformable_gym.robots import ur10_shadow
 
 
 class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
@@ -29,20 +29,22 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     object should be sampled from the training or the test set.
     """
 
-    object2world = pt.transform_from(R=np.eye(3),
-                                     p=np.array([-0.7, 0.1, 1.8]))
+    object2world = pt.transform_from(R=np.eye(3), p=np.array([-0.7, 0.1, 1.8]))
 
-    def __init__(self, gui=True, real_time=False, object_name="insole",
-                 verbose=False, horizon=100, train=True,
-                 compute_reward=True, object_scale=1.0, verbose_dt=10.0):
+    def __init__(
+            self,
+            gui=True,
+            real_time=False,
+            object_name="insole",
+            verbose=False,
+            horizon=100,
+            object_scale=1.0,
+            verbose_dt=10.0
+    ):
         self.insole = None
-        self.train = train
         self.velocity_commands = False
         self.object_name = object_name
-        self.randomised = False
-        self.compute_reward = compute_reward
         self.object_scale = object_scale
-
         super().__init__(gui=gui, real_time=real_time, horizon=horizon,
                          soft=True, verbose=verbose,
                          verbose_dt=verbose_dt)
@@ -77,16 +79,21 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         if self.velocity_commands:
             robot = ur10_shadow.UR10ShadowVelocity(
+                pb_client=self.pb_client,
                 task_space_limit=task_space_limit,
                 end_effector_link="rh_forearm",
-                verbose=self.verbose, orn_limit=orn_limit)
+                verbose=self.verbose,
+                orn_limit=orn_limit)
         else:
             robot = ur10_shadow.UR10ShadowPosition(
+                pb_client=self.pb_client,
                 task_space_limit=task_space_limit,
                 end_effector_link="rh_forearm",
-                verbose=self.verbose, orn_limit=orn_limit)
+                verbose=self.verbose,
+                orn_limit=orn_limit)
 
-        robot.set_initial_joint_positions(dict(zip(robot.motors, robot.get_joint_positions())))
+        robot.set_initial_joint_positions(
+            dict(zip(robot.motors, robot.get_joint_positions())))
 
         self.simulation.add_robot(robot)
 
@@ -95,43 +102,31 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _load_objects(self):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(self.object_name, object2world=self.object2world, scale=self.object_scale)
+            ObjectFactory(self.pb_client).create(
+                self.object_name,
+                object2world=self.object2world,
+                scale=self.object_scale)
 
     def reset(self, seed=None, options=None):
 
-        pos = None
-
-        self.object_to_grasp.reset(pos)
+        self.object_to_grasp.reset()
         self.robot.activate_motors()
 
         return super().reset(seed, options)
 
-    def is_done(self, state, action, next_state):
-
-        # check if insole is exploded
-        if self._deformable_is_exploded():
-            print("Exploded insole")
-            return True
-
-        return super().is_done(state, action, next_state)
-
     def _get_observation(self):
         finger_pos = self.robot.get_joint_positions()[6:]
         ee_pose = self.robot.get_ee_pose()
+        sensor_readings = self.robot.get_sensor_readings()
 
-        return np.concatenate([ee_pose, finger_pos], axis=0)
+        return np.concatenate([ee_pose, finger_pos, sensor_readings], axis=0)
 
-    def calculate_reward(self, state, action, next_state, done):
+    def calculate_reward(self, state, action, next_state, terminated):
         """
         Calculates the reward by counting how many insole vertices are in the
         target position.
         """
-        if done:
-            if not self.compute_reward:
-                return 0.0
-            if not (round(action[-1]) == 1 or self.step_counter >= self.horizon):
-                return -100
-
+        if terminated:
             self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()

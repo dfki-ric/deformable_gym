@@ -1,13 +1,13 @@
 import numpy as np
 import pybullet as pb
 from gymnasium import spaces
-from deformable_gym.robots import mia_hand
-from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
+
+from deformable_gym.envs.grasp_env import GraspEnv
 from deformable_gym.helpers import pybullet_helper as pbh
-from deformable_gym.objects.bullet_object import ObjectFactory
+from deformable_gym.robots import mia_hand
 
 
-class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
+class FloatingMiaGraspEnv(GraspEnv):
     """Grasp an insole with a floating Mia hand.
 
     **State space:**
@@ -34,29 +34,35 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         object should be sampled from the training or the test set.
     """
 
-    STANDARD_INITIAL_POSE = np.r_[0.03, -0.005, 1.0,
-                                   pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
+    STANDARD_INITIAL_POSE = np.r_[
+        0.03, -0.005, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
-    HARD_INITIAL_POSE = np.r_[0.03, -0.025, 1.0,
-                               pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
+    HARD_INITIAL_POSE = np.r_[
+        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
-    _FINGERS_OPEN = {"j_index_fle": 0.0,
-                     "j_little_fle": 0.0,
-                     "j_mrl_fle": 0.0,
-                     "j_ring_fle": 0.0,
-                     "j_thumb_fle": 0.0}
+    _FINGERS_OPEN = {
+        "j_index_fle": 0.0,
+        "j_little_fle": 0.0,
+        "j_mrl_fle": 0.0,
+        "j_ring_fle": 0.0,
+        "j_thumb_fle": 0.0
+    }
 
-    _FINGERS_HALFWAY_CLOSED = {"j_index_fle": 0.5,
-                               "j_little_fle": 0.5,
-                               "j_mrl_fle": 0.5,
-                               "j_ring_fle": 0.5,
-                               "j_thumb_fle": 0.3}
+    _FINGERS_HALFWAY_CLOSED = {
+        "j_index_fle": 0.5,
+        "j_little_fle": 0.5,
+        "j_mrl_fle": 0.5,
+        "j_ring_fle": 0.5,
+        "j_thumb_fle": 0.3
+    }
 
-    _FINGERS_CLOSED = {"j_index_fle": 0.71,
-                       "j_little_fle": 0.71,
-                       "j_mrl_fle": 0.71,
-                       "j_ring_fle": 0.71,
-                       "j_thumb_fle": 0.3}
+    _FINGERS_CLOSED = {
+        "j_index_fle": 0.71,
+        "j_little_fle": 0.71,
+        "j_mrl_fle": 0.71,
+        "j_ring_fle": 0.71,
+        "j_thumb_fle": 0.3
+    }
 
     _MAX_POS_OFFSET = .0005
     _MAX_ORN_OFFSET = .000005
@@ -64,21 +70,18 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def __init__(
             self,
             object_name: str = "insole",
-            compute_reward: bool = True,
             object_scale: float = 1.0,
             observable_object_pos: bool = False,
             difficulty_mode: str = "hard",
             **kwargs):
 
-        self.insole = None
         self.velocity_commands = False
-        self.object_name = object_name
-        self.randomised = False
-        self.compute_reward = compute_reward
-        self.object_scale = object_scale
-        self._observable_object_pos = observable_object_pos
 
-        super().__init__(soft=True, **kwargs)
+        super().__init__(
+            object_name=object_name,
+            object_scale=object_scale,
+            observable_object_pos=observable_object_pos,
+            **kwargs)
 
         self.hand_world_pose = self.STANDARD_INITIAL_POSE
         self.robot = self._create_robot()
@@ -101,10 +104,10 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             np.full(6, 10.)])
 
         if self._observable_object_pos:
-            lower_observations = np.append(lower_observations,
-                                           -np.full(3, 2.))
-            upper_observations = np.append(upper_observations,
-                                           np.full(3, 2.))
+            lower_observations = np.append(
+                lower_observations, -np.full(3, 2.))
+            upper_observations = np.append(
+                upper_observations, np.full(3, 2.))
 
         self.observation_space = spaces.Box(
             low=lower_observations,
@@ -113,32 +116,39 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         )
 
         # build the action space
-        lower = [-np.full(3, self._MAX_POS_OFFSET),  # max negative base pos offset
-                 -np.full(4, self._MAX_ORN_OFFSET),  # max negative base orn offset
-                 limits[0][self.actuated_finger_ids]]  # negative joint limits
+        lower = [
+            -np.full(3, self._MAX_POS_OFFSET),  # max negative base pos offset
+            -np.full(4, self._MAX_ORN_OFFSET),  # max negative base orn offset
+            limits[0][self.actuated_finger_ids]
+        ]  # negative joint limits
 
-        upper = [np.full(3, self._MAX_POS_OFFSET),  # max positive base pos offset
-                 np.full(4, self._MAX_ORN_OFFSET),  # max positive base orn offset
-                 limits[1][self.actuated_finger_ids]]  # positive joint limits
+        upper = [
+            np.full(3, self._MAX_POS_OFFSET),  # max positive base pos offset
+            np.full(4, self._MAX_ORN_OFFSET),  # max positive base orn offset
+            limits[1][self.actuated_finger_ids]
+        ]  # positive joint limits
 
-        self.action_space = spaces.Box(low=np.concatenate(lower),
-                                       high=np.concatenate(upper),
-                                       dtype=np.float64)
+        self.action_space = spaces.Box(
+            low=np.concatenate(lower),
+            high=np.concatenate(upper),
+            dtype=np.float64)
 
     def _create_robot(self):
         orn_limit = None
 
         if self.velocity_commands:
             robot = mia_hand.MiaHandVelocity(
+                self.pb_client,
                 world_pos=self.hand_world_pose[:3],
-                world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
+                world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
                 orn_limit=orn_limit,
                 base_commands=True)
         else:
             robot = mia_hand.MiaHandPosition(
+                self.pb_client,
                 world_pos=self.hand_world_pose[:3],
-                world_orn=pb.getEulerFromQuaternion(self.hand_world_pose[3:]),
+                world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
                 orn_limit=orn_limit,
                 base_commands=True)
@@ -146,10 +156,6 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.simulation.add_robot(robot)
 
         return robot
-
-    def _load_objects(self):
-        super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
 
     def set_difficulty_mode(self, mode: str):
         """
@@ -171,24 +177,9 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         else:
             raise ValueError(f"Received unknown difficulty mode {mode}!")
 
-    def reset(self, seed=None, options=None):
-
-        if options is not None and "initial_pose" in options:
-            self.robot.reset_base(options["initial_pose"])
-        else:
-            self.robot.reset_base(self.hand_world_pose)
-
-        self.object_to_grasp.reset()
-        self.robot.activate_motors()
-
-        return super().reset(seed, options)
-
-    def _is_truncated(self, state, action, next_state):
-        # check if insole is exploded
-        return self._deformable_is_exploded()
-
     def _get_observation(self):
-        joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
+        joint_pos = self.robot.get_joint_positions(
+            self.robot.actuated_real_joints)
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 
@@ -199,24 +190,3 @@ class FloatingMiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             state = np.append(state, obj_pos)
 
         return state
-
-    def calculate_reward(self, state, action, next_state, terminated):
-        """
-        Calculates the reward by counting how many insole vertices are in the
-        target position.
-        """
-        if terminated:
-            self.robot.deactivate_motors()
-            # remove insole anchors and simulate steps
-            self.object_to_grasp.remove_anchors()
-            for _ in range(50):
-                if self._deformable_is_exploded():
-                    return -1.0
-                self.simulation.step_to_trigger("time_step")
-            height = self.object_to_grasp.get_pose()[2]
-            if height < 0.9:
-                return -1.0
-            else:
-                return 1.0
-        else:
-            return 0.0

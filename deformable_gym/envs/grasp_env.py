@@ -1,66 +1,71 @@
-import numpy as np
-
 from abc import ABC
-from base_env import BaseBulletEnv
+
+import numpy as np
+import pybullet as pb
+
+from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
+
 from ..objects.bullet_object import ObjectFactory
 
 
-class GraspEnv(BaseBulletEnv, ABC):
+class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
+    HARD_INITIAL_POSE = np.r_[
+        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi / 8, np.pi, 0])]
 
-    def __init__(self,
-                 object_name,
-                 observable_object_pos: bool = False):
-
+    def __init__(
+            self,
+            object_name: str = "insole",
+            object_scale: float = 1.0,
+            observable_object_pos: bool = False,
+            **kwargs
+    ):
         self.object_name = object_name
+        self.object_scale = object_scale
         self._observable_object_pos = observable_object_pos
+        self.hand_world_pose = self.HARD_INITIAL_POSE
 
-        super().__init__(soft=True)
+        super().__init__(soft=True, **kwargs)
 
-        self.robot = self._create_robot()
+        # self.robot = self._create_robot()
 
         # TODO: adapt if non-robot observable objects in environment
-        self.action_space = self.robot.action_space
-        self.observation_space = self.robot.observation_space
+        # self.action_space = self.robot.action_space
+        # self.observation_space = self.robot.observation_space
 
     def _load_objects(self):
         super()._load_objects()
-        self.object_to_grasp, self.object_position, self.object_orientation = ObjectFactory().create(self.object_name)
+        (self.object_to_grasp,
+         self.object_position,
+         self.object_orientation) = ObjectFactory(self.pb_client).create(
+            self.object_name)
 
     def reset(self, seed=None, options=None):
 
-        if options is not None and "pos" in options:
-            pos = options["pos"]
+        if options is not None and "initial_pose" in options:
+            self.robot.reset_base(options["initial_pose"])
+        else:
+            self.robot.reset_base(self.hand_world_pose)
 
-        self.robot.reset(pos)
         self.object_to_grasp.reset()
         self.robot.activate_motors()
 
         return super().reset(seed, options)
 
-    def _get_observation(self):
-        joint_pos = self.robot.get_joint_positions(self.robot.actuated_real_joints)
-        sensor_readings = self.robot.get_sensor_readings()
+    def _is_truncated(self, state, action, next_state):
+        return self._deformable_is_exploded()
 
-        state = np.concatenate([joint_pos, sensor_readings])
-
-        if self._observable_object_pos:
-            obj_pos = self.object_to_grasp.get_pose()[:3]
-            state = np.append(state, obj_pos)
-
-        return state
-
-    def calculate_reward(self, state, action, next_state, done):
+    def calculate_reward(self, state, action, next_state, terminated):
         """
         Calculates the reward by counting how many insole vertices are in the
         target position.
         """
-        if done:
-
-            # self.robot.deactivate_motors()
+        if terminated:
+            self.robot.deactivate_motors()
             # remove insole anchors and simulate steps
             self.object_to_grasp.remove_anchors()
-
             for _ in range(50):
+                if self._deformable_is_exploded():
+                    return -1.0
                 self.simulation.step_to_trigger("time_step")
             height = self.object_to_grasp.get_pose()[2]
             if height < 0.9:

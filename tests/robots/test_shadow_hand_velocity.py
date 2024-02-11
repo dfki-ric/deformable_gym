@@ -1,19 +1,21 @@
 import numpy as np
 import pybullet as pb
-from deformable_gym.envs.bullet_simulation import BulletSimulation
-from deformable_gym.robots.shadow_hand import ShadowHandVelocity
+import pytest
 from numpy.testing import assert_almost_equal
 
-import pytest
-
+from deformable_gym.robots.shadow_hand import ShadowHandVelocity
 
 TEST_POS = np.array([0, 0, 1])
-TEST_ORN = np.array([0, 0, 0])
+TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))
 
 
 @pytest.fixture
-def robot():
-    robot = ShadowHandVelocity(world_pos=TEST_POS, world_orn=TEST_ORN, base_commands=True)
+def robot(simulation):
+    robot = ShadowHandVelocity(
+        pb_client=simulation.pb_client,
+        world_pos=TEST_POS,
+        world_orn=TEST_ORN,
+        base_commands=True)
 
     return robot
 

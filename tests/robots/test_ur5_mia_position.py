@@ -1,17 +1,13 @@
 import numpy as np
-from deformable_gym.robots.ur5_mia import UR5MiaPosition
+import pytest
 from numpy.testing import assert_almost_equal
 
-import pytest
-
-
-TEST_POS = np.array([0, 0, 1])
-TEST_ORN = np.array([0, 0, 0])
+from deformable_gym.robots.ur5_mia import UR5MiaPosition
 
 
 @pytest.fixture
-def robot():
-    robot = UR5MiaPosition()
+def robot(simulation):
+    robot = UR5MiaPosition(pb_client=simulation.pb_client)
 
     return robot
 

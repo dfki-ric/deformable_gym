@@ -3,13 +3,16 @@ import pybullet as pb
 import pytransform3d.rotations as pr
 import pytransform3d.transformations as pt
 
-
-def q_conj(q_xyzw):
-    return np.r_[-q_xyzw[:3], q_xyzw[3]]
+from pybullet_utils import bullet_client as bc
 
 
-def draw_transform(pose2origin, s, client_id=0, lw=1,
-                   replace_item_unique_ids=(-1, -1, -1)):
+def draw_transform(
+        pose2origin,
+        s,
+        pb_client: bc.BulletClient,
+        lw=1,
+        replace_item_unique_ids=(-1, -1, -1)
+):
     """Draw transformation matrix.
 
     Parameters
@@ -35,23 +38,35 @@ def draw_transform(pose2origin, s, client_id=0, lw=1,
     userDataIds : list
         User data ids that identify the created lines.
     """
-    line_x = pb.addUserDebugLine(
-        pose2origin[:3, 3], pose2origin[:3, 3] + s * pose2origin[:3, 0],
-        [1, 0, 0], lw, replaceItemUniqueId=replace_item_unique_ids[0],
-        physicsClientId=client_id)
-    line_y = pb.addUserDebugLine(
-        pose2origin[:3, 3], pose2origin[:3, 3] + s * pose2origin[:3, 1],
-        [0, 1, 0], lw, replaceItemUniqueId=replace_item_unique_ids[1],
-        physicsClientId=client_id)
-    line_z = pb.addUserDebugLine(
-        pose2origin[:3, 3], pose2origin[:3, 3] + s * pose2origin[:3, 2],
-        [0, 0, 1], lw, replaceItemUniqueId=replace_item_unique_ids[2],
-        physicsClientId=client_id)
+    line_x = pb_client.addUserDebugLine(
+        pose2origin[:3, 3],
+        pose2origin[:3, 3] + s * pose2origin[:3, 0],
+        [1, 0, 0],
+        lw,
+        replaceItemUniqueId=replace_item_unique_ids[0])
+    line_y = pb_client.addUserDebugLine(
+        pose2origin[:3, 3],
+        pose2origin[:3, 3] + s * pose2origin[:3, 1],
+        [0, 1, 0],
+        lw,
+        replaceItemUniqueId=replace_item_unique_ids[1])
+    line_z = pb_client.addUserDebugLine(
+        pose2origin[:3, 3],
+        pose2origin[:3, 3] + s * pose2origin[:3, 2],
+        [0, 0, 1],
+        lw,
+        replaceItemUniqueId=replace_item_unique_ids[2])
     return [line_x, line_y, line_z]
 
 
-def draw_pose(pos, rot, s, client_id=0, lw=1,
-              replace_item_unique_ids=(-1, -1, -1)):
+def draw_pose(
+        pos,
+        rot,
+        s,
+        pb_client: bc.BulletClient,
+        lw=1,
+        replace_item_unique_ids=(-1, -1, -1),
+):
     """Draw transformation matrix.
 
     Parameters
@@ -83,10 +98,14 @@ def draw_pose(pos, rot, s, client_id=0, lw=1,
     q_scalar_first = pr.quaternion_wxyz_from_xyzw(rot)
     pose2origin = pt.transform_from(
         R=pr.matrix_from_quaternion(q_scalar_first), p=pos)
-    return draw_transform(pose2origin, s, client_id, lw, replace_item_unique_ids)
+    return draw_transform(
+        pose2origin, s, pb_client, lw, replace_item_unique_ids)
 
 
-def draw_box(corners_in_world, replace_item_unique_ids=None):
+def draw_box(
+        corners_in_world,
+        pb_client: bc.BulletClient,
+        replace_item_unique_ids=None):
     """Draw box.
 
     Parameters
@@ -103,13 +122,15 @@ def draw_box(corners_in_world, replace_item_unique_ids=None):
             [(0, 1), (0, 2), (1, 3), (2, 3),
              (4, 5), (4, 6), (5, 7), (6, 7),
              (0, 4), (1, 5), (2, 6), (3, 7)]):
-        replace_item_unique_ids[line_idx] = pb.addUserDebugLine(
-            corners_in_world[i], corners_in_world[j],
-            (0, 0, 0), replaceItemUniqueId=replace_item_unique_ids[line_idx])
+        replace_item_unique_ids[line_idx] = pb_client.addUserDebugLine(
+            corners_in_world[i],
+            corners_in_world[j],
+            (0, 0, 0),
+            replaceItemUniqueId=replace_item_unique_ids[line_idx])
     return replace_item_unique_ids
 
 
-def draw_limits(limits):
+def draw_limits(limits, pb_client):
     x_lo = limits[0][0]
     y_lo = limits[0][1]
     z_lo = limits[0][2]
@@ -126,4 +147,4 @@ def draw_limits(limits):
         [x_hi, y_lo, z_lo],
         [x_hi, y_hi, z_lo],
     ])
-    draw_box(task_space_corners)
+    draw_box(task_space_corners, pb_client)

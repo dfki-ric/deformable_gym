@@ -1,14 +1,18 @@
 import abc
-
-import numpy as np
-import pybullet as pb
 import os
 from pathlib import Path
+from typing import Any
 
-from deformable_gym.objects.bullet_object import Pose
-from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper, HandMixin
-from deformable_gym.robots.control_mixins import PositionControlMixin, VelocityControlMixin
-from deformable_gym.robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
+import numpy as np
+
+from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
+                                                RobotCommandWrapper)
+from deformable_gym.robots.control_mixins import (PositionControlMixin,
+                                                  VelocityControlMixin)
+from deformable_gym.robots.inverse_kinematics import \
+    UniversalRobotAnalyticalInverseKinematics
+
+from pybullet_utils import bullet_client as bc
 
 # Shadow freq = 500 Hz
 # UR5 freq = 125 Hz
@@ -25,11 +29,20 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
     TODO Can (and should) be extended eventually to allow other control
     methods, e.g. velocity or torque control.
     """
-    def __init__(self, verbose=0, task_space_limit=None,
-                 end_effector_link="rh_forearm", orn_limit=None,
-                 debug_visualization=True):
-        super().__init__(urdf_path=URDF_PATH, verbose=verbose,
-                         task_space_limit=task_space_limit, orn_limit=orn_limit)
+    def __init__(
+            self,
+            pb_client: bc.BulletClient,
+            verbose: bool = False,
+            task_space_limit: Any = None,
+            end_effector_link: str = "rh_forearm",
+            orn_limit=None,
+            debug_visualization: bool = True):
+        super().__init__(
+            urdf_path=URDF_PATH,
+            pb_client=pb_client,
+            verbose=verbose,
+            task_space_limit=task_space_limit,
+            orn_limit=orn_limit)
 
         self.command_counter = 0
         self.debug_visualization = debug_visualization

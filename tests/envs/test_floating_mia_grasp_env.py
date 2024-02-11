@@ -1,7 +1,8 @@
-from numpy.testing import assert_allclose
 import pytest
-from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 from gymnasium.wrappers import RescaleAction
+from numpy.testing import assert_allclose
+
+from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 
 
 @pytest.fixture
@@ -60,29 +61,32 @@ def test_initial_sensor_info(env: FloatingMiaGraspEnv):
 def test_episode_reproducibility():
     observations = []
     termination_flags = []
+    actions = []
 
-    env = FloatingMiaGraspEnv(verbose=False,
-                              horizon=10,
-                              gui=False,
-                              observable_object_pos=True,
-                              object_name="insole_on_conveyor_belt/back",
-                              difficulty_mode="hard",
-                              )
-    env = RescaleAction(env, 0., 1.)
-
-    env.action_space.seed(SEED)
+    env = FloatingMiaGraspEnv(
+        verbose=False,
+        horizon=3,
+        gui=False,
+        object_name="insole_on_conveyor_belt/back",
+    )
 
     for _ in range(2):
         observation, _ = env.reset(seed=SEED)
-        observations.append(observation)
+        env.action_space.seed(SEED)
+
+        observations.append([observation])
         terminated = False
+        termination_flags.append([terminated])
+        actions.append([])
         while not terminated:
             action = env.action_space.sample()
+            actions[-1].append(action)
             observation, reward, terminated, truncated, info = env.step(action)
 
-            observations.append(observation)
-            termination_flags.append(terminated)
+            observations[-1].append(observation)
+            termination_flags[-1].append(terminated)
 
+    assert_allclose(actions[0], actions[1])
     assert_allclose(observations[0], observations[1])
     assert_allclose(termination_flags[0], termination_flags[1])
 

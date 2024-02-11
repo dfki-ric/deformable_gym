@@ -1,19 +1,13 @@
 import numpy as np
-import pybullet as pb
-from deformable_gym.robots.ur10_shadow import UR10ShadowPosition
+import pytest
 from numpy.testing import assert_almost_equal
 
-import pytest
-
-
-TEST_POS = np.array([0, 0, 1])
-TEST_ORN = np.array([0, 0, 0])
+from deformable_gym.robots.ur10_shadow import UR10ShadowPosition
 
 
 @pytest.fixture
-def robot():
-    robot = UR10ShadowPosition()
-
+def robot(simulation):
+    robot = UR10ShadowPosition(pb_client=simulation.pb_client)
     return robot
 
 

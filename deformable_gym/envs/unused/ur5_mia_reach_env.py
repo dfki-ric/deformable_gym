@@ -1,9 +1,10 @@
 import numpy as np
 from gym import spaces
-from deformable_gym.robots import ur5_mia
+
 from deformable_gym.envs.base_env import BaseBulletEnv
 from deformable_gym.helpers import pybullet_helper as pbh
 from deformable_gym.objects.bullet_object import UrdfObject
+from deformable_gym.robots import ur5_mia
 
 VERBOSITY = 0
 

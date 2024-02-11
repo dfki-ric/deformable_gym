@@ -10,6 +10,7 @@ from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
                                                 RobotCommandWrapper)
 from deformable_gym.robots.control_mixins import (PositionControlMixin,
                                                   VelocityControlMixin)
+from pybullet_utils import bullet_client as bc
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),
@@ -39,7 +40,9 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
     space).
     """
     def __init__(
-            self, verbose: int = 0,
+            self,
+            pb_client: bc.BulletClient,
+            verbose: bool = False,
             task_space_limit: Union[npt.ArrayLike, None] = None,
             orn_limit: Union[npt.ArrayLike, None] = None,
             world_pos: npt.ArrayLike = (0, 0, 1),
@@ -47,6 +50,7 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
             debug_visualization: bool = True, **kwargs):
         super().__init__(
             urdf_path=URDF_PATH,
+            pb_client=pb_client,
             verbose=verbose,
             world_pos=world_pos,
             world_orn=world_orn,

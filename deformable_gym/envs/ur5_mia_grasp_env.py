@@ -143,12 +143,18 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         if self.velocity_commands:
             robot = ur5_mia.UR5MiaVelocity(
-                task_space_limit=task_space_limit, end_effector_link="palm",
-                verbose=self.verbose, orn_limit=orn_limit)
+                pb_client=self.pb_client,
+                task_space_limit=task_space_limit,
+                end_effector_link="palm",
+                verbose=self.verbose,
+                orn_limit=orn_limit)
         else:
             robot = ur5_mia.UR5MiaPosition(
-                task_space_limit=task_space_limit, end_effector_link="palm",
-                verbose=self.verbose, orn_limit=orn_limit)
+                pb_client=self.pb_client,
+                task_space_limit=task_space_limit,
+                end_effector_link="palm",
+                verbose=self.verbose,
+                orn_limit=orn_limit)
 
         self.simulation.add_robot(robot)
 
@@ -162,7 +168,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         super()._load_objects()
         (self.object_to_grasp,
          self.object_position,
-         self.object_orientation) = ObjectFactory().create(
+         self.object_orientation) = ObjectFactory(self.pb_client).create(
             self.object_name,
             object2world=self.object2world,
             scale=self.object_scale)

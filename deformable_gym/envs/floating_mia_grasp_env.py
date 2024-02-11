@@ -138,6 +138,7 @@ class FloatingMiaGraspEnv(GraspEnv):
 
         if self.velocity_commands:
             robot = mia_hand.MiaHandVelocity(
+                self.pb_client,
                 world_pos=self.hand_world_pose[:3],
                 world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
@@ -145,6 +146,7 @@ class FloatingMiaGraspEnv(GraspEnv):
                 base_commands=True)
         else:
             robot = mia_hand.MiaHandPosition(
+                self.pb_client,
                 world_pos=self.hand_world_pose[:3],
                 world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,

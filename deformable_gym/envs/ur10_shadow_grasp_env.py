@@ -79,16 +79,21 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         if self.velocity_commands:
             robot = ur10_shadow.UR10ShadowVelocity(
+                pb_client=self.pb_client,
                 task_space_limit=task_space_limit,
                 end_effector_link="rh_forearm",
-                verbose=self.verbose, orn_limit=orn_limit)
+                verbose=self.verbose,
+                orn_limit=orn_limit)
         else:
             robot = ur10_shadow.UR10ShadowPosition(
+                pb_client=self.pb_client,
                 task_space_limit=task_space_limit,
                 end_effector_link="rh_forearm",
-                verbose=self.verbose, orn_limit=orn_limit)
+                verbose=self.verbose,
+                orn_limit=orn_limit)
 
-        robot.set_initial_joint_positions(dict(zip(robot.motors, robot.get_joint_positions())))
+        robot.set_initial_joint_positions(
+            dict(zip(robot.motors, robot.get_joint_positions())))
 
         self.simulation.add_robot(robot)
 
@@ -97,7 +102,7 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     def _load_objects(self):
         super()._load_objects()
         self.object_to_grasp, self.object_position, self.object_orientation = \
-            ObjectFactory().create(
+            ObjectFactory(self.pb_client).create(
                 self.object_name,
                 object2world=self.object2world,
                 scale=self.object_scale)

@@ -85,6 +85,7 @@ class FloatingShadowGraspEnv(GraspEnv):
 
         if self.velocity_commands:
             robot = shadow_hand.ShadowHandVelocity(
+                pb_client=self.pb_client,
                 world_pos=self.hand_world_pose[:3],
                 world_orn=self.hand_world_pose[3:],
                 task_space_limit=task_space_limit,
@@ -93,6 +94,7 @@ class FloatingShadowGraspEnv(GraspEnv):
                 base_commands=True)
         else:
             robot = shadow_hand.ShadowHandPosition(
+                pb_client=self.pb_client,
                 world_pos=self.hand_world_pose[:3],
                 world_orn=self.hand_world_pose[3:],
                 task_space_limit=task_space_limit,

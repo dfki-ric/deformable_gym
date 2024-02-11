@@ -7,6 +7,7 @@ import numpy.typing as npt
 import pybullet as pb
 import pytransform3d.rotations as pr
 from gymnasium import spaces
+from pybullet_utils import bullet_client as bc
 
 from deformable_gym.envs.bullet_simulation import BulletSimulation
 from deformable_gym.helpers.pybullet_helper import MultibodyPose
@@ -53,8 +54,14 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         mode = pb.GUI if gui else pb.DIRECT
 
         self.simulation = BulletSimulation(
-            soft=soft, time_delta=time_delta, real_time=real_time, mode=mode,
-            verbose_dt=verbose_dt, pybullet_options=pybullet_options)
+            soft=soft,
+            time_delta=time_delta,
+            real_time=real_time,
+            mode=mode,
+            verbose_dt=verbose_dt,
+            pybullet_options=pybullet_options)
+
+        self.pb_client = self.simulation.pb_client
 
         # TODO should we make this configurable? this results in 100 Hz
         self.simulation.timing.add_subsystem("time_step", 100)
@@ -67,11 +74,10 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
     def _load_objects(self):
         """Load objects to PyBullet simulation."""
-        self.plane = pb.loadURDF(
+        self.plane = self.pb_client.loadURDF(
             "plane.urdf",
             (0, 0, 0),
-            useFixedBase=1,
-            physicsClientId=self.simulation.get_physics_client_id(),
+            useFixedBase=1
         )
 
     def _hard_reset(self):
@@ -90,7 +96,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
         :return: Initial state.
         """
-        super().reset(seed=seed)
+        super().reset(seed=seed, options=options)
 
         if options is not None and "hard_reset" in options:
             self._hard_reset()

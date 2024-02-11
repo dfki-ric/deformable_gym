@@ -45,8 +45,6 @@ class BulletSimulation:
             verbose_dt=verbose_dt,
         )
 
-        pb.setAdditionalSearchPath(pybullet_data.getDataPath())
-
         self.reset()
 
         self.camera = BulletCamera(self.pb_client)
@@ -55,19 +53,14 @@ class BulletSimulation:
         """Reset and initialize simulation."""
         if self.soft:
             self.pb_client.resetSimulation(pb.RESET_USE_DEFORMABLE_WORLD)
-            # pb.resetSimulation(pb.RESET_USE_DEFORMABLE_WORLD)
         else:
             self.pb_client.resetSimulation()
-            # pb.resetSimulation()
 
         print(f"resetting client {self.pb_client}")
 
         self.pb_client.setGravity(0, 0, self.gravity)
         self.pb_client.setRealTimeSimulation(self.real_time)
         self.pb_client.setTimeStep(self.time_delta)
-        # pb.setGravity(0, 0, self.gravity, physicsClientId=self._client)
-        # pb.setRealTimeSimulation(self.real_time, physicsClientId=self._client)
-        # pb.setTimeStep(self.time_delta, physicsClientId=self._client)
 
         self.pb_client.configureDebugVisualizer(pb.COV_ENABLE_RENDERING, 1)
         self.pb_client.configureDebugVisualizer(pb.COV_ENABLE_GUI, 0)

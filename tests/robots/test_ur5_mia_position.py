@@ -7,7 +7,7 @@ from deformable_gym.robots.ur5_mia import UR5MiaPosition
 
 @pytest.fixture
 def robot(simulation):
-    robot = UR5MiaPosition(pb_client_id=simulation.get_physics_client_id())
+    robot = UR5MiaPosition(pb_client=simulation.pb_client)
 
     return robot
 

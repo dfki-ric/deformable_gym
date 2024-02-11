@@ -12,7 +12,7 @@ TEST_ORN = pb.getQuaternionFromEuler(np.array([0, 0, 0]))
 @pytest.fixture
 def robot(simulation):
     robot = MiaHandPosition(
-        pb_client_id=simulation.get_physics_client_id(),
+        pb_client=simulation.pb_client,
         world_pos=TEST_POS,
         world_orn=TEST_ORN,
         base_commands=True)

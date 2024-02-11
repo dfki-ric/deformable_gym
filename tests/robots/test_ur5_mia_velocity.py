@@ -7,7 +7,7 @@ from deformable_gym.robots.ur5_mia import UR5MiaVelocity
 
 @pytest.fixture
 def robot(simulation):
-    robot = UR5MiaVelocity(simulation.get_physics_client_id())
+    robot = UR5MiaVelocity(simulation.pb_client)
 
     return robot
 

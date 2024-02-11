@@ -7,7 +7,7 @@ from deformable_gym.robots.ur10_shadow import UR10ShadowVelocity
 
 @pytest.fixture
 def robot(simulation):
-    robot = UR10ShadowVelocity(pb_client_id=simulation.get_physics_client_id())
+    robot = UR10ShadowVelocity(pb_client=simulation.pb_client)
     simulation.add_robot(robot)
 
     return robot

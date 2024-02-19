@@ -1,5 +1,4 @@
 import pytest
-from gymnasium.wrappers import RescaleAction
 from numpy.testing import assert_allclose
 
 from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
@@ -31,6 +30,7 @@ def test_obs_space_dims(env: FloatingMiaGraspEnv):
 
     obs_space = env.observation_space
     assert obs_space.shape[0] == obs_space_dims_expected
+
 
 
 def test_initial_obs(env: FloatingMiaGraspEnv):

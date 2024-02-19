@@ -17,21 +17,33 @@ class FixedSampler(Sampler):
 
 
 class GaussianSampler(Sampler):
-    def __init__(self, mu: npt.ArrayLike, sigma: npt.ArrayLike):
+    def __init__(
+            self,
+            mu: npt.ArrayLike,
+            sigma: npt.ArrayLike,
+            seed: int | None = None
+    ):
         self.mu = np.array(mu)
         self.sigma = np.array(sigma)
+        self.rng = np.random.default_rng(seed)
 
     def sample_initial_pose(self) -> npt.NDArray:
-        return np.random.normal(self.mu, self.sigma)
+        return self.rng.normal(self.mu, self.sigma)
 
 
 class UniformSampler(Sampler):
-    def __init__(self, low: npt.ArrayLike, high: npt.ArrayLike):
+    def __init__(
+            self,
+            low: npt.ArrayLike,
+            high: npt.ArrayLike,
+            seed: int | None = None
+    ):
         self.low = np.array(low)
         self.high = np.array(high)
+        self.rng = np.random.default_rng(seed)
 
     def sample_initial_pose(self) -> npt.NDArray:
-        return np.random.uniform(self.low, self.high)
+        return self.rng.uniform(self.low, self.high)
 
 
 class GaussianCurriculumSampler(Sampler):
@@ -39,11 +51,33 @@ class GaussianCurriculumSampler(Sampler):
             self,
             mu: npt.ArrayLike,
             sigma: npt.ArrayLike,
-            step_size: float = 1e-3):
+            step_size: float | npt.ArrayLike = 1e-3,
+            seed: int | None = None
+    ):
         self.mu = np.array(mu)
         self.sigma = np.array(sigma)
+        self.rng = np.random.default_rng(seed)
         self.step_size = step_size
 
     def sample_initial_pose(self) -> npt.NDArray:
         self.sigma += self.step_size
-        return np.random.normal(self.mu, self.sigma)
+        return self.rng.normal(self.mu, self.sigma)
+
+
+class UniformCurriculumSampler(Sampler):
+    def __init__(
+            self,
+            low: npt.ArrayLike,
+            high: npt.ArrayLike,
+            step_size: float | npt.ArrayLike = 1e-3,
+            seed: int | None = None
+    ):
+        self.low = np.array(low)
+        self.high = np.array(high)
+        self.rng = np.random.default_rng(seed)
+        self.step_size = step_size
+
+    def sample_initial_pose(self) -> npt.NDArray:
+        self.high += self.step_size
+        self.low -= self.step_size
+        return self.rng.uniform(self.low, self.high)

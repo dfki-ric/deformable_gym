@@ -6,7 +6,7 @@ if __name__ == "__main__":
         long_description = f.read()
 
     setup(name='deformable_gym',
-          version="0.3.1",
+          version="0.3.2",
           maintainer='Melvin Laux',
           maintainer_email='melvin.laux@uni-bremen.de',
           description='Gym environments for grasping deformable objects',
@@ -14,8 +14,9 @@ if __name__ == "__main__":
           long_description_content_type="text/markdown",
           license='BSD-3-Clause',
           packages=["deformable_gym"],
-          install_requires=["pybullet",
-                            "gymnasium",
-                            "numpy",
-                            "pytransform3d"
-                            ])
+          install_requires=[
+              "pybullet",
+              "gymnasium",
+              "numpy",
+              "pytransform3d"
+          ])

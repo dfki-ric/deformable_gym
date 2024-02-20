@@ -1,9 +1,10 @@
 import pytest
 import numpy as np
 import numpy.typing as npt
+from numpy.testing import assert_allclose
 
 from deformable_gym.envs.sampler import FixedSampler, GaussianSampler, \
-    UniformSampler
+    UniformSampler, GridSampler
 
 SEED = 0
 
@@ -28,6 +29,12 @@ def uniform_target_pose() -> npt.NDArray:
 
 
 @pytest.fixture
+def grid_target_pose() -> npt.NDArray:
+    target = np.array([1, 2, 3])
+    return target
+
+
+@pytest.fixture
 def fixed_sampler(fixed_target_pose: npt.NDArray) -> FixedSampler:
     return FixedSampler(fixed_target_pose)
 
@@ -36,7 +43,8 @@ def fixed_sampler(fixed_target_pose: npt.NDArray) -> FixedSampler:
 def gaussian_sampler() -> GaussianSampler:
     return GaussianSampler(
         mu=np.array([1, 2, 3]),
-        sigma=np.array([2, 3, 4])
+        sigma=np.array([2, 3, 4]),
+        seed=SEED
     )
 
 
@@ -44,7 +52,17 @@ def gaussian_sampler() -> GaussianSampler:
 def uniform_sampler() -> UniformSampler:
     return UniformSampler(
         low=np.array([1, 2, 3]),
-        high=np.array([2, 3, 4])
+        high=np.array([2, 3, 4]),
+        seed=SEED
+    )
+
+
+@pytest.fixture
+def grid_sampler() -> GridSampler:
+    return GridSampler(
+        low=np.array([1, 2, 3]),
+        high=np.array([2, 3, 4]),
+        n_points_per_axis=np.array([5, 3, 1])
     )
 
 
@@ -53,7 +71,7 @@ def test_fixed_sampler(
         fixed_target_pose: npt.NDArray
 ):
     sampled_pose = fixed_sampler.sample_initial_pose()
-    return np.allclose(sampled_pose, fixed_target_pose)
+    assert_allclose(sampled_pose, fixed_target_pose)
 
 
 def test_gaussian_sampler(
@@ -61,7 +79,7 @@ def test_gaussian_sampler(
         gaussian_target_pose: npt.NDArray
 ):
     sampled_pose = gaussian_sampler.sample_initial_pose()
-    return np.allclose(sampled_pose, gaussian_target_pose)
+    assert_allclose(sampled_pose, gaussian_target_pose)
 
 
 def test_uniform_sampler(
@@ -69,4 +87,18 @@ def test_uniform_sampler(
         uniform_target_pose: npt.NDArray
 ):
     sampled_pose = uniform_sampler.sample_initial_pose()
-    return np.allclose(sampled_pose, uniform_target_pose)
+    assert_allclose(sampled_pose, uniform_target_pose)
+
+
+def test_grid_sampler(
+        grid_sampler: GridSampler,
+        grid_target_pose: npt.NDArray
+):
+    sampled_pose = grid_sampler.sample_initial_pose()
+
+    for i in range(20):
+        print(grid_sampler.sample_initial_pose())
+
+    assert len(grid_sampler.grid) == 15
+    assert_allclose(sampled_pose, grid_target_pose)
+

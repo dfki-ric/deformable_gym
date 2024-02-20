@@ -32,7 +32,6 @@ def test_obs_space_dims(env: FloatingMiaGraspEnv):
     assert obs_space.shape[0] == obs_space_dims_expected
 
 
-
 def test_initial_obs(env: FloatingMiaGraspEnv):
     obs, info = env.reset(seed=SEED)
     if env._observable_object_pos:

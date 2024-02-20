@@ -81,3 +81,24 @@ class UniformCurriculumSampler(Sampler):
         self.high += self.step_size
         self.low -= self.step_size
         return self.rng.uniform(self.low, self.high)
+
+
+class GridSampler(Sampler):
+    def __init__(
+            self,
+            low: npt.ArrayLike,
+            high: npt.ArrayLike,
+            n_points_per_axis: npt.ArrayLike,
+    ):
+        self.n_dims = len(low)
+        points_per_axis = [np.linspace(
+            low[i], high[i], n_points_per_axis[i]) for i in range(self.n_dims)]
+
+        self.grid = np.array(np.meshgrid(*points_per_axis)).T.reshape(-1, 3)
+        self.n_samples = len(self.grid)
+        self.n_calls = 0
+
+    def sample_initial_pose(self) -> npt.NDArray:
+        sample = self.grid[self.n_calls % self.n_samples].copy()
+        self.n_calls += 1
+        return sample

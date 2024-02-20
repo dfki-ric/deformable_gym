@@ -1,5 +1,4 @@
 import pytest
-from gymnasium.wrappers import RescaleAction
 from numpy.testing import assert_allclose
 
 from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv

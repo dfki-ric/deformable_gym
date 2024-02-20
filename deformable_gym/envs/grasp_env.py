@@ -5,6 +5,7 @@ import pybullet as pb
 
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
 from deformable_gym.envs.sampler import Sampler, FixedSampler
+from typing import Optional
 
 from ..objects.bullet_object import ObjectFactory
 
@@ -18,7 +19,7 @@ class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
             object_name: str = "insole",
             object_scale: float = 1.0,
             observable_object_pos: bool = False,
-            initial_state_sampler: Sampler | None = None,
+            initial_state_sampler: Optional[Sampler] = None,
             **kwargs
     ):
         self.object_name = object_name

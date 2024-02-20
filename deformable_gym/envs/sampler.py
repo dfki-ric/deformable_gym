@@ -1,4 +1,4 @@
-from typing import Protocol
+from typing import Protocol, Union, Optional
 import numpy.typing as npt
 import numpy as np
 
@@ -21,7 +21,7 @@ class GaussianSampler(Sampler):
             self,
             mu: npt.ArrayLike,
             sigma: npt.ArrayLike,
-            seed: int | None = None
+            seed: Optional[int] = None
     ):
         self.mu = np.array(mu)
         self.sigma = np.array(sigma)
@@ -36,7 +36,7 @@ class UniformSampler(Sampler):
             self,
             low: npt.ArrayLike,
             high: npt.ArrayLike,
-            seed: int | None = None
+            seed: Optional[int] = None
     ):
         self.low = np.array(low)
         self.high = np.array(high)
@@ -51,8 +51,8 @@ class GaussianCurriculumSampler(Sampler):
             self,
             mu: npt.ArrayLike,
             sigma: npt.ArrayLike,
-            step_size: float | npt.ArrayLike = 1e-3,
-            seed: int | None = None
+            step_size: Union[float, npt.ArrayLike] = 1e-3,
+            seed: Optional[int] = None
     ):
         self.mu = np.array(mu)
         self.sigma = np.array(sigma)
@@ -69,8 +69,8 @@ class UniformCurriculumSampler(Sampler):
             self,
             low: npt.ArrayLike,
             high: npt.ArrayLike,
-            step_size: float | npt.ArrayLike = 1e-3,
-            seed: int | None = None
+            step_size: Union[float, npt.ArrayLike] = 1e-3,
+            seed: Optional[int] = None
     ):
         self.low = np.array(low)
         self.high = np.array(high)

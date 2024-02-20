@@ -4,6 +4,7 @@ import numpy as np
 import pybullet as pb
 
 from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
+from deformable_gym.envs.sampler import Sampler, FixedSampler
 
 from ..objects.bullet_object import ObjectFactory
 
@@ -17,16 +18,18 @@ class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
             object_name: str = "insole",
             object_scale: float = 1.0,
             observable_object_pos: bool = False,
+            initial_state_sampler: Sampler | None = None,
             **kwargs
     ):
         self.object_name = object_name
         self.object_scale = object_scale
         self._observable_object_pos = observable_object_pos
-        self.hand_world_pose = self.HARD_INITIAL_POSE
+        if initial_state_sampler is None:
+            self.initial_pose_sampler = FixedSampler(self.HARD_INITIAL_POSE)
+        else:
+            self.initial_pose_sampler = initial_state_sampler
 
         super().__init__(soft=True, **kwargs)
-
-        # self.robot = self._create_robot()
 
         # TODO: adapt if non-robot observable objects in environment
         # self.action_space = self.robot.action_space
@@ -41,10 +44,8 @@ class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
 
     def reset(self, seed=None, options=None):
 
-        if options is not None and "initial_pose" in options:
-            self.robot.reset_base(options["initial_pose"])
-        else:
-            self.robot.reset_base(self.hand_world_pose)
+        initial_pose = self.initial_pose_sampler.sample_initial_pose()
+        self.robot.reset_base(initial_pose)
 
         self.object_to_grasp.reset()
         self.robot.activate_motors()

@@ -60,8 +60,6 @@ class BulletSimulation:
             else:
                 self.pb_client.resetSimulation()
 
-        print(f"resetting client {self.pb_client}")
-
         self.pb_client.setGravity(0, 0, self.gravity)
         self.pb_client.setRealTimeSimulation(self.real_time)
         self.pb_client.setTimeStep(self.time_delta)

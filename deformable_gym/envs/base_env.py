@@ -43,7 +43,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
             horizon: int = 100,
             soft: bool = False,
             verbose: bool = False,
-            time_delta: float = 0.0001,
+            time_delta: float = 0.001,
             verbose_dt: float = 10.00,
             pybullet_options: str = ""):
 

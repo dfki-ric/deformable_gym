@@ -30,7 +30,7 @@ def uniform_target_pose() -> npt.NDArray:
 
 @pytest.fixture
 def grid_target_pose() -> npt.NDArray:
-    target = np.array([1, 2, 3])
+    target = np.array([1, 2, 3, 4])
     return target
 
 
@@ -60,9 +60,9 @@ def uniform_sampler() -> UniformSampler:
 @pytest.fixture
 def grid_sampler() -> GridSampler:
     return GridSampler(
-        low=np.array([1, 2, 3]),
-        high=np.array([2, 3, 4]),
-        n_points_per_axis=np.array([5, 3, 1])
+        low=np.array([1, 2, 3, 4]),
+        high=np.array([2, 3, 4, 5]),
+        n_points_per_axis=np.array([5, 3, 1, 1])
     )
 
 

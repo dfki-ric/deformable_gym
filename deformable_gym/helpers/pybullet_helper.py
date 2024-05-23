@@ -12,6 +12,31 @@ import pytransform3d.rotations as pr
 
 from pybullet_utils import bullet_client as bc
 
+from contextlib import contextmanager
+import sys
+import os
+
+
+@contextmanager
+def stdout_redirected(to=os.devnull):
+    fd = sys.stdout.fileno()
+
+    def _redirect_stdout(to_fd):
+        os.dup2(to_fd, fd)
+
+    # Duplicate the stdout file descriptor and open it for writing
+    old_stdout_fd = os.dup(fd)
+    with os.fdopen(old_stdout_fd, 'w') as old_stdout:
+        with open(to, 'w') as file:
+            # Redirect stdout to the provided file
+            _redirect_stdout(file.fileno())
+        try:
+            yield
+        finally:
+            # Redirect stdout back to the old stdout
+            _redirect_stdout(old_stdout_fd)
+
+
 
 class JointType(Enum):
     revolute = pb.JOINT_REVOLUTE

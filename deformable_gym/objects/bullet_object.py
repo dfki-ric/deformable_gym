@@ -1,5 +1,6 @@
 import abc
 import os
+import sys
 import warnings
 from pathlib import Path
 from typing import List, Sequence, Tuple, Union
@@ -428,22 +429,23 @@ class SoftObjectBase(BulletObjectBase):
     def _load_object(self):
         mu, lmbda = self.__lame_parameters(self.nu, self.E)
 
-        object_id = self.pb_client.loadSoftBody(
-            self.filename,
-            self.init_pos,
-            self.init_orn,
-            scale=self.scale,
-            simFileName=self.filename,
-            useNeoHookean=True,
-            NeoHookeanMu=mu,
-            NeoHookeanLambda=lmbda,
-            NeoHookeanDamping=self.damping,
-            collisionMargin=self.collision_margin,
-            useSelfCollision=True,
-            useFaceContact=True,
-            repulsionStiffness=self.repulsion_stiffness,
-            mass=self.mass,
-            frictionCoeff=self.friction_coefficient)
+        with pbh.stdout_redirected():
+            object_id = self.pb_client.loadSoftBody(
+                self.filename,
+                self.init_pos,
+                self.init_orn,
+                scale=self.scale,
+                simFileName=self.filename,
+                useNeoHookean=True,
+                NeoHookeanMu=mu,
+                NeoHookeanLambda=lmbda,
+                NeoHookeanDamping=self.damping,
+                collisionMargin=self.collision_margin,
+                useSelfCollision=True,
+                useFaceContact=True,
+                repulsionStiffness=self.repulsion_stiffness,
+                mass=self.mass,
+                frictionCoeff=self.friction_coefficient)
 
         if self.fixed:
             self.__make_anchors(object_id)

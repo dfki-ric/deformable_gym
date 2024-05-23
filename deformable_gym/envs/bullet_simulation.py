@@ -3,6 +3,7 @@ import pybullet_data
 
 from pybullet_utils import bullet_client as bc
 from deformable_gym.robots.bullet_robot import BulletRobot
+from deformable_gym.helpers import pybullet_helper as pbh
 
 
 class BulletSimulation:
@@ -33,10 +34,11 @@ class BulletSimulation:
         self.soft = soft
         self.real_time = real_time
 
-        self.pb_client = bc.BulletClient(
-            connection_mode=self.mode,
-            options=pybullet_options
-        )
+        with pbh.stdout_redirected():
+            self.pb_client = bc.BulletClient(
+                connection_mode=self.mode,
+                options=pybullet_options
+            )
         self.pb_client.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         self.timing = BulletTiming(
@@ -51,12 +53,12 @@ class BulletSimulation:
 
     def reset(self):
         """Reset and initialize simulation."""
-        if self.soft:
-            self.pb_client.resetSimulation(pb.RESET_USE_DEFORMABLE_WORLD)
-        else:
-            self.pb_client.resetSimulation()
 
-        print(f"resetting client {self.pb_client}")
+        with pbh.stdout_redirected():
+            if self.soft:
+                self.pb_client.resetSimulation(pb.RESET_USE_DEFORMABLE_WORLD)
+            else:
+                self.pb_client.resetSimulation()
 
         self.pb_client.setGravity(0, 0, self.gravity)
         self.pb_client.setRealTimeSimulation(self.real_time)

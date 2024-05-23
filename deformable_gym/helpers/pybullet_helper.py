@@ -19,21 +19,22 @@ import os
 
 @contextmanager
 def stdout_redirected(to=os.devnull):
-
     fd = sys.stdout.fileno()
 
-    def _redirect_stdout(to):
-        sys.stdout.close()
-        os.dup2(to.fileno(), fd)
-        sys.stdout = os.fdopen(fd, 'w')
+    def _redirect_stdout(to_fd):
+        os.dup2(to_fd, fd)
 
-    with os.fdopen(os.dup(fd), 'w') as old_stdout:
+    # Duplicate the stdout file descriptor and open it for writing
+    old_stdout_fd = os.dup(fd)
+    with os.fdopen(old_stdout_fd, 'w') as old_stdout:
         with open(to, 'w') as file:
-            _redirect_stdout(to=file)
+            # Redirect stdout to the provided file
+            _redirect_stdout(file.fileno())
         try:
             yield
         finally:
-            _redirect_stdout(to=old_stdout)
+            # Redirect stdout back to the old stdout
+            _redirect_stdout(old_stdout_fd)
 
 
 

@@ -94,7 +94,7 @@ class GridSampler(Sampler):
         points_per_axis = [np.linspace(
             low[i], high[i], n_points_per_axis[i]) for i in range(self.n_dims)]
 
-        self.grid = np.array(np.meshgrid(*points_per_axis)).T.reshape(-1, 3)
+        self.grid = np.array(np.meshgrid(*points_per_axis)).T.reshape(-1, self.n_dims)
         self.n_samples = len(self.grid)
         self.n_calls = 0
 

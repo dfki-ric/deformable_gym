@@ -69,7 +69,6 @@ class FloatingMiaGraspEnv(GraspEnv):
             object_name: str = "insole",
             object_scale: float = 1.0,
             observable_object_pos: bool = False,
-            difficulty_mode: str = "hard",
             **kwargs):
 
         self.velocity_commands = False

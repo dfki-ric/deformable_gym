@@ -4,12 +4,10 @@ from pathlib import Path
 
 import numpy.typing as npt
 
-from deformable_gym.robots.bullet_robot import BulletRobot, RobotCommandWrapper
-from deformable_gym.robots.control_mixins import (PositionControlMixin,
-                                                  VelocityControlMixin)
-from deformable_gym.robots.inverse_kinematics import \
-    UniversalRobotAnalyticalInverseKinematics
-from deformable_gym.robots.sensors import MiaHandForceSensors
+from ..robots.bullet_robot import BulletRobot, RobotCommandWrapper
+from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
+from ..robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
+from ..robots.sensors import MiaHandForceSensors
 
 from pybullet_utils import bullet_client as bc
 
@@ -38,9 +36,15 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
             end_effector_link="ur5_tool0",
             orn_limit=None,
             debug_visualization=True):
+
         super().__init__(
-            urdf_path=URDF_PATH, pb_client=pb_client, verbose=verbose,
-            task_space_limit=task_space_limit, orn_limit=orn_limit)
+            urdf_path=URDF_PATH,
+            pb_client=pb_client,
+            verbose=verbose,
+            task_space_limit=task_space_limit,
+            orn_limit=orn_limit
+        )
+
         self.debug_visualization = debug_visualization
 
         self._arm_motors = {k: v for k, v in self.motors.items() if "ur5_" in k}

@@ -1,10 +1,11 @@
 import numpy as np
 import pybullet as pb
 
-from deformable_gym.robots.ur_kinematics import (analytical_ik,
-                                                 ee_kin2ee_options,
-                                                 robot_params,
-                                                 urdf_base2kin_base)
+from ..robots.ur_kinematics import (analytical_ik,
+                                    ee_kin2ee_options,
+                                    robot_params,
+                                    urdf_base2kin_base)
+from pybullet_utils import bullet_client as bc
 
 
 class PyBulletSolver:
@@ -12,10 +13,12 @@ class PyBulletSolver:
             self,
             robot,
             end_effector,
+            pb_client: bc.BulletClient,
             n_iter: int = 200,
             threshold: float = 1e-6,
     ):
         self.robot = robot
+        self.pb_client = pb_client
         self.end_effector = end_effector
         self.n_iter = n_iter
         self.threshold = threshold
@@ -26,14 +29,14 @@ class PyBulletSolver:
         if last_joint_angles is None:  # HACK
             last_joint_angles = np.zeros(6)
 
-        out = np.array(pb.calculateInverseKinematics(
-            self.robot,
-            self.end_effector,
-            targetPosition=target_pos,
-            targetOrientation=target_orn,
-            maxNumIterations=self.n_iter,
-            residualThreshold=self.threshold,
-            physicsClientId=self.robot.physics_client_id))
+        out = np.array(
+            self.pb_client.calculateInverseKinematics(
+                self.robot,
+                self.end_effector,
+                targetPosition=target_pos,
+                targetOrientation=target_orn,
+                maxNumIterations=self.n_iter,
+                residualThreshold=self.threshold))
         return out[:6]
 
 

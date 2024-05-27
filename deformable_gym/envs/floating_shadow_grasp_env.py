@@ -16,7 +16,7 @@ class FloatingShadowGraspEnv(GraspEnv):
 
     **Action space:**
     - End-effector pose: (x, y, z, qx, qy, qz, qw)
-    - Finger joint angle: 3 values
+    - Finger joint angle: 24 values
 
     Parameters
     ----------
@@ -37,10 +37,11 @@ class FloatingShadowGraspEnv(GraspEnv):
             **kwargs):
         self.velocity_commands = False
 
-        super().__init__(object_name=object_name,
-                         object_scale=object_scale,
-                         observable_object_pos=observable_object_pos,
-                         **kwargs)
+        super().__init__(
+            object_name=object_name,
+            object_scale=object_scale,
+            observable_object_pos=observable_object_pos,
+            **kwargs)
 
         self.hand_world_pose = self.INITIAL_POSE
         self.robot = self._create_robot()
@@ -71,10 +72,10 @@ class FloatingShadowGraspEnv(GraspEnv):
             dtype=np.float64)
 
         lower_actions = np.concatenate([
-            -np.ones(7)*0.01, limits[0], [0]], axis=0)
+            -np.ones(7)*0.01, limits[0]], axis=0)
 
         upper_actions = np.concatenate([
-            np.ones(7)*0.01, limits[1], [1]], axis=0)
+            np.ones(7)*0.01, limits[1]], axis=0)
 
         self.action_space = spaces.Box(
             low=lower_actions, high=upper_actions, dtype=np.float64)
@@ -108,4 +109,12 @@ class FloatingShadowGraspEnv(GraspEnv):
 
     def _get_observation(self):
         finger_pos = self.robot.get_joint_positions()[6:]
-        return np.concatenate([finger_pos], axis=0)
+        ee_pose = self.robot.get_ee_pose()
+
+        state = np.concatenate([ee_pose, finger_pos], axis=0)
+
+        if self._observable_object_pos:
+            obj_pos = self.object_to_grasp.get_pose()[:3]
+            state = np.append(state, obj_pos)
+
+        return state

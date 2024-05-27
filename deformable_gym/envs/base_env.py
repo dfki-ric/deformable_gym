@@ -107,7 +107,8 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         self.step_counter = 0
         self.simulation.timing.reset()
 
-        self.simulation.simulate_time(0.0001)
+        # simulate one time step to have correct initial sensor information
+        self.simulation.simulate_time(self.simulation.time_delta)
 
         observation = self._get_observation()
         info = self._get_info()

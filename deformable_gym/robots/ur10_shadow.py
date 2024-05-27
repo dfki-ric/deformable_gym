@@ -5,12 +5,9 @@ from typing import Any
 
 import numpy as np
 
-from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
-                                                RobotCommandWrapper)
-from deformable_gym.robots.control_mixins import (PositionControlMixin,
-                                                  VelocityControlMixin)
-from deformable_gym.robots.inverse_kinematics import \
-    UniversalRobotAnalyticalInverseKinematics
+from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
+from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
+from ..robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
 
 from pybullet_utils import bullet_client as bc
 

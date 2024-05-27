@@ -1,5 +1,4 @@
 import numpy as np
-import pybullet as pb
 
 from ..robots.ur_kinematics import (analytical_ik,
                                     ee_kin2ee_options,

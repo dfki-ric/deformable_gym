@@ -9,9 +9,9 @@ import pytransform3d.rotations as pr
 from gymnasium import spaces
 from pybullet_utils import bullet_client as bc
 
-from deformable_gym.envs.bullet_simulation import BulletSimulation
-from deformable_gym.helpers.pybullet_helper import MultibodyPose
-from deformable_gym.robots.bullet_robot import BulletRobot
+from ..envs.bullet_simulation import BulletSimulation
+from ..helpers.pybullet_helper import MultibodyPose
+from ..robots.bullet_robot import BulletRobot
 
 
 class BaseBulletEnv(gym.Env, abc.ABC):

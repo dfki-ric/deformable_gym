@@ -1,8 +1,7 @@
 import pytest
 from numpy.testing import assert_allclose
 
-from deformable_gym.envs.floating_shadow_grasp_env import \
-    FloatingShadowGraspEnv
+from deformable_gym.envs.floating_shadow_grasp_env import (FloatingShadowGraspEnv)
 
 
 @pytest.fixture
@@ -16,8 +15,8 @@ def env():
     )
 
 
-observation_space_dims_expected = 28
-action_space_dims_expected = 32
+observation_space_dims_expected = 31
+action_space_dims_expected = 31
 SEED = 42
 
 
@@ -34,7 +33,6 @@ def test_obs_space_dims(env: FloatingShadowGraspEnv):
 
     obs_space = env.observation_space
     assert obs_space.shape[0] == obs_space_dims_expected
-
 
 def test_initial_sensor_info(env: FloatingShadowGraspEnv):
     sensor_readings = []

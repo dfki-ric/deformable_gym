@@ -8,9 +8,10 @@ from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 def env():
     return UR5MiaGraspEnv(
         gui=False,
-        verbose=True,
+        verbose=False,
         horizon=10,
         object_name="insole",
+        #observable_object_pos=True,
     )
 
 
@@ -26,9 +27,12 @@ def test_action_space_dims(env):
 
 def test_obs_space_dims(env):
     if env._observable_object_pos:
-        assert env.observation_space.shape[0] == observation_space_dims_expected + 3
+        obs_space_dims_expected = observation_space_dims_expected + 3
     else:
-        assert env.observation_space.shape[0] == observation_space_dims_expected
+        obs_space_dims_expected = observation_space_dims_expected
+
+    obs_space = env.observation_space
+    assert obs_space.shape[0] == obs_space_dims_expected
 
 
 def test_episode_reproducibility():
@@ -70,7 +74,7 @@ def test_eps_done(env):
         action = env.action_space.sample()
         obs, reward, terminated, truncated, info = env.step(action)
 
-        assert len(obs) == 16
+        assert len(obs) == observation_space_dims_expected
         assert isinstance(reward, float)
         assert isinstance(terminated, bool)
         assert not terminated

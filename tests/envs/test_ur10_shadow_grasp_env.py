@@ -8,15 +8,15 @@ from deformable_gym.envs.ur10_shadow_grasp_env import UR10ShadowGraspEnv
 def env():
     return UR10ShadowGraspEnv(
         gui=False,
-        verbose=True,
+        verbose=False,
         horizon=10,
         object_name="insole",
-        #observable_object_pos=True,
+        observable_object_pos=True,
     )
 
 
-observation_space_dims_expected = 28
-action_space_dims_expected = 32
+observation_space_dims_expected = 31
+action_space_dims_expected = 31
 SEED = 42
 
 

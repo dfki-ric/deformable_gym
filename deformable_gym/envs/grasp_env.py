@@ -3,8 +3,8 @@ from abc import ABC
 import numpy as np
 import pybullet as pb
 
-from deformable_gym.envs.base_env import BaseBulletEnv, GraspDeformableMixin
-from deformable_gym.envs.sampler import Sampler, FixedSampler
+from ..envs.base_env import BaseBulletEnv, GraspDeformableMixin
+from ..envs.sampler import Sampler, FixedSampler
 from typing import Optional
 
 from ..objects.bullet_object import ObjectFactory

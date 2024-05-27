@@ -45,7 +45,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     - (5) normal force at middle finger.
 
     **Action space:**
-    The action space has 11 dimensions.
+    The action space has 10 dimensions.
     End-effector pose (7 values) and joint angles of the hand (3 values).
     End-effector commands are defined by position (x, y, z) and scalar-last
     quaternion (qx, qy, qz, qw).
@@ -53,8 +53,6 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
     - (0) j_index_fle
     - (1) j_mrl_fle
     - (3) j_thumb_fle
-    At the end there is a flag to indicate that the episode is finished (1)
-    or not (0).
 
     Parameters
     ----------
@@ -84,29 +82,22 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def __init__(
             self,
-            gui: bool = True,
-            real_time: bool = False,
             object_name: str = "insole",
-            verbose: bool = False,
-            horizon: int = 100,
-            train: bool = True,
             thumb_adducted: bool = True,
-            compute_reward: bool = True,
             object_scale: float = 1.0,
-            verbose_dt: float = 10.0,
-            pybullet_options: str = ""):
-        self.train = train
+            **kwargs
+    ):
+
         self.velocity_commands = False
         self.object_name = object_name
         self.randomised = False
         self.thumb_adducted = thumb_adducted
-        self.compute_reward = compute_reward
         self.object_scale = object_scale
 
-        super().__init__(gui=gui, real_time=real_time, horizon=horizon,
-                         soft=True, verbose=verbose,
-                         verbose_dt=verbose_dt,
-                         pybullet_options=pybullet_options)
+        super().__init__(
+            soft=True,
+            **kwargs
+        )
 
         self.robot = self._create_robot()
 
@@ -159,7 +150,6 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.simulation.add_robot(robot)
 
         robot.set_initial_joint_positions(INITIAL_JOINT_ANGLES)
-
         robot.set_thumb_opp(self.thumb_adducted)
 
         return robot
@@ -174,10 +164,8 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             scale=self.object_scale)
 
     def reset(self, seed=None, options=None):
-
         self.object_to_grasp.reset()
         self.robot.activate_motors()
-
         return super().reset(seed, options)
 
     def _get_observation(self):

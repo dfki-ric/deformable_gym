@@ -33,21 +33,19 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def __init__(
             self,
-            gui=True,
-            real_time=False,
             object_name="insole",
-            verbose=False,
-            horizon=100,
             object_scale=1.0,
-            verbose_dt=10.0
+            **kwargs
     ):
         self.insole = None
         self.velocity_commands = False
         self.object_name = object_name
         self.object_scale = object_scale
-        super().__init__(gui=gui, real_time=real_time, horizon=horizon,
-                         soft=True, verbose=verbose,
-                         verbose_dt=verbose_dt)
+
+        super().__init__(
+            soft=True,
+            **kwargs
+        )
 
         self.robot = self._create_robot()
 

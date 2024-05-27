@@ -85,6 +85,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
             object_name: str = "insole",
             thumb_adducted: bool = True,
             object_scale: float = 1.0,
+            observable_object_pos: bool = False,
             **kwargs
     ):
 
@@ -100,6 +101,7 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         )
 
         self.robot = self._create_robot()
+        self._observable_object_pos = observable_object_pos
 
         limits = pbh.get_limit_array(self.robot.motors.values())
 
@@ -110,6 +112,12 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         upper_observations = np.concatenate([
             np.array([2, 2, 2]), np.ones(4), limits[1][6:],
             np.array([5, 5, 5])], axis=0)
+
+        if self._observable_object_pos:
+            lower_observations = np.append(
+                lower_observations, -np.full(3, 2.))
+            upper_observations = np.append(
+                upper_observations, np.full(3, 2.))
 
         self.observation_space = spaces.Box(
             low=lower_observations, high=upper_observations)
@@ -174,7 +182,13 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 
-        return np.concatenate([ee_pose, joint_pos, sensor_readings], axis=0)
+        obs = np.concatenate([ee_pose, joint_pos, sensor_readings], axis=0)
+
+        if self._observable_object_pos:
+            obj_pos = self.object_to_grasp.get_pose()[:3]
+            obs = np.append(obs, obj_pos)
+
+        return obs
 
     def calculate_reward(self, state, action, next_state, terminated):
         """

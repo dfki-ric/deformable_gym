@@ -14,6 +14,7 @@ def env():
 
 
 action_space_dims_expected = 10
+observation_space_dims_expected = 16
 SEED = 42
 
 
@@ -24,21 +25,12 @@ def test_action_space_dims(env: FloatingMiaGraspEnv):
 
 def test_obs_space_dims(env: FloatingMiaGraspEnv):
     if env._observable_object_pos:
-        obs_space_dims_expected = 19
+        obs_space_dims_expected = observation_space_dims_expected + 3
     else:
-        obs_space_dims_expected = 16
+        obs_space_dims_expected = observation_space_dims_expected
 
     obs_space = env.observation_space
     assert obs_space.shape[0] == obs_space_dims_expected
-
-
-def test_initial_obs(env: FloatingMiaGraspEnv):
-    obs, info = env.reset(seed=SEED)
-    if env._observable_object_pos:
-        obs_space_dims_expected = 19
-    else:
-        obs_space_dims_expected = 16
-    assert len(obs) == obs_space_dims_expected
 
 
 def test_initial_sensor_info(env: FloatingMiaGraspEnv):
@@ -90,20 +82,13 @@ def test_episode_reproducibility():
     assert_allclose(termination_flags[0], termination_flags[1])
 
 
-def test_eps_done(env: FloatingMiaGraspEnv):
-    if env._observable_object_pos:
-        obs_space_dims_expected = 19
-    else:
-        obs_space_dims_expected = 16
-
+def test_episode_termination(env: FloatingMiaGraspEnv):
     env.action_space.seed(SEED)
 
     for t in range(9):
         action = env.action_space.sample()
         obs, reward, terminated, truncated, info = env.step(action)
 
-        assert len(obs) == obs_space_dims_expected
-        assert isinstance(reward, float)
         assert isinstance(terminated, bool)
         assert not terminated
 

@@ -9,9 +9,9 @@ import pytransform3d.rotations as pr
 from gymnasium import spaces
 from pybullet_utils import bullet_client as bc
 
-from deformable_gym.envs.bullet_simulation import BulletSimulation
-from deformable_gym.helpers.pybullet_helper import MultibodyPose
-from deformable_gym.robots.bullet_robot import BulletRobot
+from ..envs.bullet_simulation import BulletSimulation
+from ..helpers.pybullet_helper import MultibodyPose
+from ..robots.bullet_robot import BulletRobot
 
 
 class BaseBulletEnv(gym.Env, abc.ABC):
@@ -43,7 +43,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
             horizon: int = 100,
             soft: bool = False,
             verbose: bool = False,
-            time_delta: float = 0.0001,
+            time_delta: float = 0.001,
             verbose_dt: float = 10.00,
             pybullet_options: str = ""):
 
@@ -107,7 +107,8 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         self.step_counter = 0
         self.simulation.timing.reset()
 
-        self.simulation.simulate_time(0.0001)
+        # simulate one time step to have correct initial sensor information
+        self.simulation.simulate_time(self.simulation.time_delta)
 
         observation = self._get_observation()
         info = self._get_info()

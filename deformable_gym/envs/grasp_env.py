@@ -11,7 +11,7 @@ from ..objects.bullet_object import ObjectFactory
 
 
 class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
-    HARD_INITIAL_POSE = np.r_[
+    INITIAL_POSE = np.r_[
         0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi / 8, np.pi, 0])]
 
     def __init__(
@@ -26,7 +26,7 @@ class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
         self.object_scale = object_scale
         self._observable_object_pos = observable_object_pos
         if initial_state_sampler is None:
-            self.initial_pose_sampler = FixedSampler(self.HARD_INITIAL_POSE)
+            self.initial_pose_sampler = FixedSampler(self.INITIAL_POSE)
         else:
             self.initial_pose_sampler = initial_state_sampler
 

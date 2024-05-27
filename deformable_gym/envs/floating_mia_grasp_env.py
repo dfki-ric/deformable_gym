@@ -34,10 +34,7 @@ class FloatingMiaGraspEnv(GraspEnv):
         object should be sampled from the training or the test set.
     """
 
-    STANDARD_INITIAL_POSE = np.r_[
-        0.03, -0.005, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
-
-    HARD_INITIAL_POSE = np.r_[
+    INITIAL_POSE = np.r_[
         0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
 
     _FINGERS_OPEN = {
@@ -83,13 +80,11 @@ class FloatingMiaGraspEnv(GraspEnv):
             observable_object_pos=observable_object_pos,
             **kwargs)
 
-        self.hand_world_pose = self.STANDARD_INITIAL_POSE
+        self.hand_world_pose = self.INITIAL_POSE
         self.robot = self._create_robot()
 
         limits = pbh.get_limit_array(self.robot.motors.values())
         self.actuated_finger_ids = np.array([0, 1, 5], dtype=int)
-
-        self.set_difficulty_mode(difficulty_mode)
 
         lower_observations = np.concatenate([
             np.array([-2, -2, 0]),
@@ -156,26 +151,6 @@ class FloatingMiaGraspEnv(GraspEnv):
         self.simulation.add_robot(robot)
 
         return robot
-
-    def set_difficulty_mode(self, mode: str):
-        """
-        Sets the difficulty of the environment by changing the initial hand
-        position. Can be used for curriculum learning.
-
-        :param mode: String representation of the desired difficulty.
-        """
-
-        if mode == "hard":
-            self.robot.set_initial_joint_positions(self._FINGERS_OPEN)
-            self.hand_world_pose = self.HARD_INITIAL_POSE
-        elif mode == "medium":
-            self.robot.set_initial_joint_positions(self._FINGERS_HALFWAY_CLOSED)
-            self.hand_world_pose = self.STANDARD_INITIAL_POSE
-        elif mode == "easy":
-            self.robot.set_initial_joint_positions(self._FINGERS_CLOSED)
-            self.hand_world_pose = self.STANDARD_INITIAL_POSE
-        else:
-            raise ValueError(f"Received unknown difficulty mode {mode}!")
 
     def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(

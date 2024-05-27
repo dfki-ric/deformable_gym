@@ -9,7 +9,7 @@ from deformable_gym.envs.floating_shadow_grasp_env import \
 def env():
     return FloatingShadowGraspEnv(
         gui=False,
-        verbose=True,
+        verbose=False,
         horizon=10,
         object_name="insole",
         observable_object_pos=True,

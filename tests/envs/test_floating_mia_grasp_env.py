@@ -8,7 +8,7 @@ from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 def env():
     return FloatingMiaGraspEnv(
         gui=False,
-        verbose=True,
+        verbose=False,
         horizon=10,
         object_name="insole_on_conveyor_belt/back")
 

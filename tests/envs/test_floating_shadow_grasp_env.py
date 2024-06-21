@@ -15,7 +15,7 @@ def env():
     )
 
 
-observation_space_dims_expected = 31
+observation_space_dims_expected = 28
 action_space_dims_expected = 31
 SEED = 42
 

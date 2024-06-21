@@ -17,6 +17,6 @@ if __name__ == "__main__":
           install_requires=[
               "pybullet",
               "gymnasium",
-              "numpy",
+              "numpy>=1.23.5,<2.0.0",
               "pytransform3d"
           ])

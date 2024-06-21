@@ -13,7 +13,7 @@ then used to generate ten episodes.
 
 """
 
-base_initial_pose = FloatingMiaGraspEnv.HARD_INITIAL_POSE.copy()
+base_initial_pose = FloatingMiaGraspEnv.INITIAL_POSE.copy()
 low = base_initial_pose.copy()
 high = base_initial_pose.copy()
 

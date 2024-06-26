@@ -1,4 +1,3 @@
-import markdown_it.rules_block.list
 import pytest
 
 from numpy.testing import assert_allclose

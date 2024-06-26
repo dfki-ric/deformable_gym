@@ -157,7 +157,7 @@ class FloatingMiaGraspEnv(GraspEnv):
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 
-        state = np.concatenate([ee_pose, joint_pos, sensor_readings])
+        state = np.concatenate([ee_pose, joint_pos, sensor_readings], axis=0)
 
         if self._observable_object_pos:
             obj_pos = self.object_to_grasp.get_pose()[:3]

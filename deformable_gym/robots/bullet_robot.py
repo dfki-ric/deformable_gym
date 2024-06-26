@@ -7,10 +7,10 @@ import pybullet as pb
 from pybullet_utils import bullet_client as bc
 from gymnasium.spaces import Box
 
-from deformable_gym.helpers import pybullet_helper as pbh
-from deformable_gym.objects.bullet_object import Pose
-from deformable_gym.robots.bullet_utils import draw_limits
-from deformable_gym.robots.inverse_kinematics import PyBulletSolver
+from ..helpers import pybullet_helper as pbh
+from ..objects.bullet_object import Pose
+from ..robots.bullet_utils import draw_limits
+from ..robots.inverse_kinematics import PyBulletSolver
 
 
 class BulletRobot(abc.ABC):
@@ -53,7 +53,7 @@ class BulletRobot(abc.ABC):
         self.pb_client = pb_client
 
         if self.task_space_limit is not None and verbose:
-            draw_limits(self.task_space_limit)
+            draw_limits(self.task_space_limit, self.pb_client)
 
         if world_pos is None:
             self.init_pos = [0, 0, 0]
@@ -129,7 +129,9 @@ class BulletRobot(abc.ABC):
             print(self.all_joints)
 
         self.multibody_pose = pbh.MultibodyPose(
-            self.get_id(), self.init_pos, self.init_rot,
+            self.get_id(),
+            self.init_pos,
+            self.init_rot,
             pb_client=self.pb_client)
 
         # create observation and action spaces
@@ -187,7 +189,7 @@ class BulletRobot(abc.ABC):
         self.end_effector = link_id
         if self.inverse_kinematics_solver is None:  # default to PyBullet IK
             self.inverse_kinematics_solver = PyBulletSolver(
-                self._id, self.end_effector)
+                self._id, self.end_effector, self.pb_client)
 
     def get_joint_positions(
             self, keys: Union[Iterable[str], None] = None) -> np.ndarray:
@@ -341,7 +343,7 @@ class BulletRobot(abc.ABC):
         """
         if self.end_effector is not None:
             current_pos, current_orn = pbh.link_pose(
-                self._id, self.end_effector)
+                self._id, self.end_effector, self.pb_client)
         else:
             current_pos, current_orn = (
                 self.pb_client.getBasePositionAndOrientation(self._id))

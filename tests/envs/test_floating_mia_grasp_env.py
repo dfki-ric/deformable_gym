@@ -10,11 +10,13 @@ def env():
         gui=False,
         verbose=False,
         horizon=10,
-        object_name="insole_on_conveyor_belt/back")
+        object_name="insole_on_conveyor_belt/back",
+        #observable_object_pos=True,
+    )
 
 
-action_space_dims_expected = 10
 observation_space_dims_expected = 16
+action_space_dims_expected = 10
 SEED = 42
 
 
@@ -49,7 +51,7 @@ def test_initial_sensor_info(env: FloatingMiaGraspEnv):
     assert_allclose(sensor_readings[0], sensor_readings[1])
 
 
-def test_episode_reproducibility():
+def test_episode_reproducibility(env: FloatingMiaGraspEnv):
     observations = []
     termination_flags = []
     actions = []

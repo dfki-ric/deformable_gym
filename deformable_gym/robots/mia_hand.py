@@ -6,12 +6,10 @@ from typing import Dict, List, Tuple, Union
 import numpy as np
 import numpy.typing as npt
 
-from deformable_gym.helpers.pybullet_helper import Joint
-from deformable_gym.robots.bullet_robot import (BulletRobot, HandMixin,
-                                                RobotCommandWrapper)
-from deformable_gym.robots.control_mixins import (PositionControlMixin,
-                                                  VelocityControlMixin)
-from deformable_gym.robots.sensors import MiaHandForceSensors
+from ..helpers.pybullet_helper import Joint
+from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
+from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
+from ..robots.sensors import MiaHandForceSensors
 
 from pybullet_utils import bullet_client as bc
 

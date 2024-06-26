@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pybullet as pb
 
 from pybullet_utils import bullet_client as bc
 

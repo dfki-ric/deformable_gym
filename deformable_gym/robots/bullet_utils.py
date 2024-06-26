@@ -1,5 +1,4 @@
 import numpy as np
-import pybullet as pb
 import pytransform3d.rotations as pr
 import pytransform3d.transformations as pt
 

@@ -13,11 +13,11 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     **State space:**
     - End-effector pose: (x, y, z, qx, qy, qz, qw)
-    - Finger joint angles: 6 values TODO order
+    - Finger joint angles: 24 values TODO order
 
     **Action space:**
     - End-effector pose offset: (x, y, z, qx, qy, qz, qw)
-    - Finger joint angle offsets: 3 values
+    - Finger joint angle offsets: 24 values
 
     Parameters
     ----------
@@ -33,21 +33,21 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def __init__(
             self,
-            gui=True,
-            real_time=False,
             object_name="insole",
-            verbose=False,
-            horizon=100,
             object_scale=1.0,
-            verbose_dt=10.0
+            observable_object_pos: bool = False,
+            **kwargs
     ):
         self.insole = None
         self.velocity_commands = False
         self.object_name = object_name
         self.object_scale = object_scale
-        super().__init__(gui=gui, real_time=real_time, horizon=horizon,
-                         soft=True, verbose=verbose,
-                         verbose_dt=verbose_dt)
+        self._observable_object_pos = observable_object_pos
+
+        super().__init__(
+            soft=True,
+            **kwargs
+        )
 
         self.robot = self._create_robot()
 
@@ -55,11 +55,17 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
         lower_observations = np.concatenate([
             np.array([-2, -2, 0]), -np.ones(4), limits[0][6:],
-            np.array([-5, -5, -5])], axis=0)
+            ], axis=0)
 
         upper_observations = np.concatenate([
             np.array([2, 2, 2]), np.ones(4), limits[1][6:],
-            np.array([5, 5, 5])], axis=0)
+            ], axis=0)
+
+        if self._observable_object_pos:
+            lower_observations = np.append(
+                lower_observations, -np.full(3, 2.))
+            upper_observations = np.append(
+                upper_observations, np.full(3, 2.))
 
         self.observation_space = spaces.Box(
             low=lower_observations, high=upper_observations)
@@ -115,11 +121,16 @@ class UR10ShadowGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         return super().reset(seed, options)
 
     def _get_observation(self):
-        finger_pos = self.robot.get_joint_positions()[6:]
-        ee_pose = self.robot.get_ee_pose()
-        sensor_readings = self.robot.get_sensor_readings()
+        joint_pos = self.robot.get_joint_positions()
+        #ee_pose = self.robot.get_ee_pose()
 
-        return np.concatenate([ee_pose, finger_pos, sensor_readings], axis=0)
+        state = np.concatenate([joint_pos], axis=0)
+
+        if self._observable_object_pos:
+            obj_pos = self.object_to_grasp.get_pose()[:3]
+            state = np.append(state, obj_pos)
+
+        return state
 
     def calculate_reward(self, state, action, next_state, terminated):
         """

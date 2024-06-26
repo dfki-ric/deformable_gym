@@ -1,4 +1,4 @@
-from deformable_gym.objects.bullet_object import BoxObject, ObjectFactory
+from ..objects.bullet_object import BoxObject, ObjectFactory
 from pybullet_utils import bullet_client as bc
 
 

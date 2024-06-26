@@ -1,6 +1,5 @@
 import abc
 import os
-import sys
 import warnings
 from pathlib import Path
 from typing import List, Sequence, Tuple, Union
@@ -11,8 +10,8 @@ import pybullet as pb
 import pytransform3d.rotations as pr
 import pytransform3d.transformations as pt
 
-from deformable_gym.helpers import pybullet_helper as pbh
-from deformable_gym.robots.bullet_utils import draw_pose
+from ..helpers import pybullet_helper as pbh
+from ..robots.bullet_utils import draw_pose
 
 from pybullet_utils import bullet_client as bc
 

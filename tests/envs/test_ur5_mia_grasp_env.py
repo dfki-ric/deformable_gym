@@ -1,6 +1,6 @@
 import pytest
-
 from numpy.testing import assert_allclose
+
 from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 
 
@@ -11,7 +11,7 @@ def env():
         verbose=False,
         horizon=10,
         object_name="insole",
-        #observable_object_pos=True,
+        # observable_object_pos=True,
     )
 
 
@@ -83,4 +83,3 @@ def test_eps_done(env):
     obs, reward, terminated, truncated, info = env.step(action)
 
     assert terminated
-

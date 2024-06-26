@@ -5,27 +5,33 @@ from typing import Dict, List, Tuple, Union
 
 import numpy as np
 import numpy.typing as npt
+from pybullet_utils import bullet_client as bc
 
 from ..helpers.pybullet_helper import Joint
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.sensors import MiaHandForceSensors
 
-from pybullet_utils import bullet_client as bc
-
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/mia_hand.urdf")
+    "robots/urdf/mia_hand.urdf",
+)
 
 
 class MiaHandMixin(HandMixin):
     # motor array, which includes all revolute joints, we omit j_thumb_opp,
     # j_thumb_opp cannot be controlled actively
     actuated_simulated_joints: List[str] = [
-        "j_index_fle", "j_little_fle", "j_mrl_fle", "j_ring_fle", "j_thumb_fle"
+        "j_index_fle",
+        "j_little_fle",
+        "j_mrl_fle",
+        "j_ring_fle",
+        "j_thumb_fle",
     ]
     actuated_real_joints: List[str] = [
-        "j_index_fle", "j_mrl_fle", "j_thumb_fle"
+        "j_index_fle",
+        "j_mrl_fle",
+        "j_thumb_fle",
     ]
 
     mia_hand_force_sensors: MiaHandForceSensors
@@ -50,14 +56,16 @@ class MiaHandMixin(HandMixin):
             self.motors["j_thumb_opp"].init_pos = -0.628
 
     def update_current_hand_command(
-            self, motors: Dict[str, Joint], command: npt.ArrayLike):
+        self, motors: Dict[str, Joint], command: npt.ArrayLike
+    ):
         """Translates hand commands and updates current command.
 
         :param motors: Joints.
         :param command: 3D joint command array (fle_index, fle_mrl, fle_thumb)
         """
-        assert len(command) == 3, \
-            f"expected command to have length 3, got {command=} instead"
+        assert (
+            len(command) == 3
+        ), f"expected command to have length 3, got {command=} instead"
 
         hand_joint_target = self.convert_action_to_pybullet(command)
 
@@ -76,7 +84,8 @@ class MiaHandMixin(HandMixin):
         hand_joint_target = np.insert(command, [1, 2], mrl_command)
         # fill j_thumb_opp with target value
         hand_joint_target = np.insert(
-            hand_joint_target, 4, self.motors["j_thumb_opp"].init_pos)
+            hand_joint_target, 4, self.motors["j_thumb_opp"].init_pos
+        )
         return hand_joint_target
 
     def get_joint_limits(self) -> Tuple[np.ndarray, np.ndarray]:
@@ -122,20 +131,28 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
     :param base_commands: Control pose of the hand (add 7 components to action
     space).
     """
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            verbose: bool = False,
-            task_space_limit: Union[npt.ArrayLike, None] = None,
-            orn_limit: Union[npt.ArrayLike, None] = None,
-            world_pos: npt.ArrayLike = (0, 0, 1),
-            world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
-            debug_visualization: bool = True,
-            **kwargs):
+        self,
+        pb_client: bc.BulletClient,
+        verbose: bool = False,
+        task_space_limit: Union[npt.ArrayLike, None] = None,
+        orn_limit: Union[npt.ArrayLike, None] = None,
+        world_pos: npt.ArrayLike = (0, 0, 1),
+        world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
+        debug_visualization: bool = True,
+        **kwargs,
+    ):
         super().__init__(
-            pb_client=pb_client, urdf_path=URDF_PATH, verbose=verbose,
-            world_pos=world_pos, world_orn=world_orn,
-            task_space_limit=task_space_limit, orn_limit=orn_limit, **kwargs)
+            pb_client=pb_client,
+            urdf_path=URDF_PATH,
+            verbose=verbose,
+            world_pos=world_pos,
+            world_orn=world_orn,
+            task_space_limit=task_space_limit,
+            orn_limit=orn_limit,
+            **kwargs,
+        )
         self.debug_visualization = debug_visualization
 
         rcw = RobotCommandWrapper(self, self.actuated_simulated_joints)
@@ -144,7 +161,8 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
         self._correct_index_limit()
 
         self.mia_hand_force_sensors = MiaHandForceSensors(
-            self._id, self._joint_name_to_joint_id, self.pb_client)
+            self._id, self._joint_name_to_joint_id, self.pb_client
+        )
 
         self.thumb_adducted = True
 
@@ -188,6 +206,3 @@ class MiaHandPosition(PositionControlMixin, MiaHand):
 class MiaHandVelocity(VelocityControlMixin, MiaHand):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-
-

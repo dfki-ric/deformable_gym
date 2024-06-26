@@ -23,7 +23,8 @@ high[:3] += 0.03
 sampler = UniformSampler(low, high, seed=0)
 
 env = gymnasium.make(
-    "FloatingMiaGraspInsole-v0", initial_state_sampler=sampler, gui=True)
+    "FloatingMiaGraspInsole-v0", initial_state_sampler=sampler, gui=True
+)
 
 obs, info = env.reset()
 episode_return = 0

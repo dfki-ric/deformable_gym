@@ -11,7 +11,7 @@ def env():
         verbose=False,
         horizon=10,
         object_name="insole_on_conveyor_belt/back",
-        #observable_object_pos=True,
+        # observable_object_pos=True,
     )
 
 

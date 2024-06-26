@@ -1,26 +1,26 @@
 from abc import ABC
+from typing import Optional
 
 import numpy as np
 import pybullet as pb
 
 from ..envs.base_env import BaseBulletEnv, GraspDeformableMixin
-from ..envs.sampler import Sampler, FixedSampler
-from typing import Optional
-
+from ..envs.sampler import FixedSampler, Sampler
 from ..objects.bullet_object import ObjectFactory
 
 
 class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
     INITIAL_POSE = np.r_[
-        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi / 8, np.pi, 0])]
+        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi / 8, np.pi, 0])
+    ]
 
     def __init__(
-            self,
-            object_name: str = "insole",
-            object_scale: float = 1.0,
-            observable_object_pos: bool = False,
-            initial_state_sampler: Optional[Sampler] = None,
-            **kwargs
+        self,
+        object_name: str = "insole",
+        object_scale: float = 1.0,
+        observable_object_pos: bool = False,
+        initial_state_sampler: Optional[Sampler] = None,
+        **kwargs,
     ):
         self.object_name = object_name
         self.object_scale = object_scale
@@ -38,10 +38,11 @@ class GraspEnv(BaseBulletEnv, GraspDeformableMixin, ABC):
 
     def _load_objects(self):
         super()._load_objects()
-        (self.object_to_grasp,
-         self.object_position,
-         self.object_orientation) = ObjectFactory(self.pb_client).create(
-            self.object_name)
+        (
+            self.object_to_grasp,
+            self.object_position,
+            self.object_orientation,
+        ) = ObjectFactory(self.pb_client).create(self.object_name)
 
     def reset(self, seed=None, options=None):
 

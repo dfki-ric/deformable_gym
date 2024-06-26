@@ -15,7 +15,8 @@ def robot(simulation):
         pb_client=simulation.pb_client,
         world_pos=TEST_POS,
         world_orn=TEST_ORN,
-        base_commands=True)
+        base_commands=True,
+    )
     robot.set_thumb_opp(thumb_adducted=True)
 
     return robot
@@ -38,7 +39,9 @@ def test_mia_hand_position_creation(simulation, robot, mia_motors, mia_sensors):
 @pytest.mark.skip("TODO")
 def test_mia_hand_position_base_movement(simulation, robot):
 
-    robot.perform_command(np.array([0.3, -0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+    robot.perform_command(
+        np.array([0.3, -0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    )
 
     for _ in range(50):
         simulation.step_to_trigger("time_step")

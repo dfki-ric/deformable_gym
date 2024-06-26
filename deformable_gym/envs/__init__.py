@@ -1,4 +1,5 @@
 """Deformable Gym environments."""
+
 from .base_env import BaseBulletEnv
 from .floating_mia_grasp_env import FloatingMiaGraspEnv
 from .floating_shadow_grasp_env import FloatingShadowGraspEnv
@@ -10,5 +11,5 @@ __all__ = [
     "FloatingMiaGraspEnv",
     "FloatingShadowGraspEnv",
     "UR5MiaGraspEnv",
-    "UR10ShadowGraspEnv"
+    "UR10ShadowGraspEnv",
 ]

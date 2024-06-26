@@ -1,7 +1,7 @@
 import pytest
 from numpy.testing import assert_allclose
 
-from deformable_gym.envs.floating_shadow_grasp_env import (FloatingShadowGraspEnv)
+from deformable_gym.envs.floating_shadow_grasp_env import FloatingShadowGraspEnv
 
 
 @pytest.fixture

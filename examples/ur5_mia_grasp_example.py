@@ -10,10 +10,7 @@ used to generate ten episodes.
 
 """
 
-env = UR5MiaGraspEnv(
-        gui=True,
-        object_name="insole2"
-)
+env = UR5MiaGraspEnv(gui=True, object_name="insole2")
 
 env.reset()
 episode_return = 0

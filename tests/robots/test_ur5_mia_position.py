@@ -20,7 +20,9 @@ def test_ur5_mia_position_initial_position(simulation, robot):
     assert_almost_equal(actual_pose, expected_pose)
 
 
-def test_ur5_mia_position_creation(simulation, robot, ur5_mia_motors, ur5_mia_sensors):
+def test_ur5_mia_position_creation(
+    simulation, robot, ur5_mia_motors, ur5_mia_sensors
+):
 
     # check motor creation
     assert set(robot.motors.keys()) == set(ur5_mia_motors)

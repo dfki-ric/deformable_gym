@@ -3,20 +3,23 @@ import os
 from pathlib import Path
 
 import numpy.typing as npt
+from pybullet_utils import bullet_client as bc
 
 from ..robots.bullet_robot import BulletRobot, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
-from ..robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
+from ..robots.inverse_kinematics import (
+    UniversalRobotAnalyticalInverseKinematics,
+)
 from ..robots.sensors import MiaHandForceSensors
-
-from pybullet_utils import bullet_client as bc
-
 from .mia_hand import MiaHandMixin
 
 # Mia freq = 20 Hz
 # UR5 freq = 125 Hz
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/mia_hand_on_ur5.urdf")
+URDF_PATH = os.path.join(
+    Path(os.path.dirname(__file__)).parent.parent.absolute(),
+    "robots/urdf/mia_hand_on_ur5.urdf",
+)
 
 
 class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
@@ -28,21 +31,23 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
     TODO Can (and should) be extended eventually to allow other control
     methods, e.g. velocity or torque control.
     """
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            verbose: bool = False,
-            task_space_limit=None,
-            end_effector_link="ur5_tool0",
-            orn_limit=None,
-            debug_visualization=True):
+        self,
+        pb_client: bc.BulletClient,
+        verbose: bool = False,
+        task_space_limit=None,
+        end_effector_link="ur5_tool0",
+        orn_limit=None,
+        debug_visualization=True,
+    ):
 
         super().__init__(
             urdf_path=URDF_PATH,
             pb_client=pb_client,
             verbose=verbose,
             task_space_limit=task_space_limit,
-            orn_limit=orn_limit
+            orn_limit=orn_limit,
         )
 
         self.debug_visualization = debug_visualization
@@ -51,13 +56,15 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
         self._hand_motors = {k: v for k, v in self.motors.items() if "j_" in k}
 
         hand_command_wrapper = RobotCommandWrapper(
-            self, self.actuated_simulated_joints)
+            self, self.actuated_simulated_joints
+        )
         self.subsystems["hand"] = (20, hand_command_wrapper)
         arm_command_wrapper = RobotCommandWrapper(self, self._arm_motors)
         self.subsystems["arm"] = (125, arm_command_wrapper)
 
         self.mia_hand_force_sensors = MiaHandForceSensors(
-            self._id, self._joint_name_to_joint_id, self.pb_client)
+            self._id, self._joint_name_to_joint_id, self.pb_client
+        )
 
         if self.debug_visualization:
             self._init_debug_visualizations()
@@ -67,7 +74,9 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
         self.set_inverse_kinematics_solver(
             UniversalRobotAnalyticalInverseKinematics(
                 end_effector_name=end_effector_link,
-                fallback=self.inverse_kinematics_solver))
+                fallback=self.inverse_kinematics_solver,
+            )
+        )
 
         self._correct_index_limit()
 
@@ -84,8 +93,9 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
         self.command_to_joint_targets(command)
 
     def command_to_joint_targets(self, command: npt.ArrayLike):
-        assert len(command) == 10, \
-            f"expected command to have shape 10, got {len(command)} instead"
+        assert (
+            len(command) == 10
+        ), f"expected command to have shape 10, got {len(command)} instead"
         # get arm joint targets
         self.arm_command_to_joint_targets(command[:7])
         # get hand joint actions
@@ -97,14 +107,16 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
         :param command: End-effector pose (x, y, z, qx, qy, qz, qw)
         target positions or velocities
         """
-        assert len(command) == 7, \
-            f"expected command to have shape 7, got {len(command)} instead"
+        assert (
+            len(command) == 7
+        ), f"expected command to have shape 7, got {len(command)} instead"
 
         # convert arm command to joint motor control
         arm_joint_angles = self.get_joint_positions(self._arm_motors)
 
         arm_joint_target = self.compute_ik(
-            arm_joint_angles, command[:3], command[3:], False)
+            arm_joint_angles, command[:3], command[3:], False
+        )
 
         targets = {k: t for k, t in zip(self._arm_motors, arm_joint_target)}
 

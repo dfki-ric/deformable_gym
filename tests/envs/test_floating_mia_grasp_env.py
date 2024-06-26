@@ -51,7 +51,7 @@ def test_initial_sensor_info(env: FloatingMiaGraspEnv):
     assert_allclose(sensor_readings[0], sensor_readings[1])
 
 
-def test_episode_reproducibility():
+def test_episode_reproducibility(env: FloatingMiaGraspEnv):
     observations = []
     termination_flags = []
     actions = []

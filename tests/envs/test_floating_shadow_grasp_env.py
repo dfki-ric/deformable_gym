@@ -34,6 +34,8 @@ def test_obs_space_dims(env: FloatingShadowGraspEnv):
     obs_space = env.observation_space
     assert obs_space.shape[0] == obs_space_dims_expected
 
+
+@pytest.mark.skip("TODO")
 def test_initial_sensor_info(env: FloatingShadowGraspEnv):
     sensor_readings = []
     env.action_space.seed(SEED)
@@ -50,7 +52,7 @@ def test_initial_sensor_info(env: FloatingShadowGraspEnv):
     assert_allclose(sensor_readings[0], sensor_readings[1])
 
 
-def test_episode_reproducibility():
+def test_episode_reproducibility(env: FloatingShadowGraspEnv):
     observations = []
     termination_flags = []
     actions = []

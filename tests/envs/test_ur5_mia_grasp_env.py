@@ -35,7 +35,7 @@ def test_obs_space_dims(env):
     assert obs_space.shape[0] == obs_space_dims_expected
 
 
-def test_episode_reproducibility():
+def test_episode_reproducibility(env: UR5MiaGraspEnv):
     observations = []
     termination_flags = []
     actions = []

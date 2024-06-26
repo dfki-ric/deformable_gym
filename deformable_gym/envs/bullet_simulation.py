@@ -18,15 +18,17 @@ class BulletSimulation:
     :param pybullet_options: Options that should be passed to PyBullet
     connection command.
     """
+
     def __init__(
-            self,
-            time_delta: float = 0.001,
-            mode: int = pb.GUI,
-            gravity: float = -9.81,
-            soft: bool = False,
-            real_time: bool = False,
-            verbose_dt: float = 0.01,
-            pybullet_options: str = ""):
+        self,
+        time_delta: float = 0.001,
+        mode: int = pb.GUI,
+        gravity: float = -9.81,
+        soft: bool = False,
+        real_time: bool = False,
+        verbose_dt: float = 0.01,
+        pybullet_options: str = "",
+    ):
 
         self.time_delta = time_delta
         self.mode = mode
@@ -36,8 +38,7 @@ class BulletSimulation:
 
         with pbh.stdout_redirected():
             self.pb_client = bc.BulletClient(
-                connection_mode=self.mode,
-                options=pybullet_options
+                connection_mode=self.mode, options=pybullet_options
             )
         self.pb_client.setAdditionalSearchPath(pybullet_data.getDataPath())
 
@@ -107,13 +108,13 @@ class BulletSimulation:
 
 class BulletTiming:
     """This class handles all timing issues for a single BulletSimulation."""
-    def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            dt: float = 0.001,
-            verbose_dt: float = 0.01,
-    ):
 
+    def __init__(
+        self,
+        pb_client: bc.BulletClient,
+        dt: float = 0.001,
+        verbose_dt: float = 0.01,
+    ):
         """
         Create new BulletTiming instance.
 
@@ -146,7 +147,9 @@ class BulletTiming:
         """
         if name not in self.subsystems.keys():
             self.subsystems[name] = (
-                max(1, round(1.0/frequency/self.dt)), callback)
+                max(1, round(1.0 / frequency / self.dt)),
+                callback,
+            )
 
     def remove_subsystem(self, name):
         """
@@ -182,8 +185,10 @@ class BulletTiming:
         self.sim_time += self.dt
 
         if (self.sim_time % self.verbose_dt) < self.dt:
-            print(f"Step: {self.time_step}, Time: {self.sim_time}, "
-                  f"Triggers: {triggers}")
+            print(
+                f"Step: {self.time_step}, Time: {self.sim_time}, "
+                f"Triggers: {triggers}"
+            )
 
     def reset(self):
         self.time_step = 0
@@ -192,13 +197,14 @@ class BulletTiming:
 
 class BulletCamera:
     """This class handles all camera operations for one BulletSimulation."""
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            position: tuple = (0, 0, 0),
-            pitch: int = -52,
-            yaw: int = 30,
-            distance: int = 3,
+        self,
+        pb_client: bc.BulletClient,
+        position: tuple = (0, 0, 0),
+        pitch: int = -52,
+        yaw: int = 30,
+        distance: int = 3,
     ):
         self.position = position
         self.pitch = pitch
@@ -209,12 +215,15 @@ class BulletCamera:
         self._active = False
         self._logging_id = None
 
-        self.pb_client.resetDebugVisualizerCamera(distance, yaw, pitch, position)
+        self.pb_client.resetDebugVisualizerCamera(
+            distance, yaw, pitch, position
+        )
 
     def start_recording(self, path):
         if not self._active:
             self._logging_id = self.pb_client.startStateLogging(
-                pb.STATE_LOGGING_VIDEO_MP4, path)
+                pb.STATE_LOGGING_VIDEO_MP4, path
+            )
             return self._logging_id
         else:
             return None
@@ -230,4 +239,5 @@ class BulletCamera:
         self.distance = distance
 
         self.pb_client.resetDebugVisualizerCamera(
-            distance, yaw, pitch, position)
+            distance, yaw, pitch, position
+        )

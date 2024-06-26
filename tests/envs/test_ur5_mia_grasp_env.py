@@ -11,7 +11,7 @@ def env():
         verbose=False,
         horizon=10,
         object_name="insole",
-        #observable_object_pos=True,
+        # observable_object_pos=True,
     )
 
 
@@ -83,4 +83,3 @@ def test_eps_done(env):
     obs, reward, terminated, truncated, info = env.step(action)
 
     assert terminated
-

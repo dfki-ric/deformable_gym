@@ -3,6 +3,7 @@ from typing import List, Union
 
 class PositionControlMixin:
     """Mixin for position-controlled robots."""
+
     velocity_commands = False
 
     def actuate_motors(self, keys: Union[List[str], None] = None):
@@ -20,6 +21,7 @@ class PositionControlMixin:
 
 class VelocityControlMixin:
     """Mixin for velocity-controlled robots."""
+
     velocity_commands = True
 
     def actuate_motors(self, keys: Union[List[str], None] = None):

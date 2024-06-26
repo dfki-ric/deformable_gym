@@ -22,6 +22,7 @@ def test_ur10_shadow_velocity_creation(simulation, robot):
 
 
 def test_ur10_shadow_velocity_motor_creation(
-        simulation, robot, ur10_shadow_motors):
+    simulation, robot, ur10_shadow_motors
+):
     # check motor creation
     assert set(robot.motors.keys()) == set(ur10_shadow_motors)

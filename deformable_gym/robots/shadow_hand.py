@@ -12,7 +12,8 @@ from pybullet_utils import bullet_client as bc
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/shadow_hand.urdf")
+    "robots/urdf/shadow_hand.urdf",
+)
 
 
 class ShadowHand(HandMixin, BulletRobot, abc.ABC):
@@ -37,15 +38,18 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
     :param base_commands: Control pose of the hand (add 7 components to action
     space).
     """
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            verbose: bool = False,
-            task_space_limit: Union[npt.ArrayLike, None] = None,
-            orn_limit: Union[npt.ArrayLike, None] = None,
-            world_pos: npt.ArrayLike = (0, 0, 1),
-            world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
-            debug_visualization: bool = True, **kwargs):
+        self,
+        pb_client: bc.BulletClient,
+        verbose: bool = False,
+        task_space_limit: Union[npt.ArrayLike, None] = None,
+        orn_limit: Union[npt.ArrayLike, None] = None,
+        world_pos: npt.ArrayLike = (0, 0, 1),
+        world_orn: npt.ArrayLike = (-np.pi / 8, np.pi, 0),
+        debug_visualization: bool = True,
+        **kwargs,
+    ):
         super().__init__(
             urdf_path=URDF_PATH,
             pb_client=pb_client,
@@ -54,7 +58,8 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
             world_orn=world_orn,
             task_space_limit=task_space_limit,
             orn_limit=orn_limit,
-            **kwargs)
+            **kwargs,
+        )
         self.debug_visualization = debug_visualization
 
         hand_command_wrapper = RobotCommandWrapper(self, self.motors)

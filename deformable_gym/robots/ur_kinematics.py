@@ -34,6 +34,7 @@ class UR10Params:
     d5 = 0.1157
     d6 = 0.0922
 
+
 # TODO determine parameters for UR10e
 
 ZERO_THRESH = 1e-8
@@ -42,67 +43,107 @@ TWO_PI = 2.0 * math.pi
 
 ee_kin2ee_options = {
     # see experimental/test_ur5_mia_cartesian.py
-    "palm": np.array([
-        [5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
-        [9.68930791e-01,  5.69331010e-05,  2.47332003e-01, 1.72392460e-02],
-        [-2.47332002e-01, -1.45329037e-05,  9.68930792e-01, -4.44860194e-03],
-        [0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]]),
-    "ur5_tool0": np.array([
-        [5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
-        [7.22061953e-04,  4.24274124e-08, -9.99999739e-01, 5.94256999e-05],
-        [9.99999738e-01,  5.87586715e-05,  7.22061954e-04, -1.96120385e-04],
-        [0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]]),
-    "rh_forearm": np.array([  # TODO: configure this?
-        [6.34136230e-07, -9.99999683e-01, -7.96326458e-04, 0.00000000e+00],
-        [7.96326458e-04, 7.96326711e-04, -9.99999366e-01, 0.00000000e+00],
-        [9.99999683e-01, 0.00000000e+00, 7.96326711e-04, 0.00000000e+00],
-        [0.00000000e+00,  0.00000000e+00,  0.00000000e+00, 1.00000000e+00]])
+    "palm": np.array(
+        [
+            [5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
+            [9.68930791e-01, 5.69331010e-05, 2.47332003e-01, 1.72392460e-02],
+            [-2.47332002e-01, -1.45329037e-05, 9.68930792e-01, -4.44860194e-03],
+            [0.00000000e00, 0.00000000e00, 0.00000000e00, 1.00000000e00],
+        ]
+    ),
+    "ur5_tool0": np.array(
+        [
+            [5.87586868e-05, -9.99999998e-01, -1.83652792e-16, -2.47027865e-05],
+            [7.22061953e-04, 4.24274124e-08, -9.99999739e-01, 5.94256999e-05],
+            [9.99999738e-01, 5.87586715e-05, 7.22061954e-04, -1.96120385e-04],
+            [0.00000000e00, 0.00000000e00, 0.00000000e00, 1.00000000e00],
+        ]
+    ),
+    "rh_forearm": np.array(
+        [  # TODO: configure this?
+            [6.34136230e-07, -9.99999683e-01, -7.96326458e-04, 0.00000000e00],
+            [7.96326458e-04, 7.96326711e-04, -9.99999366e-01, 0.00000000e00],
+            [9.99999683e-01, 0.00000000e00, 7.96326711e-04, 0.00000000e00],
+            [0.00000000e00, 0.00000000e00, 0.00000000e00, 1.00000000e00],
+        ]
+    ),
 }
 
-urdf_base2kin_base = np.array([
-    [1., 0., 0., 0.],
-    [0., 1., 0., 0.],
-    [0., 0., 1., -1.],
-    [0., 0., 0., 1.]])
-robot_params = {
-    "ur3": UR3Params,
-    "ur5": UR5Params,
-    "ur10": UR10Params
-}
+urdf_base2kin_base = np.array(
+    [
+        [1.0, 0.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0, 0.0],
+        [0.0, 0.0, 1.0, -1.0],
+        [0.0, 0.0, 0.0, 1.0],
+    ]
+)
+robot_params = {"ur3": UR3Params, "ur5": UR5Params, "ur10": UR10Params}
 
 
-joint_names = ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint",
-               "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]
-link_names = ["base_link", "shoulder_link", "upper_arm_link", "forearm_link",
-              "wrist_1_link", "wrist_2_link", "wrist_3_link", "ee_link"]
-joint_min = [-3.141592653589793, -3.141592653589793, 0.0,
-             -3.141592653589793, -3.141592653589793, -0.7853981633974483]
-joint_max = [3.141592653589793, 0.7400196028455958, 2.93005874824808,
-             3.141592653589793, 3.141592653589793, 5.497787143782138]
+joint_names = [
+    "shoulder_pan_joint",
+    "shoulder_lift_joint",
+    "elbow_joint",
+    "wrist_1_joint",
+    "wrist_2_joint",
+    "wrist_3_joint",
+]
+link_names = [
+    "base_link",
+    "shoulder_link",
+    "upper_arm_link",
+    "forearm_link",
+    "wrist_1_link",
+    "wrist_2_link",
+    "wrist_3_link",
+    "ee_link",
+]
+joint_min = [
+    -3.141592653589793,
+    -3.141592653589793,
+    0.0,
+    -3.141592653589793,
+    -3.141592653589793,
+    -0.7853981633974483,
+]
+joint_max = [
+    3.141592653589793,
+    0.7400196028455958,
+    2.93005874824808,
+    3.141592653589793,
+    3.141592653589793,
+    5.497787143782138,
+]
 
 
 def analytical_ik(
-        pose,
-        last_joint_angles,
-        params=UR5Params,
-        urdf_base2kin_base=urdf_base2kin_base,
-        ee_kin2ee=ee_kin2ee_options["ur5_tool0"]
+    pose,
+    last_joint_angles,
+    params=UR5Params,
+    urdf_base2kin_base=urdf_base2kin_base,
+    ee_kin2ee=ee_kin2ee_options["ur5_tool0"],
 ):
     """Analytical inverse kinematics for universal robot arms."""
     ee_link2urdf_base = pt.transform_from(
         R=pr.matrix_from_quaternion([pose[-1], pose[3], pose[4], pose[5]]),
-        p=pose[:3])
+        p=pose[:3],
+    )
     return analytical_ik_homogeneous(
-        ee_link2urdf_base, last_joint_angles, params, urdf_base2kin_base,
-        ee_kin2ee)
+        ee_link2urdf_base,
+        last_joint_angles,
+        params,
+        urdf_base2kin_base,
+        ee_kin2ee,
+    )
 
 
 def analytical_ik_homogeneous(
-        ee_link2urdf_base,
-        last_joint_angles,
-        params=UR5Params,
-        urdf_base2kin_base=urdf_base2kin_base,
-        ee_kin2ee=ee_kin2ee_options["ur5_tool0"]):
+    ee_link2urdf_base,
+    last_joint_angles,
+    params=UR5Params,
+    urdf_base2kin_base=urdf_base2kin_base,
+    ee_kin2ee=ee_kin2ee_options["ur5_tool0"],
+):
     """Analytical inverse kinematics for universal robot arms."""
     ee_link2kin_base = pt.concat(ee_link2urdf_base, urdf_base2kin_base)
     ee2kin_base = pt.concat(ee_kin2ee, ee_link2kin_base)
@@ -118,8 +159,12 @@ def analytical_ik_homogeneous(
     if len(valid_solutions) > 0:
         solution = np.copy(last_joint_angles)
         best_solution_idx = np.argmin(
-            np.linalg.norm(np.array(valid_solutions)
-                           - last_joint_angles[np.newaxis, :n_joints], axis=1))
+            np.linalg.norm(
+                np.array(valid_solutions)
+                - last_joint_angles[np.newaxis, :n_joints],
+                axis=1,
+            )
+        )
         solution[:n_joints] = valid_solutions[best_solution_idx]
         return solution
     else:
@@ -149,21 +194,34 @@ def _forward(q, params):
     T[0, 0] = c234 * c1 * s5 - c5 * s1
     T[0, 1] = c6 * (s1 * s5 + c234 * c1 * c5) - s234 * c1 * s6
     T[0, 2] = -s6 * (s1 * s5 + c234 * c1 * c5) - s234 * c1 * c6
-    T[0, 3] = (params.d6 * c234 * c1 * s5 - params.a3 * c23 * c1
-               - params.a2 * c1 * c2 - params.d6 * c5 * s1 - params.d5 * s234 * c1
-               - params.d4 * s1)
+    T[0, 3] = (
+        params.d6 * c234 * c1 * s5
+        - params.a3 * c23 * c1
+        - params.a2 * c1 * c2
+        - params.d6 * c5 * s1
+        - params.d5 * s234 * c1
+        - params.d4 * s1
+    )
     T[1, 0] = c1 * c5 + c234 * s1 * s5
     T[1, 1] = -c6 * (c1 * s5 - c234 * c5 * s1) - s234 * s1 * s6
     T[1, 2] = s6 * (c1 * s5 - c234 * c5 * s1) - s234 * c6 * s1
-    T[1, 3] = (params.d6 * (c1 * c5 + c234 * s1 * s5) + params.d4 * c1
-               - params.a3 * c23 * s1 - params.a2 * c2 * s1
-               - params.d5 * s234 * s1)
+    T[1, 3] = (
+        params.d6 * (c1 * c5 + c234 * s1 * s5)
+        + params.d4 * c1
+        - params.a3 * c23 * s1
+        - params.a2 * c2 * s1
+        - params.d5 * s234 * s1
+    )
     T[2, 0] = -s234 * s5
     T[2, 1] = -c234 * s6 - s234 * c5 * c6
     T[2, 2] = s234 * c5 * s6 - c234 * c6
-    T[2, 3] = (params.d1 + params.a3 * s23 + params.a2 * s2
-               - params.d5 * (c23 * c4 - s23 * s4)
-               - params.d6 * s5 * (c23 * s4 + s23 * c4))
+    T[2, 3] = (
+        params.d1
+        + params.a3 * s23
+        + params.a2 * s2
+        - params.d5 * (c23 * c4 - s23 * s4)
+        - params.d6 * s5 * (c23 * s4 + s23 * c4)
+    )
     T[3, 0] = 0.0
     T[3, 1] = 0.0
     T[3, 2] = 0.0
@@ -239,7 +297,7 @@ def _inverse(T, q6_des, params):
     q5 = np.empty((2, 2))
 
     for i in range(2):
-        numer = (T03 * math.sin(q1[i]) - T13 * math.cos(q1[i]) - params.d4)
+        numer = T03 * math.sin(q1[i]) - T13 * math.cos(q1[i]) - params.d4
         if abs(abs(numer) - abs(params.d6)) < ZERO_THRESH:
             div = _fast_sign(numer) * _fast_sign(params.d6)
         else:
@@ -259,8 +317,10 @@ def _inverse(T, q6_des, params):
             if abs(s5) < ZERO_THRESH:
                 q6 = q6_des
             else:
-                q6 = math.atan2(_fast_sign(s5) * -(T01 * s1 - T11 * c1),
-                                _fast_sign(s5) * (T00 * s1 - T10 * c1))
+                q6 = math.atan2(
+                    _fast_sign(s5) * -(T01 * s1 - T11 * c1),
+                    _fast_sign(s5) * (T00 * s1 - T10 * c1),
+                )
                 if abs(q6) < ZERO_THRESH:
                     q6 = 0.0
 
@@ -270,14 +330,30 @@ def _inverse(T, q6_des, params):
             # RRR joints (q2,q3,q4)
             c6 = math.cos(q6)
             s6 = math.sin(q6)
-            x04x = -s5 * (T02 * c1 + T12 * s1) - c5 * (s6 * (T01 * c1 + T11 * s1) - c6 * (T00 * c1 + T10 * s1))
+            x04x = -s5 * (T02 * c1 + T12 * s1) - c5 * (
+                s6 * (T01 * c1 + T11 * s1) - c6 * (T00 * c1 + T10 * s1)
+            )
             x04y = c5 * (T20 * c6 - T21 * s6) - T22 * s5
-            p13x = (params.d5 * (s6 * (T00 * c1 + T10 * s1) + c6 * (T01 * c1 + T11 * s1))
-                    - params.d6 * (T02 * c1 + T12 * s1) + T03 * c1 + T13 * s1)
-            p13y = T23 - params.d1 - params.d6 * T22 + params.d5 * (T21 * c6 + T20 * s6)
+            p13x = (
+                params.d5
+                * (s6 * (T00 * c1 + T10 * s1) + c6 * (T01 * c1 + T11 * s1))
+                - params.d6 * (T02 * c1 + T12 * s1)
+                + T03 * c1
+                + T13 * s1
+            )
+            p13y = (
+                T23
+                - params.d1
+                - params.d6 * T22
+                + params.d5 * (T21 * c6 + T20 * s6)
+            )
 
-            c3 = ((p13x * p13x + p13y * p13y - params.a2 * params.a2 - params.a3 * params.a3)
-                  / (2.0 * params.a2 * params.a3))
+            c3 = (
+                p13x * p13x
+                + p13y * p13y
+                - params.a2 * params.a2
+                - params.a3 * params.a3
+            ) / (2.0 * params.a2 * params.a3)
             if abs(abs(c3) - 1.0) < ZERO_THRESH:
                 c3 = _fast_sign(c3)
             elif abs(c3) > 1.0:
@@ -285,18 +361,30 @@ def _inverse(T, q6_des, params):
             arccos = math.acos(c3)
             q3[0] = arccos
             q3[1] = TWO_PI - arccos
-            denom = params.a2 * params.a2 + params.a3 * params.a3 + 2 * params.a2 * params.a3 * c3
+            denom = (
+                params.a2 * params.a2
+                + params.a3 * params.a3
+                + 2 * params.a2 * params.a3 * c3
+            )
             s3 = math.sin(arccos)
             A = params.a2 + params.a3 * c3
             B = params.a3 * s3
-            q2[0] = math.atan2((A * p13y - B * p13x) / denom, (A * p13x + B * p13y) / denom)
-            q2[1] = math.atan2((A * p13y + B * p13x) / denom, (A * p13x - B * p13y) / denom)
+            q2[0] = math.atan2(
+                (A * p13y - B * p13x) / denom, (A * p13x + B * p13y) / denom
+            )
+            q2[1] = math.atan2(
+                (A * p13y + B * p13x) / denom, (A * p13x - B * p13y) / denom
+            )
             c23_0 = math.cos(q2[0] + q3[0])
             s23_0 = math.sin(q2[0] + q3[0])
             c23_1 = math.cos(q2[1] + q3[1])
             s23_1 = math.sin(q2[1] + q3[1])
-            q4[0] = math.atan2(c23_0 * x04y - s23_0 * x04x, x04x * c23_0 + x04y * s23_0)
-            q4[1] = math.atan2(c23_1 * x04y - s23_1 * x04x, x04x * c23_1 + x04y * s23_1)
+            q4[0] = math.atan2(
+                c23_0 * x04y - s23_0 * x04x, x04x * c23_0 + x04y * s23_0
+            )
+            q4[1] = math.atan2(
+                c23_1 * x04y - s23_1 * x04x, x04x * c23_1 + x04y * s23_1
+            )
 
             for k in range(2):
                 if abs(q2[k]) < ZERO_THRESH:

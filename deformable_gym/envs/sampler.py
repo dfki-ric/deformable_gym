@@ -4,8 +4,7 @@ import numpy as np
 
 
 class Sampler(Protocol):
-    def sample_initial_pose(self) -> npt.NDArray:
-        ...
+    def sample_initial_pose(self) -> npt.NDArray: ...
 
 
 class FixedSampler(Sampler):
@@ -18,10 +17,10 @@ class FixedSampler(Sampler):
 
 class GaussianSampler(Sampler):
     def __init__(
-            self,
-            mu: npt.ArrayLike,
-            sigma: npt.ArrayLike,
-            seed: Optional[int] = None
+        self,
+        mu: npt.ArrayLike,
+        sigma: npt.ArrayLike,
+        seed: Optional[int] = None,
     ):
         self.mu = np.array(mu)
         self.sigma = np.array(sigma)
@@ -33,10 +32,10 @@ class GaussianSampler(Sampler):
 
 class UniformSampler(Sampler):
     def __init__(
-            self,
-            low: npt.ArrayLike,
-            high: npt.ArrayLike,
-            seed: Optional[int] = None
+        self,
+        low: npt.ArrayLike,
+        high: npt.ArrayLike,
+        seed: Optional[int] = None,
     ):
         self.low = np.array(low)
         self.high = np.array(high)
@@ -48,11 +47,11 @@ class UniformSampler(Sampler):
 
 class GaussianCurriculumSampler(Sampler):
     def __init__(
-            self,
-            mu: npt.ArrayLike,
-            sigma: npt.ArrayLike,
-            step_size: Union[float, npt.ArrayLike] = 1e-3,
-            seed: Optional[int] = None
+        self,
+        mu: npt.ArrayLike,
+        sigma: npt.ArrayLike,
+        step_size: Union[float, npt.ArrayLike] = 1e-3,
+        seed: Optional[int] = None,
     ):
         self.mu = np.array(mu)
         self.sigma = np.array(sigma)
@@ -66,11 +65,11 @@ class GaussianCurriculumSampler(Sampler):
 
 class UniformCurriculumSampler(Sampler):
     def __init__(
-            self,
-            low: npt.ArrayLike,
-            high: npt.ArrayLike,
-            step_size: Union[float, npt.ArrayLike] = 1e-3,
-            seed: Optional[int] = None
+        self,
+        low: npt.ArrayLike,
+        high: npt.ArrayLike,
+        step_size: Union[float, npt.ArrayLike] = 1e-3,
+        seed: Optional[int] = None,
     ):
         self.low = np.array(low)
         self.high = np.array(high)
@@ -85,16 +84,20 @@ class UniformCurriculumSampler(Sampler):
 
 class GridSampler(Sampler):
     def __init__(
-            self,
-            low: npt.ArrayLike,
-            high: npt.ArrayLike,
-            n_points_per_axis: npt.ArrayLike,
+        self,
+        low: npt.ArrayLike,
+        high: npt.ArrayLike,
+        n_points_per_axis: npt.ArrayLike,
     ):
         self.n_dims = len(low)
-        points_per_axis = [np.linspace(
-            low[i], high[i], n_points_per_axis[i]) for i in range(self.n_dims)]
+        points_per_axis = [
+            np.linspace(low[i], high[i], n_points_per_axis[i])
+            for i in range(self.n_dims)
+        ]
 
-        self.grid = np.array(np.meshgrid(*points_per_axis)).T.reshape(-1, self.n_dims)
+        self.grid = np.array(np.meshgrid(*points_per_axis)).T.reshape(
+            -1, self.n_dims
+        )
         self.n_samples = len(self.grid)
         self.n_calls = 0
 

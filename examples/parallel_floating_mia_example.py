@@ -43,4 +43,3 @@ while num_episodes < 3 and num_episodes2 < 3:
 
 env.close()
 env2.close()
-

@@ -76,17 +76,18 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         timing information (default: 0.1).
     :param pybullet_options: Options to pass to pybullet.connect().
     """
+
     robot: ur5_mia.UR5Mia
 
     object2world = pt.transform_from(R=np.eye(3), p=np.array([-0.7, 0.1, 1.8]))
 
     def __init__(
-            self,
-            object_name: str = "insole",
-            thumb_adducted: bool = True,
-            object_scale: float = 1.0,
-            observable_object_pos: bool = False,
-            **kwargs
+        self,
+        object_name: str = "insole",
+        thumb_adducted: bool = True,
+        object_scale: float = 1.0,
+        observable_object_pos: bool = False,
+        **kwargs,
     ):
 
         self.velocity_commands = False
@@ -95,44 +96,56 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
         self.thumb_adducted = thumb_adducted
         self.object_scale = object_scale
 
-        super().__init__(
-            soft=True,
-            **kwargs
-        )
+        super().__init__(soft=True, **kwargs)
 
         self.robot = self._create_robot()
         self._observable_object_pos = observable_object_pos
 
         limits = pbh.get_limit_array(self.robot.motors.values())
 
-        lower_observations = np.concatenate([
-            np.array([-2, -2, 0]), -np.ones(4), limits[0][6:],
-            np.array([-5, -5, -5])], axis=0)
+        lower_observations = np.concatenate(
+            [
+                np.array([-2, -2, 0]),
+                -np.ones(4),
+                limits[0][6:],
+                np.array([-5, -5, -5]),
+            ],
+            axis=0,
+        )
 
-        upper_observations = np.concatenate([
-            np.array([2, 2, 2]), np.ones(4), limits[1][6:],
-            np.array([5, 5, 5])], axis=0)
+        upper_observations = np.concatenate(
+            [
+                np.array([2, 2, 2]),
+                np.ones(4),
+                limits[1][6:],
+                np.array([5, 5, 5]),
+            ],
+            axis=0,
+        )
 
         if self._observable_object_pos:
-            lower_observations = np.append(
-                lower_observations, -np.full(3, 2.))
-            upper_observations = np.append(
-                upper_observations, np.full(3, 2.))
+            lower_observations = np.append(lower_observations, -np.full(3, 2.0))
+            upper_observations = np.append(upper_observations, np.full(3, 2.0))
 
         self.observation_space = spaces.Box(
-            low=lower_observations, high=upper_observations)
+            low=lower_observations, high=upper_observations
+        )
 
         actuated_finger_ids = np.array([6, 7, 11], dtype=int)
 
-        lower_actions = np.concatenate([
-            np.array([-2, -2, 0]),
-            -np.ones(4),
-            limits[0][actuated_finger_ids]], axis=0)
+        lower_actions = np.concatenate(
+            [
+                np.array([-2, -2, 0]),
+                -np.ones(4),
+                limits[0][actuated_finger_ids],
+            ],
+            axis=0,
+        )
 
-        upper_actions = np.concatenate([
-            np.array([2, 2, 2]),
-            np.ones(4),
-            limits[1][actuated_finger_ids]], axis=0)
+        upper_actions = np.concatenate(
+            [np.array([2, 2, 2]), np.ones(4), limits[1][actuated_finger_ids]],
+            axis=0,
+        )
 
         self.action_space = spaces.Box(low=lower_actions, high=upper_actions)
 
@@ -146,14 +159,16 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
                 task_space_limit=task_space_limit,
                 end_effector_link="palm",
                 verbose=self.verbose,
-                orn_limit=orn_limit)
+                orn_limit=orn_limit,
+            )
         else:
             robot = ur5_mia.UR5MiaPosition(
                 pb_client=self.pb_client,
                 task_space_limit=task_space_limit,
                 end_effector_link="palm",
                 verbose=self.verbose,
-                orn_limit=orn_limit)
+                orn_limit=orn_limit,
+            )
 
         self.simulation.add_robot(robot)
 
@@ -164,12 +179,15 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _load_objects(self):
         super()._load_objects()
-        (self.object_to_grasp,
-         self.object_position,
-         self.object_orientation) = ObjectFactory(self.pb_client).create(
+        (
+            self.object_to_grasp,
+            self.object_position,
+            self.object_orientation,
+        ) = ObjectFactory(self.pb_client).create(
             self.object_name,
             object2world=self.object2world,
-            scale=self.object_scale)
+            scale=self.object_scale,
+        )
 
     def reset(self, seed=None, options=None):
         self.object_to_grasp.reset()
@@ -178,7 +196,8 @@ class UR5MiaGraspEnv(GraspDeformableMixin, BaseBulletEnv):
 
     def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(
-            self.robot.actuated_real_joints)
+            self.robot.actuated_real_joints
+        )
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 

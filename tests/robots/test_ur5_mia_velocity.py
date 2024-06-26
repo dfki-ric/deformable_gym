@@ -19,13 +19,15 @@ def test_ur5_mia_velocity_creation(simulation, robot):
     expected_pose = np.array([0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0])
     assert_almost_equal(actual_pose, expected_pose)
 
-    robot.perform_command(np.array([0.3, -0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+    robot.perform_command(
+        np.array([0.3, -0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    )
 
 
 def test_ur5_mia_velocity_motor_creation(
-        simulation, robot, ur5_mia_motors, ur5_mia_sensors):
+    simulation, robot, ur5_mia_motors, ur5_mia_sensors
+):
     # check motor creation
     assert set(robot.motors.keys()) == set(ur5_mia_motors)
     # check sensor creation
     assert set(robot.sensors.keys()) == set(ur5_mia_sensors)
-

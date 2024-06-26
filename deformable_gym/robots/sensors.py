@@ -69,15 +69,21 @@ class MiaHandForceSensors:
         Sensor values of an episode will be stored in debug mode.
     """
 
-    SENSOR_NAMES = ["middle tangential", "index normal", "index tangential",
-                    "thumb tangential", "thumb normal", "middle normal"]
+    SENSOR_NAMES = [
+        "middle tangential",
+        "index normal",
+        "index tangential",
+        "thumb tangential",
+        "thumb normal",
+        "middle normal",
+    ]
 
     def __init__(
-            self,
-            robot_id: int,
-            joint_name_to_joint_id: dict,
-            pb_client: bc.BulletClient,
-            debug: bool = False,
+        self,
+        robot_id: int,
+        joint_name_to_joint_id: dict,
+        pb_client: bc.BulletClient,
+        debug: bool = False,
     ):
         self.robot_id = robot_id
         self.index_sensor_id = joint_name_to_joint_id[INDEX_SENSOR_NAME]
@@ -89,10 +95,11 @@ class MiaHandForceSensors:
         for sensor_id in [
             self.index_sensor_id,
             self.middle_sensor_id,
-            self.thumb_sensor_id
+            self.thumb_sensor_id,
         ]:
             self.pb_client.enableJointForceTorqueSensor(
-                self.robot_id, sensor_id)
+                self.robot_id, sensor_id
+            )
 
         if self.debug:
             self.history = []
@@ -119,8 +126,10 @@ class MiaHandForceSensors:
         upper : array, shape (6,)
             Upper limits of sensor values.
         """
-        return (np.array([-204.0, -512.0, -204.0, -285.0, -512.0, -512.0]),
-                np.array([204.0, 512.0, 204.0, 285.0, 512.0, 512.0]))
+        return (
+            np.array([-204.0, -512.0, -204.0, -285.0, -512.0, -512.0]),
+            np.array([204.0, 512.0, 204.0, 285.0, 512.0, 512.0]),
+        )
 
     def measure(self, out=None):
         """Take a force measurement.
@@ -143,7 +152,8 @@ class MiaHandForceSensors:
             self.pb_client.getJointState(
                 self.robot_id,
                 self.index_sensor_id,
-            )[2])
+            )[2]
+        )
         out[1] = T_ind_z * MM_PER_M / 2.006
         out[2] = T_ind_x * MM_PER_M / 2.854
 
@@ -151,7 +161,8 @@ class MiaHandForceSensors:
             self.pb_client.getJointState(
                 self.robot_id,
                 self.middle_sensor_id,
-            )[2])
+            )[2]
+        )
         out[5] = T_mrl_z * MM_PER_M / 2.006
         out[0] = T_mrl_x * MM_PER_M / 2.854
 
@@ -159,7 +170,8 @@ class MiaHandForceSensors:
             self.pb_client.getJointState(
                 self.robot_id,
                 self.thumb_sensor_id,
-            )[2])
+            )[2]
+        )
         out[3] = T_th_y * MM_PER_M / 3.673
         out[4] = F_th_y / 0.056
 

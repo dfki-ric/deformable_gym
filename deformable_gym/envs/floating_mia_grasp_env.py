@@ -35,14 +35,15 @@ class FloatingMiaGraspEnv(GraspEnv):
     """
 
     INITIAL_POSE = np.r_[
-        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi/8, np.pi, 0])]
+        0.03, -0.025, 1.0, pb.getQuaternionFromEuler([-np.pi / 8, np.pi, 0])
+    ]
 
     _FINGERS_OPEN = {
         "j_index_fle": 0.0,
         "j_little_fle": 0.0,
         "j_mrl_fle": 0.0,
         "j_ring_fle": 0.0,
-        "j_thumb_fle": 0.0
+        "j_thumb_fle": 0.0,
     }
 
     _FINGERS_HALFWAY_CLOSED = {
@@ -50,7 +51,7 @@ class FloatingMiaGraspEnv(GraspEnv):
         "j_little_fle": 0.5,
         "j_mrl_fle": 0.5,
         "j_ring_fle": 0.5,
-        "j_thumb_fle": 0.3
+        "j_thumb_fle": 0.3,
     }
 
     _FINGERS_CLOSED = {
@@ -58,18 +59,19 @@ class FloatingMiaGraspEnv(GraspEnv):
         "j_little_fle": 0.71,
         "j_mrl_fle": 0.71,
         "j_ring_fle": 0.71,
-        "j_thumb_fle": 0.3
+        "j_thumb_fle": 0.3,
     }
 
-    _MAX_POS_OFFSET = .0005
-    _MAX_ORN_OFFSET = .000005
+    _MAX_POS_OFFSET = 0.0005
+    _MAX_ORN_OFFSET = 0.000005
 
     def __init__(
-            self,
-            object_name: str = "insole",
-            object_scale: float = 1.0,
-            observable_object_pos: bool = False,
-            **kwargs):
+        self,
+        object_name: str = "insole",
+        object_scale: float = 1.0,
+        observable_object_pos: bool = False,
+        **kwargs,
+    ):
 
         self.velocity_commands = False
 
@@ -77,7 +79,8 @@ class FloatingMiaGraspEnv(GraspEnv):
             object_name=object_name,
             object_scale=object_scale,
             observable_object_pos=observable_object_pos,
-            **kwargs)
+            **kwargs,
+        )
 
         self.hand_world_pose = self.INITIAL_POSE
         self.robot = self._create_robot()
@@ -85,47 +88,50 @@ class FloatingMiaGraspEnv(GraspEnv):
         limits = pbh.get_limit_array(self.robot.motors.values())
         self.actuated_finger_ids = np.array([0, 1, 5], dtype=int)
 
-        lower_observations = np.concatenate([
-            np.array([-2, -2, 0]),
-            -np.ones(4),
-            limits[0][self.actuated_finger_ids],
-            -np.full(6, 10)])
+        lower_observations = np.concatenate(
+            [
+                np.array([-2, -2, 0]),
+                -np.ones(4),
+                limits[0][self.actuated_finger_ids],
+                -np.full(6, 10),
+            ]
+        )
 
-        upper_observations = np.concatenate([
-            np.array([2, 2, 2]),
-            np.ones(4),
-            limits[1][self.actuated_finger_ids],
-            np.full(6, 10.)])
+        upper_observations = np.concatenate(
+            [
+                np.array([2, 2, 2]),
+                np.ones(4),
+                limits[1][self.actuated_finger_ids],
+                np.full(6, 10.0),
+            ]
+        )
 
         if self._observable_object_pos:
-            lower_observations = np.append(
-                lower_observations, -np.full(3, 2.))
-            upper_observations = np.append(
-                upper_observations, np.full(3, 2.))
+            lower_observations = np.append(lower_observations, -np.full(3, 2.0))
+            upper_observations = np.append(upper_observations, np.full(3, 2.0))
 
         self.observation_space = spaces.Box(
-            low=lower_observations,
-            high=upper_observations,
-            dtype=np.float64
+            low=lower_observations, high=upper_observations, dtype=np.float64
         )
 
         # build the action space
         lower = [
             -np.full(3, self._MAX_POS_OFFSET),  # max negative base pos offset
             -np.full(4, self._MAX_ORN_OFFSET),  # max negative base orn offset
-            limits[0][self.actuated_finger_ids]
+            limits[0][self.actuated_finger_ids],
         ]  # negative joint limits
 
         upper = [
             np.full(3, self._MAX_POS_OFFSET),  # max positive base pos offset
             np.full(4, self._MAX_ORN_OFFSET),  # max positive base orn offset
-            limits[1][self.actuated_finger_ids]
+            limits[1][self.actuated_finger_ids],
         ]  # positive joint limits
 
         self.action_space = spaces.Box(
             low=np.concatenate(lower),
             high=np.concatenate(upper),
-            dtype=np.float64)
+            dtype=np.float64,
+        )
 
     def _create_robot(self):
         orn_limit = None
@@ -137,7 +143,8 @@ class FloatingMiaGraspEnv(GraspEnv):
                 world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
                 orn_limit=orn_limit,
-                base_commands=True)
+                base_commands=True,
+            )
         else:
             robot = mia_hand.MiaHandPosition(
                 self.pb_client,
@@ -145,7 +152,8 @@ class FloatingMiaGraspEnv(GraspEnv):
                 world_orn=self.hand_world_pose[3:],
                 verbose=self.verbose,
                 orn_limit=orn_limit,
-                base_commands=True)
+                base_commands=True,
+            )
 
         self.simulation.add_robot(robot)
 
@@ -153,7 +161,8 @@ class FloatingMiaGraspEnv(GraspEnv):
 
     def _get_observation(self):
         joint_pos = self.robot.get_joint_positions(
-            self.robot.actuated_real_joints)
+            self.robot.actuated_real_joints
+        )
         ee_pose = self.robot.get_ee_pose()
         sensor_readings = self.robot.get_sensor_readings()
 

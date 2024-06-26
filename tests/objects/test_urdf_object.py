@@ -16,7 +16,8 @@ def test_urdf_object_creation(simulation):
         simulation.pb_client,
         world_pos=TEST_POS,
         world_orn=TEST_ORN,
-        fixed=True)
+        fixed=True,
+    )
     pose = obj.get_pose()
     assert_array_almost_equal(pose, np.array([0, 0, 1, 1, 0, 0, 0]))
 

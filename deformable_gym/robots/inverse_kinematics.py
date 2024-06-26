@@ -1,20 +1,22 @@
 import numpy as np
 
-from ..robots.ur_kinematics import (analytical_ik,
-                                    ee_kin2ee_options,
-                                    robot_params,
-                                    urdf_base2kin_base)
+from ..robots.ur_kinematics import (
+    analytical_ik,
+    ee_kin2ee_options,
+    robot_params,
+    urdf_base2kin_base,
+)
 from pybullet_utils import bullet_client as bc
 
 
 class PyBulletSolver:
     def __init__(
-            self,
-            robot,
-            end_effector,
-            pb_client: bc.BulletClient,
-            n_iter: int = 200,
-            threshold: float = 1e-6,
+        self,
+        robot,
+        end_effector,
+        pb_client: bc.BulletClient,
+        n_iter: int = 200,
+        threshold: float = 1e-6,
     ):
         self.robot = robot
         self.pb_client = pb_client
@@ -35,16 +37,15 @@ class PyBulletSolver:
                 targetPosition=target_pos,
                 targetOrientation=target_orn,
                 maxNumIterations=self.n_iter,
-                residualThreshold=self.threshold))
+                residualThreshold=self.threshold,
+            )
+        )
         return out[:6]
 
 
 class UniversalRobotAnalyticalInverseKinematics:
     def __init__(
-            self,
-            robot_type="ur5",
-            end_effector_name="ur5_tool0",
-            fallback=None
+        self, robot_type="ur5", end_effector_name="ur5_tool0", fallback=None
     ):
         self.params = robot_params[robot_type]
         self.ee_kin2ee = ee_kin2ee_options[end_effector_name]
@@ -59,7 +60,8 @@ class UniversalRobotAnalyticalInverseKinematics:
             last_joint_angles,
             params=self.params,
             urdf_base2kin_base=urdf_base2kin_base,
-            ee_kin2ee=self.ee_kin2ee)
+            ee_kin2ee=self.ee_kin2ee,
+        )
 
         if joint_angles is None:
             if self.fallback is None:

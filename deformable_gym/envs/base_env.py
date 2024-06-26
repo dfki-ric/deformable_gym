@@ -26,6 +26,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
     :param verbose_dt: Time after which simulation info should be printed.
     :param pybullet_options: Options to pass to pybullet.connect().
     """
+
     gui: bool
     verbose: bool
     horizon: int
@@ -37,15 +38,16 @@ class BaseBulletEnv(gym.Env, abc.ABC):
     action_space: spaces.Box
 
     def __init__(
-            self,
-            gui: bool = True,
-            real_time: bool = False,
-            horizon: int = 100,
-            soft: bool = False,
-            verbose: bool = False,
-            time_delta: float = 0.001,
-            verbose_dt: float = 10.00,
-            pybullet_options: str = ""):
+        self,
+        gui: bool = True,
+        real_time: bool = False,
+        horizon: int = 100,
+        soft: bool = False,
+        verbose: bool = False,
+        time_delta: float = 0.001,
+        verbose_dt: float = 10.00,
+        pybullet_options: str = "",
+    ):
 
         self.gui = gui
         self.verbose = verbose
@@ -59,7 +61,8 @@ class BaseBulletEnv(gym.Env, abc.ABC):
             real_time=real_time,
             mode=mode,
             verbose_dt=verbose_dt,
-            pybullet_options=pybullet_options)
+            pybullet_options=pybullet_options,
+        )
 
         self.pb_client = self.simulation.pb_client
 
@@ -75,9 +78,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
     def _load_objects(self):
         """Load objects to PyBullet simulation."""
         self.plane = self.pb_client.loadURDF(
-            "plane.urdf",
-            (0, 0, 0),
-            useFixedBase=1
+            "plane.urdf", (0, 0, 0), useFixedBase=1
         )
 
     def _hard_reset(self):
@@ -140,11 +141,11 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         return self.robot.get_joint_positions()
 
     def _get_info(
-            self,
-            observation: npt.ArrayLike = None,
-            action: npt.ArrayLike = None,
-            reward: float = None,
-            next_observation: npt.ArrayLike = None
+        self,
+        observation: npt.ArrayLike = None,
+        action: npt.ArrayLike = None,
+        reward: float = None,
+        next_observation: npt.ArrayLike = None,
     ) -> dict:
         """Returns the current environment state.
 
@@ -153,10 +154,10 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         return {}
 
     def _is_terminated(
-            self,
-            observation: npt.ArrayLike,
-            action: npt.ArrayLike,
-            next_observation: npt.ArrayLike
+        self,
+        observation: npt.ArrayLike,
+        action: npt.ArrayLike,
+        next_observation: npt.ArrayLike,
     ) -> bool:
         """Checks whether the current episode is terminated.
 
@@ -168,10 +169,10 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         return self.step_counter >= self.horizon
 
     def _is_truncated(
-            self,
-            state: npt.ArrayLike,
-            action: npt.ArrayLike,
-            next_state: npt.ArrayLike
+        self,
+        state: npt.ArrayLike,
+        action: npt.ArrayLike,
+        next_state: npt.ArrayLike,
     ) -> bool:
         """Checks whether the current episode is truncated.
 
@@ -216,16 +217,19 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
         # calculate the reward
         reward = self.calculate_reward(
-            observation, action, next_observation, terminated)
+            observation, action, next_observation, terminated
+        )
 
         info = self._get_info(observation, action, reward)
 
         if self.verbose:
-            print(f"Finished environment step: "
-                  f"{next_observation=}, "
-                  f"{reward=}, "
-                  f"{terminated=}, "
-                  f"{truncated=}")
+            print(
+                f"Finished environment step: "
+                f"{next_observation=}, "
+                f"{reward=}, "
+                f"{terminated=}, "
+                f"{truncated=}"
+            )
 
         return next_observation, reward, terminated, truncated, info
 
@@ -234,11 +238,11 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
     @abc.abstractmethod
     def calculate_reward(
-            self,
-            state: npt.ArrayLike,
-            action: npt.ArrayLike,
-            next_state: npt.ArrayLike,
-            terminated: bool
+        self,
+        state: npt.ArrayLike,
+        action: npt.ArrayLike,
+        next_state: npt.ArrayLike,
+        terminated: bool,
     ) -> float:
         """Calculate reward.
 
@@ -295,7 +299,8 @@ class GraspDeformableMixin:
                  quaternion: (x, y, z, qw, qx, qy, qz)
         """
         return MultibodyPose.internal_pose_to_external_pose(
-            np.hstack((self.object_position, self.object_orientation)))
+            np.hstack((self.object_position, self.object_orientation))
+        )
 
 
 class FloatingHandMixin:
@@ -309,11 +314,10 @@ class FloatingHandMixin:
         """
         desired_robot2world_pos = self.hand_world_pose[:3]
         desired_robot2world_orn = pb.getQuaternionFromEuler(
-            self.hand_world_pose[3:])
+            self.hand_world_pose[3:]
+        )
         self.multibody_pose = MultibodyPose(
-            robot.get_id(),
-            desired_robot2world_pos,
-            desired_robot2world_orn
+            robot.get_id(), desired_robot2world_pos, desired_robot2world_orn
         )
 
     def set_world_pose(self, world_pose):
@@ -323,13 +327,15 @@ class FloatingHandMixin:
                            quaternion: (x, y, z, qw, qx, qy, qz)
         """
         self.hand_world_pose = MultibodyPose.external_pose_to_internal_pose(
-            world_pose)
+            world_pose
+        )
         desired_robot2world_pos = self.hand_world_pose[:3]
         desired_robot2world_orn = pb.getQuaternionFromEuler(
-            self.hand_world_pose[3:])
+            self.hand_world_pose[3:]
+        )
         self.multibody_pose.set_pose(
-            desired_robot2world_pos,
-            desired_robot2world_orn)
+            desired_robot2world_pos, desired_robot2world_orn
+        )
 
     def get_world_pose(self):
         """Get pose of the hand.

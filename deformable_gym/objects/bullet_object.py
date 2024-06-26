@@ -23,13 +23,11 @@ class BulletObjectBase(abc.ABC):
 
     :param client_id: Physics client ID for PyBullet interface calls.
     """
+
     object_id: int
     pb_client: bc.BulletClient
 
-    def __init__(
-            self,
-            pb_client: bc.BulletClient
-    ):
+    def __init__(self, pb_client: bc.BulletClient):
         self.pb_client = pb_client
 
     def get_pose(self):
@@ -63,6 +61,7 @@ class BulletObjectBase(abc.ABC):
 
 class PositionEulerAngleMixin:
     """Controls pose of an object through position and Euler angles."""
+
     init_pos: npt.ArrayLike
     init_orn: npt.ArrayLike
 
@@ -82,23 +81,25 @@ class PositionEulerAngleMixin:
     def reset(self):
         """Resets the object to its initial pose."""
         self.pb_client.resetBasePositionAndOrientation(
-            self.object_id, self.init_pos, self.init_orn)
+            self.object_id, self.init_pos, self.init_orn
+        )
 
 
 class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
     """Simple primitive object base."""
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            mass: float = 1.0,
-            world_pos=None,
-            world_orn=None,
-            fixed=False,
-            lateralFriction=None,
-            rollingFriction=None,
-            restitution=None,
-            contactStiffness=None,
-            contactDamping=None
+        self,
+        pb_client: bc.BulletClient,
+        mass: float = 1.0,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+        lateralFriction=None,
+        rollingFriction=None,
+        restitution=None,
+        contactStiffness=None,
+        contactDamping=None,
     ):
         super().__init__(pb_client)
         self.mass = mass
@@ -125,13 +126,20 @@ class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
             baseCollisionShapeIndex=primitive,
             baseVisualShapeIndex=-1,
             basePosition=self.init_pos,
-            baseOrientation=self.init_orn
+            baseOrientation=self.init_orn,
         )
 
         if self.fixed:
             self.anchor = self.pb_client.createConstraint(
-                self.object, -1, -1, -1, pb.JOINT_FIXED, [0, 0, 1], [0, 0, 0],
-                self.init_pos)
+                self.object,
+                -1,
+                -1,
+                -1,
+                pb.JOINT_FIXED,
+                [0, 0, 1],
+                [0, 0, 0],
+                self.init_pos,
+            )
             self.anchored = True
 
         dynamics_config = {}
@@ -146,8 +154,7 @@ class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
         if self.contactDamping is not None:
             dynamics_config["contactDamping"] = self.contactDamping
         if dynamics_config:
-            self.pb_client.changeDynamics(
-                self.object, -1, **dynamics_config)
+            self.pb_client.changeDynamics(self.object, -1, **dynamics_config)
 
         return self.object
 
@@ -166,20 +173,21 @@ class RigidPrimitiveObject(PositionEulerAngleMixin, BulletObjectBase):
 
 class MeshObject(RigidPrimitiveObject):
     """Simple mesh object."""
+
     def __init__(
-            self,
-            filename,
-            pb_client: bc.BulletClient,
-            world_pos=None,
-            world_orn=None,
-            mass=1.0,
-            scale=(1, 1, 1),
-            fixed=False,
-            lateralFriction=None,
-            rollingFriction=None,
-            restitution=None,
-            contactStiffness=None,
-            contactDamping=None
+        self,
+        filename,
+        pb_client: bc.BulletClient,
+        world_pos=None,
+        world_orn=None,
+        mass=1.0,
+        scale=(1, 1, 1),
+        fixed=False,
+        lateralFriction=None,
+        rollingFriction=None,
+        restitution=None,
+        contactStiffness=None,
+        contactDamping=None,
     ):
         self.filename = filename
         self.scale = scale
@@ -193,30 +201,33 @@ class MeshObject(RigidPrimitiveObject):
             rollingFriction=rollingFriction,
             restitution=restitution,
             contactStiffness=contactStiffness,
-            contactDamping=contactDamping
+            contactDamping=contactDamping,
         )
 
     def _create_primitive(self):
         return self.pb_client.createCollisionShape(
-            pb.GEOM_MESH, fileName=self.filename, meshScale=self.scale)
+            pb.GEOM_MESH, fileName=self.filename, meshScale=self.scale
+        )
 
 
 class BoxObject(RigidPrimitiveObject):
     """Simple box object."""
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            half_extents=(1, 1, 1),
-            mass=1.0,
-            world_pos=None,
-            world_orn=None,
-            fixed=False,
-            lateralFriction=None,
-            rollingFriction=None,
-            restitution=None,
-            contactStiffness=None,
-            contactDamping=None,
-            client_id=0):
+        self,
+        pb_client: bc.BulletClient,
+        half_extents=(1, 1, 1),
+        mass=1.0,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+        lateralFriction=None,
+        rollingFriction=None,
+        restitution=None,
+        contactStiffness=None,
+        contactDamping=None,
+        client_id=0,
+    ):
         self.half_extents = half_extents
         super().__init__(
             pb_client=pb_client,
@@ -228,30 +239,33 @@ class BoxObject(RigidPrimitiveObject):
             rollingFriction=rollingFriction,
             restitution=restitution,
             contactStiffness=contactStiffness,
-            contactDamping=contactDamping
+            contactDamping=contactDamping,
         )
 
     def _create_primitive(self):
         return self.pb_client.createCollisionShape(
-            pb.GEOM_BOX, halfExtents=self.half_extents)
+            pb.GEOM_BOX, halfExtents=self.half_extents
+        )
 
 
 class SphereObject(RigidPrimitiveObject):
     """Simple sphere object."""
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            radius=1.0,
-            mass=1.0,
-            world_pos=None,
-            world_orn=None,
-            fixed=False,
-            lateralFriction=None,
-            rollingFriction=None,
-            restitution=None,
-            contactStiffness=None,
-            contactDamping=None,
-            client_id=0):
+        self,
+        pb_client: bc.BulletClient,
+        radius=1.0,
+        mass=1.0,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+        lateralFriction=None,
+        rollingFriction=None,
+        restitution=None,
+        contactStiffness=None,
+        contactDamping=None,
+        client_id=0,
+    ):
         self.radius = radius
         super().__init__(
             pb_client=pb_client,
@@ -263,30 +277,32 @@ class SphereObject(RigidPrimitiveObject):
             rollingFriction=rollingFriction,
             restitution=restitution,
             contactStiffness=contactStiffness,
-            contactDamping=contactDamping
+            contactDamping=contactDamping,
         )
 
     def _create_primitive(self):
         return self.pb_client.createCollisionShape(
-            pb.GEOM_SPHERE, radius=self.radius)
+            pb.GEOM_SPHERE, radius=self.radius
+        )
 
 
 class CylinderObject(RigidPrimitiveObject):
     """Simple cylinder object."""
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            radius=1.0,
-            height=1.0,
-            mass=1.0,
-            world_pos=None,
-            world_orn=None,
-            fixed=False,
-            lateralFriction=None,
-            rollingFriction=None,
-            restitution=None,
-            contactStiffness=None,
-            contactDamping=None
+        self,
+        pb_client: bc.BulletClient,
+        radius=1.0,
+        height=1.0,
+        mass=1.0,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+        lateralFriction=None,
+        rollingFriction=None,
+        restitution=None,
+        contactStiffness=None,
+        contactDamping=None,
     ):
         self.radius = radius
         self.height = height
@@ -300,30 +316,32 @@ class CylinderObject(RigidPrimitiveObject):
             rollingFriction=rollingFriction,
             restitution=restitution,
             contactStiffness=contactStiffness,
-            contactDamping=contactDamping
+            contactDamping=contactDamping,
         )
 
     def _create_primitive(self):
         return self.pb_client.createCollisionShape(
-            pb.GEOM_CYLINDER, radius=self.radius, height=self.height)
+            pb.GEOM_CYLINDER, radius=self.radius, height=self.height
+        )
 
 
 class CapsuleObject(RigidPrimitiveObject):
     """Simple capsule object."""
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            radius=1.0,
-            height=1.0,
-            mass=1.0,
-            world_pos=None,
-            world_orn=None,
-            fixed=False,
-            lateralFriction=None,
-            rollingFriction=None,
-            restitution=None,
-            contactStiffness=None,
-            contactDamping=None
+        self,
+        pb_client: bc.BulletClient,
+        radius=1.0,
+        height=1.0,
+        mass=1.0,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+        lateralFriction=None,
+        rollingFriction=None,
+        restitution=None,
+        contactStiffness=None,
+        contactDamping=None,
     ):
         self.radius = radius
         self.height = height
@@ -337,14 +355,13 @@ class CapsuleObject(RigidPrimitiveObject):
             rollingFriction=rollingFriction,
             restitution=restitution,
             contactStiffness=contactStiffness,
-            contactDamping=contactDamping
+            contactDamping=contactDamping,
         )
 
     def _create_primitive(self):
         return self.pb_client.createCollisionShape(
-            pb.GEOM_CAPSULE,
-            radius=self.radius,
-            height=self.height)
+            pb.GEOM_CAPSULE, radius=self.radius, height=self.height
+        )
 
 
 class UrdfObject(PositionEulerAngleMixin, BulletObjectBase):
@@ -352,13 +369,16 @@ class UrdfObject(PositionEulerAngleMixin, BulletObjectBase):
 
     Provides some basic meta functionality for URDF-based objects.
     """
-    def __init__(self,
-                 filename,
-                 pb_client: bc.BulletClient,
-                 verbose=0,
-                 world_pos=None,
-                 world_orn=None,
-                 fixed=False):
+
+    def __init__(
+        self,
+        filename,
+        pb_client: bc.BulletClient,
+        verbose=0,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+    ):
         super().__init__(pb_client=pb_client)
         self.filename = filename
         self.verbose = verbose
@@ -373,8 +393,9 @@ class UrdfObject(PositionEulerAngleMixin, BulletObjectBase):
             self.init_pos,
             self.init_orn,
             useFixedBase=self.fixed,
-            flags=pb.URDF_USE_SELF_COLLISION |
-                  pb.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT)
+            flags=pb.URDF_USE_SELF_COLLISION
+            | pb.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+        )
 
     def remove_anchors(self):
         if self.fixed:
@@ -398,19 +419,19 @@ class SoftObjectBase(BulletObjectBase):
     constraints: Sequence[int]
 
     def __init__(
-            self,
-            filename,
-            pb_client: bc.BulletClient,
-            fixed=False,
-            fixed_nodes=None,
-            scale=1.0,
-            nu=0.2,
-            E=100000.0,
-            damping=0.005,
-            collision_margin=0.0005,
-            repulsion_stiffness=8000.0,
-            mass=0.1,
-            friction_coefficient=0.5
+        self,
+        filename,
+        pb_client: bc.BulletClient,
+        fixed=False,
+        fixed_nodes=None,
+        scale=1.0,
+        nu=0.2,
+        E=100000.0,
+        damping=0.005,
+        collision_margin=0.0005,
+        repulsion_stiffness=8000.0,
+        mass=0.1,
+        friction_coefficient=0.5,
     ):
         super().__init__(pb_client=pb_client)
         self.filename = filename
@@ -444,7 +465,8 @@ class SoftObjectBase(BulletObjectBase):
                 useFaceContact=True,
                 repulsionStiffness=self.repulsion_stiffness,
                 mass=self.mass,
-                frictionCoeff=self.friction_coefficient)
+                frictionCoeff=self.friction_coefficient,
+            )
 
         if self.fixed:
             self.__make_anchors(object_id)
@@ -462,7 +484,8 @@ class SoftObjectBase(BulletObjectBase):
     def __make_anchors(self, object_id):
         if self.fixed_nodes is None:
             warnings.warn(
-                "Object should be fixed, but no fixed nodes are given.")
+                "Object should be fixed, but no fixed nodes are given."
+            )
             self.constraints = []
         else:
             self.constraints = [
@@ -470,12 +493,12 @@ class SoftObjectBase(BulletObjectBase):
                     softBodyBodyUniqueId=object_id,
                     nodeIndex=i,
                     bodyUniqueId=-1,
-                    linkIndex=-1)
-                for i in self.fixed_nodes]
+                    linkIndex=-1,
+                )
+                for i in self.fixed_nodes
+            ]
             for constraint in self.constraints:
-                self.pb_client.changeConstraint(
-                    constraint,
-                    maxForce=1)
+                self.pb_client.changeConstraint(constraint, maxForce=1)
 
     def remove_anchors(self):
         for anchor in self.constraints:
@@ -484,20 +507,22 @@ class SoftObjectBase(BulletObjectBase):
 
 class SoftObject(PositionEulerAngleMixin, SoftObjectBase):
     """Soft Bullet Object."""
-    def __init__(self,
-                 filename,
-                 pb_client: bc.BulletClient,
-                 world_pos=None,
-                 world_orn=None,
-                 fixed=False,
-                 scale=1.0,
-                 nu=0.2,
-                 E=100000.0,
-                 damping=0.005,
-                 repulsion_stiffness=8000.0,
-                 mass=0.1,
-                 fixed_nodes=None
-                 ):
+
+    def __init__(
+        self,
+        filename,
+        pb_client: bc.BulletClient,
+        world_pos=None,
+        world_orn=None,
+        fixed=False,
+        scale=1.0,
+        nu=0.2,
+        E=100000.0,
+        damping=0.005,
+        repulsion_stiffness=8000.0,
+        mass=0.1,
+        fixed_nodes=None,
+    ):
         super().__init__(
             filename=filename,
             pb_client=pb_client,
@@ -508,7 +533,7 @@ class SoftObject(PositionEulerAngleMixin, SoftObjectBase):
             E=E,
             damping=damping,
             repulsion_stiffness=repulsion_stiffness,
-            mass=mass
+            mass=mass,
         )
         self._set_init_pose(world_pos, world_orn)
         self.object_id = self._load_object()
@@ -537,10 +562,7 @@ class SoftObject(PositionEulerAngleMixin, SoftObjectBase):
 
 
 class MocapObjectMixin:
-    def reset(self,
-              object_markers2world=None,
-              center_camera=False,
-              pos=None):
+    def reset(self, object_markers2world=None, center_camera=False, pos=None):
         """
         Resets the object to its initial position by removing and respawning it.
         This way the initial state of the soft-body is obtained as well.
@@ -556,17 +578,18 @@ class MocapObjectMixin:
         self.object_id = self._load_object()
         if center_camera:
             self.pb_client.resetDebugVisualizerCamera(
-                0.35, -60, -30, self.object_markers2world[:3, 3])
+                0.35, -60, -30, self.object_markers2world[:3, 3]
+            )
 
 
 class Insole(MocapObjectMixin, SoftObjectBase):
     def __init__(
-            self,
-            insole_markers2world,
-            pb_client: bc.BulletClient,
-            scale=1.0,
-            E=100000.0,
-            fixed=False
+        self,
+        insole_markers2world,
+        pb_client: bc.BulletClient,
+        scale=1.0,
+        E=100000.0,
+        fixed=False,
     ):
         super().__init__(
             os.path.join(base_path, "object_data/insole.vtk"),
@@ -580,10 +603,10 @@ class Insole(MocapObjectMixin, SoftObjectBase):
             collision_margin=0.0005,
             repulsion_stiffness=8000.0,
             mass=0.1,
-            friction_coefficient=1.5)
+            friction_coefficient=1.5,
+        )
         self.object_markers2world = insole_markers2world
-        self.init_pos, self.init_orn = self.mesh_pose(
-            self.object_markers2world)
+        self.init_pos, self.init_orn = self.mesh_pose(self.object_markers2world)
         self.object_id = self._load_object()
 
     @staticmethod
@@ -593,21 +616,25 @@ class Insole(MocapObjectMixin, SoftObjectBase):
         """
         markers2mesh = pt.transform_from(
             R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(
-                np.deg2rad([180, 0, -4.5])),
-            p=np.array([0.04, 0.07, -0.007]))
+                np.deg2rad([180, 0, -4.5])
+            ),
+            p=np.array([0.04, 0.07, -0.007]),
+        )
         pq = pt.pq_from_transform(
-            pt.concat(pt.invert_transform(markers2mesh),
-                      object_markers2world))
+            pt.concat(pt.invert_transform(markers2mesh), object_markers2world)
+        )
 
         return pq[:3], pr.quaternion_xyzw_from_wxyz(pq[3:])
 
 
 class PillowSmall(MocapObjectMixin, SoftObjectBase):
-    def __init__(self,
-                 pillow_markers2world,
-                 pb_client: bc.BulletClient,
-                 scale=1.0,
-                 fixed=False):
+    def __init__(
+        self,
+        pillow_markers2world,
+        pb_client: bc.BulletClient,
+        scale=1.0,
+        fixed=False,
+    ):
         super().__init__(
             os.path.join(base_path, "object_data/insole.vtk"),
             pb_client=pb_client,
@@ -620,11 +647,10 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
             collision_margin=0.0001,
             repulsion_stiffness=1000.0,
             mass=0.1,
-            friction_coefficient=1.5
+            friction_coefficient=1.5,
         )
         self.object_markers2world = pillow_markers2world
-        self.init_pos, self.init_orn = self.mesh_pose(
-            self.object_markers2world)
+        self.init_pos, self.init_orn = self.mesh_pose(self.object_markers2world)
         self.object_id = self._load_object()
 
     @staticmethod
@@ -632,22 +658,27 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
 
         markers2mesh = pt.transform_from(
             R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(
-                np.deg2rad([0, 0, 90])),
-            p=np.array([0.0, -0.02, 0.095]))
+                np.deg2rad([0, 0, 90])
+            ),
+            p=np.array([0.0, -0.02, 0.095]),
+        )
 
-        pq = pt.pq_from_transform(pt.concat(pt.invert_transform(markers2mesh), insole_markers2world))
+        pq = pt.pq_from_transform(
+            pt.concat(pt.invert_transform(markers2mesh), insole_markers2world)
+        )
 
         return pq[:3], pr.quaternion_xyzw_from_wxyz(pq[3:])
 
 
 class InsoleOnConveyorBelt(Insole):
     def __init__(
-            self, 
-            insole_markers2world,
-            pb_client: bc.BulletClient,
-            grasp_point_name="back",
-            scale=1.0,
-            E=100000.0):
+        self,
+        insole_markers2world,
+        pb_client: bc.BulletClient,
+        grasp_point_name="back",
+        scale=1.0,
+        E=100000.0,
+    ):
         self.conveyor = None
         assert grasp_point_name in ["front", "middle", "back"]
         self.grasp_point_name = grasp_point_name
@@ -656,7 +687,7 @@ class InsoleOnConveyorBelt(Insole):
             pb_client=pb_client,
             scale=scale,
             E=E,
-            fixed=False
+            fixed=False,
         )
 
     def _load_object(self):
@@ -664,7 +695,7 @@ class InsoleOnConveyorBelt(Insole):
         object_id = super()._load_object()
 
         # extents: width, length, height
-        conveyor_extents = np.array([0.5, 1.5, self.init_pos[2]-.02])
+        conveyor_extents = np.array([0.5, 1.5, self.init_pos[2] - 0.02])
 
         if self.grasp_point_name == "back":
             conveyor_pos = (0, self.init_pos[1] + 0.88, self.init_pos[2] / 2)
@@ -679,7 +710,8 @@ class InsoleOnConveyorBelt(Insole):
             world_orn=(0, 0, 0),
             fixed=True,
             lateralFriction=0.3,
-            rollingFriction=0.3)
+            rollingFriction=0.3,
+        )
         return object_id
 
     def remove_anchors(self):
@@ -704,11 +736,13 @@ class InsoleOnConveyorBelt(Insole):
         self.object_id = self._load_object()
         if center_camera:
             self.pb_client.resetDebugVisualizerCamera(
-                0.35, -60, -30, self.object_markers2world[:3, 3])
+                0.35, -60, -30, self.object_markers2world[:3, 3]
+            )
 
 
 class ObjectFactory:
     """Creates objects to grasp."""
+
     OBJECT_POSITIONS = {
         "insole": [-0.15, 0.1, 1.03],
         "pillow_small": [0.00, 0.29, 1.05],
@@ -718,30 +752,30 @@ class ObjectFactory:
         "box": [0.0, 0.14, 1.035],
         "sphere": [0.0, 0.15, 1.02],
         "cylinder": [0.0, 0.15, 1.02],
-        "capsule": [0.0, 0.15, 1.02]
+        "capsule": [0.0, 0.15, 1.02],
     }
     OBJECT_ORIENTATIONS = {
         "insole": [0, 0, 0],
         "pillow_small": [0.5, 0, 0],
-        "insole2": [0, 0, np.pi/2],
+        "insole2": [0, 0, np.pi / 2],
         "pillow_small2": [0, 0, 0],
-        "insole_on_conveyor_belt": [0, 0, np.pi/2],
+        "insole_on_conveyor_belt": [0, 0, np.pi / 2],
         "box": [0, 0, 0],
         "sphere": [0, 0, 0],
         "cylinder": [0, 0, 0],
-        "capsule": [0, 0, 0]
+        "capsule": [0, 0, 0],
     }
 
     def __init__(self, pb_client: bc.BulletClient):
         self.pb_client = pb_client
 
     def create(
-            self,
-            object_name: str,
-            object_position: Union[npt.ArrayLike, None] = None,
-            object_orientation: Union[npt.ArrayLike, None] = None,
-            object2world: Union[npt.ArrayLike, None] = None,
-            **additional_args
+        self,
+        object_name: str,
+        object_position: Union[npt.ArrayLike, None] = None,
+        object_orientation: Union[npt.ArrayLike, None] = None,
+        object2world: Union[npt.ArrayLike, None] = None,
+        **additional_args,
     ) -> Tuple[BulletObjectBase, np.ndarray, np.ndarray]:
         """Create object to grasp.
 
@@ -761,51 +795,49 @@ class ObjectFactory:
             KeyError: If object is unknown.
         """
         object_position, object_orientation, object2world = self.get_pose(
-            object_name, object_position, object_orientation, object2world)
+            object_name, object_position, object_orientation, object2world
+        )
 
         if object_name == "insole":
-            args = dict(fixed=True, mass=0.1, E=200000.0,
-                        fixed_nodes=[0, 40, 45])
+            args = dict(
+                fixed=True, mass=0.1, E=200000.0, fixed_nodes=[0, 40, 45]
+            )
             args.update(additional_args)
             object_to_grasp = SoftObject(
                 os.path.join(base_path, "object_data/insole.vtk"),
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
-                **args)
+                **args,
+            )
         elif object_name == "pillow_small":
-            args = dict(fixed=True, mass=0.5, nu=0.1, E=20000.0,
-                        fixed_nodes=[0, 40, 45])
+            args = dict(
+                fixed=True, mass=0.5, nu=0.1, E=20000.0, fixed_nodes=[0, 40, 45]
+            )
             args.update(additional_args)
             object_to_grasp = SoftObject(
                 os.path.join(base_path, "object_data/pillow_small.vtk"),
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
-                **args)
+                **args,
+            )
         elif object_name == "insole2":
             args = dict(scale=1.0, fixed=True)
             args.update(additional_args)
-            object_to_grasp = Insole(
-                object2world,
-                self.pb_client,
-                **args)
+            object_to_grasp = Insole(object2world, self.pb_client, **args)
         elif object_name == "pillow_small2":
             args = dict(scale=1.0, fixed=True)
             args.update(additional_args)
-            object_to_grasp = PillowSmall(
-                object2world,
-                self.pb_client,
-                **args)
+            object_to_grasp = PillowSmall(object2world, self.pb_client, **args)
         elif object_name.startswith("insole_on_conveyor_belt"):
             # TODO hacked special case, refactor this
             args = dict(scale=1.0)
             args.update(additional_args)
             args["grasp_point_name"] = object_name.split("/")[-1]
             object_to_grasp = InsoleOnConveyorBelt(
-                object2world,
-                self.pb_client,
-                **args)
+                object2world, self.pb_client, **args
+            )
         elif object_name == "box":
             args = dict(half_extents=(0.1, 0.02, 0.02), mass=0.1, fixed=True)
             args.update(additional_args)
@@ -813,7 +845,8 @@ class ObjectFactory:
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
-                **args)
+                **args,
+            )
         elif object_name == "sphere":
             args = dict(radius=0.05, mass=0.1, fixed=True)
             args.update(additional_args)
@@ -821,7 +854,8 @@ class ObjectFactory:
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
-                **args)
+                **args,
+            )
         elif object_name == "cylinder":
             args = dict(radius=0.025, height=0.05, mass=0.1, fixed=True)
             args.update(additional_args)
@@ -829,7 +863,8 @@ class ObjectFactory:
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
-                **args)
+                **args,
+            )
         elif object_name == "capsule":
             args = dict(radius=0.025, height=0.05, mass=0.1, fixed=True)
             args.update(additional_args)
@@ -837,17 +872,19 @@ class ObjectFactory:
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
-                **args)
+                **args,
+            )
         else:
             raise KeyError(f"Object '{object_name}' not available.")
 
         return object_to_grasp, object_position, object_orientation
 
     def get_pose(
-            self, object_name: str,
-            object_position: Union[npt.ArrayLike, None] = None,
-            object_orientation: Union[npt.ArrayLike, None] = None,
-            object2world: Union[npt.ArrayLike, None] = None
+        self,
+        object_name: str,
+        object_position: Union[npt.ArrayLike, None] = None,
+        object_orientation: Union[npt.ArrayLike, None] = None,
+        object2world: Union[npt.ArrayLike, None] = None,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Translates between pose representations.
 
@@ -867,38 +904,45 @@ class ObjectFactory:
 
         if object2world is None:
             if object_position is None:
-                object_position = np.copy(
-                    self.OBJECT_POSITIONS[object_name])
+                object_position = np.copy(self.OBJECT_POSITIONS[object_name])
             if object_orientation is None:
                 object_orientation = np.copy(
-                    self.OBJECT_ORIENTATIONS[object_name])
+                    self.OBJECT_ORIENTATIONS[object_name]
+                )
 
             object2world = pt.transform_from(
-                R=pr.active_matrix_from_extrinsic_euler_xyz(
-                    object_orientation),
-                p=object_position)
+                R=pr.active_matrix_from_extrinsic_euler_xyz(object_orientation),
+                p=object_position,
+            )
         else:
             object_position = object2world[:3, 3]
             object_orientation = pr.extrinsic_euler_xyz_from_active_matrix(
-                object2world[:3, :3])
+                object2world[:3, :3]
+            )
         return object_position, object_orientation, object2world
 
 
 class Pose(object):
     def __init__(
-            self,
-            position,
-            orientation,
-            pb_client: bc.BulletClient,
-            scale=0.1,
-            line_width=10,):
+        self,
+        position,
+        orientation,
+        pb_client: bc.BulletClient,
+        scale=0.1,
+        line_width=10,
+    ):
         self.position = position
         self.orientation = orientation
         self.scale = scale
         self.line_width = line_width
         self.pb_client = pb_client
-        self.ids = draw_pose(self.position, self.orientation, s=self.scale,
-                             lw=self.line_width, pb_client=self.pb_client)
+        self.ids = draw_pose(
+            self.position,
+            self.orientation,
+            s=self.scale,
+            lw=self.line_width,
+            pb_client=self.pb_client,
+        )
 
     def update(self, position, orientation):
         self.position = position
@@ -909,7 +953,8 @@ class Pose(object):
             s=self.scale,
             lw=self.line_width,
             replace_item_unique_ids=self.ids,
-            pb_client=self.pb_client)
+            pb_client=self.pb_client,
+        )
 
     def remove(self):
         for item in self.ids:

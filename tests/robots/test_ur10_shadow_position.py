@@ -21,6 +21,8 @@ def test_ur10_shadow_position_creation(simulation, robot):
     assert_almost_equal(actual_pose, expected_pose)
 
 
-def test_ur10_shadow_position_motor_creation(simulation, robot, ur10_shadow_motors):
+def test_ur10_shadow_position_motor_creation(
+    simulation, robot, ur10_shadow_motors
+):
     # check motor creation
     assert set(robot.motors.keys()) == set(ur10_shadow_motors)

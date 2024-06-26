@@ -15,7 +15,8 @@ def robot(simulation):
         pb_client=simulation.pb_client,
         world_pos=TEST_POS,
         world_orn=TEST_ORN,
-        base_commands=True)
+        base_commands=True,
+    )
 
     return robot
 
@@ -45,8 +46,44 @@ def test_shadow_hand_position_motor_creation(simulation, robot, shadow_motors):
 def test_shadow_hand_position_base_movement(simulation, robot):
     simulation.add_robot(robot)
 
-    robot.perform_command(np.array([0.3, -0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+    robot.perform_command(
+        np.array(
+            [
+                0.3,
+                -0.2,
+                0.1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            ]
+        )
+    )
 
     for _ in range(50):
         simulation.step_to_trigger("time_step")

@@ -6,8 +6,16 @@ from .ur10_shadow import UR10Shadow, UR10ShadowPosition, UR10ShadowVelocity
 
 __all__ = [
     "BulletRobot",
-    "MiaHand", "MiaHandPosition", "MiaHandVelocity",
-    "ShadowHand", "ShadowHandPosition", "ShadowHandVelocity",
-    "UR5Mia", "UR5MiaPosition", "UR5MiaVelocity",
-    "UR10Shadow", "UR10ShadowPosition", "UR10ShadowVelocity"
+    "MiaHand",
+    "MiaHandPosition",
+    "MiaHandVelocity",
+    "ShadowHand",
+    "ShadowHandPosition",
+    "ShadowHandVelocity",
+    "UR5Mia",
+    "UR5MiaPosition",
+    "UR5MiaVelocity",
+    "UR10Shadow",
+    "UR10ShadowPosition",
+    "UR10ShadowVelocity",
 ]

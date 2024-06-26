@@ -13,7 +13,8 @@ def test_insole_ob_conveyor_creation(simulation):
     obj, _, _ = ObjectFactory(simulation.pb_client).create(
         "insole_on_conveyor_belt/back",
         object_position=TEST_POS,
-        object_orientation=TEST_ORN)
+        object_orientation=TEST_ORN,
+    )
     pose = obj.get_pose()
     assert_array_almost_equal(pose, np.array([0, 0, 1, 1, 0, 0, 0]))
 

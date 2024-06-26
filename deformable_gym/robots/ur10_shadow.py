@@ -7,14 +7,19 @@ import numpy as np
 
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
-from ..robots.inverse_kinematics import UniversalRobotAnalyticalInverseKinematics
+from ..robots.inverse_kinematics import (
+    UniversalRobotAnalyticalInverseKinematics,
+)
 
 from pybullet_utils import bullet_client as bc
 
 # Shadow freq = 500 Hz
 # UR5 freq = 125 Hz
 
-URDF_PATH = os.path.join(Path(os.path.dirname(__file__)).parent.parent.absolute(), "robots/urdf/shadow_hand_on_ur10.urdf")
+URDF_PATH = os.path.join(
+    Path(os.path.dirname(__file__)).parent.parent.absolute(),
+    "robots/urdf/shadow_hand_on_ur10.urdf",
+)
 
 
 class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
@@ -26,25 +31,30 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
     TODO Can (and should) be extended eventually to allow other control
     methods, e.g. velocity or torque control.
     """
+
     def __init__(
-            self,
-            pb_client: bc.BulletClient,
-            verbose: bool = False,
-            task_space_limit: Any = None,
-            end_effector_link: str = "rh_forearm",
-            orn_limit=None,
-            debug_visualization: bool = True):
+        self,
+        pb_client: bc.BulletClient,
+        verbose: bool = False,
+        task_space_limit: Any = None,
+        end_effector_link: str = "rh_forearm",
+        orn_limit=None,
+        debug_visualization: bool = True,
+    ):
         super().__init__(
             urdf_path=URDF_PATH,
             pb_client=pb_client,
             verbose=verbose,
             task_space_limit=task_space_limit,
-            orn_limit=orn_limit)
+            orn_limit=orn_limit,
+        )
 
         self.command_counter = 0
         self.debug_visualization = debug_visualization
 
-        self._arm_motors = {k: v for k, v in self.motors.items() if "ur10_" in k}
+        self._arm_motors = {
+            k: v for k, v in self.motors.items() if "ur10_" in k
+        }
         self._hand_motors = {k: v for k, v in self.motors.items() if "rh_" in k}
 
         def hand_command_wrapper():
@@ -65,7 +75,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
             UniversalRobotAnalyticalInverseKinematics(
                 robot_type="ur10",
                 end_effector_name=end_effector_link,
-                fallback=self.inverse_kinematics_solver))
+                fallback=self.inverse_kinematics_solver,
+            )
+        )
 
     def perform_command(self, command):
         """
@@ -73,17 +85,17 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         command and joint-space hand command.
         """
 
-        assert command.shape[0] == 31, f"expected command to have shape 31, " \
-                                       f"got {command.shape[0]} instead"
+        assert command.shape[0] == 31, (
+            f"expected command to have shape 31, "
+            f"got {command.shape[0]} instead"
+        )
 
         # get arm joint targets
-        arm_target = self.arm_command_to_joint_targets(
-            command[:7], False)
+        arm_target = self.arm_command_to_joint_targets(command[:7], False)
         super().update_current_command(arm_target)
 
         # get hand joint actions
-        hand_target = self.hand_command_to_joint_targets(
-            command[7:], False)
+        hand_target = self.hand_command_to_joint_targets(command[7:], False)
         super().update_current_command(hand_target)
 
     def arm_command_to_joint_targets(self, command, velocity_commands=False):
@@ -94,14 +106,16 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         target positions or velocities
         :return: 6D array of UR10 target joint positions
         """
-        assert command.shape[0] == 7, \
-            f"expected command to have shape 7, got {command.shape[0]} instead"
+        assert (
+            command.shape[0] == 7
+        ), f"expected command to have shape 7, got {command.shape[0]} instead"
 
         # convert arm command to joint motor control
         arm_joint_angles = self.get_joint_positions(self._arm_motors)
 
-        arm_joint_target = self.compute_ik(arm_joint_angles, command[:3],
-                                           command[3:], velocity_commands)
+        arm_joint_target = self.compute_ik(
+            arm_joint_angles, command[:3], command[3:], velocity_commands
+        )
 
         target_dict = {k: t for k, t in zip(self._arm_motors, arm_joint_target)}
 
@@ -115,8 +129,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         target positions or velocities
         :return: 24D array of Mia hand target joint positions
         """
-        assert command.shape[0] == 24, \
-            f"expected command to have shape 24, got {command.shape[0]} instead"
+        assert (
+            command.shape[0] == 24
+        ), f"expected command to have shape 24, got {command.shape[0]} instead"
 
         if velocity_commands:
             current_joint_angles = self.get_joint_positions(self._hand_motors)
@@ -126,7 +141,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         # add hand joint actions
         hand_joint_target = current_joint_angles + command
 
-        target_dict = {k: t for k, t in zip(self._hand_motors, hand_joint_target)}
+        target_dict = {
+            k: t for k, t in zip(self._hand_motors, hand_joint_target)
+        }
 
         return target_dict
 

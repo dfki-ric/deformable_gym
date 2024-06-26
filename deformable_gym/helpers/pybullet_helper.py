@@ -3,6 +3,9 @@ Helper convenience module to easily transform to and from PyBullet specific
 conventions.
 """
 
+import os
+import sys
+from contextlib import contextmanager
 from enum import Enum
 from typing import Tuple
 
@@ -10,12 +13,7 @@ import numpy as np
 import numpy.typing as npt
 import pybullet as pb
 import pytransform3d.rotations as pr
-
 from pybullet_utils import bullet_client as bc
-
-from contextlib import contextmanager
-import sys
-import os
 
 
 @contextmanager

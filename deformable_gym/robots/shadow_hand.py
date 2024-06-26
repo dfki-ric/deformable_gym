@@ -5,10 +5,10 @@ from typing import Union
 
 import numpy as np
 import numpy.typing as npt
+from pybullet_utils import bullet_client as bc
 
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
-from pybullet_utils import bullet_client as bc
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),

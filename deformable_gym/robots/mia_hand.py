@@ -5,13 +5,12 @@ from typing import Dict, List, Tuple, Union
 
 import numpy as np
 import numpy.typing as npt
+from pybullet_utils import bullet_client as bc
 
 from ..helpers.pybullet_helper import Joint
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.sensors import MiaHandForceSensors
-
-from pybullet_utils import bullet_client as bc
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),

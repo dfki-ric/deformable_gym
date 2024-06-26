@@ -1,4 +1,5 @@
 import numpy as np
+from pybullet_utils import bullet_client as bc
 
 from ..robots.ur_kinematics import (
     analytical_ik,
@@ -6,7 +7,6 @@ from ..robots.ur_kinematics import (
     robot_params,
     urdf_base2kin_base,
 )
-from pybullet_utils import bullet_client as bc
 
 
 class PyBulletSolver:

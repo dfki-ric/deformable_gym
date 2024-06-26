@@ -9,11 +9,10 @@ import numpy.typing as npt
 import pybullet as pb
 import pytransform3d.rotations as pr
 import pytransform3d.transformations as pt
+from pybullet_utils import bullet_client as bc
 
 from ..helpers import pybullet_helper as pbh
 from ..robots.bullet_utils import draw_pose
-
-from pybullet_utils import bullet_client as bc
 
 base_path = Path(os.path.dirname(__file__)).parent.parent.absolute()
 

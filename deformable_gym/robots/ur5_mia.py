@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 import numpy.typing as npt
+from pybullet_utils import bullet_client as bc
 
 from ..robots.bullet_robot import BulletRobot, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
@@ -10,9 +11,6 @@ from ..robots.inverse_kinematics import (
     UniversalRobotAnalyticalInverseKinematics,
 )
 from ..robots.sensors import MiaHandForceSensors
-
-from pybullet_utils import bullet_client as bc
-
 from .mia_hand import MiaHandMixin
 
 # Mia freq = 20 Hz

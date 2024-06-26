@@ -4,14 +4,13 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from pybullet_utils import bullet_client as bc
 
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.inverse_kinematics import (
     UniversalRobotAnalyticalInverseKinematics,
 )
-
-from pybullet_utils import bullet_client as bc
 
 # Shadow freq = 500 Hz
 # UR5 freq = 125 Hz

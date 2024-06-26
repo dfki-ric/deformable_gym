@@ -1,6 +1,7 @@
-from typing import Protocol, Union, Optional
-import numpy.typing as npt
+from typing import Optional, Protocol, Union
+
 import numpy as np
+import numpy.typing as npt
 
 
 class Sampler(Protocol):

@@ -1,5 +1,6 @@
-from ..objects.bullet_object import BoxObject, ObjectFactory
 from pybullet_utils import bullet_client as bc
+
+from ..objects.bullet_object import BoxObject, ObjectFactory
 
 
 class Conveyor:

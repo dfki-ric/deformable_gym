@@ -1,13 +1,13 @@
-import pytest
 import numpy as np
 import numpy.typing as npt
+import pytest
 from numpy.testing import assert_allclose
 
 from deformable_gym.envs.sampler import (
     FixedSampler,
     GaussianSampler,
-    UniformSampler,
     GridSampler,
+    UniformSampler,
 )
 
 SEED = 0

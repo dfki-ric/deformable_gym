@@ -4,8 +4,8 @@ from typing import Any, Dict, Iterable, List, Tuple, Union
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
-from pybullet_utils import bullet_client as bc
 from gymnasium.spaces import Box
+from pybullet_utils import bullet_client as bc
 
 from ..helpers import pybullet_helper as pbh
 from ..objects.bullet_object import Pose

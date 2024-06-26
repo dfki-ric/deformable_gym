@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
 from pybullet_utils import bullet_client as bc
 
 INDEX_SENSOR_NAME = "j_index_sensor"

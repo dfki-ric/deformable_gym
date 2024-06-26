@@ -1,7 +1,6 @@
 import numpy as np
 import pytransform3d.rotations as pr
 import pytransform3d.transformations as pt
-
 from pybullet_utils import bullet_client as bc
 
 

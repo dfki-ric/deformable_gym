@@ -1,12 +1,11 @@
 from abc import ABC
+from typing import Optional
 
 import numpy as np
 import pybullet as pb
 
 from ..envs.base_env import BaseBulletEnv, GraspDeformableMixin
-from ..envs.sampler import Sampler, FixedSampler
-from typing import Optional
-
+from ..envs.sampler import FixedSampler, Sampler
 from ..objects.bullet_object import ObjectFactory
 
 

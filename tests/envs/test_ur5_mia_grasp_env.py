@@ -1,6 +1,6 @@
 import pytest
-
 from numpy.testing import assert_allclose
+
 from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 
 

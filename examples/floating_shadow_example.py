@@ -3,12 +3,12 @@ import gymnasium
 from deformable_gym.envs.floating_shadow_grasp_env import FloatingShadowGraspEnv
 
 """
-=========
+================================================================
 Floating Shadow Example
-=========
+================================================================
 
-This is an example of how to use the FloatingShadowGraspEnv. A random policy is then 
-used to generate ten episodes. 
+This is an example of how to use the FloatingShadowGraspInsole environment. A
+random policy is then used to generate ten episodes.
 
 """
 

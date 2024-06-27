@@ -3,9 +3,9 @@ import gymnasium as gym
 from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 
 """
-=========
+================================================================
 UR5 Mia Example
-=========
+================================================================
 
 This is an example of how to use the URMiaGraspInsole environment. A random
 policy is then used to generate ten episodes.

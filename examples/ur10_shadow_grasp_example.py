@@ -3,11 +3,11 @@ import gymnasium as gym
 from deformable_gym.envs.ur10_shadow_grasp_env import UR10ShadowGraspEnv
 
 """
-=========
+================================================================
 UR10 Shadow Example
-=========
+================================================================
 
-This is an example of how to use the URShadowGraspInsole environment. A random
+This is an example of how to use the URShadowGraspPillow environment. A random
 policy is then used to generate ten episodes.
 
 """

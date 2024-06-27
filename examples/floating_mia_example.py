@@ -3,12 +3,12 @@ import gymnasium
 from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 
 """
-=========
+================================================================
 Floating Mia Example
-=========
+================================================================
 
-This is an example of how to use the FloatingMiaGraspEnv. A random policy is 
-then used to generate ten episodes.
+This is an example of how to use the FloatingMiaGraspInsole environment. A
+random policy is then used to generate ten episodes.
 
 """
 

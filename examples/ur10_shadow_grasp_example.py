@@ -1,16 +1,18 @@
+import gymnasium as gym
+
 from deformable_gym.envs.ur10_shadow_grasp_env import UR10ShadowGraspEnv
 
 """
 =========
-Floating Mia Example
+UR10 Shadow Example
 =========
 
-This is an example of how to use the FloatingMiaGraspEnv. A random policy is then
-used to generate ten episodes.
+This is an example of how to use the URShadowGraspInsole environment. A random
+policy is then used to generate ten episodes.
 
 """
 
-env = UR10ShadowGraspEnv(gui=True, object_name="insole")
+env = gym.make("URShadowGraspPillow-v0")
 
 env.reset()
 episode_return = 0

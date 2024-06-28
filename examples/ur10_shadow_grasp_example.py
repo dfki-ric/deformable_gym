@@ -10,7 +10,7 @@ used to generate ten episodes.
 
 """
 
-env = UR10ShadowGraspEnv(gui=True, object_name="insole")
+env = UR10ShadowGraspEnv(object_name="insole")
 
 env.reset()
 episode_return = 0

@@ -7,7 +7,6 @@ from deformable_gym.envs.floating_shadow_grasp_env import FloatingShadowGraspEnv
 @pytest.fixture
 def env():
     return FloatingShadowGraspEnv(
-        gui=False,
         verbose=False,
         horizon=10,
         object_name="insole",
@@ -60,7 +59,6 @@ def test_episode_reproducibility(env: FloatingShadowGraspEnv):
     env = FloatingShadowGraspEnv(
         verbose=False,
         horizon=3,
-        gui=False,
         object_name="insole_on_conveyor_belt/back",
     )
 

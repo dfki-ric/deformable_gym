@@ -4,8 +4,8 @@ SEED = 0
 
 
 def test_parallel_envs():
-    env = gymnasium.make("FloatingMiaGraspInsole-v0", gui=False, horizon=10)
-    env2 = gymnasium.make("FloatingMiaGraspInsole-v0", gui=False, horizon=10)
+    env = gymnasium.make("FloatingMiaGraspInsole-v0", horizon=10)
+    env2 = gymnasium.make("FloatingMiaGraspInsole-v0", horizon=10)
 
     obs, info = env.reset(seed=SEED)
     num_steps = 0

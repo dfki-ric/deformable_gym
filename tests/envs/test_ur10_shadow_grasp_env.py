@@ -7,7 +7,6 @@ from deformable_gym.envs.ur10_shadow_grasp_env import UR10ShadowGraspEnv
 @pytest.fixture
 def env():
     return UR10ShadowGraspEnv(
-        gui=False,
         verbose=False,
         horizon=10,
         object_name="insole",
@@ -61,7 +60,6 @@ def test_episode_reproducibility(env: UR10ShadowGraspEnv):
     env = UR10ShadowGraspEnv(
         verbose=False,
         horizon=3,
-        gui=False,
         object_name="insole_on_conveyor_belt/back",
     )
 

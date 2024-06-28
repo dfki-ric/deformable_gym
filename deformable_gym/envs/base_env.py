@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import abc
 from typing import Any
 
@@ -7,7 +9,6 @@ import numpy.typing as npt
 import pybullet as pb
 import pytransform3d.rotations as pr
 from gymnasium import spaces
-from pybullet_utils import bullet_client as bc
 
 from ..envs.bullet_simulation import BulletSimulation
 from ..helpers.pybullet_helper import MultibodyPose
@@ -47,7 +48,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         time_delta: float = 0.001,
         verbose_dt: float = 10.00,
         pybullet_options: str = "",
-        render_mode: str | None = None
+        render_mode: str | None = None,
     ):
 
         self.gui = gui

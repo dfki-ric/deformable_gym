@@ -7,11 +7,9 @@ from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 @pytest.fixture
 def env():
     return FloatingMiaGraspEnv(
-        gui=False,
         verbose=False,
         horizon=10,
         object_name="insole_on_conveyor_belt/back",
-        # observable_object_pos=True,
     )
 
 
@@ -59,7 +57,6 @@ def test_episode_reproducibility(env: FloatingMiaGraspEnv):
     env = FloatingMiaGraspEnv(
         verbose=False,
         horizon=3,
-        gui=False,
         object_name="insole_on_conveyor_belt/back",
     )
 

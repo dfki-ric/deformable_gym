@@ -4,8 +4,8 @@ from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 
 SEED = 0
 
-env = gymnasium.make("FloatingMiaGraspInsole-v0", gui=False)
-env2 = gymnasium.make("FloatingMiaGraspInsole-v0", gui=False)
+env = gymnasium.make("FloatingMiaGraspInsole-v0")
+env2 = gymnasium.make("FloatingMiaGraspInsole-v0")
 
 obs, info = env.reset(seed=SEED)
 num_steps = 0

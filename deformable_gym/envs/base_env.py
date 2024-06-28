@@ -39,7 +39,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
 
     def __init__(
         self,
-        gui: bool = True,
+        gui: bool = False,
         real_time: bool = False,
         horizon: int = 100,
         soft: bool = False,
@@ -47,6 +47,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         time_delta: float = 0.001,
         verbose_dt: float = 10.00,
         pybullet_options: str = "",
+        render_mode: str | None = None
     ):
 
         self.gui = gui

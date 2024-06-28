@@ -9,10 +9,9 @@ Floating Mia Example
 
 This is an example of how to use the FloatingMiaGraspInsole environment. A
 random policy is then used to generate ten episodes.
-
 """
 
-env = gymnasium.make("FloatingMiaGraspInsole-v0")
+env = gymnasium.make("FloatingMiaGraspInsole-v0", render_mode="human")
 
 obs, info = env.reset()
 episode_return = 0

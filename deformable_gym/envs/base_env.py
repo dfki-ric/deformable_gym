@@ -37,10 +37,10 @@ class BaseBulletEnv(gym.Env, abc.ABC):
     robot: BulletRobot
     observation_space: spaces.Box
     action_space: spaces.Box
+    metadata = {"render_modes": ["human"]}
 
     def __init__(
         self,
-        gui: bool = False,
         real_time: bool = False,
         horizon: int = 100,
         soft: bool = False,
@@ -51,11 +51,11 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         render_mode: str | None = None,
     ):
 
-        self.gui = gui
         self.verbose = verbose
         self.horizon = horizon
+        self.render_mode = render_mode
 
-        mode = pb.GUI if gui else pb.DIRECT
+        mode = pb.GUI if render_mode == "human" else pb.DIRECT
 
         self.simulation = BulletSimulation(
             soft=soft,
@@ -131,7 +131,7 @@ class BaseBulletEnv(gym.Env, abc.ABC):
         :param mode: Render mode. Only 'human' is allowed.
         """
         if mode == "human":
-            assert self.gui
+            assert self.render_mode == "human"
         else:
             raise NotImplementedError(f"Render mode {mode} not supported")
 

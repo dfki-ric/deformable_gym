@@ -3,16 +3,6 @@ import gymnasium
 from deformable_gym.envs.floating_mia_grasp_env import FloatingMiaGraspEnv
 from deformable_gym.envs.sampler import UniformSampler
 
-"""
-=========
-Floating Mia Example
-=========
-
-This is an example of how to use the FloatingMiaGraspEnv. A random policy is
-then used to generate ten episodes.
-
-"""
-
 base_initial_pose = FloatingMiaGraspEnv.INITIAL_POSE.copy()
 low = base_initial_pose.copy()
 high = base_initial_pose.copy()

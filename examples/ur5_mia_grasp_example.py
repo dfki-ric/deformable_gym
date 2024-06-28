@@ -1,16 +1,19 @@
+import gymnasium as gym
+
 from deformable_gym.envs.ur5_mia_grasp_env import UR5MiaGraspEnv
 
 """
-=========
-Floating Mia Example
-=========
+================================================================
+UR5 Mia Example
+================================================================
 
-This is an example of how to use the FloatingMiaGraspEnv. A random policy is then
-used to generate ten episodes.
+This is an example of how to use the URMiaGraspInsole environment. A random
+policy is then used to generate ten episodes.
 
 """
 
-env = UR5MiaGraspEnv(object_name="insole2")
+env = gym.make("URMiaGraspPillow-v0")
+
 
 env.reset()
 episode_return = 0

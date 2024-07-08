@@ -1,4 +1,4 @@
-from time import perf_counter
+import logging
 from typing import Dict, Tuple
 
 import mujoco
@@ -17,11 +17,14 @@ class ShadowHandGrasp(BaseMJEnv):
         self,
         model_path: str,
         robot_path: str,
+        object_name: str,
         object_path: str,
         max_sim_time: float,
         gui: bool = True,
     ):
-        super().__init__(model_path, robot_path, object_path, max_sim_time, gui)
+        super().__init__(
+            model_path, robot_path, object_name, object_path, max_sim_time, gui
+        )
         self.observation_space = self._get_observation_space()
         self.action_space = self._get_action_space()
         self.reward_range = (-1, 1)
@@ -33,10 +36,10 @@ class ShadowHandGrasp(BaseMJEnv):
         return spaces.Box(low=low, high=high, shape=(n_act,), dtype=np.float64)
 
     def _get_observation_space(self) -> spaces.Box:
-        dof = self.robot.dof
-        low = -np.inf
+        nq = self.robot.nq
+        low = -np.inf  # TODO: joint space range
         high = np.inf
-        return spaces.Box(low=low, high=high, shape=(dof,), dtype=np.float64)
+        return spaces.Box(low=low, high=high, shape=(nq,), dtype=np.float64)
 
     def reset(self, *, seed=None, options=None) -> Tuple[NDArray, Dict]:
         super().reset(seed=seed, options=options)
@@ -48,23 +51,41 @@ class ShadowHandGrasp(BaseMJEnv):
         return observation, info
 
     def _get_observation(self) -> NDArray:
+        # TODO: end effector position for a single hand?
         robot_qpos = self.robot.get_qpos(self.data)
         return robot_qpos
 
     def _step_simulation(self, time: float) -> None:
-        start_time = perf_counter()
-        while perf_counter() - start_time < time:
+        """Step Mujoco Simulation for a given time (unit: second).
+
+        Args:
+            time (float): simulation time in seconds
+        """
+        start_time = self.data.time
+        while self.data.time - start_time < time:
             mujoco.mj_step(self.model, self.data)
             if self.gui:
                 self.viewer.sync()
 
     def _get_reward(self, terminated: bool) -> int:
+        """Calculate reward by removing the platform and check if object falls to the ground.
+        0 reward: max_sim_time is not reached yet
+        -1 reward: object falls to the ground after removing the platform
+        1 reward: object is grasped successfully by the robot hand
+
+        Args:
+            terminated (bool): if episode is terminated
+
+        Returns:
+            int: reward gotten per step
+        """
+        # TODO: set a proper threshold for simulation time and height of the object
         if not terminated:
             return 0
         mju.remove_geom(self.model, self.data, "platform")
-        print("Platform removed")
-        self._step_simulation(5)
-        obj_hight = mju.get_body_com(self.model, self.object.name)[2]
+        self._step_simulation(1)
+        obj_hight = self.object.get_com(self.data)[2]
+        logging.debug(f"Object hight: {obj_hight}")
         if obj_hight > 0.1:
             return 1
         else:

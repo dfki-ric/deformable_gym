@@ -36,18 +36,21 @@ class MJRobot:
         self,
         model: mujoco.MjModel,
         data: mujoco.MjData,
-        qpos: NDArray,
-        qvel: NDArray,
+        *,
+        qpos: NDArray = None,
+        qvel: NDArray = None,
     ):
-        assert qpos.shape == (
-            self.nq,
-        ), f"robot has {self.nq} coorinates. get {qpos.shape} qpos."
-        assert qvel.shape == (
-            self.dof,
-        ), f"robot has {self.dof} dof. get {qvel.shape} qvel"
+        if qpos is not None:
+            assert qpos.shape == (
+                self.nq,
+            ), f"robot has {self.nq} coorinates. get {qpos.shape} qpos."
+            data.qpos[: self.nq] = qpos
+        if qvel is not None:
+            assert qvel.shape == (
+                self.dof,
+            ), f"robot has {self.dof} dof. get {qvel.shape} qvel"
 
-        data.qpos[: self.nq] = qpos
-        data.qvel[: self.dof] = qvel
+            data.qvel[: self.dof] = qvel
         mujoco.mj_forward(model, data)
 
     def load_keyframe(
@@ -56,7 +59,11 @@ class MJRobot:
         frame = self.model.keyframe(frame_name)
         qpos = frame.qpos.copy()
         qvel = frame.qvel.copy()
-        self.set_state(model, data, qpos, qvel)
+        if len(qpos) == 0:
+            qpos = None
+        if len(qvel) == 0:
+            qvel = None
+        self.set_state(model, data, qpos=qpos, qvel=qvel)
 
     def reset(self, model: mujoco.MjModel, data: mujoco.MjData):
         if self.init_frame is not None:

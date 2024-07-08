@@ -3,21 +3,15 @@
 	<extension>
 		<plugin plugin="mujoco.elasticity.membrane" />
 	</extension>
-	<asset>
-		<mesh name="insole" file="insole.stl" />
-	</asset>
 	<worldbody>
-		<body name="insole" pos=".12 -.05 .452">
-			<inertial pos=".12 -.05 .452" mass="1" />
-			<flexcomp name="obj" type="mesh" file="insole.stl" rgba=".1 .9 .1 1">
+		<body name="insole">
+			<flexcomp name="insole" pos=".12 -.05 .452" type="mesh" file="insole.stl" rgba=".1 .9 .1 1">
 				<edge equality="true" />
-				<!--
 				<plugin plugin="mujoco.elasticity.membrane">
-				<config key="young" value="200000.0" />
-				<config key="poisson" value="0.2" />
-				<config key="thickness" value=".01" />
+					<config key="young" value="200000.0" />
+					<config key="poisson" value="0.2" />
+					<config key="thickness" value=".01" />
 				</plugin>
-				-->
 			</flexcomp>
 		</body>
 	</worldbody>

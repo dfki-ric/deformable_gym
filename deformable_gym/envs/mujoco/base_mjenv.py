@@ -8,7 +8,7 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
 from ...helpers import mj_utils as mju
-from ...objects.mj_object import MJObject
+from ...objects.mj_object import ObjectFactory
 from ...robots.mj_robot import MJRobot
 
 
@@ -18,25 +18,18 @@ class BaseMJEnv(gym.Env, ABC):
         self,
         model_path: str,
         robot_path: str,
+        object_name: str,
         object_path: str,
         max_sim_time: float,
         gui: bool = True,
     ):
         self.model_path = model_path
         self.robot = MJRobot(robot_path)
-        self.object = MJObject(object_path)
+        self.object = ObjectFactory.create(object_name, object_path)
         self.max_sim_time = max_sim_time
         self.model, self.data = mju.load_model(model_path)
         self.gui = gui
         self.viewer = None
-
-    def set_state(self, q_pos: ArrayLike, q_vel: ArrayLike) -> None:
-        """
-        Set the state of the MuJoCo simulation.
-        """
-        self.data.qpos[:] = q_pos
-        self.data.qvel[:] = q_vel
-        mujoco.mj_forward(self.model, self.data)
 
     def reset(
         self,

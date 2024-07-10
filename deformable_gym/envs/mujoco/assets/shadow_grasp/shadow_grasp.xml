@@ -1,6 +1,7 @@
 <mujoco model="floating_shadow_hand">
 	<include file="insole.xml" />
 	<include file="shadow_l.xml" />
+	<!-- <include file="keyframes.xml"/> -->
 	<!-- <option gravity="0 0 0.001" /> -->
 	<statistic extent="0.3" center="0.3 0 0" />
 	<visual>
@@ -15,7 +16,7 @@
 	</asset>
 	<worldbody>
 		<light pos="0.3 0 1.5" dir="0 0 -1" directional="true" />
-		<geom name="floor" pos="0 0 -0.1" size="0 0 0.05" type="plane" material="groundplane" />
-		<geom name="platform" pos=".65 0 0" size=".4 .2 .45" type="box" rgba="1 0 0 1" />
+		<geom name="floor" pos="0 0 0" size="0 0 0.05" type="plane" material="groundplane" />
+		<geom name="platform" pos=".65 0 .15" size=".4 .2 .3" type="box" rgba="1 0 0 1" />
 	</worldbody>
 </mujoco>

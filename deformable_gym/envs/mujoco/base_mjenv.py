@@ -20,12 +20,14 @@ class BaseMJEnv(gym.Env, ABC):
         robot_path: str,
         object_name: str,
         object_path: str,
-        max_sim_time: float,
+        init_frame: str = None,
+        max_sim_time: float = 5,
         gui: bool = True,
     ):
         self.model_path = model_path
         self.robot = MJRobot(robot_path)
         self.object = ObjectFactory.create(object_name, object_path)
+        self.init_frame = init_frame
         self.max_sim_time = max_sim_time
         self.model, self.data = mju.load_model(model_path)
         self.gui = gui
@@ -41,6 +43,28 @@ class BaseMJEnv(gym.Env, ABC):
         Reset the environment to the initial state.
         """
         super().reset(seed=seed, options=options)
+        self.model, _ = mju.load_model(self.model_path)
+        mujoco.mj_resetData(self.model, self.data)
+        if self.init_frame is not None:
+            self.load_keyframe(self.init_frame)
+
+    def set_state(
+        self,
+        *,
+        qpos: NDArray = None,
+        qvel: NDArray = None,
+    ):
+        if qpos is not None:
+            self.data.qpos = qpos.copy()
+        if qvel is not None:
+            self.data.qvel = qvel.copy()
+        mujoco.mj_forward(self.model, self.data)
+
+    def load_keyframe(self, frame_name: str):
+        frame = self.model.keyframe(frame_name)
+        qpos = frame.qpos.copy()
+        qvel = frame.qvel.copy()
+        self.set_state(qpos=qpos, qvel=qvel)
 
     @abstractmethod
     def _get_observation(self):

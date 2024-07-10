@@ -1,16 +1,18 @@
 <mujoco model="insole">
 	<compiler strippath="true" meshdir="meshes/" />
 	<extension>
-		<plugin plugin="mujoco.elasticity.membrane" />
+		<plugin plugin="mujoco.elasticity.solid" />
 	</extension>
 	<worldbody>
+		<light pos="0.3 0 1.5" dir="0 0 -1" directional="true" />
+		<!-- <geom name="floor" pos="0 0 -0.1" size="0 0 0.05" type="plane"/> -->
 		<body name="insole">
-			<flexcomp name="insole" pos=".12 -.05 .452" type="mesh" file="insole.stl" rgba=".1 .9 .1 1">
+			<flexcomp name="insole" pos=".12 -.05 .462" mass="50" type="gmsh" file="insole.msh" rgba=".1 .9 .1 1">
 				<edge equality="true" />
-				<plugin plugin="mujoco.elasticity.membrane">
+				<plugin plugin="mujoco.elasticity.solid">
 					<config key="young" value="200000.0" />
 					<config key="poisson" value="0.2" />
-					<config key="thickness" value=".01" />
+					<config key="damping" value=".005" />
 				</plugin>
 			</flexcomp>
 		</body>

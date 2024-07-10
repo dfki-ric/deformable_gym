@@ -10,6 +10,8 @@ from numpy.typing import ArrayLike, NDArray
 from ...helpers import mj_utils as mju
 from .base_mjenv import BaseMJEnv
 
+logger = logging.getLogger("SHADOW_GRASP")
+
 
 class ShadowHandGrasp(BaseMJEnv):
 
@@ -19,11 +21,18 @@ class ShadowHandGrasp(BaseMJEnv):
         robot_path: str,
         object_name: str,
         object_path: str,
-        max_sim_time: float,
+        init_frame: str = None,
+        max_sim_time: float = 5,
         gui: bool = True,
     ):
         super().__init__(
-            model_path, robot_path, object_name, object_path, max_sim_time, gui
+            model_path,
+            robot_path,
+            object_name,
+            object_path,
+            init_frame,
+            max_sim_time,
+            gui,
         )
         self.observation_space = self._get_observation_space()
         self.action_space = self._get_action_space()
@@ -43,9 +52,6 @@ class ShadowHandGrasp(BaseMJEnv):
 
     def reset(self, *, seed=None, options=None) -> Tuple[NDArray, Dict]:
         super().reset(seed=seed, options=options)
-        self.model, _ = mju.load_model(self.model_path)
-        mujoco.mj_resetData(self.model, self.data)
-        self.robot.reset(self.model, self.data)
         observation = self._get_observation()
         info = self._get_info()
         return observation, info
@@ -83,10 +89,10 @@ class ShadowHandGrasp(BaseMJEnv):
         if not terminated:
             return 0
         mju.remove_geom(self.model, self.data, "platform")
-        self._step_simulation(1)
+        self._step_simulation(3)
         obj_hight = self.object.get_com(self.data)[2]
-        logging.debug(f"Object hight: {obj_hight}")
-        if obj_hight > 0.1:
+        logger.debug(f"Object hight: {obj_hight}")
+        if obj_hight > 0.2:
             return 1
         else:
             return -1

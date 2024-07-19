@@ -1,0 +1,19 @@
+<mujoco>
+	<worldbody>
+		<light diffuse=".7 .7 .7" dir="0 0 -1" directional="true" />
+		<geom name="floor" type="plane" size="10 10 10" />
+		<body name="cube" pos="0 0 .5">
+			<joint name="slider" type="slide" axis="1 0 0"/>
+			<geom type="box" size=".5 .5 .5" rgba=" .5 0 0 1" />
+			<body name="inner_body"/>
+		</body>
+		<geom name="trash_geom" type="sphere" size=".5" pos="0 2 .5" rgba="0 .5 0 1"/>
+		<body name="trash_body" pos = "0 0 2"/>
+	</worldbody>
+	<actuator>
+		<position name="cube_ctrl" joint="slider" kp="500"/>
+	</actuator>
+	<sensor>
+		<framepos name="cube_pos" objtype="body" objname="cube" />
+	</sensor>
+</mujoco>

@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import mujoco
 import numpy as np
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 
 TYPE_NAMES = [
     "body",
@@ -33,8 +33,14 @@ TYPE_NAMES = [
 ]
 
 
-def load_model(path: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
+def load_model_from_file(path: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
     model = mujoco.MjModel.from_xml_path(path)
+    data = mujoco.MjData(model)
+    return model, data
+
+
+def load_model_from_string(xml: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
+    model = mujoco.MjModel.from_xml_string(xml)
     data = mujoco.MjData(model)
     return model, data
 
@@ -88,7 +94,7 @@ def remove_body(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
         name in names
     ), f"No body named {name} in the model.\n Names available: {names}"
 
-    model.body(name).xpos = np.array([0, 0, -1000])
+    model.body(name).pos = np.array([0, 0, -1000])
     mujoco.mj_forward(model, data)
 
 
@@ -165,8 +171,8 @@ def name2id(model: mujoco.MjModel, name: str, t: str = "body") -> int:
     return id
 
 
-def euler2quat(euler: NDArray) -> NDArray:
-    assert euler.shape == (3,), "input should be in shape (3,)."
+def euler2quat(euler: ArrayLike) -> NDArray:
+    assert len(euler) == 3, "input should be in shape (3,)."
 
     quat = np.zeros(4, dtype=np.float64)
     mujoco.mju_euler2Quat(quat, euler, "xyz")

@@ -1,5 +1,5 @@
 <mujoco model="left_shadow_hand">
-	<compiler strippath="true" meshdir="meshes/" angle="radian" autolimits="true" />
+	<compiler meshdir="meshes/" angle="radian" autolimits="true" />
 	<option cone="elliptic" impratio="10" />
 	<default>
 		<default class="left_hand">
@@ -70,22 +70,22 @@
 		<material name="black" specular="0.5" shininess="0.25" rgba="0.16355 0.16355 0.16355 1" />
 		<material name="gray" specular="0.0" shininess="0.25" rgba="0.80848 0.80848 0.80848 1" />
 		<material name="metallic" specular="0" shininess="0.25" rgba="0.9 0.9 0.9 1" />
-		<mesh class="left_hand" file="forearm_0.obj" />
-		<mesh class="left_hand" file="forearm_1.obj" />
-		<mesh class="left_hand" file="forearm_collision.obj" />
-		<mesh class="left_hand" file="wrist.obj" scale="-0.001 0.001 0.001" />
-		<mesh class="left_hand" file="palm.obj" scale="-0.001 0.001 0.001" />
-		<mesh class="left_hand" file="f_knuckle.obj" />
-		<mesh class="left_hand" file="f_proximal.obj" />
-		<mesh class="left_hand" file="f_middle.obj" />
-		<mesh class="left_hand" file="f_distal_pst.obj" />
-		<mesh class="left_hand" file="lf_metacarpal.obj" scale="-0.001 0.001 0.001" />
-		<mesh class="left_hand" file="th_proximal.obj" />
-		<mesh class="left_hand" file="th_middle.obj" />
-		<mesh class="left_hand" file="th_distal_pst.obj" />
+		<mesh class="left_hand" file="shadow_hand/forearm_0.obj" />
+		<mesh class="left_hand" file="shadow_hand/forearm_1.obj" />
+		<mesh class="left_hand" file="shadow_hand/forearm_collision.obj" />
+		<mesh class="left_hand" file="shadow_hand/wrist.obj" scale="-0.001 0.001 0.001" />
+		<mesh class="left_hand" file="shadow_hand/palm.obj" scale="-0.001 0.001 0.001" />
+		<mesh class="left_hand" file="shadow_hand/f_knuckle.obj" />
+		<mesh class="left_hand" file="shadow_hand/f_proximal.obj" />
+		<mesh class="left_hand" file="shadow_hand/f_middle.obj" />
+		<mesh class="left_hand" file="shadow_hand/f_distal_pst.obj" />
+		<mesh class="left_hand" file="shadow_hand/lf_metacarpal.obj" scale="-0.001 0.001 0.001" />
+		<mesh class="left_hand" file="shadow_hand/th_proximal.obj" />
+		<mesh class="left_hand" file="shadow_hand/th_middle.obj" />
+		<mesh class="left_hand" file="shadow_hand/th_distal_pst.obj" />
 	</asset>
 	<worldbody>
-		<body name="lh_forearm" childclass="left_hand" pos="-.25 0 .49" quat="1 0 1 0">
+		<body name="shadow_hand" childclass="left_hand" pos="-.25 0 .49" quat="1 0 1 0">
 			<inertial mass="3" pos="0 0 0.09" diaginertia="0.0138 0.0138 0.00744" />
 			<geom class="plastic_visual" mesh="forearm_0" material="gray" />
 			<geom class="plastic_visual" mesh="forearm_1" />
@@ -248,7 +248,7 @@
 		</body>
 	</worldbody>
 	<contact>
-		<exclude body1="lh_wrist" body2="lh_forearm" />
+		<exclude body1="lh_wrist" body2="shadow_hand" />
 		<exclude body1="lh_thproximal" body2="lh_thmiddle" />
 	</contact>
 	<tendon>

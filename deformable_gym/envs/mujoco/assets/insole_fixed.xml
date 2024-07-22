@@ -1,8 +1,5 @@
-<mujoco model="floating_shadow_hand">
-	<include file="insole.xml" />
-	<include file="shadow_l.xml" />
-	<!-- <include file="keyframes.xml"/> -->
-	<!-- <option gravity="0 0 0.001" /> -->
+<mujoco model="insole_fixed">
+	<compiler meshdir="meshes/" />
 	<statistic extent="0.3" center="0.3 0 0" />
 	<visual>
 		<rgba haze="0.15 0.25 0.35 1" />
@@ -14,9 +11,22 @@
 		<texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300" />
 		<material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2" />
 	</asset>
+	<extension>
+		<plugin plugin="mujoco.elasticity.solid" />
+	</extension>
 	<worldbody>
 		<light pos="0.3 0 1.5" dir="0 0 -1" directional="true" />
 		<geom name="floor" pos="0 0 0" size="0 0 0.05" type="plane" material="groundplane" />
-		<geom name="platform" pos=".65 0 .15" size=".4 .2 .3" type="box" rgba="1 0 0 1" />
+		<geom name="platform" pos=".65 0 .15" size=".4 .2 .3" type="box" rgba="1 0 0 1" friction="10 10 10"/>
+		<body name="insole_fixed" pos=".12 -.05 .454">
+			<flexcomp name="insole" mass="10" dim="3" type="gmsh" file="insole.msh" rgba=".1 .9 .1 1">
+				<edge equality="true" />
+				<plugin plugin="mujoco.elasticity.solid">
+					<config key="young" value="8e5" />
+					<config key="poisson" value="0.2" />
+					<config key="damping" value=".005" />
+				</plugin>
+			</flexcomp>
+		</body>
 	</worldbody>
 </mujoco>

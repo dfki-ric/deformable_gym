@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Optional, Tuple, Union
+from typing import Any, Optional, Tuple
 
 import gymnasium as gym
 import mujoco
@@ -10,28 +10,31 @@ from numpy.typing import ArrayLike, NDArray
 from ...helpers import mj_utils as mju
 from ...objects.mj_object import ObjectFactory
 from ...robots.mj_robot import MJRobot
+from .asset_manager import AssetManager
 
 
 class BaseMJEnv(gym.Env, ABC):
 
     def __init__(
         self,
-        model_path: str,
-        robot_path: str,
-        object_name: str,
-        object_path: str,
-        init_frame: str = None,
+        robot_name: str,
+        obj_name: str,
         max_sim_time: float = 5,
         gui: bool = True,
+        init_frame: Optional[str] = None,
     ):
-        self.model_path = model_path
-        self.robot = MJRobot(robot_path)
-        self.object = ObjectFactory.create(object_name, object_path)
+        self.scene = self._create_scene(robot_name, obj_name)
+        self.model, self.data = mju.load_model_from_string(self.scene)
+        self.robot = MJRobot(self.model, robot_name)
+        self.object = ObjectFactory.create(self.model, obj_name)
         self.init_frame = init_frame
         self.max_sim_time = max_sim_time
-        self.model, self.data = mju.load_model(model_path)
         self.gui = gui
         self.viewer = None
+
+    def _create_scene(self, robot_name: str, obj_name: str) -> str:
+        manager = AssetManager()
+        return manager.create_scene(robot_name, obj_name)
 
     def reset(
         self,
@@ -43,7 +46,7 @@ class BaseMJEnv(gym.Env, ABC):
         Reset the environment to the initial state.
         """
         super().reset(seed=seed, options=options)
-        self.model, _ = mju.load_model(self.model_path)
+        self.model, _ = mju.load_model_from_string(self.scene)
         mujoco.mj_resetData(self.model, self.data)
         if self.init_frame is not None:
             self.load_keyframe(self.init_frame)
@@ -51,13 +54,13 @@ class BaseMJEnv(gym.Env, ABC):
     def set_state(
         self,
         *,
-        qpos: NDArray = None,
-        qvel: NDArray = None,
-    ):
+        qpos: Optional[ArrayLike] = None,
+        qvel: Optional[ArrayLike] = None,
+    ) -> None:
         if qpos is not None:
-            self.data.qpos = qpos.copy()
+            self.data.qpos[:] = qpos.copy()
         if qvel is not None:
-            self.data.qvel = qvel.copy()
+            self.data.qvel[:] = qvel.copy()
         mujoco.mj_forward(self.model, self.data)
 
     def load_keyframe(self, frame_name: str):
@@ -67,26 +70,8 @@ class BaseMJEnv(gym.Env, ABC):
         self.set_state(qpos=qpos, qvel=qvel)
 
     @abstractmethod
-    def _get_observation(self):
-        pass
-
-    @abstractmethod
-    def _get_reward(self):
-        pass
-
-    @abstractmethod
-    def _is_terminated(self):
-        pass
-
-    def _is_truncated(self):
-        return False
-
-    def _get_info(self):
-        return {}
-
-    @abstractmethod
     def step(
-        self, ctrl: NDArray[np.float64]
+        self, ctrl: ArrayLike
     ) -> Tuple[NDArray[np.float64], float, bool, bool, dict]:
         """
         Step the environment forward using the given control input.

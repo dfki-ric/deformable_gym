@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
 
 import mujoco
 import mujoco.viewer
@@ -12,27 +12,27 @@ from .base_mjenv import BaseMJEnv
 
 logger = logging.getLogger("SHADOW_GRASP")
 
+ROBOT_INIT_POSITION = [-0.25, 0, 0.49]
+INSOLE_INIT_POSITION = [0.12, -0.05, 0.462]
+
 
 class ShadowHandGrasp(BaseMJEnv):
 
     def __init__(
         self,
-        model_path: str,
-        robot_path: str,
-        object_name: str,
-        object_path: str,
-        init_frame: str = None,
+        obj_name: str,
         max_sim_time: float = 5,
         gui: bool = True,
+        init_frame: Optional[str] = None,
+        **kwargs,
     ):
         super().__init__(
-            model_path,
-            robot_path,
-            object_name,
-            object_path,
-            init_frame,
+            "shadow_hand",
+            obj_name,
             max_sim_time,
             gui,
+            init_frame,
+            **kwargs,
         )
         self.observation_space = self._get_observation_space()
         self.action_space = self._get_action_space()
@@ -100,6 +100,12 @@ class ShadowHandGrasp(BaseMJEnv):
 
     def _is_terminated(self, sim_time: float) -> bool:
         return sim_time >= self.max_sim_time
+
+    def _is_truncated(self) -> bool:
+        return False
+
+    def _get_info(self) -> Dict:
+        return {}
 
     def step(self, ctrl: ArrayLike) -> Tuple[NDArray, int, bool, bool, Dict]:
         sim_time = self.data.time

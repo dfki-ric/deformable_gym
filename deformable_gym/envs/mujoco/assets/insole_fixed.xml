@@ -17,8 +17,8 @@
 	<worldbody>
 		<light pos="0.3 0 1.5" dir="0 0 -1" directional="true" />
 		<geom name="floor" pos="0 0 0" size="0 0 0.05" type="plane" material="groundplane" />
-		<geom name="platform" pos=".65 0 .15" size=".4 .2 .3" type="box" rgba="1 0 0 1" friction="10 10 10"/>
-		<body name="insole_fixed" pos=".12 -.05 .454">
+		<geom name="platform" pos=".65 0 .15" size=".4 .2 .3" type="box" rgba="1 0 0 1" />
+		<body name="insole_fixed" pos=".12 -.05 .455">
 			<flexcomp name="insole" mass="10" dim="3" type="gmsh" file="insole.msh" rgba=".1 .9 .1 1">
 				<edge equality="true" />
 				<plugin plugin="mujoco.elasticity.solid">
@@ -29,4 +29,9 @@
 			</flexcomp>
 		</body>
 	</worldbody>
+	<equality>
+		<weld name="fix_1" body1="insole_25" body2="world" />
+		<weld name="fix_2" body1="insole_61" body2="world" />
+		<weld name="fix_3" body1="insole_65" body2="world" />
+	</equality>
 </mujoco>

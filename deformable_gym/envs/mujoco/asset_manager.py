@@ -2,6 +2,8 @@ import os
 import xml.etree.ElementTree as ET
 from typing import List, Optional, Union
 
+from ...helpers import mj_utils as mju
+
 ROBOTS = {"shadow_hand": "shadow_hand.xml"}
 OBJECTS = {"insole_fixed": "insole_fixed.xml"}
 
@@ -13,6 +15,14 @@ class AssetManager:
         self.meshdir = os.path.join(self.assets_dir, "meshes/")
         self.robots = ROBOTS
         self.objects = OBJECTS
+
+    def load_asset(self, name: str) -> str:
+        assert (
+            name in self.robots or name in self.objects
+        ), f"Model {name} not found.\n available: {list(self.robots.keys()) + list(self.objects.keys())}"
+        path = self._get_full_path(self.robots.get(name, self.objects[name]))
+        model, _ = mju.load_model_from_file(path)
+        return model
 
     def create_scene(self, robot_name: str, obj_name: str) -> str:
         assert (

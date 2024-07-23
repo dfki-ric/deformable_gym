@@ -33,6 +33,7 @@ TYPE_NAMES = [
 ]
 
 
+# -------------------------------- LOAD MODEL --------------------------------#
 def load_model_from_file(path: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
     model = mujoco.MjModel.from_xml_path(path)
     data = mujoco.MjData(model)
@@ -45,8 +46,9 @@ def load_model_from_string(xml: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
     return model, data
 
 
+# -------------------------------- BODY UTILS --------------------------------#
 def get_body_names(model: mujoco.MjModel) -> List[str]:
-    """Get all first level body names under worldbody node in the model.
+    """Get all **FIRST LEVEL body names** under worldbody in the model.
 
     Args:
         model (mujoco.MjModel): mj_Model struct
@@ -59,26 +61,6 @@ def get_body_names(model: mujoco.MjModel) -> List[str]:
         for i in range(model.nbody)
         if model.body(i).parentid == 0 and model.body(i).name != "world"
     ]
-
-
-def get_geom_names(model: mujoco.MjModel) -> List[str]:
-    """Get all first level geom names under worldbody node in the model.
-
-    Args:
-        model (mujoco.MjModel): mj_Model struct
-
-    Returns:
-        List[str]: list of all geom names
-    """
-    return [
-        model.geom(i).name
-        for i in range(model.ngeom)
-        if model.geom(i).name != ""
-    ]
-
-
-def get_sensor_names(model: mujoco.MjModel) -> List[str]:
-    return [id2name(model, i, "sensor") for i in range(model.nsensor)]
 
 
 def remove_body(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
@@ -95,23 +77,6 @@ def remove_body(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
     ), f"No body named {name} in the model.\n Names available: {names}"
 
     model.body(name).pos = np.array([0, 0, -1000])
-    mujoco.mj_forward(model, data)
-
-
-def remove_geom(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
-    """remove a geom by setting its position to (0, 0, -1000).
-
-    Args:
-        model (mujoco.MjModel): mj_Model struct
-        data (mujoco.MjData): mj_Data struct
-        name (str): geom name
-    """
-    names = get_geom_names(model)
-    assert (
-        name in names
-    ), f"No geom named {name} in the model.\n Names available: {names}"
-
-    model.geom(name).pos = np.array([0, 0, -1000])
     mujoco.mj_forward(model, data)
 
 
@@ -137,6 +102,45 @@ def get_body_com(
     return data.body(name).xipos
 
 
+# -------------------------------- GEOM UTILS --------------------------------#
+def get_geom_names(model: mujoco.MjModel) -> List[str]:
+    """Get all first level geom names under worldbody node in the model.
+
+    Args:
+        model (mujoco.MjModel): mj_Model struct
+
+    Returns:
+        List[str]: list of all geom names
+    """
+    return [
+        model.geom(i).name
+        for i in range(model.ngeom)
+        if model.geom(i).name != ""
+    ]
+
+
+def remove_geom(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
+    """remove a geom by setting its position to (0, 0, -1000).
+
+    Args:
+        model (mujoco.MjModel): mj_Model struct
+        data (mujoco.MjData): mj_Data struct
+        name (str): geom name
+    """
+    names = get_geom_names(model)
+    assert (
+        name in names
+    ), f"No geom named {name} in the model.\n Names available: {names}"
+
+    model.geom(name).pos = np.array([0, 0, -1000])
+    mujoco.mj_forward(model, data)
+
+
+# -------------------------------- SENSOR UTILS --------------------------------#
+def get_sensor_names(model: mujoco.MjModel) -> List[str]:
+    return [id2name(model, i, "sensor") for i in range(model.nsensor)]
+
+
 def get_sensor_data(
     model: mujoco.MjModel, data: mujoco.MjModel, name: str
 ) -> NDArray:
@@ -147,6 +151,29 @@ def get_sensor_data(
     return data.sensor(name).data
 
 
+# -------------------------------- EQUALITY CONSTRAINT UTILS --------------------------------#
+def get_equality_names(model: mujoco.MjModel) -> List[str]:
+    return [
+        model.equality(i).name
+        for i in range(model.neq)
+        if model.equality(i).name != ""
+    ]
+
+
+def disable_equality_constraint(
+    model: mujoco.MjModel, data: mujoco.MjData, *name: str
+) -> None:
+    names = get_equality_names(model)
+    for n in name:
+        assert (
+            n in names
+        ), f"No equality constraint named {n} in the model.\n Names available: {names}"
+        id = name2id(model, n, "equality")
+        data.eq_active[id] = 0
+    mujoco.mj_forward(model, data)
+
+
+# -------------------------------- OTHER UTILS --------------------------------#
 def id2name(model: mujoco.MjModel, id: int, t: str = "body") -> str:
     assert (
         t in TYPE_NAMES

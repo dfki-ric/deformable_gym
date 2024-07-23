@@ -19,6 +19,7 @@ class BaseMJEnv(gym.Env, ABC):
         self,
         robot_name: str,
         obj_name: str,
+        observable_object_pos: bool = True,
         max_sim_time: float = 5,
         gui: bool = True,
         init_frame: Optional[str] = None,
@@ -26,7 +27,8 @@ class BaseMJEnv(gym.Env, ABC):
         self.scene = self._create_scene(robot_name, obj_name)
         self.model, self.data = mju.load_model_from_string(self.scene)
         self.robot = MJRobot(self.model, robot_name)
-        self.object = ObjectFactory.create(self.model, obj_name)
+        self.object = ObjectFactory.create(obj_name)
+        self.observable_object_pos = observable_object_pos
         self.init_frame = init_frame
         self.max_sim_time = max_sim_time
         self.gui = gui

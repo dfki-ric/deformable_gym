@@ -21,6 +21,7 @@ class ShadowHandGrasp(BaseMJEnv):
     def __init__(
         self,
         obj_name: str,
+        observable_object_pos: bool = True,
         max_sim_time: float = 5,
         gui: bool = True,
         init_frame: Optional[str] = None,
@@ -29,6 +30,7 @@ class ShadowHandGrasp(BaseMJEnv):
         super().__init__(
             "shadow_hand",
             obj_name,
+            observable_object_pos,
             max_sim_time,
             gui,
             init_frame,
@@ -48,7 +50,11 @@ class ShadowHandGrasp(BaseMJEnv):
         nq = self.robot.nq
         low = -np.inf  # TODO: joint space range
         high = np.inf
-        return spaces.Box(low=low, high=high, shape=(nq + 3,), dtype=np.float64)
+        if self.observable_object_pos:
+            return spaces.Box(
+                low=low, high=high, shape=(nq + 3,), dtype=np.float64
+            )
+        return spaces.Box(low=low, high=high, shape=(nq,), dtype=np.float64)
 
     def reset(self, *, seed=None, options=None) -> Tuple[NDArray, Dict]:
         super().reset(seed=seed, options=options)
@@ -59,8 +65,12 @@ class ShadowHandGrasp(BaseMJEnv):
     def _get_observation(self) -> NDArray:
         # TODO: end effector position for a single hand?
         robot_qpos = self.robot.get_qpos(self.data)
-        obj_pos = self.object.get_com(self.data)
-        return np.concatenate([robot_qpos, obj_pos])
+        if self.observable_object_pos:
+            obj_pos = self.object.get_current_com(self.data)
+            obs = np.concatenate([robot_qpos, obj_pos])
+        else:
+            obs = robot_qpos
+        return obs
 
     def _step_simulation(self, time: float) -> None:
         """Step Mujoco Simulation for a given time (unit: second).
@@ -90,8 +100,9 @@ class ShadowHandGrasp(BaseMJEnv):
         if not terminated:
             return 0
         mju.remove_geom(self.model, self.data, "platform")
+        self.object.disable_eq_constraint(self.model, self.data)
         self._step_simulation(7)
-        obj_hight = self.object.get_com(self.data)[2]
+        obj_hight = self.object.get_current_com(self.data)[2]
         logger.debug(f"Object hight: {obj_hight}")
         if obj_hight > 0.2:
             return 1

@@ -26,6 +26,9 @@ XML_STRING = """
 	<sensor>
 		<framepos name="cube_pos" objtype="body" objname="cube" />
 	</sensor>
+ 	<equality>
+		<weld name="fix" body1="cube" body2="world"/>
+	</equality>
 </mujoco>
 """
 FULL_PATH = path.join(path.dirname(__file__), "test.xml")
@@ -39,6 +42,15 @@ def model():
 @pytest.fixture
 def data(model):
     return mujoco.MjData(model)
+
+
+def step(model, data):
+    data.ctrl[:] = 1
+    for _ in range(1000):
+        mujoco.mj_step(model, data)
+
+
+# -------------------------------- LOAD MODEL --------------------------------#
 
 
 @pytest.mark.parametrize("path", [FULL_PATH])
@@ -65,31 +77,10 @@ def test_load_model_from_xml_string(xml_string):
     assert model.nu == 1
 
 
+# -------------------------------- BODY UTILS --------------------------------#
 def test_get_body_names(model):
     names = mju.get_body_names(model)
-    assert names == ["cube", "trash_body"]
-
-
-def test_get_geom_names(model):
-    names = mju.get_geom_names(model)
-    assert names == ["floor", "trash_geom"]
-
-
-def test_get_sensor_names(model):
-    names = mju.get_sensor_names(model)
-    assert names == ["cube_pos"]
-
-
-@pytest.mark.parametrize("name", ["cube_pos"])
-def test_get_sensor_data(model, data, name):
-    mujoco.mj_forward(model, data)
-    init_sensor_data = mju.get_sensor_data(model, data, name)
-    assert_array_equal(init_sensor_data, [0, 0, 0.5])
-    data.ctrl[:] = 1
-    for _ in range(1000):
-        mujoco.mj_step(model, data)
-    sensor_data = mju.get_sensor_data(model, data, name)
-    assert_array_almost_equal(sensor_data, [0.84335797, 0.0, 0.5], decimal=3)
+    assert names == ["cube", "inner_body", "trash_body"]
 
 
 @pytest.mark.parametrize("name", ["cube"])
@@ -109,6 +100,22 @@ def test_remove_body(model, data, name):
     assert_array_equal(body_pos, [0, 0, -1000])
 
 
+@pytest.mark.parametrize("name", ["cube"])
+def test_get_body_com(model, data, name):
+    mujoco.mj_forward(model, data)
+    init_com = data.body(name).xipos
+    assert_array_equal(init_com, [0, 0, 0.5])
+    step(model, data)
+    body_com = data.body(name).xipos
+    assert_array_almost_equal(body_com, [0.84335797, 0.0, 0.5], decimal=3)
+
+
+# -------------------------------- GEOM UTILS --------------------------------#
+def test_get_geom_names(model):
+    names = mju.get_geom_names(model)
+    assert names == ["floor", "trash_geom"]
+
+
 @pytest.mark.parametrize("name", ["trash_geom"])
 def test_remove_geom(model, data, name):
     mujoco.mj_forward(model, data)
@@ -119,18 +126,79 @@ def test_remove_geom(model, data, name):
     assert_array_equal(geom_pos, [0, 0, -1000])
 
 
-@pytest.mark.parametrize("name", ["cube"])
-def test_get_body_com(model, data, name):
+# -------------------------------- Sensor UTILS --------------------------------#
+def test_get_sensor_names(model):
+    names = mju.get_sensor_names(model)
+    assert names == ["cube_pos"]
+
+
+@pytest.mark.parametrize("name", ["cube_pos"])
+def test_get_sensor_data(model, data, name):
     mujoco.mj_forward(model, data)
-    init_com = data.body(name).xipos
-    assert_array_equal(init_com, [0, 0, 0.5])
-    data.ctrl[:] = 1
-    for _ in range(1000):
-        mujoco.mj_step(model, data)
-    body_com = data.body(name).xipos
-    assert_array_almost_equal(body_com, [0.84335797, 0.0, 0.5], decimal=3)
+    init_sensor_data = mju.get_sensor_data(model, data, name)
+    assert_array_equal(init_sensor_data, [0, 0, 0.5])
+    step(model, data)
+    sensor_data = mju.get_sensor_data(model, data, name)
+    assert_array_almost_equal(sensor_data, [0.84335797, 0.0, 0.5], decimal=3)
 
 
+# -------------------------------- JOINT UTILS --------------------------------#
+def test_get_joint_names(model):
+    names = mju.get_joint_names(model)
+    assert names == ["slider"]
+
+
+@pytest.mark.parametrize("name", ["slider"])
+def test_get_joint_qpos(model, data, name):
+    mujoco.mj_forward(model, data)
+    init_qpos = mju.get_joint_qpos(model, data, name)
+    assert_array_equal(init_qpos, [0])
+    step(model, data)
+    qpos = mju.get_joint_qpos(model, data, name)
+    assert_array_almost_equal(qpos, [0.84475488], decimal=3)
+
+
+@pytest.mark.parametrize("name", ["slider"])
+def test_get_joint_qvel(model, data, name):
+    mujoco.mj_forward(model, data)
+    init_qpos = mju.get_joint_qvel(model, data, name)
+    assert_array_equal(init_qpos, [0])
+    step(model, data)
+    qpos = mju.get_joint_qvel(model, data, name)
+    assert_array_almost_equal(qpos, [0.69845619], decimal=3)
+
+
+# -------------------------------- ACTUATOR UTILS --------------------------------#
+def test_get_actuator_names(model):
+    names = mju.get_actuator_names(model)
+    assert names == ["cube_ctrl"]
+
+
+@pytest.mark.parametrize("name, ctrl", [("cube_ctrl", 1), ("cube_ctrl", -1)])
+def test_set_actuator_ctrl(model, data, name, ctrl):
+    mju.set_actuator_ctrl(model, data, name, ctrl)
+    assert data.ctrl[0] == ctrl
+
+
+# -------------------------------- Equality UTILS --------------------------------#
+def test_get_equality_names(model):
+    names = mju.get_equality_names(model)
+    assert names == ["fix"]
+
+
+def test_enable_equality_constraint(model, data):
+    data.eq_active[0] = 0
+    mju.enable_equality_constraint(model, data, "fix")
+    assert data.eq_active[0] == 1
+
+
+def test_disable_equality_constraint(model, data):
+    data.eq_active[0] = 1
+    mju.disable_equality_constraint(model, data, "fix")
+    assert data.eq_active[0] == 0
+
+
+# -------------------------------- Other UTILS --------------------------------#
 @pytest.mark.parametrize(
     "id, type, result",
     [
@@ -139,6 +207,7 @@ def test_get_body_com(model, data, name):
         (0, "joint", "slider"),
         (0, "sensor", "cube_pos"),
         (0, "actuator", "cube_ctrl"),
+        (0, "equality", "fix"),
     ],
 )
 def test_id2name(model, id, type, result):
@@ -153,6 +222,7 @@ def test_id2name(model, id, type, result):
         ("slider", "joint", 0),
         ("cube_pos", "sensor", 0),
         ("cube_ctrl", "actuator", 0),
+        ("fix", "equality", 0),
     ],
 )
 def test_name2id(model, name, type, result):

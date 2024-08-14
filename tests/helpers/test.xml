@@ -16,4 +16,7 @@
 	<sensor>
 		<framepos name="cube_pos" objtype="body" objname="cube" />
 	</sensor>
+	<equality>
+		<weld name="fix" body1="cube" body2="world" active="false"/>
+	</equality>
 </mujoco>

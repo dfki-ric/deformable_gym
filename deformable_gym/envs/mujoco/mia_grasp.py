@@ -3,8 +3,7 @@ from typing import Optional
 from .grasp_env import GraspEnv
 
 
-class ShadowHandGrasp(GraspEnv):
-
+class MiaHandGrasp(GraspEnv):
     def __init__(
         self,
         obj_name: str,
@@ -15,7 +14,7 @@ class ShadowHandGrasp(GraspEnv):
         **kwargs,
     ):
         super().__init__(
-            "shadow_hand",
+            "mia_hand",
             obj_name,
             observable_object_pos,
             max_sim_time,

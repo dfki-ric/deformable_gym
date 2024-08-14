@@ -1,11 +1,11 @@
 from typing import List, Union
 
 import mujoco
-import numpy as np
-from numpy.typing import ArrayLike, NDArray
+from numpy.typing import NDArray
 
 from ..envs.mujoco.asset_manager import AssetManager
 from ..helpers import mj_utils as mju
+from ..helpers.mj_utils import Pose
 
 
 class MJObject:
@@ -26,14 +26,14 @@ class MJObject:
         manager = AssetManager()
         return manager.load_asset(name)
 
-    def set_position(
+    def set_pose(
         self,
         model: mujoco.MjModel,
         data: mujoco.MjData,
-        pos: ArrayLike,
+        pose: Pose,
     ) -> None:
-        assert len(pos) == 3, f"Position should be a 3D vector, now it is {pos}"
-        model.body(self.name).pos[:] = pos
+        model.body(self.name).pos[:] = pose.position
+        model.body(self.name).quat[:] = pose.orientation
         mujoco.mj_forward(model, data)
 
     def get_current_com(self, data: mujoco.MjData) -> NDArray:

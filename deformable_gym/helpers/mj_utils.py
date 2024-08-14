@@ -1,7 +1,9 @@
+from dataclasses import dataclass
 from typing import List, Tuple
 
 import mujoco
 import numpy as np
+from mujoco import mjtJoint
 from numpy.typing import ArrayLike, NDArray
 
 TYPE_NAMES = [
@@ -33,6 +35,13 @@ TYPE_NAMES = [
 ]
 
 
+# -------------------------------- DATA CLASSES --------------------------------#
+@dataclass
+class Pose:
+    position: ArrayLike
+    orientation: ArrayLike
+
+
 # -------------------------------- LOAD MODEL --------------------------------#
 def load_model_from_file(path: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
     model = mujoco.MjModel.from_xml_path(path)
@@ -48,18 +57,11 @@ def load_model_from_string(xml: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
 
 # -------------------------------- BODY UTILS --------------------------------#
 def get_body_names(model: mujoco.MjModel) -> List[str]:
-    """Get all **FIRST LEVEL body names** under worldbody in the model.
 
-    Args:
-        model (mujoco.MjModel): mj_Model struct
-
-    Returns:
-        List[str]: list of all body names
-    """
     return [
         model.body(i).name
         for i in range(model.nbody)
-        if model.body(i).parentid == 0 and model.body(i).name != "world"
+        if model.body(i).name != "world"
     ]
 
 
@@ -102,6 +104,50 @@ def get_body_com(
     return data.body(name).xipos
 
 
+# -------------------------------- JOINT UTILS --------------------------------#
+def get_joint_names(model: mujoco.MjModel) -> List[str]:
+    return [
+        model.joint(i).name
+        for i in range(model.njnt)
+        if model.joint(i).name != ""
+    ]
+
+
+def get_joint_qpos(
+    model: mujoco.MjModel, data: mujoco.MjData, *name: str
+) -> NDArray:
+    names = get_joint_names(model)
+    assert set(name).issubset(
+        names
+    ), f"No joint named {name} in the model.\n Names available: {names}"
+    return np.concatenate([data.joint(n).qpos for n in name])
+
+
+def get_joint_qvel(
+    model: mujoco.MjModel, data: mujoco.MjData, *name
+) -> NDArray:
+    names = set(get_joint_names(model))
+    assert set(name).issubset(
+        names
+    ), f"No joint named {name} in the model.\n Names available: {names}"
+    return np.concatenate([data.joint(n).qvel for n in name])
+
+
+def disable_joint(
+    model: mujoco.MjModel, data: mujoco.MjData, *name: str
+) -> None:
+    for n in name:
+        joint_type = model.joint(n).type
+        if all(
+            joint_type == mjtJoint.mjJNT_HINGE
+            or joint_type == mjtJoint.mjJNT_SLIDE
+        ):
+            model.joint(n).range = data.joint(n).qpos
+        else:
+            raise ValueError(f"Only hinge or slide joint can be disabled.")
+    mujoco.mj_forward(model, data)
+
+
 # -------------------------------- GEOM UTILS --------------------------------#
 def get_geom_names(model: mujoco.MjModel) -> List[str]:
     """Get all first level geom names under worldbody node in the model.
@@ -138,7 +184,11 @@ def remove_geom(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
 
 # -------------------------------- SENSOR UTILS --------------------------------#
 def get_sensor_names(model: mujoco.MjModel) -> List[str]:
-    return [id2name(model, i, "sensor") for i in range(model.nsensor)]
+    return [
+        model.sensor(i).name
+        for i in range(model.nsensor)
+        if model.sensor(i).name != ""
+    ]
 
 
 def get_sensor_data(
@@ -160,6 +210,19 @@ def get_equality_names(model: mujoco.MjModel) -> List[str]:
     ]
 
 
+def enable_equality_constraint(
+    model: mujoco.MjModel, data: mujoco.MjData, *name: str
+) -> None:
+    names = get_equality_names(model)
+    for n in name:
+        assert (
+            n in names
+        ), f"No equality constraint named {n} in the model.\n Names available: {names}"
+        id = name2id(model, n, "equality")
+        data.eq_active[id] = 1
+    mujoco.mj_forward(model, data)
+
+
 def disable_equality_constraint(
     model: mujoco.MjModel, data: mujoco.MjData, *name: str
 ) -> None:
@@ -171,6 +234,26 @@ def disable_equality_constraint(
         id = name2id(model, n, "equality")
         data.eq_active[id] = 0
     mujoco.mj_forward(model, data)
+
+
+# -------------------------------- ACTUATOR UTILS --------------------------------#
+def get_actuator_names(model: mujoco.MjModel) -> List[str]:
+    return [
+        model.actuator(i).name
+        for i in range(model.nu)
+        if model.actuator(i).name != ""
+    ]
+
+
+def set_actuator_ctrl(
+    model: mujoco.MjModel, data: mujoco.MjData, name: str, ctrl: float
+) -> None:
+    names = get_actuator_names(model)
+    assert (
+        name in names
+    ), f"No actuator named {name} in the model.\n Names available: {names}"
+    id = name2id(model, name, "actuator")
+    data.ctrl[id] = ctrl
 
 
 # -------------------------------- OTHER UTILS --------------------------------#

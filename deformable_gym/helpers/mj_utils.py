@@ -93,15 +93,15 @@ def remove_body(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
     mujoco.mj_forward(model, data)
 
 
-def get_body_pos(
+def get_body_pose(
     model: mujoco.MjModel, data: mujoco.MjModel, name: str
-) -> NDArray:
+) -> Pose:
     names = get_body_names(model)
     assert (
         name in names
     ), f"No body named {name} in the model.\n Names available: {names}"
 
-    return data.body(name).xpos
+    return Pose(data.body(name).xpos, data.body(name).xquat)
 
 
 def get_body_com(

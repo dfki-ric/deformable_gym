@@ -84,10 +84,11 @@ def test_get_body_names(model):
 
 
 @pytest.mark.parametrize("name", ["cube"])
-def test_get_body_pos(model, data, name):
+def test_get_body_pose(model, data, name):
     mujoco.mj_forward(model, data)
-    body_pos = mju.get_body_pos(model, data, name)
-    assert_array_equal(body_pos, [0, 0, 0.5])
+    body_pose = mju.get_body_pose(model, data, name)
+    assert_array_equal(body_pose.position, [0, 0, 0.5])
+    assert_array_equal(body_pose.orientation, [1, 0, 0, 0])
 
 
 @pytest.mark.parametrize("name", ["trash_body"])

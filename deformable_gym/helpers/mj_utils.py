@@ -41,6 +41,17 @@ class Pose:
     position: ArrayLike
     orientation: ArrayLike
 
+    def __post_init__(self):
+        assert len(self.position) == 3, "position should be in shape (3,)."
+        assert (
+            len(self.orientation) == 3 or len(self.orientation) == 4
+        ), "orientation should be in shape (3,) or (4,)."
+        self.position = np.array(self.position)
+        if len(self.orientation) == 3:
+            self.orientation = euler2quat(self.orientation)
+        else:
+            self.orientation = np.array(self.orientation)
+
 
 # -------------------------------- LOAD MODEL --------------------------------#
 def load_model_from_file(path: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:

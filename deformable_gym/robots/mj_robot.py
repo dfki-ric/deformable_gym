@@ -11,6 +11,24 @@ from ..helpers.mj_utils import Pose
 
 
 class MJRobot(ABC):
+    """
+    Abstract base class for creating robot instances in a MuJoCo simulation environment.
+
+    This class provides a set of methods to manage robot configurations, including
+    initialization, accessing joint and actuator information, and setting robot poses and controls.
+
+    Attributes:
+        init_pos (dict): A dictionary that can store initial positions for different robot models.
+                         This can be overridden by subclasses to provide specific initial positions.
+        name (str): The name of the robot model.
+        model (mujoco.MjModel): The MuJoCo model of the robot, loaded from the corresponding XML file.
+        nq (int): Number of generalized coordinates (joints) in the robot model.
+        dof (int): Degrees of freedom in the robot model.
+        nact (int): Number of actuators in the robot model.
+        ctrl_range (NDArray): The control range for each actuator, indicating the min and max values.
+        joints (List[str]): A list of joint names for the robot.
+        actuators (List[str]): A list of actuator names for the robot.
+    """
 
     init_pos = {}
 
@@ -32,9 +50,31 @@ class MJRobot(ABC):
         return mju.get_actuator_names(self.model)
 
     def get_qpos(self, model: mujoco.MjModel, data: mujoco.MjData) -> NDArray:
+        """
+        Get the current joint positions (qpos) for the robot.
+
+        Args:
+            model (mujoco.MjModel): The MuJoCo model object containing the robot's configuration.
+            data (mujoco.MjData): The MuJoCo data object containing the current simulation state.
+
+        Returns:
+            NDArray: An array of joint positions for the robot.
+        """
+
         return mju.get_joint_qpos(model, data, *self.joints)
 
     def get_qvel(self, model: mujoco.MjModel, data: mujoco.MjData) -> NDArray:
+        """
+        Get the current joint velocities (qvel) for the robot.
+
+        Args:
+            model (mujoco.MjModel): The MuJoCo model object containing the robot's configuration.
+            data (mujoco.MjData): The MuJoCo data object containing the current simulation state.
+
+        Returns:
+            NDArray: An array of joint velocities for the robot.
+        """
+
         return mju.get_joint_qvel(model, data, *self.joints)
 
     def set_pose(
@@ -43,6 +83,18 @@ class MJRobot(ABC):
         data: mujoco.MjData,
         pose: Pose,
     ) -> None:
+        """
+        Set the pose (position and orientation) of the robot's base.
+
+        This method sets the position and orientation of the robot's base body in the simulation,
+        and then recalculates the simulation state using `mujoco.mj_forward`.
+
+        Args:
+            model (mujoco.MjModel): The MuJoCo model object containing the robot's configuration.
+            data (mujoco.MjData): The MuJoCo data object containing the current simulation state.
+            pose (Pose): A Pose object containing the desired position and orientation for the robot's base.
+        """
+
         model.body(self.name).pos[:] = pose.position
         model.body(self.name).quat[:] = pose.orientation
         mujoco.mj_forward(model, data)
@@ -50,6 +102,21 @@ class MJRobot(ABC):
     def set_ctrl(
         self, model: mujoco.MjModel, data: mujoco.MjData, ctrl: ArrayLike
     ) -> None:
+        """
+        Apply control inputs to the robot's actuators.
+
+        This method sets the control input for each actuator based on the provided control vector.
+        The control vector must have a length equal to the number of actuators.
+
+        Args:
+            model (mujoco.MjModel): The MuJoCo model object containing the robot's configuration.
+            data (mujoco.MjData): The MuJoCo data object containing the current simulation state.
+            ctrl (ArrayLike): An array of control inputs for the actuators.
+
+        Raises:
+            AssertionError: If the length of the control vector does not match the number of actuators.
+        """
+
         assert (
             len(ctrl) == self.nact
         ), f"Control vector should have length {self.nact}"

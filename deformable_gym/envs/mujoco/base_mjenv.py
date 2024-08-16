@@ -39,16 +39,41 @@ class BaseMJEnv(gym.Env, ABC):
         self.action_space = self._get_action_space()
 
     def _create_scene(self, robot_name: str, obj_name: str) -> str:
-        manager = AssetManager()
-        return manager.create_scene(robot_name, obj_name)
+        """
+        Creates the simulation scene by combining the robot and object models.
+
+        Args:
+            robot_name (str): The name of the robot to include in the scene.
+            obj_name (str): The name of the object to include in the scene.
+
+        Returns:
+            str: The MJCF XML string representing the combined simulation scene.
+        """
+
+        return AssetManager().create_scene(robot_name, obj_name)
 
     def _get_action_space(self) -> spaces.Box:
+        """
+        Defines the action space for the environment based on the robot's control range.
+
+        Returns:
+            spaces.Box: A continuous space representing the possible actions the agent can take.
+        """
+
         n_act = self.robot.nact
         low = self.robot.ctrl_range[:, 0].copy()
         high = self.robot.ctrl_range[:, 1].copy()
         return spaces.Box(low=low, high=high, shape=(n_act,), dtype=np.float64)
 
     def _get_observation_space(self) -> spaces.Box:
+        """
+        Defines the observation space for the environment, including the robot's joint positions
+        and, optionally, the object's position.
+
+        Returns:
+            spaces.Box: A continuous space representing the state observations available to the agent.
+        """
+
         nq = self.robot.nq
         low = -np.inf  # TODO: joint space range
         high = np.inf
@@ -65,8 +90,16 @@ class BaseMJEnv(gym.Env, ABC):
         options: Optional[dict] = None,
     ) -> tuple[NDArray[np.float64], dict[str, Any]]:
         """
-        Reset the environment to the initial state.
+        Resets the environment to its initial state.
+
+        Args:
+            seed (Optional[int], optional): A random seed for resetting the environment. Default is None.
+            options (Optional[dict], optional): Additional options for resetting the environment. Default is None.
+
+        Returns:
+            tuple: A tuple containing the initial observation and an empty info dictionary.
         """
+
         super().reset(seed=seed, options=options)
         self.model, _ = mju.load_model_from_string(self.scene)
         mujoco.mj_resetData(self.model, self.data)
@@ -93,6 +126,12 @@ class BaseMJEnv(gym.Env, ABC):
         mujoco.mj_forward(self.model, self.data)
 
     def _load_keyframe(self, frame_name: str):
+        """
+        Loads a predefined keyframe and sets the environment's state to it.
+
+        Args:
+            frame_name (str): The name of the keyframe to load.
+        """
         frame = self.model.keyframe(frame_name)
         qpos = frame.qpos.copy()
         qvel = frame.qvel.copy()

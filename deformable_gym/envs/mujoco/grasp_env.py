@@ -10,6 +10,9 @@ from .base_mjenv import BaseMJEnv
 
 
 class GraspEnv(BaseMJEnv):
+    """
+    A custom MuJoCo environment for a grasping task, where a robot attempts to grasp an object.
+    """
 
     def __init__(
         self,
@@ -35,14 +38,18 @@ class GraspEnv(BaseMJEnv):
 
     def reset(self, *, seed=None, options=None) -> Tuple[NDArray, Dict]:
         super().reset(seed=seed, options=options)
-        self.robot.set_pose(
-            self.model, self.data, self.robot.init_pose[self.object.name]
-        )
         observation = self._get_observation()
         info = self._get_info()
         return observation, info
 
     def _get_observation(self) -> NDArray:
+        """
+        The observation includes the robot's joint qpos in their generalized coordinates,
+        and optionally, the object's position.
+
+        Returns:
+            NDArray: A numpy array containing the observation.
+        """
         robot_qpos = self.robot.get_qpos(self.model, self.data)
         if self.observable_object_pos:
             obj_pos = self.object.get_current_com(self.data)
@@ -52,13 +59,19 @@ class GraspEnv(BaseMJEnv):
         return obs
 
     def _pause_simulation(self, time: float) -> None:
-        """Step Mujoco Simulation for a given time.
+        """
+        Steps the MuJoCo simulation for a specified amount of time.
+
+        certain constraints of object will be disabled and all joints will be freezed
+        before stepping the simulation to allow the robot to grasp the object without
+        external influences.
 
         Args:
-            time (float): simulation time in seconds
+            time (float): The duration in seconds for which to step the simulation.
         """
-        # mju.remove_geom(self.model, self.data, "platform") # might be off here...
-        self.object.disable_eq_constraint(self.model, self.data)
+        mju.disable_equality_constraint(
+            self.model, self.data, *self.object.eq_constraints_to_disable
+        )
         mju.disable_joint(self.model, self.data, *self.robot.joints)
         start_time = self.data.time
         while self.data.time - start_time < time:
@@ -67,17 +80,22 @@ class GraspEnv(BaseMJEnv):
                 self.render()
 
     def _get_reward(self, terminated: bool) -> int:
-        """Calculate reward by removing the platform and check if object falls to the ground.
-        0 reward: max_sim_time is not reached yet
-        -1 reward: object falls to the ground after removing the platform
-        1 reward: object is grasped successfully by the robot hand
+        """
+        Calculates the reward based on the robot's success in grasping the object.
+
+        The reward is calculated after removing all fixed constraints and checking
+        if the object remains grasped by the robot.
 
         Args:
-            terminated (bool): if episode is terminated
+            terminated (bool): Whether the episode has terminated.
 
         Returns:
-            int: reward gotten per step
+            int: The reward for the current step. Possible values are:
+                 - 0: The episode has not yet terminated.
+                 - 1: The object is successfully grasped by the robot.
+                 - -1: The object falls to the ground.
         """
+
         if not terminated:
             return 0
         self._pause_simulation(1)
@@ -88,17 +106,42 @@ class GraspEnv(BaseMJEnv):
             return -1
 
     def _is_terminated(self, sim_time: float) -> bool:
+        """
+        Determines whether the episode has terminated based on the simulation time.
+
+        Args:
+            sim_time (float): The current simulation time.
+
+        Returns:
+            bool: True if the simulation time has exceeded the maximum allowed time, otherwise False.
+        """
         return sim_time >= self.max_sim_time
 
     def _is_truncated(self) -> bool:
         return False
 
     def _get_info(self) -> Dict:
-        if self.viewer is not None:
+        """
+        If the GUI viewer is running, this method will return a dictionary indicating that.
+
+        Returns:
+            Dict: A dictionary containing information about the environment.
+        """
+        if self.gui and self.viewer is not None:
             return {"is_viewer_running": self.viewer.is_running()}
         return {}
 
     def step(self, ctrl: ArrayLike) -> Tuple[NDArray, int, bool, bool, Dict]:
+        """
+        Advances the simulation applying the given control input to the robot
+
+        Args:
+            ctrl (ArrayLike): The control input to be applied to the robot.
+
+        Returns:
+            Tuple[NDArray, int, bool, bool, Dict]: observation, reward, termination flag,
+                                                truncation flag, and an info.
+        """
         sim_time = self.data.time
         self.robot.set_ctrl(self.model, self.data, ctrl)
         mujoco.mj_step(self.model, self.data)

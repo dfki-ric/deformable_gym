@@ -88,7 +88,7 @@ class BaseMJEnv(gym.Env, ABC):
         *,
         seed: Optional[int] = None,
         options: Optional[dict] = None,
-    ) -> tuple[NDArray[np.float64], dict[str, Any]]:
+    ) -> Tuple[NDArray[np.float64], dict[str, Any]]:
         """
         Resets the environment to its initial state.
 

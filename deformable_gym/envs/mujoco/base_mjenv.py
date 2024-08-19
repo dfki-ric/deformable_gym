@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 import gymnasium as gym
 import mujoco
@@ -88,7 +88,7 @@ class BaseMJEnv(gym.Env, ABC):
         *,
         seed: Optional[int] = None,
         options: Optional[dict] = None,
-    ) -> Tuple[NDArray[np.float64], dict[str, Any]]:
+    ) -> Tuple[NDArray[np.float64], Dict[str, Any]]:
         """
         Resets the environment to its initial state.
 

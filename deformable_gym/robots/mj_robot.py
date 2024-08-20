@@ -39,6 +39,7 @@ class MJRobot(ABC):
         self.nq = self.model.nq
         self.dof = self.model.nv
         self.nact = self.model.nu
+        self.joint_range = self.model.jnt_range.copy()
         self.ctrl_range = self.model.actuator_ctrlrange.copy()
 
     @property

@@ -75,9 +75,11 @@ class BaseMJEnv(gym.Env, ABC):
         """
 
         nq = self.robot.nq
-        low = -np.inf  # TODO: joint space range
-        high = np.inf
+        low = self.robot.joint_range[:, 0].copy()
+        high = self.robot.joint_range[:, 1].copy()
         if self.observable_object_pos:
+            low = np.concatenate([low, [-np.inf, -np.inf, -np.inf]])
+            high = np.concatenate([high, [np.inf, np.inf, np.inf]])
             return spaces.Box(
                 low=low, high=high, shape=(nq + 3,), dtype=np.float64
             )
@@ -87,14 +89,14 @@ class BaseMJEnv(gym.Env, ABC):
         self,
         *,
         seed: Optional[int] = None,
-        options: Optional[dict] = None,
+        options: Optional[Dict] = None,
     ) -> Tuple[NDArray[np.float64], Dict[str, Any]]:
         """
         Resets the environment to its initial state.
 
         Args:
             seed (Optional[int], optional): A random seed for resetting the environment. Default is None.
-            options (Optional[dict], optional): Additional options for resetting the environment. Default is None.
+            options (Optional[Dict], optional): Additional options for resetting the environment. Default is None.
 
         Returns:
             tuple: A tuple containing the initial observation and an empty info dictionary.
@@ -140,7 +142,7 @@ class BaseMJEnv(gym.Env, ABC):
     @abstractmethod
     def step(
         self, ctrl: ArrayLike
-    ) -> Tuple[NDArray[np.float64], float, bool, bool, dict]:
+    ) -> Tuple[NDArray[np.float64], float, bool, bool, Dict]:
         """
         Step the environment forward using the given control input.
         """

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Tuple
 
 import gymnasium as gym
 import mujoco
@@ -9,12 +11,49 @@ from gymnasium import spaces
 from numpy.typing import ArrayLike, NDArray
 
 from ...helpers import mj_utils as mju
+from ...helpers.asset_manager import AssetManager
 from ...objects.mj_object import ObjectFactory
 from ...robots.mj_robot import RobotFactory
-from .asset_manager import AssetManager
 
 
 class BaseMJEnv(gym.Env, ABC):
+    """
+    Base environment class for simulating robotic tasks using the MuJoCo physics engine.
+
+    This class provides the foundational setup for environments where a robot interacts
+    with objects in a simulated scene. It handles the initialization of the robot and object,
+    the definition of action and observation spaces, and the integration with the MuJoCo
+    simulator for physics-based simulation.
+
+    Attributes:
+    -----------
+    scene : str
+        The XML string representing the MuJoCo scene, created by the `AssetManager` using
+        the specified robot and object names.
+    model : mujoco.MjModel
+        The compiled MuJoCo model used for simulation.
+    data : mujoco.MjData
+        The MuJoCo data structure containing the state of the simulation.
+    robot : MjRobot
+        An instance of the `MjRobot` class representing the configuration of robot in the simulation.
+    object : MjObject
+        An instance of the `MjObject` class representing the configuration of object in the simulation.
+    observable_object_pos : bool
+        Indicates whether the position of the object should be observable in the
+        observation space.
+    init_frame : str or None
+        The name of an optional keyframe to load for initializing the environment's state.
+    max_sim_time : float
+        The maximum time duration for each simulation episode.
+    gui : bool
+        Indicates whether a GUI viewer for the simulation should be launched.
+    viewer : mujoco.viewer or None
+        The GUI viewer for the simulation, if `gui` is enabled.
+    observation_space : gym.spaces.Box
+        The space representing possible observations that can be returned by the environment.
+    action_space : gym.spaces.Box
+        The space representing possible actions that can be taken by the agent.
+    """
 
     def __init__(
         self,
@@ -23,9 +62,9 @@ class BaseMJEnv(gym.Env, ABC):
         observable_object_pos: bool = True,
         max_sim_time: float = 5,
         gui: bool = True,
-        init_frame: Optional[str] = None,
+        init_frame: str | None = None,
     ):
-        self.scene = self._create_scene(robot_name, obj_name)
+        self.scene = AssetManager().create_scene(robot_name, obj_name)
         self.model, self.data = mju.load_model_from_string(self.scene)
         self.robot = RobotFactory.create(robot_name)
         self.object = ObjectFactory.create(obj_name)
@@ -38,20 +77,6 @@ class BaseMJEnv(gym.Env, ABC):
         self.observation_space = self._get_observation_space()
         self.action_space = self._get_action_space()
 
-    def _create_scene(self, robot_name: str, obj_name: str) -> str:
-        """
-        Creates the simulation scene by combining the robot and object models.
-
-        Args:
-            robot_name (str): The name of the robot to include in the scene.
-            obj_name (str): The name of the object to include in the scene.
-
-        Returns:
-            str: The MJCF XML string representing the combined simulation scene.
-        """
-
-        return AssetManager().create_scene(robot_name, obj_name)
-
     def _get_action_space(self) -> spaces.Box:
         """
         Defines the action space for the environment based on the robot's control range.
@@ -60,10 +85,12 @@ class BaseMJEnv(gym.Env, ABC):
             spaces.Box: A continuous space representing the possible actions the agent can take.
         """
 
-        n_act = self.robot.nact
+        n_actuator = self.robot.n_actuator
         low = self.robot.ctrl_range[:, 0].copy()
         high = self.robot.ctrl_range[:, 1].copy()
-        return spaces.Box(low=low, high=high, shape=(n_act,), dtype=np.float64)
+        return spaces.Box(
+            low=low, high=high, shape=(n_actuator,), dtype=np.float64
+        )
 
     def _get_observation_space(self) -> spaces.Box:
         """
@@ -74,22 +101,22 @@ class BaseMJEnv(gym.Env, ABC):
             spaces.Box: A continuous space representing the state observations available to the agent.
         """
 
-        nq = self.robot.nq
+        n_qpos = self.robot.n_qpos
         low = self.robot.joint_range[:, 0].copy()
         high = self.robot.joint_range[:, 1].copy()
         if self.observable_object_pos:
             low = np.concatenate([low, [-np.inf, -np.inf, -np.inf]])
             high = np.concatenate([high, [np.inf, np.inf, np.inf]])
             return spaces.Box(
-                low=low, high=high, shape=(nq + 3,), dtype=np.float64
+                low=low, high=high, shape=(n_qpos + 3,), dtype=np.float64
             )
-        return spaces.Box(low=low, high=high, shape=(nq,), dtype=np.float64)
+        return spaces.Box(low=low, high=high, shape=(n_qpos,), dtype=np.float64)
 
     def reset(
         self,
         *,
-        seed: Optional[int] = None,
-        options: Optional[Dict] = None,
+        seed: int | None = None,
+        options: Dict | None = None,
     ) -> Tuple[NDArray[np.float64], Dict[str, Any]]:
         """
         Resets the environment to its initial state.
@@ -118,13 +145,13 @@ class BaseMJEnv(gym.Env, ABC):
     def _set_state(
         self,
         *,
-        qpos: Optional[ArrayLike] = None,
-        qvel: Optional[ArrayLike] = None,
+        qpos: ArrayLike | None = None,
+        qvel: ArrayLike | None = None,
     ) -> None:
         if qpos is not None:
-            self.data.qpos[:] = qpos.copy()
+            self.data.qpos[:] = qpos
         if qvel is not None:
-            self.data.qvel[:] = qvel.copy()
+            self.data.qvel[:] = qvel
         mujoco.mj_forward(self.model, self.data)
 
     def _load_keyframe(self, frame_name: str):
@@ -141,7 +168,7 @@ class BaseMJEnv(gym.Env, ABC):
 
     @abstractmethod
     def step(
-        self, ctrl: ArrayLike
+        self, action: ArrayLike
     ) -> Tuple[NDArray[np.float64], float, bool, bool, Dict]:
         """
         Step the environment forward using the given control input.

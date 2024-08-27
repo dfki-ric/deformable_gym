@@ -102,13 +102,13 @@ def test_remove_body(model, data, name):
 
 
 @pytest.mark.parametrize("name", ["cube"])
-def test_get_body_com(model, data, name):
+def test_get_body_center_of_mass(model, data, name):
     mujoco.mj_forward(model, data)
     init_com = data.body(name).xipos
     assert_array_equal(init_com, [0, 0, 0.5])
     step(model, data)
-    body_com = data.body(name).xipos
-    assert_array_almost_equal(body_com, [0.84335797, 0.0, 0.5], decimal=3)
+    body_com = mju.get_body_center_of_mass(model, data, name)
+    assert_array_almost_equal(body_com, data.body(name).xipos, decimal=3)
 
 
 # -------------------------------- GEOM UTILS --------------------------------#

@@ -5,8 +5,8 @@ import mujoco
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
-from ..envs.mujoco.asset_manager import AssetManager
 from ..helpers import mj_utils as mju
+from ..helpers.asset_manager import AssetManager
 from ..helpers.mj_utils import Pose
 
 
@@ -24,7 +24,7 @@ class MJRobot(ABC):
         model (mujoco.MjModel): The MuJoCo model of the robot, loaded from the corresponding XML file.
         nq (int): Number of generalized coordinates (joints) in the robot model.
         dof (int): Degrees of freedom in the robot model.
-        nact (int): Number of actuators in the robot model.
+        n_actuator (int): Number of actuators in the robot model.
         ctrl_range (NDArray): The control range for each actuator, indicating the min and max values.
         joints (List[str]): A list of joint names for the robot.
         actuators (List[str]): A list of actuator names for the robot.
@@ -36,9 +36,9 @@ class MJRobot(ABC):
 
         self.name = name
         self.model = AssetManager().load_asset(self.name)
-        self.nq = self.model.nq
+        self.n_qpos = self.model.nq
         self.dof = self.model.nv
-        self.nact = self.model.nu
+        self.n_actuator = self.model.nu
         self.joint_range = self.model.jnt_range.copy()
         self.ctrl_range = self.model.actuator_ctrlrange.copy()
 
@@ -119,8 +119,8 @@ class MJRobot(ABC):
         """
 
         assert (
-            len(ctrl) == self.nact
-        ), f"Control vector should have length {self.nact}"
+            len(ctrl) == self.n_actuator
+        ), f"Control vector should have length {self.n_actuator}"
         for i, act in enumerate(self.actuators):
             mju.set_actuator_ctrl(model, data, act, ctrl[i])
 
@@ -128,9 +128,7 @@ class MJRobot(ABC):
 class ShadowHand(MJRobot):
 
     init_pose = {
-        "insole_fixed": Pose(
-            [-0.35, 0.00, 0.49], mju.euler2quat([0, np.pi / 2, 0])
-        ),
+        "insole_fixed": Pose([-0.35, 0.00, 0.49], [0, np.pi / 2, 0]),
     }
 
     def __init__(self) -> None:
@@ -146,17 +144,22 @@ class MiaHand(MJRobot):
     mrl_joints = ["j_middle_fle", "j_ring_fle", "j_little_fle"]
 
     init_pose = {
-        "insole_fixed": Pose(
-            [-0.1, 0, 0.49], mju.euler2quat([0, np.pi, np.pi / 2])
-        ),
+        "insole_fixed": Pose([-0.1, 0, 0.49], [0, np.pi, np.pi / 2]),
     }
 
     def __init__(self) -> None:
         super().__init__("mia_hand")
-        self.nact = self.model.nu - 2
-        self.ctrl_range = np.take(
-            self.model.actuator_ctrlrange, [0, 1, 2, 5, 6, 7, 8, 9, 10], axis=0
+        self.n_actuator = self.model.nu - 2
+
+        mrl_range = self.model.actuator("j_middle_fle_A").ctrlrange
+        ctrl_range_wo_mrl = np.array(
+            [
+                self.model.actuator(name).ctrlrange
+                for name in mju.get_actuator_names(self.model)
+                if name not in self.mrl_actuators
+            ]
         )
+        self.ctrl_range = np.vstack((ctrl_range_wo_mrl, mrl_range))
 
     @property
     def actuators(self):
@@ -175,8 +178,8 @@ class MiaHand(MJRobot):
         self, model: mujoco.MjModel, data: mujoco.MjData, ctrl: ArrayLike
     ) -> None:
         assert (
-            len(ctrl) == self.nact
-        ), f"Control vector should have length {self.nact}, now it is {len(ctrl)}"
+            len(ctrl) == self.n_actuator
+        ), f"Control vector should have length {self.n_actuator}, now it is {len(ctrl)}"
         for i, act in enumerate(self.actuators):
             if act == "j_mrl_fle_A":
                 self._set_mrl_ctrl(model, data, ctrl[i])

@@ -1,10 +1,12 @@
-from typing import List, Union
+from __future__ import annotations
+
+from typing import List
 
 import mujoco
 from numpy.typing import NDArray
 
-from ..envs.mujoco.asset_manager import AssetManager
 from ..helpers import mj_utils as mju
+from ..helpers.asset_manager import AssetManager
 from ..helpers.mj_utils import Pose
 
 
@@ -19,36 +21,22 @@ class MJObject:
         eq_constraints (List[str]): A list of equality constraints associated with this object.
             These constraints are typically used to enforce specific relationships between bodies,
             such as keeping them at a fixed distance or maintaining an orientation.
-        eq_constraints_to_disable (List[Union[str, None]]): A list of equality constraints that are marked to be disabled for this object
+        eq_constraints_to_disable (List[str | None]): A list of equality constraints that are marked to be disabled for this object
             in a specific occasion such as making the object free to move in the simulation for floating objects.
             This list can be customized by subclasses to define which constraints should be ignored or temporarily disabled during the simulation.
     """
 
     def __init__(self, name: str) -> None:
         self.name = name
-        self.model = self._load_model(name)
+        self.model = AssetManager().load_asset(name)
 
     @property
     def eq_constraints(self) -> List[str]:
         return mju.get_equality_names(self.model)
 
     @property
-    def eq_constraints_to_disable(self) -> List[Union[str, None]]:
+    def eq_constraints_to_disable(self) -> List[str | None]:
         return []
-
-    def _load_model(self, name: str) -> mujoco.MjModel:
-        """
-        Load the MuJoCo model for the object.
-
-        This method uses the `AssetManager` to load the XML model file corresponding to the object.
-
-        Args:
-            name (str): The name of the object to load.
-
-        Returns:
-            mujoco.MjModel: The loaded MuJoCo model for the object.
-        """
-        return AssetManager().load_asset(name)
 
     def set_pose(
         self,
@@ -71,9 +59,9 @@ class MJObject:
         model.body(self.name).quat[:] = pose.orientation
         mujoco.mj_forward(model, data)
 
-    def get_current_com(self, data: mujoco.MjData) -> NDArray:
+    def get_center_of_mass(self, data: mujoco.MjData) -> NDArray:
         """
-        Get the current center of mass (COM) position of the object.
+        Get the center of mass (COM) position of the object.
 
         Args:
             data (mujoco.MjData): The MuJoCo data object containing the current simulation state.
@@ -93,7 +81,7 @@ class InsoleFixed(MJObject):
     def eq_constraints_to_disable(self) -> List[str]:
         return self.eq_constraints
 
-    def get_current_com(self, data: mujoco.MjData) -> NDArray:
+    def get_center_of_mass(self, data: mujoco.MjData) -> NDArray:
         return data.body(self.name).subtree_com
 
 

@@ -52,7 +52,7 @@ class GraspEnv(BaseMJEnv):
         """
         robot_qpos = self.robot.get_qpos(self.model, self.data)
         if self.observable_object_pos:
-            obj_pos = self.object.get_current_com(self.data)
+            obj_pos = self.object.get_center_of_mass(self.data)
             obs = np.concatenate([robot_qpos, obj_pos])
         else:
             obs = robot_qpos
@@ -99,8 +99,8 @@ class GraspEnv(BaseMJEnv):
         if not terminated:
             return 0
         self._pause_simulation(1)
-        obj_hight = self.object.get_current_com(self.data)[2]
-        if obj_hight > 0.2:
+        obj_height = self.object.get_center_of_mass(self.data)[2]
+        if obj_height > 0.2:
             return 1
         else:
             return -1
@@ -131,7 +131,7 @@ class GraspEnv(BaseMJEnv):
             return {"is_viewer_running": self.viewer.is_running()}
         return {}
 
-    def step(self, ctrl: ArrayLike) -> Tuple[NDArray, int, bool, bool, Dict]:
+    def step(self, action: ArrayLike) -> Tuple[NDArray, int, bool, bool, Dict]:
         """
         Advances the simulation applying the given control input to the robot
 
@@ -143,7 +143,7 @@ class GraspEnv(BaseMJEnv):
                                                 truncation flag, and an info.
         """
         sim_time = self.data.time
-        self.robot.set_ctrl(self.model, self.data, ctrl)
+        self.robot.set_ctrl(self.model, self.data, action)
         mujoco.mj_step(self.model, self.data)
 
         observation = self._get_observation()

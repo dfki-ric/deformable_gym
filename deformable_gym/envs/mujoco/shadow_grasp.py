@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from .grasp_env import GraspEnv
 
@@ -11,7 +11,7 @@ class ShadowHandGrasp(GraspEnv):
         observable_object_pos: bool = True,
         max_sim_time: float = 1,
         gui: bool = True,
-        init_frame: Optional[str] = None,
+        init_frame: str | None = None,
         **kwargs,
     ):
         super().__init__(

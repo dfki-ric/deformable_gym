@@ -3,8 +3,8 @@ import numpy as np
 import pytest
 from numpy.testing import assert_array_equal
 
-from deformable_gym.envs.mujoco.asset_manager import AssetManager
 from deformable_gym.helpers import mj_utils as mju
+from deformable_gym.helpers.asset_manager import AssetManager
 from deformable_gym.objects.mj_object import InsoleFixed
 
 

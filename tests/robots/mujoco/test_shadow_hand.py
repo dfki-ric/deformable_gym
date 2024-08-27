@@ -1,11 +1,9 @@
-from unittest.util import sorted_list_difference
-
 import mujoco
 import numpy as np
 import pytest
 from numpy.testing import assert_array_almost_equal, assert_array_equal
 
-from deformable_gym.envs.mujoco.asset_manager import AssetManager
+from deformable_gym.helpers.asset_manager import AssetManager
 from deformable_gym.helpers.mj_utils import Pose
 from deformable_gym.robots.mj_robot import ShadowHand
 
@@ -122,16 +120,16 @@ def test_name(shadow_hand):
     assert shadow_hand.name == "shadow_hand"
 
 
-def test_nq(shadow_hand):
-    assert shadow_hand.nq == 30
+def test_n_qpos(shadow_hand):
+    assert shadow_hand.n_qpos == 30
 
 
 def test_dof(shadow_hand):
     assert shadow_hand.dof == 30
 
 
-def test_nact(shadow_hand):
-    assert shadow_hand.nact == 26
+def test_n_actuator(shadow_hand):
+    assert shadow_hand.n_actuator == 26
 
 
 def test_ctrl_range(shadow_hand):

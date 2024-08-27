@@ -104,7 +104,7 @@ def get_body_pose(
     return Pose(data.body(name).xpos, data.body(name).xquat)
 
 
-def get_body_com(
+def get_body_center_of_mass(
     model: mujoco.MjModel, data: mujoco.MjModel, name: str
 ) -> NDArray:
     names = get_body_names(model)
@@ -135,7 +135,7 @@ def get_joint_qpos(
 
 
 def get_joint_qvel(
-    model: mujoco.MjModel, data: mujoco.MjData, *name
+    model: mujoco.MjModel, data: mujoco.MjData, *name: str
 ) -> NDArray:
     names = set(get_joint_names(model))
     assert set(name).issubset(

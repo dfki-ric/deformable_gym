@@ -30,7 +30,7 @@ pip install -e .
 | FloatingMiaGraspInsole    | :heavy_check_mark:  | :heavy_check_mark: |
 | FloatingShadowGraspInsole | :heavy_check_mark:  | :heavy_check_mark: |
 | FloatingMiaGraspPillow    | :heavy_check_mark:  |        :x:         |
-| FloatingShadowGraspInsole | :heavy_check_mark:  |        :x:         |
+| FloatingShadowGraspPillow | :heavy_check_mark:  |        :x:         |
 | URMiaGraspInsole          | :heavy_check_mark:  |        :x:         |
 | URShadowGraspInsole       | :heavy_check_mark:  |        :x:         |
 | URMiaGraspPillow          | :heavy_check_mark:  |        :x:         |

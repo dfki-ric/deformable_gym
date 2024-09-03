@@ -23,6 +23,22 @@ After cloning the repository, it is recommended to install the library in editab
 pip install -e .
 ```
 
+## Available environments
+
+| Environment Name          |      PyBullet       |       MuJoCo       |
+|---------------------------|:-------------------:|:------------------:|
+| FloatingMiaGraspInsole    | :heavy_check_mark:  | :heavy_check_mark: |
+| FloatingShadowGraspInsole | :heavy_check_mark:  | :heavy_check_mark: |
+| FloatingMiaGraspPillow    | :heavy_check_mark:  |        :x:         |
+| FloatingShadowGraspInsole | :heavy_check_mark:  |        :x:         |
+| URMiaGraspInsole          | :heavy_check_mark:  |        :x:         |
+| URShadowGraspInsole       | :heavy_check_mark:  |        :x:         |
+| URMiaGraspPillow          | :heavy_check_mark:  |        :x:         |
+| URShadowGraspPillow       | :heavy_check_mark:  |        :x:         |
+
+
+
+
 ### Known Issues
 
 If you use conda, you may experience the error below:

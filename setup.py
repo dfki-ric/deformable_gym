@@ -6,7 +6,7 @@ if __name__ == "__main__":
 
     setup(
         name="deformable_gym",
-        version="0.3.4",
+        version="0.4.0",
         maintainer="Melvin Laux",
         maintainer_email="melvin.laux@uni-bremen.de",
         description="Gym environments for grasping deformable objects",

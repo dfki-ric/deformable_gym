@@ -3,8 +3,8 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 # DeformableGym
 
-This repository contains a collection of [gymnasium](https://github.com/Farama-Foundation/Gymnasium) environments built with [PyBullet](https://pybullet.org/). In these environments, the agent 
-needs to learn to grasp deformable object such as shoe insoles or pillows from sparse reward signals.
+This repository contains a collection of [gymnasium](https://github.com/Farama-Foundation/Gymnasium) environments built with [PyBullet](https://pybullet.org/) and [MuJoCo](https://github.com/google-deepmind/mujoco). 
+In these environments, the agent needs to learn to grasp deformable 3D objects such as shoe insoles or pillows from sparse reward signals.
 
 <p align="center">
   <img src="doc/source/_static/defgym.svg"/>
@@ -100,7 +100,7 @@ pip install numpydoc sphinx sphinx-gallery sphinx-bootstrap-theme
 
 If you wish to report bugs, please use the [issue tracker](https://github.com/dfki-ric/deformable_gym/issues). If you would like to contribute to DeformableGym, just open an issue or a 
 [pull request](https://github.com/dfki-ric/deformable_gym/pulls). The target branch for 
-merge requests is the development branch. The development branch will be merged to master for new releases. If you have 
+merge requests is the development branch. The development branch will be merged to main for new releases. If you have 
 questions about the software, you should ask them in the discussion section.
 
 The recommended workflow to add a new feature, add documentation, or fix a bug is the following:

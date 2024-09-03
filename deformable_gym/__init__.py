@@ -79,3 +79,17 @@ register(
         "observable_object_pos": True,
     },
 )
+
+register(
+    id="MjShadowGraspInsole-v0",
+    entry_point="deformable_gym.envs.mujoco.shadow_grasp:ShadowHandGrasp",
+    disable_env_checker=True,
+    kwargs={"obj_name": "insole_fixed"},
+)
+
+register(
+    id="MjMiaGraspInsole-v0",
+    entry_point="deformable_gym.envs.mujoco.mia_grasp:MiaHandGrasp",
+    disable_env_checker=True,
+    kwargs={"obj_name": "insole_fixed"},
+)

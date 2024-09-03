@@ -149,7 +149,7 @@ url = {https://deformable-workshop.github.io/icra2023/},
 
 ### Semantic Versioning
 
-Semantic versioning must be used, that is, the major version number will be
+[Semantic versioning](https://semver.org/) must be used, that is, the major version number will be
 incremented when the API changes in a backwards incompatible way, the minor
 version will be incremented when new functionality is added in a backwards
 compatible manner, and the patch version is incremented for bugfixes,

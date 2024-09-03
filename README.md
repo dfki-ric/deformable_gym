@@ -3,8 +3,8 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 # DeformableGym
 
-This repository contains a collection of [gymnasium](https://github.com/Farama-Foundation/Gymnasium) environments built with [PyBullet](https://pybullet.org/). In these environments, the agent 
-needs to learn to grasp deformable object such as shoe insoles or pillows from sparse reward signals.
+This repository contains a collection of [gymnasium](https://github.com/Farama-Foundation/Gymnasium) environments built with [PyBullet](https://pybullet.org/) and [MuJoCo](https://github.com/google-deepmind/mujoco). 
+In these environments, the agent needs to learn to grasp deformable 3D objects such as shoe insoles or pillows from sparse reward signals.
 
 <p align="center">
   <img src="doc/source/_static/defgym.svg"/>
@@ -22,6 +22,22 @@ After cloning the repository, it is recommended to install the library in editab
 ```bash
 pip install -e .
 ```
+
+## Available environments
+
+| Environment Name          |      PyBullet       |       MuJoCo       |
+|---------------------------|:-------------------:|:------------------:|
+| FloatingMiaGraspInsole    | :heavy_check_mark:  | :heavy_check_mark: |
+| FloatingShadowGraspInsole | :heavy_check_mark:  | :heavy_check_mark: |
+| FloatingMiaGraspPillow    | :heavy_check_mark:  |        :x:         |
+| FloatingShadowGraspInsole | :heavy_check_mark:  |        :x:         |
+| URMiaGraspInsole          | :heavy_check_mark:  |        :x:         |
+| URShadowGraspInsole       | :heavy_check_mark:  |        :x:         |
+| URMiaGraspPillow          | :heavy_check_mark:  |        :x:         |
+| URShadowGraspPillow       | :heavy_check_mark:  |        :x:         |
+
+
+
 
 ### Known Issues
 
@@ -100,7 +116,7 @@ pip install numpydoc sphinx sphinx-gallery sphinx-bootstrap-theme
 
 If you wish to report bugs, please use the [issue tracker](https://github.com/dfki-ric/deformable_gym/issues). If you would like to contribute to DeformableGym, just open an issue or a 
 [pull request](https://github.com/dfki-ric/deformable_gym/pulls). The target branch for 
-merge requests is the development branch. The development branch will be merged to master for new releases. If you have 
+merge requests is the development branch. The development branch will be merged to main for new releases. If you have 
 questions about the software, you should ask them in the discussion section.
 
 The recommended workflow to add a new feature, add documentation, or fix a bug is the following:
@@ -133,7 +149,7 @@ url = {https://deformable-workshop.github.io/icra2023/},
 
 ### Semantic Versioning
 
-Semantic versioning must be used, that is, the major version number will be
+[Semantic versioning](https://semver.org/) must be used, that is, the major version number will be
 incremented when the API changes in a backwards incompatible way, the minor
 version will be incremented when new functionality is added in a backwards
 compatible manner, and the patch version is incremented for bugfixes,

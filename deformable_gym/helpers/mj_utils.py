@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Tuple
 
 import mujoco
@@ -38,8 +38,10 @@ TYPE_NAMES = [
 # -------------------------------- DATA CLASSES --------------------------------#
 @dataclass
 class Pose:
-    position: ArrayLike
-    orientation: ArrayLike
+    position: ArrayLike = field(default_factory=lambda: np.zeros(3))
+    orientation: ArrayLike = field(
+        default_factory=lambda: np.array([1, 0, 0, 0])
+    )
 
     def __post_init__(self):
         assert len(self.position) == 3, "position should be in shape (3,)."

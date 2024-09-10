@@ -5,8 +5,8 @@ import mujoco
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
+from ..helpers import asset_manager as am
 from ..helpers import mj_utils as mju
-from ..helpers.asset_manager import AssetManager
 from ..helpers.mj_utils import Pose
 
 
@@ -30,17 +30,32 @@ class MJRobot(ABC):
         actuators (List[str]): A list of actuator names for the robot.
     """
 
-    init_pos = {}
+    init_pose = {}
 
     def __init__(self, name: str) -> None:
 
         self.name = name
-        self.model = AssetManager().load_asset(self.name)
-        self.n_qpos = self.model.nq
-        self.dof = self.model.nv
-        self.n_actuator = self.model.nu
-        self.joint_range = self.model.jnt_range.copy()
-        self.ctrl_range = self.model.actuator_ctrlrange.copy()
+        self.model = am.load_asset(self.name)
+
+    @property
+    def n_qpos(self) -> int:
+        return self.model.nq
+
+    @property
+    def dof(self) -> int:
+        return self.model.nv
+
+    @property
+    def n_actuator(self) -> int:
+        return self.model.nu
+
+    @property
+    def joint_range(self) -> NDArray:
+        return self.model.jnt_range.copy()
+
+    @property
+    def ctrl_range(self) -> NDArray:
+        return self.model.actuator_ctrlrange.copy()
 
     @property
     def joints(self) -> List[str]:
@@ -82,7 +97,7 @@ class MJRobot(ABC):
         self,
         model: mujoco.MjModel,
         data: mujoco.MjData,
-        pose: Pose,
+        pose: Pose | None,
     ) -> None:
         """
         Set the pose (position and orientation) of the robot's base.
@@ -95,10 +110,10 @@ class MJRobot(ABC):
             data (mujoco.MjData): The MuJoCo data object containing the current simulation state.
             pose (Pose): A Pose object containing the desired position and orientation for the robot's base.
         """
-
-        model.body(self.name).pos[:] = pose.position
-        model.body(self.name).quat[:] = pose.orientation
-        mujoco.mj_forward(model, data)
+        if pose is not None:
+            model.body(self.name).pos[:] = pose.position
+            model.body(self.name).quat[:] = pose.orientation
+            mujoco.mj_forward(model, data)
 
     def set_ctrl(
         self, model: mujoco.MjModel, data: mujoco.MjData, ctrl: ArrayLike
@@ -131,8 +146,38 @@ class ShadowHand(MJRobot):
         "insole_fixed": Pose([-0.35, 0.00, 0.49], [0, np.pi / 2, 0]),
     }
 
-    def __init__(self) -> None:
-        super().__init__("shadow_hand")
+    def __init__(self, name: str = "shadow_hand") -> None:
+        super().__init__(name)
+
+
+class Ur5Shadow(ShadowHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur5_shadow"):
+        super().__init__(name)
+
+
+class Ur10Shadow(ShadowHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur10_shadow"):
+        super().__init__(name)
+
+
+class Ur10eShadow(ShadowHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur10e_shadow"):
+        super().__init__(name)
 
 
 class MiaHand(MJRobot):
@@ -147,10 +192,15 @@ class MiaHand(MJRobot):
         "insole_fixed": Pose([-0.1, 0, 0.49], [0, np.pi, np.pi / 2]),
     }
 
-    def __init__(self) -> None:
-        super().__init__("mia_hand")
-        self.n_actuator = self.model.nu - 2
+    def __init__(self, name: str = "mia_hand") -> None:
+        super().__init__(name)
 
+    @property
+    def n_actuator(self):
+        return self.model.nu - 2
+
+    @property
+    def ctrl_range(self):
         mrl_range = self.model.actuator("j_middle_fle_A").ctrlrange
         ctrl_range_wo_mrl = np.array(
             [
@@ -159,7 +209,7 @@ class MiaHand(MJRobot):
                 if name not in self.mrl_actuators
             ]
         )
-        self.ctrl_range = np.vstack((ctrl_range_wo_mrl, mrl_range))
+        return np.vstack((ctrl_range_wo_mrl, mrl_range))
 
     @property
     def actuators(self):
@@ -187,13 +237,67 @@ class MiaHand(MJRobot):
                 mju.set_actuator_ctrl(model, data, act, ctrl[i])
 
 
+class Ur5Mia(MiaHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur5_mia"):
+        super().__init__(name)
+
+
+class Ur10Mia(MiaHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur10_mia"):
+        super().__init__(name)
+
+
+class Ur10ftMia(MiaHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur10ft_mia"):
+        super().__init__(name)
+
+
+class Ur10eMia(MiaHand):
+    init_pose = {
+        "insole_fixed": Pose([0.0, 0.0, 0.0]),
+        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
+    }
+
+    def __init__(self, name: str = "ur10e_mia"):
+        super().__init__(name)
+
+
 class RobotFactory:
 
     @staticmethod
     def create(name: str) -> MJRobot:
         if name == "shadow_hand":
             return ShadowHand()
+        elif name == "ur5_shadow":
+            return Ur5Shadow()
+        elif name == "ur10_shadow":
+            return Ur10Shadow()
+        elif name == "ur10e_shadow":
+            return Ur10eShadow()
         elif name == "mia_hand":
             return MiaHand()
+        elif name == "ur5_mia":
+            return Ur5Mia()
+        elif name == "ur10_mia":
+            return Ur10Mia()
+        elif name == "ur10ft_mia":
+            return Ur10ftMia()
+        elif name == "ur10e_mia":
+            return Ur10eMia()
         else:
             raise ValueError(f"Robot {name} not found.")

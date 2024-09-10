@@ -5,7 +5,7 @@
 		<plugin plugin="mujoco.elasticity.solid" />
 	</extension>
 	<worldbody>
-		<body name="pillow_fixed" pos=".12 -.05 .456">
+		<body name="pillow_fixed">
 			<flexcomp name="pillow" mass=".5" dim="3" type="gmsh" scale=".7 .7 .7" file="pillow_small.msh" rgba=".1 .9 .1 1" radius="0.001">
 				<edge equality="true" />
 				<plugin plugin="mujoco.elasticity.solid">

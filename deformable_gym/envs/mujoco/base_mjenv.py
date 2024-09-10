@@ -10,8 +10,8 @@ import numpy as np
 from gymnasium import spaces
 from numpy.typing import ArrayLike, NDArray
 
+from ...helpers import asset_manager as am
 from ...helpers import mj_utils as mju
-from ...helpers.asset_manager import AssetManager
 from ...objects.mj_object import ObjectFactory
 from ...robots.mj_robot import RobotFactory
 
@@ -64,7 +64,7 @@ class BaseMJEnv(gym.Env, ABC):
         gui: bool = False,
         init_frame: str | None = None,
     ):
-        self.scene = AssetManager().create_scene(robot_name, obj_name)
+        self.scene = am.create_scene(robot_name, obj_name)
         self.model, self.data = mju.load_model_from_string(self.scene)
         self.robot = RobotFactory.create(robot_name)
         self.object = ObjectFactory.create(obj_name)
@@ -133,7 +133,10 @@ class BaseMJEnv(gym.Env, ABC):
         self.model, _ = mju.load_model_from_string(self.scene)
         mujoco.mj_resetData(self.model, self.data)
         self.robot.set_pose(
-            self.model, self.data, self.robot.init_pose[self.object.name]
+            self.model, self.data, self.robot.init_pose.get(self.object.name)
+        )
+        self.object.set_pose(
+            self.model, self.data, self.object.init_pose.get(self.robot.name)
         )
         if self.gui and self.viewer is None:
             self.viewer = mujoco.viewer.launch_passive(

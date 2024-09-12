@@ -24,6 +24,6 @@ if __name__ == "__main__":
             "mujoco": [
                 "mujoco==3.1.6",
             ],
-            "dev": ["pytest", "pre-commit"],
+            "dev": ["pytest", "pre-commit", "flake8"],
         },
     )

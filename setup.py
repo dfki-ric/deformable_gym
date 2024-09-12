@@ -19,6 +19,11 @@ if __name__ == "__main__":
             "gymnasium",
             "numpy>=1.23.5,<2.0.0",
             "pytransform3d",
-            "mujoco==3.1.6",
         ],
+        extras_require={
+            "mujoco": [
+                "mujoco==3.1.6",
+            ],
+            "dev": ["pytest", "pre-commit"],
+        },
     )

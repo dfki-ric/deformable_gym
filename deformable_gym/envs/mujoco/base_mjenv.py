@@ -61,7 +61,7 @@ class BaseMJEnv(gym.Env, ABC):
         obj_name: str,
         observable_object_pos: bool = True,
         max_sim_time: float = 5,
-        gui: bool = True,
+        gui: bool = False,
         init_frame: str | None = None,
     ):
         self.scene = AssetManager().create_scene(robot_name, obj_name)

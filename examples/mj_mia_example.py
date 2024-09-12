@@ -7,11 +7,11 @@ if __name__ == "__main__":
     episode = 0
     n_episodes = 3
     observation, info = env.reset()
-    env.render()
+    #env.render()
     while episode < n_episodes:
         action = env.action_space.sample()
         observation, reward, terminate, truncated, info = env.step(action)
-        env.render()
+        #env.render()
         if terminate:
             episode += 1
             print(f"Episode {episode} finished with reward {reward}")

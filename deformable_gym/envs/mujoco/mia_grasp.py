@@ -9,7 +9,7 @@ class MiaHandGrasp(GraspEnv):
         obj_name: str,
         observable_object_pos: bool = True,
         max_sim_time: float = 1,
-        gui: bool = True,
+        gui: bool = False,
         init_frame: str | None = None,
         **kwargs,
     ):

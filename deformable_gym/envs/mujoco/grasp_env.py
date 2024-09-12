@@ -20,7 +20,7 @@ class GraspEnv(BaseMJEnv):
         obj_name: str,
         observable_object_pos: bool = True,
         max_sim_time: float = 5,
-        gui: bool = True,
+        gui: bool = False,
         init_frame: Optional[str] = None,
         **kwargs,
     ):

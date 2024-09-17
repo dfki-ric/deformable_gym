@@ -13,6 +13,10 @@ ROBOT_DIR = os.path.join(ASSETS_DIR, "robots", "mjcf")
 OBJECT_DIR = os.path.join(ASSETS_DIR, "objects", "mjcf")
 
 ROBOTS = {
+    "ur5": os.path.join(ROBOT_DIR, "ur5.xml"),
+    "ur10": os.path.join(ROBOT_DIR, "ur10.xml"),
+    "ur10ft": os.path.join(ROBOT_DIR, "ur10ft.xml"),
+    "ur10e": os.path.join(ROBOT_DIR, "ur10e.xml"),
     "shadow_hand": os.path.join(ROBOT_DIR, "shadow_hand.xml"),
     "mia_hand": os.path.join(ROBOT_DIR, "mia_hand.xml"),
     "ur5_mia": os.path.join(ROBOT_DIR, "mia_hand_on_ur5.xml"),

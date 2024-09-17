@@ -3,11 +3,16 @@ from typing import List
 
 import mujoco
 import numpy as np
+from mujoco import mjtJoint
 from numpy.typing import ArrayLike, NDArray
 
+from ..envs.mujoco.init_pose import RobotInitPose
 from ..helpers import asset_manager as am
 from ..helpers import mj_utils as mju
 from ..helpers.mj_utils import Pose
+
+SLIDE_CTRL_RANGE = [-0.005, 0.005]
+HINGE_CTRL_RANGE = [-np.pi / 180, np.pi / 180]
 
 
 class MJRobot(ABC):
@@ -30,12 +35,21 @@ class MJRobot(ABC):
         actuators (List[str]): A list of actuator names for the robot.
     """
 
-    init_pose = {}
+    supported_ctrl_types = ["joint", "mocap"]
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, control_type="joint") -> None:
 
         self.name = name
         self.model = am.load_asset(self.name)
+        if control_type not in self.supported_ctrl_types:
+            raise ValueError(
+                f"Control type {control_type} not supported.\n Supported control types: {self.supported_ctrl_types}"
+            )
+        self.control_type = control_type
+
+    @property
+    def init_pose(self) -> dict:
+        return RobotInitPose.get(self.name)
 
     @property
     def n_qpos(self) -> int:
@@ -46,8 +60,16 @@ class MJRobot(ABC):
         return self.model.nv
 
     @property
+    def actuators(self) -> List[str]:
+        return mju.get_actuator_names(self.model)
+
+    @property
     def n_actuator(self) -> int:
-        return self.model.nu
+        return len(self.actuators)
+
+    @property
+    def joints(self) -> List[str]:
+        return mju.get_joint_names(self.model)
 
     @property
     def joint_range(self) -> NDArray:
@@ -55,15 +77,16 @@ class MJRobot(ABC):
 
     @property
     def ctrl_range(self) -> NDArray:
-        return self.model.actuator_ctrlrange.copy()
-
-    @property
-    def joints(self) -> List[str]:
-        return mju.get_joint_names(self.model)
-
-    @property
-    def actuators(self) -> List[str]:
-        return mju.get_actuator_names(self.model)
+        ctrl_range = []
+        for actuator in self.actuators:
+            joint_id, _ = self.model.actuator(actuator).trnid
+            if self.model.joint(joint_id).type == mjtJoint.mjJNT_HINGE:
+                ctrl_range.append(HINGE_CTRL_RANGE)
+            elif self.model.joint(joint_id).type == mjtJoint.mjJNT_SLIDE:
+                ctrl_range.append(SLIDE_CTRL_RANGE)
+            else:
+                raise ValueError(f"Joint type not supported.")
+        return np.array(ctrl_range)
 
     def get_qpos(self, model: mujoco.MjModel, data: mujoco.MjData) -> NDArray:
         """
@@ -132,52 +155,91 @@ class MJRobot(ABC):
         Raises:
             AssertionError: If the length of the control vector does not match the number of actuators.
         """
-
         assert (
             len(ctrl) == self.n_actuator
         ), f"Control vector should have length {self.n_actuator}"
         for i, act in enumerate(self.actuators):
-            mju.set_actuator_ctrl(model, data, act, ctrl[i])
+            actuator_id = mju.name2id(self.model, act, "actuator")
+            new_ctrl = data.ctrl[actuator_id] + ctrl[i]
+            mju.set_actuator_ctrl(model, data, act, new_ctrl)
+
+
+class Ur5(MJRobot):
+
+    def __init__(self, name: str = "ur5", control_type: str = "joint") -> None:
+        super().__init__(name, control_type)
+
+
+class Ur10(MJRobot):
+
+    def __init__(self, name: str = "ur10", control_type: str = "joint") -> None:
+        super().__init__(name, control_type)
+
+
+class Ur10e(MJRobot):
+
+    def __init__(
+        self, name: str = "ur10e", control_type: str = "joint"
+    ) -> None:
+        super().__init__(name, control_type)
+
+
+class Ur10ft(MJRobot):
+
+    def __init__(
+        self, name: str = "ur10ft", control_type: str = "joint"
+    ) -> None:
+        super().__init__(name, control_type)
 
 
 class ShadowHand(MJRobot):
+    ee_actuators = [
+        "ee_A_X",
+        "ee_A_Y",
+        "ee_A_Z",
+        "ee_A_OX",
+        "ee_A_OY",
+        "ee_A_OZ",
+    ]
 
-    init_pose = {
-        "insole_fixed": Pose([-0.35, 0.00, 0.49], [0, np.pi / 2, 0]),
-    }
+    def __init__(
+        self, name: str = "shadow_hand", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, control_type)
+        if self.control_type == "mocap":
+            self._excluded_actuators = self.ee_actuators
+        else:
+            self._excluded_actuators = []
 
-    def __init__(self, name: str = "shadow_hand") -> None:
-        super().__init__(name)
+    @property
+    def actuators(self):
+        all_actuators = mju.get_actuator_names(self.model)
+
+        if self.control_type == "joint":
+            return all_actuators
+        else:
+            return [
+                act
+                for act in all_actuators
+                if act not in self._excluded_actuators
+            ]
+
+    @property
+    def n_actuator(self):
+        return len(self.actuators)
 
 
-class Ur5Shadow(ShadowHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
+class ShadowHandOnArm(ShadowHand):
 
-    def __init__(self, name: str = "ur5_shadow"):
-        super().__init__(name)
-
-
-class Ur10Shadow(ShadowHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
-
-    def __init__(self, name: str = "ur10_shadow"):
-        super().__init__(name)
-
-
-class Ur10eShadow(ShadowHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
-
-    def __init__(self, name: str = "ur10e_shadow"):
-        super().__init__(name)
+    def __init__(
+        self, robot_name: str, arm: str, control_type: str = "mocap"
+    ) -> None:
+        super().__init__(robot_name, control_type)
+        self.arm = RobotFactory.create(arm, control_type)
+        if self.control_type == "mocap":
+            self._excluded_actuators += self.arm.actuators
+        else:
+            self._excluded_actuators = []
 
 
 class MiaHand(MJRobot):
@@ -187,42 +249,67 @@ class MiaHand(MJRobot):
         "j_little_fle_A",
     ]
     mrl_joints = ["j_middle_fle", "j_ring_fle", "j_little_fle"]
+    ee_actuators = [
+        "ee_A_X",
+        "ee_A_Y",
+        "ee_A_Z",
+        "ee_A_OX",
+        "ee_A_OY",
+        "ee_A_OZ",
+    ]
 
-    init_pose = {
-        "insole_fixed": Pose([-0.1, 0, 0.49], [0, np.pi, np.pi / 2]),
-    }
-
-    def __init__(self, name: str = "mia_hand") -> None:
-        super().__init__(name)
-
-    @property
-    def n_actuator(self):
-        return self.model.nu - 2
-
-    @property
-    def ctrl_range(self):
-        mrl_range = self.model.actuator("j_middle_fle_A").ctrlrange
-        ctrl_range_wo_mrl = np.array(
-            [
-                self.model.actuator(name).ctrlrange
-                for name in mju.get_actuator_names(self.model)
-                if name not in self.mrl_actuators
-            ]
-        )
-        return np.vstack((ctrl_range_wo_mrl, mrl_range))
+    def __init__(
+        self, name: str = "mia_hand", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, control_type)
+        if self.control_type == "mocap":
+            self._excluded_actuators = self.mrl_actuators + self.ee_actuators
+        else:
+            self._excluded_actuators = self.mrl_actuators
 
     @property
     def actuators(self):
         all_actuators = mju.get_actuator_names(self.model)
-        acts = [act for act in all_actuators if act not in self.mrl_actuators]
+        # exclude middle, ring, little actuators
+        acts = [
+            act for act in all_actuators if act not in self._excluded_actuators
+        ]
+        # add the combined actuator for middle, ring, little finger control
         acts.append("j_mrl_fle_A")
         return acts
+
+    @property
+    def n_actuator(self):
+        return len(self.actuators)
+
+    @property
+    def ctrl_range(self):
+
+        ctrl_range = []
+        mrl_range = HINGE_CTRL_RANGE
+        actuators = [
+            act
+            for act in mju.get_actuator_names(self.model)
+            if act not in self._excluded_actuators
+        ]
+        for actuator in actuators:
+            joint_id, _ = self.model.actuator(actuator).trnid
+            if self.model.joint(joint_id).type == mjtJoint.mjJNT_HINGE:
+                ctrl_range.append(HINGE_CTRL_RANGE)
+            elif self.model.joint(joint_id).type == mjtJoint.mjJNT_SLIDE:
+                ctrl_range.append(SLIDE_CTRL_RANGE)
+            else:
+                raise ValueError(f"Joint type not supported.")
+        ctrl_range.append(mrl_range)
+        return np.array(ctrl_range)
 
     def _set_mrl_ctrl(
         self, model: mujoco.MjModel, data: mujoco.MjData, ctrl: float
     ) -> None:
+        act_id = mju.name2id(self.model, "j_middle_fle_A", "actuator")
+        new_ctrl = data.ctrl[act_id] + ctrl
         for act in self.mrl_actuators:
-            mju.set_actuator_ctrl(model, data, act, ctrl)
+            mju.set_actuator_ctrl(model, data, act, new_ctrl)
 
     def set_ctrl(
         self, model: mujoco.MjModel, data: mujoco.MjData, ctrl: ArrayLike
@@ -230,74 +317,130 @@ class MiaHand(MJRobot):
         assert (
             len(ctrl) == self.n_actuator
         ), f"Control vector should have length {self.n_actuator}, now it is {len(ctrl)}"
+        ctrl = np.array(ctrl)
         for i, act in enumerate(self.actuators):
             if act == "j_mrl_fle_A":
                 self._set_mrl_ctrl(model, data, ctrl[i])
             else:
-                mju.set_actuator_ctrl(model, data, act, ctrl[i])
+                act_id = mju.name2id(self.model, act, "actuator")
+                new_ctrl = data.ctrl[act_id] + ctrl[i]
+                mju.set_actuator_ctrl(model, data, act, new_ctrl)
 
 
-class Ur5Mia(MiaHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
+class MiaHandOnArm(MiaHand):
 
-    def __init__(self, name: str = "ur5_mia"):
-        super().__init__(name)
+    def __init__(
+        self, robot_name: str, arm: str, control_type: str = "mocap"
+    ) -> None:
+        super().__init__(robot_name, control_type)
+        self.arm = RobotFactory.create(arm, control_type)
+        if self.control_type == "mocap":
+            self._excluded_actuators += self.arm.actuators
+        else:
+            self._excluded_actuators = self.mrl_actuators
 
+    @property
+    def actuators(self) -> List[str]:
+        all_actuators = mju.get_actuator_names(self.model)
 
-class Ur10Mia(MiaHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
+        acts = [
+            act for act in all_actuators if act not in self._excluded_actuators
+        ]
+        acts.append("j_mrl_fle_A")
+        return acts
 
-    def __init__(self, name: str = "ur10_mia"):
-        super().__init__(name)
-
-
-class Ur10ftMia(MiaHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
-
-    def __init__(self, name: str = "ur10ft_mia"):
-        super().__init__(name)
+    @property
+    def n_actuator(self) -> int:
+        return len(self.actuators)
 
 
-class Ur10eMia(MiaHand):
-    init_pose = {
-        "insole_fixed": Pose([0.0, 0.0, 0.0]),
-        "pillow_fixed": Pose([0.0, 0.0, 0.0]),
-    }
+class Ur5Shadow(ShadowHandOnArm):
 
-    def __init__(self, name: str = "ur10e_mia"):
-        super().__init__(name)
+    def __init__(
+        self, name: str = "ur5_shadow", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur5", control_type)
+
+
+class Ur10Shadow(ShadowHandOnArm):
+
+    def __init__(
+        self, name: str = "ur10_shadow", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur10", control_type)
+
+
+class Ur10eShadow(ShadowHandOnArm):
+
+    def __init__(
+        self, name: str = "ur10e_shadow", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur10e", control_type)
+
+
+class Ur5Mia(MiaHandOnArm):
+
+    def __init__(
+        self, name: str = "ur5_mia", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur5", control_type)
+
+
+class Ur10Mia(MiaHandOnArm):
+
+    def __init__(
+        self, name: str = "ur10_mia", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur10", control_type)
+
+
+class Ur10ftMia(MiaHandOnArm):
+
+    def __init__(
+        self, name: str = "ur10ft_mia", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur10ft", control_type)
+
+
+class Ur10eMia(MiaHandOnArm):
+
+    def __init__(
+        self, name: str = "ur10e_mia", control_type: str = "mocap"
+    ) -> None:
+        super().__init__(name, "ur10e", control_type)
 
 
 class RobotFactory:
 
     @staticmethod
-    def create(name: str) -> MJRobot:
+    def create(name: str, control_type: str) -> MJRobot:
         if name == "shadow_hand":
-            return ShadowHand()
+            return ShadowHand(name, control_type)
         elif name == "ur5_shadow":
-            return Ur5Shadow()
+            return Ur5Shadow(name, control_type)
         elif name == "ur10_shadow":
-            return Ur10Shadow()
+            return Ur10Shadow(name, control_type)
         elif name == "ur10e_shadow":
-            return Ur10eShadow()
+            return Ur10eShadow(name, control_type)
         elif name == "mia_hand":
-            return MiaHand()
+            return MiaHand(name, control_type)
         elif name == "ur5_mia":
-            return Ur5Mia()
+            return Ur5Mia(name, control_type)
         elif name == "ur10_mia":
-            return Ur10Mia()
+            return Ur10Mia(name, control_type)
         elif name == "ur10ft_mia":
-            return Ur10ftMia()
+            return Ur10ftMia(name, control_type)
         elif name == "ur10e_mia":
-            return Ur10eMia()
+            return Ur10eMia(name, control_type)
+        # ----- Not used for environment Just need the description ----- #
+        elif name == "ur5":
+            return Ur5()
+        elif name == "ur10":
+            return Ur10()
+        elif name == "ur10e":
+            return Ur10e()
+        elif name == "ur10ft":
+            return Ur10ft()
+        # ----- Not used for environment Just need the description ----- #
         else:
             raise ValueError(f"Robot {name} not found.")

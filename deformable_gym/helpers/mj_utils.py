@@ -3,36 +3,17 @@ from typing import List, Tuple
 
 import mujoco
 import numpy as np
-from mujoco import mjtJoint
+from mujoco import MjData, MjModel, mjtJoint
 from numpy.typing import ArrayLike, NDArray
 
+# fmt: off
 TYPE_NAMES = [
-    "body",
-    "xbody",
-    "joint",
-    "dof",
-    "geom",
-    "site",
-    "camera",
-    "light",
-    "flex",
-    "mesh",
-    "skin",
-    "hfield",
-    "texture",
-    "material",
-    "pair",
-    "exclude",
-    "equality",
-    "tendon",
-    "actuator",
-    "sensor",
-    "numeric",
-    "text",
-    "tuple",
-    "key",
-    "plugin",
+    "body", "xbody", "joint", "dof", "geom", "site", "camera", "light",
+    "flex", "mesh", "skin", "hfield", "texture", "material", "pair",
+    "exclude", "equality", "tendon", "actuator", "sensor", "numeric",
+    "text", "tuple", "key", "plugin",
 ]
+# fmt: on
 
 
 # -------------------------------- DATA CLASSES --------------------------------#
@@ -56,20 +37,20 @@ class Pose:
 
 
 # -------------------------------- LOAD MODEL --------------------------------#
-def load_model_from_file(path: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
-    model = mujoco.MjModel.from_xml_path(path)
-    data = mujoco.MjData(model)
+def load_model_from_file(path: str) -> Tuple[MjModel, MjData]:
+    model = MjModel.from_xml_path(path)
+    data = MjData(model)
     return model, data
 
 
-def load_model_from_string(xml: str) -> Tuple[mujoco.MjModel, mujoco.MjData]:
-    model = mujoco.MjModel.from_xml_string(xml)
-    data = mujoco.MjData(model)
+def load_model_from_string(xml: str) -> Tuple[MjModel, MjData]:
+    model = MjModel.from_xml_string(xml)
+    data = MjData(model)
     return model, data
 
 
 # -------------------------------- BODY UTILS --------------------------------#
-def get_body_names(model: mujoco.MjModel) -> List[str]:
+def get_body_names(model: MjModel) -> List[str]:
 
     return [
         model.body(i).name
@@ -78,12 +59,22 @@ def get_body_names(model: mujoco.MjModel) -> List[str]:
     ]
 
 
-def remove_body(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
+def set_body_pose(model: MjModel, data: MjData, name: str, pose: Pose) -> None:
+    names = get_body_names(model)
+    assert (
+        name in names
+    ), f"No body named {name} in the model.\n Names available: {names}"
+    model.body(name).pos = pose.position
+    model.body(name).quat = pose.orientation
+    mujoco.mj_forward(model, data)
+
+
+def remove_body(model: MjModel, data: MjData, name: str) -> None:
     """remove a body by setting its position to (0, 0, -1000).
 
     Args:
-        model (mujoco.MjModel): mj_Model struct
-        data (mujoco.MjData): mj_Data struct
+        model (MjModel): mj_Model struct
+        data (MjData): mj_Data struct
         name (str): body name
     """
     names = get_body_names(model)
@@ -95,9 +86,7 @@ def remove_body(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
     mujoco.mj_forward(model, data)
 
 
-def get_body_pose(
-    model: mujoco.MjModel, data: mujoco.MjModel, name: str
-) -> Pose:
+def get_body_pose(model: MjModel, data: MjModel, name: str) -> Pose:
     names = get_body_names(model)
     assert (
         name in names
@@ -107,7 +96,7 @@ def get_body_pose(
 
 
 def get_body_center_of_mass(
-    model: mujoco.MjModel, data: mujoco.MjModel, name: str
+    model: MjModel, data: MjModel, name: str
 ) -> NDArray:
     names = get_body_names(model)
     assert (
@@ -118,7 +107,7 @@ def get_body_center_of_mass(
 
 
 # -------------------------------- JOINT UTILS --------------------------------#
-def get_joint_names(model: mujoco.MjModel) -> List[str]:
+def get_joint_names(model: MjModel) -> List[str]:
     return [
         model.joint(i).name
         for i in range(model.njnt)
@@ -126,9 +115,7 @@ def get_joint_names(model: mujoco.MjModel) -> List[str]:
     ]
 
 
-def get_joint_qpos(
-    model: mujoco.MjModel, data: mujoco.MjData, *name: str
-) -> NDArray:
+def get_joint_qpos(model: MjModel, data: MjData, *name: str) -> NDArray:
     names = get_joint_names(model)
     assert set(name).issubset(
         names
@@ -136,9 +123,7 @@ def get_joint_qpos(
     return np.concatenate([data.joint(n).qpos for n in name])
 
 
-def get_joint_qvel(
-    model: mujoco.MjModel, data: mujoco.MjData, *name: str
-) -> NDArray:
+def get_joint_qvel(model: MjModel, data: MjData, *name: str) -> NDArray:
     names = set(get_joint_names(model))
     assert set(name).issubset(
         names
@@ -146,9 +131,7 @@ def get_joint_qvel(
     return np.concatenate([data.joint(n).qvel for n in name])
 
 
-def disable_joint(
-    model: mujoco.MjModel, data: mujoco.MjData, *name: str
-) -> None:
+def disable_joint(model: MjModel, data: MjData, *name: str) -> None:
     for n in name:
         joint_type = model.joint(n).type
         if all(
@@ -162,11 +145,11 @@ def disable_joint(
 
 
 # -------------------------------- GEOM UTILS --------------------------------#
-def get_geom_names(model: mujoco.MjModel) -> List[str]:
+def get_geom_names(model: MjModel) -> List[str]:
     """Get all first level geom names under worldbody node in the model.
 
     Args:
-        model (mujoco.MjModel): mj_Model struct
+        model (MjModel): mj_Model struct
 
     Returns:
         List[str]: list of all geom names
@@ -178,12 +161,12 @@ def get_geom_names(model: mujoco.MjModel) -> List[str]:
     ]
 
 
-def remove_geom(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
+def remove_geom(model: MjModel, data: MjData, name: str) -> None:
     """remove a geom by setting its position to (0, 0, -1000).
 
     Args:
-        model (mujoco.MjModel): mj_Model struct
-        data (mujoco.MjData): mj_Data struct
+        model (MjModel): mj_Model struct
+        data (MjData): mj_Data struct
         name (str): geom name
     """
     names = get_geom_names(model)
@@ -196,7 +179,7 @@ def remove_geom(model: mujoco.MjModel, data: mujoco.MjData, name: str) -> None:
 
 
 # -------------------------------- SENSOR UTILS --------------------------------#
-def get_sensor_names(model: mujoco.MjModel) -> List[str]:
+def get_sensor_names(model: MjModel) -> List[str]:
     return [
         model.sensor(i).name
         for i in range(model.nsensor)
@@ -204,9 +187,7 @@ def get_sensor_names(model: mujoco.MjModel) -> List[str]:
     ]
 
 
-def get_sensor_data(
-    model: mujoco.MjModel, data: mujoco.MjModel, name: str
-) -> NDArray:
+def get_sensor_data(model: MjModel, data: MjModel, name: str) -> NDArray:
     names = get_sensor_names(model)
     assert (
         name in names
@@ -215,7 +196,7 @@ def get_sensor_data(
 
 
 # -------------------------------- EQUALITY CONSTRAINT UTILS --------------------------------#
-def get_equality_names(model: mujoco.MjModel) -> List[str]:
+def get_equality_names(model: MjModel) -> List[str]:
     return [
         model.equality(i).name
         for i in range(model.neq)
@@ -224,7 +205,7 @@ def get_equality_names(model: mujoco.MjModel) -> List[str]:
 
 
 def enable_equality_constraint(
-    model: mujoco.MjModel, data: mujoco.MjData, *name: str
+    model: MjModel, data: MjData, *name: str
 ) -> None:
     names = get_equality_names(model)
     for n in name:
@@ -237,7 +218,7 @@ def enable_equality_constraint(
 
 
 def disable_equality_constraint(
-    model: mujoco.MjModel, data: mujoco.MjData, *name: str
+    model: MjModel, data: MjData, *name: str
 ) -> None:
     names = get_equality_names(model)
     for n in name:
@@ -250,7 +231,7 @@ def disable_equality_constraint(
 
 
 # -------------------------------- ACTUATOR UTILS --------------------------------#
-def get_actuator_names(model: mujoco.MjModel) -> List[str]:
+def get_actuator_names(model: MjModel) -> List[str]:
     return [
         model.actuator(i).name
         for i in range(model.nu)
@@ -259,7 +240,7 @@ def get_actuator_names(model: mujoco.MjModel) -> List[str]:
 
 
 def set_actuator_ctrl(
-    model: mujoco.MjModel, data: mujoco.MjData, name: str, ctrl: float
+    model: MjModel, data: MjData, name: str, ctrl: float
 ) -> None:
     names = get_actuator_names(model)
     assert (
@@ -269,8 +250,36 @@ def set_actuator_ctrl(
     data.ctrl[id] = ctrl
 
 
+# -------------------------------- MOCAP UTILS --------------------------------#
+def set_mocap_pose(model: MjModel, data: MjData, pose: Pose):
+    if model.nmocap != 1:
+        raise NotImplementedError("Only one mocap is supported.")
+
+    data.mocap_pos[:] = pose.position
+    data.mocap_quat[:] = pose.orientation
+
+
+# -------------------------------- ROTATION UTILS --------------------------------#
+def euler2quat(euler: ArrayLike) -> NDArray:
+    assert len(euler) == 3, "input should be in shape (3,)."
+
+    quat = np.zeros(4, dtype=np.float64)
+    mujoco.mju_euler2Quat(quat, euler, "xyz")
+    return quat
+
+
+def rotate_quat_by_euler(quat: ArrayLike, euler: ArrayLike) -> NDArray:
+    assert len(quat) == 4, "quat should be in shape (4,)."
+    assert len(euler) == 3, "euler should be in shape (3,)."
+
+    quat_rot = euler2quat(euler)
+    result = np.zeros(4, dtype=np.float64)
+    mujoco.mju_mulQuat(result, quat_rot, quat)
+    return result
+
+
 # -------------------------------- OTHER UTILS --------------------------------#
-def id2name(model: mujoco.MjModel, id: int, t: str = "body") -> str:
+def id2name(model: MjModel, id: int, t: str = "body") -> str:
     assert (
         t in TYPE_NAMES
     ), f"No type name {t} found. Available type names are: {TYPE_NAMES}"
@@ -282,7 +291,7 @@ def id2name(model: mujoco.MjModel, id: int, t: str = "body") -> str:
     return name
 
 
-def name2id(model: mujoco.MjModel, name: str, t: str = "body") -> int:
+def name2id(model: MjModel, name: str, t: str = "body") -> int:
     assert (
         t in TYPE_NAMES
     ), f"No type name {t} found. Available type names are: {TYPE_NAMES}"
@@ -292,11 +301,3 @@ def name2id(model: mujoco.MjModel, name: str, t: str = "body") -> int:
     if id == -1:
         raise ValueError(f"No {t}-name {name} found in model")
     return id
-
-
-def euler2quat(euler: ArrayLike) -> NDArray:
-    assert len(euler) == 3, "input should be in shape (3,)."
-
-    quat = np.zeros(4, dtype=np.float64)
-    mujoco.mju_euler2Quat(quat, euler, "xyz")
-    return quat

@@ -12,8 +12,12 @@ from numpy.typing import ArrayLike, NDArray
 
 from ...helpers import asset_manager as am
 from ...helpers import mj_utils as mju
+from ...helpers.mj_mocap_control import MocapControl
 from ...objects.mj_object import ObjectFactory
 from ...robots.mj_robot import RobotFactory
+
+MOCAP_POS_CTRL_RANGE = np.array([[-0.005, 0.005]] * 3)
+MOCAP_QUAT_CTRL_RANGE = np.array([[-np.pi / 100, np.pi / 100]] * 3)
 
 
 class BaseMJEnv(gym.Env, ABC):
@@ -60,15 +64,23 @@ class BaseMJEnv(gym.Env, ABC):
         robot_name: str,
         obj_name: str,
         observable_object_pos: bool = True,
-        max_sim_time: float = 5,
-        gui: bool = False,
+        control_type: str = "mocap",
+        max_sim_time: float = 10,
+        gui: bool = True,
+        mocap_cfg: Dict[str, str] | None = None,
         init_frame: str | None = None,
     ):
         self.scene = am.create_scene(robot_name, obj_name)
         self.model, self.data = mju.load_model_from_string(self.scene)
-        self.robot = RobotFactory.create(robot_name)
+        self.robot = RobotFactory.create(robot_name, control_type)
         self.object = ObjectFactory.create(obj_name)
         self.observable_object_pos = observable_object_pos
+        self.control_type = control_type
+        if control_type == "mocap":
+            if mocap_cfg is not None:
+                self.mocap = MocapControl(**mocap_cfg)
+            else:
+                self.mocap = MocapControl()
         self.init_frame = init_frame
         self.max_sim_time = max_sim_time
         self.gui = gui
@@ -84,13 +96,29 @@ class BaseMJEnv(gym.Env, ABC):
         Returns:
             spaces.Box: A continuous space representing the possible actions the agent can take.
         """
-
-        n_actuator = self.robot.n_actuator
-        low = self.robot.ctrl_range[:, 0].copy()
-        high = self.robot.ctrl_range[:, 1].copy()
-        return spaces.Box(
-            low=low, high=high, shape=(n_actuator,), dtype=np.float64
-        )
+        if self.control_type == "mocap":
+            shape = self.robot.n_actuator + 6
+            low = np.concatenate(
+                [
+                    MOCAP_POS_CTRL_RANGE[:, 0],
+                    MOCAP_QUAT_CTRL_RANGE[:, 0],
+                    self.robot.ctrl_range[:, 0],
+                ]
+            )
+            high = np.concatenate(
+                [
+                    MOCAP_POS_CTRL_RANGE[:, 1],
+                    MOCAP_QUAT_CTRL_RANGE[:, 1],
+                    self.robot.ctrl_range[:, 1],
+                ]
+            )
+        elif self.control_type == "joint":
+            shape = self.robot.n_actuator
+            low = self.robot.ctrl_range[:, 0].copy()
+            high = self.robot.ctrl_range[:, 1].copy()
+        else:
+            raise ValueError(f"Unsupported control type: {self.control_type}")
+        return spaces.Box(low=low, high=high, shape=(shape,), dtype=np.float64)
 
     def _get_observation_space(self) -> spaces.Box:
         """
@@ -105,8 +133,8 @@ class BaseMJEnv(gym.Env, ABC):
         low = self.robot.joint_range[:, 0].copy()
         high = self.robot.joint_range[:, 1].copy()
         if self.observable_object_pos:
-            low = np.concatenate([low, [-np.inf, -np.inf, -np.inf]])
-            high = np.concatenate([high, [np.inf, np.inf, np.inf]])
+            low = np.concatenate([low, [-np.inf] * 3])
+            high = np.concatenate([high, [np.inf] * 3])
             return spaces.Box(
                 low=low, high=high, shape=(n_qpos + 3,), dtype=np.float64
             )
@@ -144,6 +172,11 @@ class BaseMJEnv(gym.Env, ABC):
             )
         if self.init_frame is not None:
             self._load_keyframe(self.init_frame)
+        if self.control_type == "mocap":
+            if not self.mocap.eq_is_active(self.model, self.data):
+                self.mocap.enable_eq(self.model, self.data)
+            self.mocap.attach_mocap2weld_body(self.model, self.data)
+            self.mocap.reset_eq(self.model, self.data)
 
     def _set_state(
         self,

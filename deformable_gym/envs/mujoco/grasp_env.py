@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 import mujoco
 import mujoco.viewer
@@ -19,8 +19,10 @@ class GraspEnv(BaseMJEnv):
         robot_name: str,
         obj_name: str,
         observable_object_pos: bool = True,
+        control_type: str = "mocap",
         max_sim_time: float = 5,
-        gui: bool = False,
+        gui: bool = True,
+        mocap_cfg: Dict[str, str] | None = None,
         init_frame: Optional[str] = None,
         **kwargs,
     ):
@@ -28,8 +30,10 @@ class GraspEnv(BaseMJEnv):
             robot_name,
             obj_name,
             observable_object_pos,
+            control_type,
             max_sim_time,
             gui,
+            mocap_cfg,
             init_frame,
             **kwargs,
         )
@@ -143,7 +147,11 @@ class GraspEnv(BaseMJEnv):
                                                 truncation flag, and an info.
         """
         sim_time = self.data.time
-        self.robot.set_ctrl(self.model, self.data, action)
+        if self.control_type == "mocap":
+            self.mocap.set_ctrl(self.model, self.data, action[:6])
+            self.robot.set_ctrl(self.model, self.data, action[6:])
+        else:
+            self.robot.set_ctrl(self.model, self.data, action)
         mujoco.mj_step(self.model, self.data)
 
         observation = self._get_observation()

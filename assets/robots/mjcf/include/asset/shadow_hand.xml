@@ -1,0 +1,20 @@
+<mujoco>
+	<asset>
+		<material name="black" specular="0.5" shininess="0.25" rgba="0.16355 0.16355 0.16355 1" />
+		<material name="gray" specular="0.0" shininess="0.25" rgba="0.80848 0.80848 0.80848 1" />
+		<material name="metallic" specular="0" shininess="0.25" rgba="0.9 0.9 0.9 1" />
+		<mesh name="shadow_rh_forearm_0" scale="0.001 0.001 0.001" file="shadow_hand/forearm_0.obj" />
+		<mesh name="shadow_rh_forearm_1" scale="0.001 0.001 0.001" file="shadow_hand/forearm_1.obj" />
+		<mesh name="shadow_rh_forearm_collision" scale="0.001 0.001 0.001" file="shadow_hand/forearm_collision.obj" />
+		<mesh name="shadow_rh_wrist" scale="0.001 0.001 0.001" file="shadow_hand/wrist.obj" />
+		<mesh name="shadow_rh_palm" scale="0.001 0.001 0.001" file="shadow_hand/palm.obj" />
+		<mesh name="shadow_rh_f_knuckle" scale="0.001 0.001 0.001" file="shadow_hand/f_knuckle.obj" />
+		<mesh name="shadow_rh_f_proximal" scale="0.001 0.001 0.001" file="shadow_hand/f_proximal.obj" />
+		<mesh name="shadow_rh_f_middle" scale="0.001 0.001 0.001" file="shadow_hand/f_middle.obj" />
+		<mesh name="shadow_rh_f_distal_pst" scale="0.001 0.001 0.001" file="shadow_hand/f_distal_pst.obj" />
+		<mesh name="shadow_rh_lf_metacarpal" scale="0.001 0.001 0.001" file="shadow_hand/lf_metacarpal.obj" />
+		<mesh name="shadow_rh_th_proximal" scale="0.001 0.001 0.001" file="shadow_hand/th_proximal.obj" />
+		<mesh name="shadow_rh_th_middle" scale="0.001 0.001 0.001" file="shadow_hand/th_middle.obj" />
+		<mesh name="shadow_rh_th_distal_pst" scale="0.001 0.001 0.001" file="shadow_hand/th_distal_pst.obj" />
+	</asset>
+</mujoco>

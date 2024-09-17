@@ -1,0 +1,19 @@
+<mujoco>
+	<asset>
+		<mesh name="index_finger" file="stl/index_finger.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="index_tip" file="stl/index_tip.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="little_finger" file="stl/little_finger.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="little_tip" file="stl/little_tip.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="middle_finger" file="stl/middle_finger.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="middle_tip" file="stl/middle_tip.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="dorsum_simple" file="stl/dorsum_simple.stl" scale="0.0766738 0.104275 0.0766738" />
+		<mesh name="palm_simple" file="stl/palm_simple.stl" scale="0.122027 0.122027 0.122027" />
+		<mesh name="wrist" file="stl/wrist.stl" scale="0.000999999 0.000999999 0.000999999" />
+		<mesh name="ring_finger" file="stl/ring_finger.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="ring_tip" file="stl/ring_tip.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="thumb_cover" file="stl/thumb_cover.stl" scale="0.000999988 0.000999987 0.000999987" />
+		<mesh name="thumb_frame" file="stl/thumb_frame.stl" scale="0.000999988 0.000999987 0.000999987" />
+		<mesh name="thumb_metacarpus" file="stl/thumb_metacarpus.stl" scale="0.000999987 0.000999987 0.000999987" />
+		<mesh name="UR_flange" file="stl/UR_flange.stl" scale="0.000999999 0.000999999 0.000999999" />
+	</asset>
+</mujoco>

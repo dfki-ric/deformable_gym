@@ -1,13 +1,9 @@
-<mujoco model="mia_hand_on_ur5">
+<mujoco>
 	<compiler angle="radian" meshdir="../../meshes/" />
-	<include file="include/default/mia_hand.xml" />
-	<include file="include/asset/mia_hand.xml" />
-	<include file="include/hand/mia_hand_misc.xml" />
-	<include file="include/default/ur5.xml" />
 	<include file="include/asset/ur5.xml" />
+	<include file="include/default/ur5.xml" />
 	<worldbody>
-		<include file="mocap.xml" />
-		<body name="ur5_mia">
+		<body name="ur5">
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" contype="0" conaffinity="0" group="1" density="0" rgba="1 0.423529 0.0392157 1" />
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" rgba="1 0.423529 0.0392157 1" />
 			<geom pos="0 0 1" quat="-1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="base" />
@@ -42,7 +38,6 @@
 									<joint name="ur5_wrist_3_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" />
 									<geom pos="0 0 -0.0818" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
 									<geom pos="0 0 -0.0818" quat="0.707107 0.707107 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
-									<include file="include/hand/mia_hand_component.xml" />
 								</body>
 							</body>
 						</body>
@@ -51,12 +46,6 @@
 			</body>
 		</body>
 	</worldbody>
-	<equality>
-		<weld name="mocap" body1="mocap" body2="ur5_wrist_3_link" active="false" />
-	</equality>
-	<sensor>
-		<framepos objtype="body" objname="ur5_wrist_3_link" reftype="body" refname="world" />
-	</sensor>
 	<actuator>
 		<position name="ur5_shoulder_pan_joint_A" joint="ur5_shoulder_pan_joint" class="ur5_shoulder_pan" />
 		<position name="ur5_shoulder_lift_joint_A" joint="ur5_shoulder_lift_joint" class="ur5_shoulder_lift" />

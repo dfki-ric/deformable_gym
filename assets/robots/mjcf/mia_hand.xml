@@ -1,65 +1,49 @@
 <mujoco model="mia_hand">
 	<!-- <include file="floor.xml" /> -->
 	<compiler angle="radian" meshdir="../../meshes/" />
+	<include file="include/default/mia_hand.xml" />
+	<include file="include/asset/mia_hand.xml" />
+	<include file="include/hand/mia_hand_misc.xml" />
 	<default>
-		<default class="end_effector">
-			<default class="ee_translation">
+		<default class="mia_ee">
+			<default class="mia_ee_translation">
 				<joint type="slide" range="-.5 .5" />
-				<position kp="5" ctrlrange="-1 1" forcerange="-5 5" />
-				<default class="end_effector_x">
+				<position kp="10" ctrlrange="-.5 .5" forcerange="-5 5" />
+				<default class="mia_ee_x">
 					<joint axis="1 0 0" />
 				</default>
-				<default class="end_effector_y">
+				<default class="mia_ee_y">
 					<joint axis="0 1 0" />
 				</default>
-				<default class="end_effector_z">
+				<default class="mia_ee_z">
 					<joint axis="0 0 1" />
 				</default>
 			</default>
-			<default class="ee_orientation">
-				<joint range="-1.570796 1.570796"/>
-				<position kp=".2" ctrlrange="-1 1" forcerange="-1 1" />
-				<default class="end_effector_ox">
-					<joint axis="1 0 0"/>
+			<default class="mia_ee_orientation">
+				<joint range="-1.570796 1.570796" />
+				<position kp=".2" ctrlrange="-1.570796 1.570796" forcerange="-1 1" />
+				<default class="mia_ee_ox">
+					<joint axis="1 0 0" />
 				</default>
-				<default class="end_effector_oy">
-					<joint axis="0 1 0"/>
+				<default class="mia_ee_oy">
+					<joint axis="0 1 0" />
 				</default>
-				<default class="end_effector_oz">
-					<joint axis="0 0 1"/>
+				<default class="mia_ee_oz">
+					<joint axis="0 0 1" />
 				</default>
 			</default>
 		</default>
-		<default class="finger">
-			<mesh scale="0.001 0.001 0.001" />
-			<position ctrlrange="-1 1" kp="1" forcerange="-3.5 3.5" />
-		</default>
 	</default>
-	<asset>
-		<mesh name="index_finger" file="stl/index_finger.stl" class="finger" />
-		<mesh name="index_tip" file="stl/index_tip.stl" class="finger" />
-		<mesh name="little_finger" file="stl/little_finger.stl" class="finger" />
-		<mesh name="little_tip" file="stl/little_tip.stl" class="finger" />
-		<mesh name="middle_finger" file="stl/middle_finger.stl" class="finger" />
-		<mesh name="middle_tip" file="stl/middle_tip.stl" class="finger" />
-		<mesh name="dorsum_simple" file="stl/dorsum_simple.stl" scale="0.07 0.11 0.07" />
-		<mesh name="palm_simple" file="stl/palm_simple.stl" scale="0.12 0.12 0.12" />
-		<mesh name="wrist" file="stl/wrist.stl" class="finger" />
-		<mesh name="ring_finger" file="stl/ring_finger.stl" class="finger" />
-		<mesh name="ring_tip" file="stl/ring_tip.stl" class="finger" />
-		<mesh name="thumb_cover" file="stl/thumb_cover.stl" class="finger" />
-		<mesh name="thumb_frame" file="stl/thumb_frame.stl" class="finger" />
-		<mesh name="thumb_metacarpus" file="stl/thumb_metacarpus.stl" class="finger" />
-	</asset>
 	<worldbody>
-		<body gravcomp="1" name="mia_hand" pos="0 0 .45" quat="0 .707106781 .707106781 0">
-			<inertial mass="3" pos="0 0 0" diaginertia="0.00138 0.00138 0.000744"/>
-			<joint name="ee_X" class="end_effector_x" />
-			<joint name="ee_Y" class="end_effector_y" />
-			<joint name="ee_Z" class="end_effector_z" />
-			<joint name="ee_OX" class="end_effector_ox"/>
-			<joint name="ee_OY" class="end_effector_oy"/>
-			<joint name="ee_OZ" class="end_effector_oz"/>
+		<include file="mocap.xml" />
+		<body gravcomp="1" name="mia_hand">
+			<inertial mass="3" pos="0 0 0" diaginertia="0.00138 0.00138 0.000744" />
+			<joint name="ee_X" class="mia_ee_x" />
+			<joint name="ee_Y" class="mia_ee_y" />
+			<joint name="ee_Z" class="mia_ee_z" />
+			<joint name="ee_OX" class="mia_ee_ox" />
+			<joint name="ee_OY" class="mia_ee_oy" />
+			<joint name="ee_OZ" class="mia_ee_oz" />
 			<geom pos="0.00303524 0.075372 -0.0252042" quat="0.991445 -0.130526 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="dorsum_simple" />
 			<geom pos="0.00380022 0.0659745 -0.0120549" quat="0.991445 -0.130526 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="palm_simple" />
 			<geom pos="-0.04 0.0152746 -0.0238927" quat="0.793353 0.608761 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.202126 0.202126 0.202126 1" mesh="wrist" />
@@ -119,17 +103,15 @@
 			</body>
 		</body>
 	</worldbody>
+	<equality>
+		<weld name="mocap" body1="mocap" body2="mia_hand" active="false" />
+	</equality>
 	<actuator>
-		<position name="j_thumb_fle_A" joint="j_thumb_fle" class="finger" />
-		<position name="j_index_fle_A" joint="j_index_fle" class="finger" />
-		<position name="j_middle_fle_A" joint="j_middle_fle" class="finger" />
-		<position name="j_ring_fle_A" joint="j_ring_fle" class="finger" />
-		<position name="j_little_fle_A" joint="j_little_fle" class="finger" />
-		<position name="ee_A_X" joint="ee_X" class="end_effector_x" />
-		<position name="ee_A_Y" joint="ee_Y" class="end_effector_y" />
-		<position name="ee_A_Z" joint="ee_Z" class="end_effector_z" />
-		<position name="ee_A_OX" joint="ee_OX" class="end_effector_ox" />
-		<position name="ee_A_OY" joint="ee_OY" class="end_effector_oy" />
-		<position name="ee_A_OZ" joint="ee_OZ" class="end_effector_oz" />
+		<position name="ee_A_X" joint="ee_X" class="mia_ee_x" />
+		<position name="ee_A_Y" joint="ee_Y" class="mia_ee_y" />
+		<position name="ee_A_Z" joint="ee_Z" class="mia_ee_z" />
+		<position name="ee_A_OX" joint="ee_OX" class="mia_ee_ox" />
+		<position name="ee_A_OY" joint="ee_OY" class="mia_ee_oy" />
+		<position name="ee_A_OZ" joint="ee_OZ" class="mia_ee_oz" />
 	</actuator>
 </mujoco>

@@ -1,0 +1,16 @@
+<mujoco>
+	<default>
+		<default class="mia_hand_finger">
+			<position forcerange="-1.75 1.75" />
+			<default class="mia_thumb">
+				<position ctrlrange="0 1.1345" forcerange="-3.5 3.5" />
+			</default>
+			<default class="mia_index">
+				<position ctrlrange="-1.4 1.4" />
+			</default>
+			<default class="mia_mrl">
+				<position ctrlrange="0 1.39626" />
+			</default>
+		</default>
+	</default>
+</mujoco>

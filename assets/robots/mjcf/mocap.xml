@@ -1,0 +1,7 @@
+<mujoco>
+	<body name="mocap" mocap="true">
+		<site size="0.003 0.003 0.1" pos="0 0 0.1" type="box" name="mocap_left_site1" rgba="0 0 1 .1" />
+		<site size="0.003 0.1 0.003" pos="0 0.1 0" type="box" name="mocap_left_site2" rgba="0 1 0 .1" />
+		<site size="0.1 0.003 0.003" pos="0.1 0 0" type="box" name="mocap_left_site3" rgba="1 0 0 .1" />
+	</body>
+</mujoco>

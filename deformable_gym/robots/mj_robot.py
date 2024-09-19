@@ -134,8 +134,10 @@ class MJRobot(ABC):
             pose (Pose): A Pose object containing the desired position and orientation for the robot's base.
         """
         if pose is not None:
-            model.body(self.name).pos[:] = pose.position
-            model.body(self.name).quat[:] = pose.orientation
+            if pose.position is not None:
+                model.body(self.name).pos[:] = pose.position
+            if pose.orientation is not None:
+                model.body(self.name).quat[:] = pose.orientation
             mujoco.mj_forward(model, data)
 
     def set_ctrl(

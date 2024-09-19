@@ -8,10 +8,10 @@ from numpy.typing import ArrayLike, NDArray
 
 # fmt: off
 TYPE_NAMES = [
-    "body", "xbody", "joint", "dof", "geom", "site", "camera", "light",
-    "flex", "mesh", "skin", "hfield", "texture", "material", "pair",
-    "exclude", "equality", "tendon", "actuator", "sensor", "numeric",
-    "text", "tuple", "key", "plugin",
+    "body",  "xbody",   "joint",    "dof",    "geom",     "site",     "camera",
+    "light", "flex",    "mesh",     "skin",   "hfield",   "texture",  "material",
+    "pair",  "exclude", "equality", "tendon", "actuator", "sensor",   "numeric",
+    "text",  "tuple",   "key",      "plugin",
 ]
 # fmt: on
 
@@ -19,21 +19,21 @@ TYPE_NAMES = [
 # -------------------------------- DATA CLASSES --------------------------------#
 @dataclass
 class Pose:
-    position: ArrayLike = field(default_factory=lambda: np.zeros(3))
-    orientation: ArrayLike = field(
-        default_factory=lambda: np.array([1, 0, 0, 0])
-    )
+    position: ArrayLike | None = None
+    orientation: ArrayLike | None = None
 
     def __post_init__(self):
-        assert len(self.position) == 3, "position should be in shape (3,)."
-        assert (
-            len(self.orientation) == 3 or len(self.orientation) == 4
-        ), "orientation should be in shape (3,) or (4,)."
-        self.position = np.array(self.position)
-        if len(self.orientation) == 3:
-            self.orientation = euler2quat(self.orientation)
-        else:
-            self.orientation = np.array(self.orientation)
+        if self.position is not None:
+            assert len(self.position) == 3, "position should be in shape (3,)."
+            self.position = np.array(self.position)
+        if self.orientation is not None:
+            assert (
+                len(self.orientation) == 3 or len(self.orientation) == 4
+            ), "orientation should be in shape (3,) or (4,)."
+            if len(self.orientation) == 3:
+                self.orientation = euler2quat(self.orientation)
+            else:
+                self.orientation = np.array(self.orientation)
 
 
 # -------------------------------- LOAD MODEL --------------------------------#

@@ -32,6 +32,8 @@ OBJECTS = {
     "pillow_fixed": os.path.join(OBJECT_DIR, "pillow_fixed.xml"),
 }
 
+SCENE_BASE = os.path.join(ASSETS_DIR, "mj_scene_base.xml")
+
 
 def load_asset(name: str) -> mujoco.MjModel:
     """
@@ -77,11 +79,10 @@ def create_scene(robot_name: str, obj_name: str) -> str:
         obj_name in OBJECTS
     ), f"Object {obj_name} not found.\n available: {list(OBJECTS.keys())}"
 
-    floor_path = os.path.join(OBJECT_DIR, "floor.xml")
     robot_path = ROBOTS.get(robot_name)
     obj_path = OBJECTS.get(obj_name)
 
-    scene = include_mjcf(obj_path, [robot_path, floor_path], meshdir=MESH_DIR)
+    scene = include_mjcf(obj_path, [robot_path, SCENE_BASE], meshdir=MESH_DIR)
     return scene
 
 

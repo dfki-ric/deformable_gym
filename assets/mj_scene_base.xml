@@ -1,9 +1,8 @@
 <mujoco>
-	<!-- <option timestep="0.005"/> -->
+	<option timestep="0.005" />
 	<visual>
 		<rgba haze="0.15 0.25 0.35 1" />
 		<quality shadowsize="8192" />
-		<global azimuth="220" elevation="-30" />
 	</visual>
 	<asset>
 		<texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />

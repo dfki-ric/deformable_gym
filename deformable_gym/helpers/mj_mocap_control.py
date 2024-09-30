@@ -55,6 +55,7 @@ class MocapControl:
             model, data, self.body_name, Pose(body_xpos, body_xquat)
         )
         mju.set_mocap_pose(model, data, Pose(body_xpos, body_xquat))
+        self.reset_eq(model, data)
 
     def set_ctrl(self, model: MjModel, data: MjData, ctrl: NDArray) -> None:
         assert len(ctrl) == 6, "mocap ctrl should be in shape (6,)."

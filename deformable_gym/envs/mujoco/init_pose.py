@@ -6,6 +6,10 @@ from ...helpers.mj_utils import Pose
 
 
 class ObjectInitPose:
+
+    # FIXME: orientation must keep the same as the quat value defined in the mjcf file
+    # otherwise, we need to reset the eq constraints
+
     insole_fixed = {
         "shadow_hand": Pose([0.12, -0.05, 0.456], [0, 0, 0]),
         "ur5_shadow": Pose([1.4, -0.05, 1], [0, 0, 0]),
@@ -20,7 +24,7 @@ class ObjectInitPose:
 
     pillow_fixed = {
         "shadow_hand": Pose([0.12, -0.05, 0.456], [0, 0, np.pi / 2]),
-        "ur5_shadow": Pose([1.4, -0.05, 1], [0, 0, np.pi / 2]),
+        "ur5_shadow": Pose([1.3, -0.05, 1], [0, 0, np.pi / 2]),
         "ur10_shadow": Pose([1.6, -0.05, 1], [0, 0, np.pi / 2]),
         "ur10e_shadow": Pose([1.6, -0.05, 1], [0, 0, np.pi / 2]),
         "mia_hand": Pose([0.12, -0.05, 0.456], [0, 0, np.pi / 2]),

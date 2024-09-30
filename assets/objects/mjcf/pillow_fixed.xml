@@ -1,15 +1,15 @@
 <mujoco>
-	<!-- <include file="floor.xml"/> -->
+	<!-- <include file="floor.xml" /> -->
 	<compiler meshdir="../../meshes/" />
 	<extension>
 		<plugin plugin="mujoco.elasticity.solid" />
 	</extension>
 	<worldbody>
-		<body name="pillow_fixed">
-			<flexcomp name="pillow" mass=".5" dim="3" type="gmsh" scale=".7 .7 .7" file="pillow_small.msh" rgba=".1 .9 .1 1" radius="0.001">
+		<body name="pillow_fixed" pos="0 0 1" quat="1 0 0 1">
+			<flexcomp name="pillow" mass="1" dim="3" type="gmsh" scale=".7 .7 .7" file="pillow_small.msh" rgba=".1 .9 .1 1" radius="0.001">
 				<edge equality="true" />
 				<plugin plugin="mujoco.elasticity.solid">
-					<config key="young" value="1e4" />
+					<config key="young" value="2000" />
 					<config key="poisson" value="0.1" />
 					<config key="damping" value="1e-4" />
 				</plugin>
@@ -17,13 +17,13 @@
 		</body>
 	</worldbody>
 	<equality>
-		<weld name="fix_1" body1="pillow_94" body2="world" />
-		<weld name="fix_2" body1="pillow_8" body2="world" />
-		<weld name="fix_3" body1="pillow_9" body2="world" />
-		<weld name="fix_4" body1="pillow_2" body2="world" />
-		<weld name="fix_5" body1="pillow_58" body2="world" />
-		<weld name="fix_6" body1="pillow_69" body2="world" />
-		<weld name="fix_7" body1="pillow_116" body2="world" />
-		<weld name="fix_8" body1="pillow_47" body2="world" />
+		<weld name="fix_1" body1="pillow_94" body2="pillow_fixed" />
+		<weld name="fix_2" body1="pillow_8" body2="pillow_fixed" />
+		<weld name="fix_3" body1="pillow_9" body2="pillow_fixed" />
+		<weld name="fix_4" body1="pillow_2" body2="pillow_fixed" />
+		<weld name="fix_5" body1="pillow_58" body2="pillow_fixed" />
+		<weld name="fix_6" body1="pillow_69" body2="pillow_fixed" />
+		<weld name="fix_7" body1="pillow_116" body2="pillow_fixed" />
+		<weld name="fix_8" body1="pillow_47" body2="pillow_fixed" />
 	</equality>
 </mujoco>

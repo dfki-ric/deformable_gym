@@ -8,6 +8,7 @@ import mujoco
 import mujoco.viewer
 import numpy as np
 from gymnasium import spaces
+from gymnasium.envs.mujoco.mujoco_rendering import MujocoRenderer
 from numpy.typing import ArrayLike, NDArray
 
 from ...helpers import asset_manager as am
@@ -63,17 +64,22 @@ class BaseMJEnv(gym.Env, ABC):
         self,
         robot_name: str,
         obj_name: str,
+        frame_skip: int = 5,
         observable_object_pos: bool = True,
         control_type: str = "mocap",
         max_sim_time: float = 10,
-        gui: bool = True,
+        render_mode: str | None = None,
         mocap_cfg: Dict[str, str] | None = None,
         init_frame: str | None = None,
+        default_cam_config: Dict[str, Any] | None = None,
+        camera_name: str | None = None,
+        camera_id: int | None = None,
     ):
         self.scene = am.create_scene(robot_name, obj_name)
         self.model, self.data = mju.load_model_from_string(self.scene)
         self.robot = RobotFactory.create(robot_name, control_type)
         self.object = ObjectFactory.create(obj_name)
+        self.frame_skip = frame_skip
         self.observable_object_pos = observable_object_pos
         self.control_type = control_type
         if control_type == "mocap":
@@ -83,8 +89,12 @@ class BaseMJEnv(gym.Env, ABC):
                 self.mocap = MocapControl()
         self.init_frame = init_frame
         self.max_sim_time = max_sim_time
-        self.gui = gui
-        self.viewer = None
+        self.render_mode = render_mode
+        self.camera_name = camera_name
+        self.camera_id = camera_id
+        self.renderer = MujocoRenderer(
+            self.model, self.data, default_cam_config
+        )
 
         self.observation_space = self._get_observation_space()
         self.action_space = self._get_action_space()
@@ -166,17 +176,12 @@ class BaseMJEnv(gym.Env, ABC):
         self.object.set_pose(
             self.model, self.data, self.object.init_pose.get(self.robot.name)
         )
-        if self.gui and self.viewer is None:
-            self.viewer = mujoco.viewer.launch_passive(
-                self.model, self.data, show_left_ui=False, show_right_ui=False
-            )
         if self.init_frame is not None:
             self._load_keyframe(self.init_frame)
         if self.control_type == "mocap":
             if not self.mocap.eq_is_active(self.model, self.data):
                 self.mocap.enable_eq(self.model, self.data)
             self.mocap.attach_mocap2weld_body(self.model, self.data)
-            self.mocap.reset_eq(self.model, self.data)
 
     def _set_state(
         self,
@@ -215,13 +220,13 @@ class BaseMJEnv(gym.Env, ABC):
         """
         Render a frame from the MuJoCo simulation as specified by the render_mode.
         """
-        assert self.gui, "GUI is not enabled"
-        if self.viewer.is_running():
-            self.viewer.sync()
+
+        return self.renderer.render(
+            self.render_mode, self.camera_id, self.camera_name
+        )
 
     def close(self) -> None:
         """
         Close the environment.
         """
-        if self.viewer is not None:
-            self.viewer.close()
+        self.renderer.close()

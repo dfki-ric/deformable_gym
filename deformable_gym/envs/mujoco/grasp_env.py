@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Tuple
 
 import mujoco
 import mujoco.viewer
@@ -14,28 +14,42 @@ class GraspEnv(BaseMJEnv):
     A custom MuJoCo environment for a grasping task, where a robot attempts to grasp an object.
     """
 
+    meta_data = {
+        "render_mode": [
+            "human",
+            "rgb_array",
+            "depth_array",
+        ],
+    }
+
     def __init__(
         self,
         robot_name: str,
         obj_name: str,
+        frame_skip: int = 3,
         observable_object_pos: bool = True,
         control_type: str = "mocap",
-        max_sim_time: float = 5,
-        gui: bool = True,
+        max_sim_time: float = 6,
+        render_mode: str | None = "human",
         mocap_cfg: Dict[str, str] | None = None,
-        init_frame: Optional[str] = None,
-        **kwargs,
+        init_frame: str | None = None,
+        default_cam_config: Dict[str, Any] | None = None,
+        camera_name: str | None = None,
+        camera_id: int | None = None,
     ):
         super().__init__(
             robot_name,
             obj_name,
+            frame_skip,
             observable_object_pos,
             control_type,
             max_sim_time,
-            gui,
+            render_mode,
             mocap_cfg,
             init_frame,
-            **kwargs,
+            default_cam_config,
+            camera_name,
+            camera_id,
         )
 
         self.reward_range = (-1, 1)
@@ -50,10 +64,14 @@ class GraspEnv(BaseMJEnv):
         """
         The observation includes the robot's joint qpos in their generalized coordinates,
         and optionally, the object's position.
+        If the render mode is set to "rgb_array" or "depth_array", the observation will be an image.
 
         Returns:
-            NDArray: A numpy array containing the observation.
+            NDArray: A numpy array or image containing the observation.
         """
+        img = self.render()
+        if self.render_mode == "rgb_array" or self.render_mode == "depth_array":
+            return img
         robot_qpos = self.robot.get_qpos(self.model, self.data)
         if self.observable_object_pos:
             obj_pos = self.object.get_center_of_mass(self.data)
@@ -80,7 +98,7 @@ class GraspEnv(BaseMJEnv):
         start_time = self.data.time
         while self.data.time - start_time < time:
             mujoco.mj_step(self.model, self.data)
-            if self.gui:
+            if self.render_mode == "human":
                 self.render()
 
     def _get_reward(self, terminated: bool) -> int:
@@ -131,8 +149,7 @@ class GraspEnv(BaseMJEnv):
         Returns:
             Dict: A dictionary containing information about the environment.
         """
-        if self.gui and self.viewer is not None:
-            return {"is_viewer_running": self.viewer.is_running()}
+
         return {}
 
     def step(self, action: ArrayLike) -> Tuple[NDArray, int, bool, bool, Dict]:
@@ -152,7 +169,7 @@ class GraspEnv(BaseMJEnv):
             self.robot.set_ctrl(self.model, self.data, action[6:])
         else:
             self.robot.set_ctrl(self.model, self.data, action)
-        mujoco.mj_step(self.model, self.data)
+        mujoco.mj_step(self.model, self.data, nstep=self.frame_skip)
 
         observation = self._get_observation()
         terminated = self._is_terminated(sim_time)

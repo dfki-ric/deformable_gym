@@ -33,31 +33,29 @@ class BaseMJEnv(gym.Env, ABC):
     Attributes:
     -----------
     scene : str
-        The XML string representing the MuJoCo scene, created by the `AssetManager` using
-        the specified robot and object names.
+        The XML string representing the MuJoCo scene created by the `AssetManager`.
     model : mujoco.MjModel
-        The compiled MuJoCo model used for simulation.
+        The MuJoCo model used in the simulation.
     data : mujoco.MjData
-        The MuJoCo data structure containing the state of the simulation.
+        MuJoCo data structure holding the simulation state.
     robot : MjRobot
-        An instance of the `MjRobot` class representing the configuration of robot in the simulation.
+        The robot entity within the environment.
     object : MjObject
-        An instance of the `MjObject` class representing the configuration of object in the simulation.
+        The object entity within the environment.
     observable_object_pos : bool
-        Indicates whether the position of the object should be observable in the
-        observation space.
+        Whether the object's position is part of the observation space.
     init_frame : str or None
-        The name of an optional keyframe to load for initializing the environment's state.
+        Keyframe for initial state setup.
     max_sim_time : float
-        The maximum time duration for each simulation episode.
-    gui : bool
-        Indicates whether a GUI viewer for the simulation should be launched.
-    viewer : mujoco.viewer or None
-        The GUI viewer for the simulation, if `gui` is enabled.
+        Maximum simulation time per episode.
+    render_mode : str or None
+        The rendering mode (e.g., 'human', 'rgb_array').
+    renderer : MujocoRenderer or mujoco.viewer
+        Renderer used for visualization, if applicable.
     observation_space : gym.spaces.Box
-        The space representing possible observations that can be returned by the environment.
+        Observation space defining the limits of sensor readings or state data available to the agent.
     action_space : gym.spaces.Box
-        The space representing possible actions that can be taken by the agent.
+        Action space defining the limits of control actions available to the agent.
     """
 
     metadata = {"render_modes": ["human", "rgb_array", "depth_array"]}
@@ -106,7 +104,7 @@ class BaseMJEnv(gym.Env, ABC):
         Returns the renderer object for the environment.
 
         Returns:
-            MujocoRenderer or mujoco.viewer: The renderer object for the environment.
+            MujocoRenderer or mujoco native viewer or None: The renderer object for the environment.
         """
         if self.render_mode == "human":
             renderer = mujoco.viewer.launch_passive(

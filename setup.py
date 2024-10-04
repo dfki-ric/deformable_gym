@@ -16,7 +16,7 @@ if __name__ == "__main__":
         packages=["deformable_gym"],
         install_requires=[
             "pybullet",
-            "gymnasium",
+            "gymnasium>=1.0.0a2",
             "numpy>=1.23.5,<2.0.0",
             "pytransform3d",
         ],

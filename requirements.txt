@@ -1,7 +1,7 @@
-gymnasium>=0.29.1
+gymnasium>=1.0.0a2
 numpy>=1.23.5,<2.0.0
 pybullet>=3.2.5
 pytransform3d>=2.0.0
 scipy>=1.10.0
 setuptools>=65.5.1
-mujoco >= 3.1.6
+mujoco >= 3.2.0

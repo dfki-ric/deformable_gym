@@ -5,7 +5,7 @@
 		<plugin plugin="mujoco.elasticity.solid" />
 	</extension>
 	<worldbody>
-		<body name="insole_fixed" pos=".12 -.05 .456">
+		<body name="insole_fixed">
 			<flexcomp name="insole" mass=".5" dim="3" type="gmsh" file="insole.msh" rgba=".1 .9 .1 1" radius="0.001">
 				<edge equality="true" />
 				<plugin plugin="mujoco.elasticity.solid">
@@ -17,13 +17,13 @@
 		</body>
 	</worldbody>
 	<equality>
-		<weld name="fix_1" body1="insole_27" body2="world" />
-		<weld name="fix_2" body1="insole_44" body2="world" />
-		<weld name="fix_3" body1="insole_37" body2="world" />
-		<weld name="fix_4" body1="insole_35" body2="world" />
-		<weld name="fix_5" body1="insole_43" body2="world" />
-		<weld name="fix_6" body1="insole_1" body2="world" />
-		<weld name="fix_7" body1="insole_32" body2="world" />
-		<weld name="fix_8" body1="insole_69" body2="world" />
+		<weld name="fix_1" body1="insole_27" body2="insole_fixed" />
+		<weld name="fix_2" body1="insole_44" body2="insole_fixed" />
+		<weld name="fix_3" body1="insole_37" body2="insole_fixed" />
+		<weld name="fix_4" body1="insole_35" body2="insole_fixed" />
+		<weld name="fix_5" body1="insole_43" body2="insole_fixed" />
+		<weld name="fix_6" body1="insole_1" body2="insole_fixed" />
+		<weld name="fix_7" body1="insole_32" body2="insole_fixed" />
+		<weld name="fix_8" body1="insole_69" body2="insole_fixed" />
 	</equality>
 </mujoco>

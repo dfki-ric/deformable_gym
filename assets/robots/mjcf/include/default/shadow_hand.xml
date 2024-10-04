@@ -1,0 +1,66 @@
+<mujoco>
+	<default>
+		<default class="right_hand">
+			<joint axis="1 0 0" damping="0.05" armature="0.0002" frictionloss="0.01" />
+			<position forcerange="-1 1" />
+			<default class="wrist">
+				<joint damping="0.5" />
+				<default class="wrist_y">
+					<joint axis="0 1 0" range="-0.523599 0.174533" />
+					<position kp="10" ctrlrange="-0.523599 0.174533" forcerange="-10 10" />
+				</default>
+				<default class="wrist_x">
+					<joint range="-0.698132 0.488692" />
+					<position kp="8" ctrlrange="-0.698132 0.488692" forcerange="-5 5" />
+				</default>
+			</default>
+			<default class="thumb">
+				<default class="thbase">
+					<joint axis="0 0 -1" range="-1.0472 1.0472" />
+					<position kp="0.4" ctrlrange="-1.0472 1.0472" forcerange="-3 3" />
+				</default>
+				<default class="thproximal">
+					<joint range="0 1.22173" />
+					<position ctrlrange="0 1.22173" forcerange="-2 2" />
+				</default>
+				<default class="thhub">
+					<joint range="-0.20944 0.20944" />
+					<position kp="0.5" ctrlrange="-0.20944 0.20944" />
+				</default>
+				<default class="thmiddle">
+					<joint axis="0 -1 0" range="-0.698132 0.698132" />
+					<position kp="1.5" ctrlrange="-0.698132 0.698132" />
+				</default>
+				<default class="thdistal">
+					<joint range="-0.261799 1.5708" />
+					<position ctrlrange="-0.261799 1.5708" />
+				</default>
+			</default>
+			<default class="metacarpal">
+				<joint axis="0.573576 0 0.819152" range="0 0.785398" />
+				<position ctrlrange="0 0.785398" />
+			</default>
+			<default class="knuckle">
+				<joint axis="0 -1 0" range="-0.349066 0.349066" />
+				<position ctrlrange="-0.349066 0.349066" />
+			</default>
+			<default class="proximal">
+				<joint range="-0.261799 1.5708" />
+				<position ctrlrange="-0.261799 1.5708" />
+			</default>
+			<default class="middle_distal">
+				<joint range="0 1.5708" />
+				<position kp="0.5" ctrlrange="0 3.1415" />
+			</default>
+			<default class="plastic">
+				<geom solimp="0.5 0.99 0.0001" solref="0.005 1" />
+				<default class="plastic_visual">
+					<geom type="mesh" material="black" contype="0" conaffinity="0" group="2" />
+				</default>
+				<default class="plastic_collision">
+					<geom group="3" />
+				</default>
+			</default>
+		</default>
+	</default>
+</mujoco>

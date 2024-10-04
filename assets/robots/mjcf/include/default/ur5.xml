@@ -1,0 +1,21 @@
+<mujoco>
+	<default>
+		<default class="ur5">
+			<default class="ur5_shoulder">
+				<position ctrlrange="-6.28319 6.28319" forcerange="-150 150" />
+				<default class="ur5_shoulder_pan">
+					<position kp="8" />
+				</default>
+				<default class="ur5_shoulder_lift">
+					<position kp="12" />
+				</default>
+			</default>
+			<default class="ur5_elbow">
+				<position ctrlrange="-3.14159 3.14159" kp="5" forcerange="-150 150" />
+			</default>
+			<default class="ur5_wrist">
+				<position ctrlrange="-6.28319 6.28319" kp="5" forcerange="-28 28" />
+			</default>
+		</default>
+	</default>
+</mujoco>

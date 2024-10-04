@@ -1,17 +1,13 @@
-<mujoco model="mia_hand_on_ur10e">
+<mujoco model="shadow_hand_on_ur10e">
 	<compiler angle="radian" meshdir="../../meshes/" />
-	<include file="include/default/mia_hand.xml" />
-	<include file="include/asset/mia_hand.xml" />
-	<include file="include/hand/mia_hand_misc.xml" />
+	<include file="include/default/shadow_hand.xml" />
+	<include file="include/asset/shadow_hand.xml" />
+	<include file="include/hand/shadow_hand_misc.xml" />
 	<include file="include/default/ur10e.xml" />
 	<include file="include/asset/ur10e.xml" />
 	<worldbody>
-		<body mocap="true" name="mocap" pos="1.17503967 0.3313794 1.06060731">
-			<site pos="0 0 0.075" size="0.003 0.003 0.1" type="box" name="mocap_left_site1" rgba="0 0 1 .1" />
-			<site pos="0 0.075 0" size="0.003 0.1 0.003" type="box" name="mocap_left_site2" rgba="0 1 0 .1" />
-			<site pos="0.075 0 0" size="0.1 0.003 0.003" type="box" name="mocap_left_site3" rgba="1 0 0 .1" />
-		</body>
-		<body name="ur10e_mia">
+		<include file="mocap.xml"/>
+		<body name="ur10e_shadow">
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" contype="0" conaffinity="0" group="1" density="0" rgba="1 0.423529 0.0392157 1" />
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" rgba="1 0.423529 0.0392157 1" />
 			<geom pos="0 0 1" quat="-1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="base" />
@@ -21,7 +17,7 @@
 				<joint name="ur10e_shoulder_pan_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" />
 				<geom quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="shoulder" />
 				<geom quat="0 0 0 1" type="mesh" rgba="0.7 0.7 0.7 1" mesh="shoulder" />
-				<body gravcomp="1" name="ur10e_upper_arm_link" pos="0 0 .001" quat="0.707107 0.707107 0 0">
+				<body gravcomp="1" name="ur10e_upper_arm_link" quat="0.707107 0.707107 0 0">
 					<inertial pos="-0.306 0 0.175" mass="12.93" diaginertia="0.421754 0.421754 0.0363656" />
 					<joint name="ur10e_shoulder_lift_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" />
 					<geom pos="0 0 0.1762" quat="0.5 0.5 -0.5 -0.5" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="upperarm" />
@@ -42,11 +38,11 @@
 								<geom pos="0 0 -0.12" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="wrist2" />
 								<geom pos="0 0 -0.12" type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist2" />
 								<body gravcomp="1" name="ur10e_wrist_3_link" pos="0 0.11655 -2.39048e-11" quat="0.707107 -0.707107 0 0">
-									<inertial pos="0.00921033 -0.00154269 0.0406794" quat="0.997917 0.0112036 0.0633411 0.00496464" mass="0.476" diaginertia="0.00202906 0.00198968 0.000337265" />
+									<inertial pos="0 0 0.0827452" mass="3.202" diaginertia="0.0164473 0.0164473 0.00764453" />
 									<joint name="ur10e_wrist_3_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" />
 									<geom pos="0 0 -0.1168" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
 									<geom pos="0 0 -0.1168" quat="0.707107 0.707107 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
-									<include file="include/hand/mia_hand_component.xml" />
+									<include file="include/hand/shadow_hand_component.xml" />
 								</body>
 							</body>
 						</body>
@@ -58,9 +54,9 @@
 	<equality>
 		<weld name="mocap" body1="mocap" body2="ur10e_wrist_3_link" active="false"/>
 	</equality>
-	<sensor>
-		<framepos objtype="body" objname="ur10e_wrist_3_link" reftype="body" refname="world"/>
-	</sensor>
+	<contact>
+		<exclude body1="rh_wrist" body2="ur10e_wrist_3_link" />
+	</contact>
 	<actuator>
 		<position name="ur10e_shoulder_pan_joint_A" joint="ur10e_shoulder_pan_joint" class="ur10e_shoulder_pan" />
 		<position name="ur10e_shoulder_lift_joint_A" joint="ur10e_shoulder_lift_joint" class="ur10e_shoulder_lift" />

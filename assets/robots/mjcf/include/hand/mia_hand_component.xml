@@ -1,0 +1,60 @@
+<mujoco>
+	<geom pos="0.0238928 0.04 0.0372744" quat="0.0922982 0.701057 -0.701057 -0.0922981" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.202126 0.202126 0.202126 1" mesh="UR_flange" />
+	<geom pos="0.0252047 -0.00303523 0.0973719" quat="0.560987 0.430458 -0.430457 -0.560987" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="dorsum_simple" />
+	<geom pos="0.0120553 -0.00380022 0.0879744" quat="0.560987 0.430458 -0.430458 -0.560987" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="palm_simple" />
+	<geom pos="0.0238928 0.04 0.0372744" quat="0.0922982 0.701057 -0.701057 -0.0922981" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.202126 0.202126 0.202126 1" mesh="wrist" />
+	<geom name="collision_hand_distal" size="0.0363205 0.0237669 0.0166305" pos="0.0211276 -0.000396319 0.117129" quat="0.577569 0.422606 -0.438157 -0.543909" type="box" rgba="0.202126 0.202126 0.202126 0" />
+	<geom name="collision_hand_proximal" size="0.0312073 0.0281912 0.0142893" pos="0.00568936 -0.00128842 0.0682265" quat="0.528191 0.362949 -0.496569 -0.585407" type="box" rgba="0.202126 0.202126 0.202126 0" />
+	<body gravcomp="1" name="index_fle" pos="0.0215215 -0.0263055 0.132217" quat="0.64908 0.756757 -0.00866725 -0.0770595">
+		<inertial pos="-0.000244852 0.0148639 -0.000112815" quat="0.421674 0.575942 -0.409975 0.567806" mass="0.02878" diaginertia="2.72711e-05 2.64791e-05 1.53874e-06" />
+		<joint name="j_index_fle" pos="0 0 0" axis="-6e-08 1.7e-08 1" limited="true" range="-1.4 1.4" damping="0.1" />
+		<geom name="collision_index_pre_sensor" size="0.0071285 0.00848527" pos="0.000159719 0.023607 0.00150843" quat="0.513726 0.530536 -0.469438 0.483989" type="cylinder" />
+		<geom pos="0.00484499 -0.103617 -0.0515374" quat="0.603628 0.438418 -0.470067 0.471657" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="index_finger" />
+		<geom pos="0.00484499 -0.103617 -0.0515374" quat="0.603628 0.438418 -0.470067 0.471657" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.8 0.8 0.8 1" mesh="index_tip" />
+		<geom name="collision_index_distal" size="0.00795739 0.0151856" pos="-0.00933691 0.0645651 0.0012231" quat="0.364714 0.63224 -0.330401 0.598407" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_index_post_sensor" size="0.0071285 0.00713106" pos="-0.000237046 0.039083 0.00110363" quat="0.514703 0.517518 -0.472859 0.49362" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_index_tip" size="0.00662717" pos="-0.02091 0.0812253 0.000522059" quat="0.716004 0.132242 -0.637523 0.251823" rgba="0.8 0.8 0.8 0" />
+	</body>
+	<body gravcomp="1" name="little_fle" pos="0.0206058 0.02786 0.129325" quat="0.814784 0.570653 0.0804187 -0.0633676">
+		<inertial pos="-0.00155 0.0208 -3.5793e-05" quat="0.5 0.5 -0.5 0.5" mass="0.0207" diaginertia="7.9e-06 7.686e-06 6.52e-07" />
+		<joint name="j_little_fle" pos="0 0 0" axis="-6e-08 1.7e-08 1" limited="true" range="0 1.39626" damping="0.1" />
+		<geom pos="0.021799 -0.0798844 -0.0421284" quat="0.424734 0.570387 -0.586878 0.387084" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="little_finger" />
+		<geom pos="0.021799 -0.0798844 -0.0421284" quat="0.424734 0.570387 -0.586878 0.387084" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.8 0.8 0.8 1" mesh="little_tip" />
+		<geom name="collision_little_distal" size="0.00760354 0.0149668" pos="-0.00907162 0.0523633 0.000405859" quat="0.378417 0.606914 -0.369575 0.593186" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_little_proximal" size="0.00782782 0.015221" pos="-0.00197874 0.0273017 -4.4674e-05" quat="0.492576 0.522025 -0.478045 0.506292" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_little_tip" size="0.00484472" pos="-0.0165956 0.064732 -0.000363789" quat="0.653774 0.266396 -0.707705 0.0276879" rgba="0.8 0.8 0.8 0" />
+	</body>
+	<body gravcomp="1" name="middle_fle" pos="0.024346 -0.00514941 0.135555" quat="0.706434 0.706434 0.0308458 -0.0308457">
+		<inertial pos="0.00026372 0.0151445 3.45091e-07" quat="0.456126 0.538413 -0.459493 0.539376" mass="0.0298" diaginertia="2.78739e-05 2.74783e-05 1.22333e-06" />
+		<joint name="j_middle_fle" pos="0 0 0" axis="-6e-08 1.7e-08 1" limited="true" range="0 1.39626" damping="0.1" />
+		<geom name="collision_middle_pre_sensor" size="0.00683449 0.00891176" pos="5.4862e-05 0.0200986 0.000735957" quat="0.499613 0.500386 -0.499613 0.500386" type="cylinder" />
+		<geom pos="0.0081148 -0.0979459 -0.0451494" quat="0.541675 0.45452 -0.541675 0.454519" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="middle_finger" />
+		<geom pos="0.0081148 -0.0979459 -0.0451494" quat="0.541675 0.45452 -0.541675 0.454519" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.8 0.8 0.8 1" mesh="middle_tip" />
+		<geom name="collision_middle_distal" size="0.00812763 0.0191194" pos="-0.00820979 0.0649226 0.00073596" quat="0.354525 0.611811 -0.354525 0.611811" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_middle_post_sensor" size="0.00683449 0.00591472" pos="2.96365e-05 0.0364184 0.000735957" quat="0.499613 0.500386 -0.499613 0.500386" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_middle_tip" size="0.00562753" pos="-0.0200957 0.0819012 0.000735962" quat="0.682871 0.183541 -0.682871 0.183541" rgba="0.8 0.8 0.8 0" />
+	</body>
+	<body gravcomp="1" name="ring_fle" pos="0.0239371 0.0122504 0.134029" quat="0.763733 0.643168 0.0496821 -0.0240548">
+		<inertial pos="-0.00112 0.0264 0.000203993" quat="0.5 0.5 -0.5 0.5" mass="0.0263" diaginertia="1.61e-05 1.577e-05 9.02e-07" />
+		<joint name="j_ring_fle" pos="0 0 0" axis="-6e-08 1.7e-08 1" limited="true" range="0 1.39626" damping="0.1" />
+		<geom pos="0.0110461 -0.090067 -0.0435588" quat="0.488779 0.497506 -0.582505 0.417457" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.0150198 0.0150198 0.0150198 1" mesh="ring_finger" />
+		<geom pos="0.0110461 -0.090067 -0.0435588" quat="0.488779 0.497506 -0.582505 0.417457" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.8 0.8 0.8 1" mesh="ring_tip" />
+		<geom name="collision_ring_distal" size="0.00760354 0.0149668" pos="-0.00852139 0.0632753 0.000219088" quat="0.344488 0.614584 -0.34708 0.618991" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_ring_proximal" size="0.00782782 0.0184141" pos="0.00118691 0.0289251 0.000219103" quat="0.5 0.5 -0.5 0.5" type="cylinder" rgba="0.8 0.8 0.8 0" />
+		<geom name="collision_ring_tip" size="0.00487311" pos="-0.0182312 0.0766421 -0.000189718" quat="0.664463 0.241845 -0.696364 0.122788" rgba="0.8 0.8 0.8 0" />
+	</body>
+	<body gravcomp="1" name="thumb_opp" pos="0.00194986 -0.013074 0.0901082" quat="0.18492 0.80388 -0.562899 0.0522109">
+		<inertial pos="0.000248409 0.00768493 0.00116262" quat="0.497942 0.497555 -0.501933 0.502549" mass="0.013643" diaginertia="1.15921e-06 1.13707e-06 1.35951e-07" />
+		<joint name="j_thumb_opp" pos="0 0 0" axis="-6e-08 1.7e-08 1" limited="true" range="-0.628 0" damping="0.2" />
+		<geom pos="-0.0545238 -0.0486951 0.0273073" quat="0.970439 -0.0331148 -0.188484 0.147054" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.202126 0.202126 0.202126 1" mesh="thumb_metacarpus" />
+		<body gravcomp="1" name="thumb_fle" pos="-3.33669e-05 0.0179874 -8.0896e-06" quat="0.690237 -0.153728 -0.690164 0.15367">
+			<inertial pos="0.0127715 0.0295019 0.000170548" quat="0.499938 0.500062 -0.499886 0.500114" mass="0.0592" diaginertia="4.1e-05 4e-05 3e-06" />
+			<joint name="j_thumb_fle" pos="0 0 0" axis="-6e-08 1.7e-08 1" limited="true" range="0 1.1345" damping="0.1" />
+			<geom pos="-0.00356782 -0.0719755 0.0544858" quat="0.827607 0.198854 0.522146 -0.0537453" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.8 0.8 0.8 1" mesh="thumb_cover" />
+			<geom pos="-0.00356782 -0.0719755 0.0544858" quat="0.827607 0.198854 0.522146 -0.0537453" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.202126 0.202126 0.202126 1" mesh="thumb_frame" />
+			<geom name="collision_thumb_distal" size="0.0116941 0.0275092" pos="0.0156689 0.0473846 0.00140391" quat="0.736368 0.669124 0.0564767 -0.0827358" type="cylinder" rgba="0.202126 0.202126 0.202126 0" />
+			<geom name="collision_thumb_proximal" size="0.0127144 0.0299092" pos="0.0156133 0.0326075 6.2179e-05" quat="0.707582 0.695412 0.0575247 -0.111445" type="cylinder" rgba="0.202126 0.202126 0.202126 0" />
+			<geom name="collision_thumb_tip" size="0.0105148" pos="0.0157022 0.069964 -0.00075977" quat="0.873882 -0.262638 0.209606 0.351306" rgba="0.202126 0.202126 0.202126 0" />
+		</body>
+	</body>
+</mujoco>

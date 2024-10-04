@@ -1,17 +1,13 @@
-<mujoco model="mia_hand_on_ur10ft">
+<mujoco model="shadow_hand_on_ur10">
 	<compiler angle="radian" meshdir="../../meshes/" />
-	<include file="include/default/mia_hand.xml" />
-	<include file="include/asset/mia_hand.xml" />
-	<include file="include/hand/mia_hand_misc.xml" />
-	<include file="include/default/ur10ft.xml" />
-	<include file="include/asset/ur10ft.xml" />
+	<include file="include/default/shadow_hand.xml" />
+	<include file="include/asset/shadow_hand.xml" />
+	<include file="include/hand/shadow_hand_misc.xml" />
+	<include file="include/default/ur10.xml" />
+	<include file="include/asset/ur10.xml" />
 	<worldbody>
-		<body mocap="true" name="mocap" pos="1.17894662 0.2916138 1.01070453">
-			<site pos="0 0 0.075" size="0.003 0.003 0.1" type="box" name="mocap_left_site1" rgba="0 0 1 .1" />
-			<site pos="0 0.075 0" size="0.003 0.1 0.003" type="box" name="mocap_left_site2" rgba="0 1 0 .1" />
-			<site pos="0.075 0 0" size="0.1 0.003 0.003" type="box" name="mocap_left_site3" rgba="1 0 0 .1" />
-		</body>
-		<body name="ur10ft_mia">
+		<include file="mocap.xml"/>
+		<body name="ur10_shadow">
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" contype="0" conaffinity="0" group="1" density="0" rgba="1 0.423529 0.0392157 1" />
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" rgba="1 0.423529 0.0392157 1" />
 			<geom pos="0 0 1" quat="-1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="base" />
@@ -42,15 +38,11 @@
 								<geom pos="0 0 -0.1158" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="wrist2" />
 								<geom pos="0 0 -0.1158" type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist2" />
 								<body gravcomp="1" name="ur10_wrist_3_link" pos="0 0.0922 -1.89105e-11" quat="0.707107 -0.707107 0 0">
-									<inertial pos="0.00535338 -0.00089547 0.0354728" quat="0.998533 0.00924687 0.05284 0.00733042" mass="0.81981" diaginertia="0.0044594 0.00441747 0.000582662" />
+									<inertial pos="0 0 0.0833602" mass="3.202" diaginertia="0.0160144 0.0160144 0.00764453" />
 									<joint name="ur10_wrist_3_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" />
 									<geom pos="0 0 -0.0922" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
 									<geom pos="0 0 -0.0922" quat="0.707107 0.707107 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
-									<geom pos="0 0 0.043" quat="9.38186e-07 0.707107 0.707107 9.38186e-07" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.4 0.4 0.4 1" mesh="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" />
-									<geom pos="0 0 0.043" quat="9.38186e-07 0.707107 0.707107 9.38186e-07" type="mesh" rgba="0.4 0.4 0.4 1" mesh="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" />
-									<geom pos="1.10124e-07 0 0.0015" quat="-0.707107 -9.38186e-07 9.38186e-07 0.707107" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="robotiq_ft300" />
-									<geom pos="1.10124e-07 0 0.0015" quat="-0.707107 -9.38186e-07 9.38186e-07 0.707107" type="mesh" rgba="0.2 0.2 0.2 1" mesh="robotiq_ft300" />
-									<include file="include/hand/mia_hand_component.xml"/>
+									<include file="include/hand/shadow_hand_component.xml" />
 								</body>
 							</body>
 						</body>
@@ -62,15 +54,15 @@
 	<equality>
 		<weld name="mocap" body1="mocap" body2="ur10_wrist_3_link" active="false"/>
 	</equality>
-	<sensor>
-		<framepos objtype="body" objname="ur10_wrist_3_link" reftype="body" refname="world"/>
-	</sensor>
+	<contact>
+		<exclude body1="rh_wrist" body2="ur10_wrist_3_link" />
+	</contact>
 	<actuator>
-		<position name="ur10_shoulder_pan_joint_A" joint="ur10_shoulder_pan_joint" class="ur10ft_shoulder_pan" />
-		<position name="ur10_shoulder_lift_joint_A" joint="ur10_shoulder_lift_joint" class="ur10ft_shoulder_lift" />
-		<position name="ur10_elbow_joint_A" joint="ur10_elbow_joint" class="ur10ft_elbow" />
-		<position name="ur10_wrist_1_joint_A" joint="ur10_wrist_1_joint" class="ur10ft_wrist" />
-		<position name="ur10_wrist_2_joint_A" joint="ur10_wrist_2_joint" class="ur10ft_wrist" />
-		<position name="ur10_wrist_3_joint_A" joint="ur10_wrist_3_joint" class="ur10ft_wrist" />
+		<position name="ur10_shoulder_pan_joint_A" joint="ur10_shoulder_pan_joint" class="ur10_shoulder_pan" />
+		<position name="ur10_shoulder_lift_joint_A" joint="ur10_shoulder_lift_joint" class="ur10_shoulder_lift" />
+		<position name="ur10_elbow_joint_A" joint="ur10_elbow_joint" class="ur10_elbow" />
+		<position name="ur10_wrist_1_joint_A" joint="ur10_wrist_1_joint" class="ur10_wrist" />
+		<position name="ur10_wrist_2_joint_A" joint="ur10_wrist_2_joint" class="ur10_wrist" />
+		<position name="ur10_wrist_3_joint_A" joint="ur10_wrist_3_joint" class="ur10_wrist" />
 	</actuator>
 </mujoco>

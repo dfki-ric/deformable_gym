@@ -46,7 +46,7 @@ def make_env():
     obj_id = obj_name2id[args.obj]
     env_id = f"Mj{robot_id}Grasp{obj_id}-v0"
     control_type = args.control
-    env = gym.make(env_id, control_type=control_type)
+    env = gym.make(env_id, control_type=control_type, render_mode="human")
     return env
 
 

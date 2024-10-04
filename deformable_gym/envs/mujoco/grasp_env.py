@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Dict, Tuple
 
 import mujoco
@@ -14,14 +16,6 @@ class GraspEnv(BaseMJEnv):
     A custom MuJoCo environment for a grasping task, where a robot attempts to grasp an object.
     """
 
-    meta_data = {
-        "render_mode": [
-            "human",
-            "rgb_array",
-            "depth_array",
-        ],
-    }
-
     def __init__(
         self,
         robot_name: str,
@@ -30,7 +24,7 @@ class GraspEnv(BaseMJEnv):
         observable_object_pos: bool = True,
         control_type: str = "mocap",
         max_sim_time: float = 6,
-        render_mode: str | None = "human",
+        render_mode: str | None = None,
         mocap_cfg: Dict[str, str] | None = None,
         init_frame: str | None = None,
         default_cam_config: Dict[str, Any] | None = None,

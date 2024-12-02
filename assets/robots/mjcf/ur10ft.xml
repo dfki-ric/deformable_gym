@@ -1,17 +1,9 @@
-<mujoco model="mia_hand_on_ur10ft">
+<mujoco>
 	<compiler angle="radian" meshdir="../../meshes/" />
-	<include file="include/default/mia_hand.xml" />
-	<include file="include/asset/mia_hand.xml" />
-	<include file="include/hand/mia_hand_misc.xml" />
-	<include file="include/default/ur10ft.xml" />
 	<include file="include/asset/ur10ft.xml" />
+	<include file="include/default/ur10ft.xml" />
 	<worldbody>
-		<body mocap="true" name="mocap" pos="1.17894662 0.2916138 1.01070453">
-			<site pos="0 0 0.075" size="0.003 0.003 0.1" type="box" name="mocap_left_site1" rgba="0 0 1 .1" />
-			<site pos="0 0.075 0" size="0.003 0.1 0.003" type="box" name="mocap_left_site2" rgba="0 1 0 .1" />
-			<site pos="0.075 0 0" size="0.1 0.003 0.003" type="box" name="mocap_left_site3" rgba="1 0 0 .1" />
-		</body>
-		<body name="ur10ft_mia">
+		<body name="ur10ft">
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" contype="0" conaffinity="0" group="1" density="0" rgba="1 0.423529 0.0392157 1" />
 			<geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" rgba="1 0.423529 0.0392157 1" />
 			<geom pos="0 0 1" quat="-1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="base" />
@@ -50,7 +42,6 @@
 									<geom pos="0 0 0.043" quat="9.38186e-07 0.707107 0.707107 9.38186e-07" type="mesh" rgba="0.4 0.4 0.4 1" mesh="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" />
 									<geom pos="1.10124e-07 0 0.0015" quat="-0.707107 -9.38186e-07 9.38186e-07 0.707107" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="robotiq_ft300" />
 									<geom pos="1.10124e-07 0 0.0015" quat="-0.707107 -9.38186e-07 9.38186e-07 0.707107" type="mesh" rgba="0.2 0.2 0.2 1" mesh="robotiq_ft300" />
-									<include file="include/hand/mia_hand_component.xml"/>
 								</body>
 							</body>
 						</body>
@@ -59,12 +50,6 @@
 			</body>
 		</body>
 	</worldbody>
-	<equality>
-		<weld name="mocap" body1="mocap" body2="ur10_wrist_3_link" active="false"/>
-	</equality>
-	<sensor>
-		<framepos objtype="body" objname="ur10_wrist_3_link" reftype="body" refname="world"/>
-	</sensor>
 	<actuator>
 		<position name="ur10_shoulder_pan_joint_A" joint="ur10_shoulder_pan_joint" class="ur10ft_shoulder_pan" />
 		<position name="ur10_shoulder_lift_joint_A" joint="ur10_shoulder_lift_joint" class="ur10ft_shoulder_lift" />

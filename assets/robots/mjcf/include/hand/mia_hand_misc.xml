@@ -1,0 +1,9 @@
+<mujoco>
+	<actuator>
+		<position name="j_thumb_fle_A" joint="j_thumb_fle" class="mia_thumb" />
+		<position name="j_index_fle_A" joint="j_index_fle" class="mia_index" />
+		<position name="j_middle_fle_A" joint="j_middle_fle" class="mia_mrl" />
+		<position name="j_ring_fle_A" joint="j_ring_fle" class="mia_mrl" />
+		<position name="j_little_fle_A" joint="j_little_fle" class="mia_mrl" />
+	</actuator>
+</mujoco>

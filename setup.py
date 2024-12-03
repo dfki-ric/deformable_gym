@@ -6,7 +6,7 @@ if __name__ == "__main__":
 
     setup(
         name="deformable_gym",
-        version="0.4.1",
+        version="0.4.2",
         maintainer="Melvin Laux",
         maintainer_email="melvin.laux@uni-bremen.de",
         description="Gym environments for grasping deformable objects",
@@ -16,9 +16,12 @@ if __name__ == "__main__":
         packages=["deformable_gym"],
         install_requires=[
             "pybullet",
-            "gymnasium",
+            "gymnasium>=1.0.0a2",
             "numpy>=1.23.5,<2.0.0",
             "pytransform3d",
-            "mujoco==3.1.6",
         ],
+        extras_require={
+            "mujoco": ["mujoco== 3.2.3", "imageio >=2.34.1"],
+            "dev": ["pytest", "pre-commit", "flake8"],
+        },
     )

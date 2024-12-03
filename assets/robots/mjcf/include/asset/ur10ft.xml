@@ -1,0 +1,13 @@
+<mujoco>
+	<asset>
+		<mesh name="base" file="ur10/collision/base.stl" />
+		<mesh name="shoulder" file="ur10/collision/shoulder.stl" />
+		<mesh name="upperarm" file="ur10/collision/upperarm.stl" />
+		<mesh name="forearm" file="ur10/collision/forearm.stl" />
+		<mesh name="wrist1" file="ur10/collision/wrist1.stl" />
+		<mesh name="wrist2" file="ur10/collision/wrist2.stl" />
+		<mesh name="wrist3" file="ur10/collision/wrist3.stl" />
+		<mesh name="robotiq_ft300" file="collision/robotiq/robotiq_ft300.STL" />
+		<mesh name="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" file="collision/robotiq/mountings/robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119.STL" />
+	</asset>
+</mujoco>

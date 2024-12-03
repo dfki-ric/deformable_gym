@@ -5,7 +5,7 @@ Everyone is welcome to contribute.
 There are several ways to contribute to DeformableGym: you could
 
 * send a bug report to the
-  [bug tracker](https://git.hb.dfki.de/april/learning/deformable_gym)
+  [issue tracker](https://www.github.com/dfki-ric/deformable_gym)
 * work on one of the reported issues
 * write documentation
 * add a new feature
@@ -18,17 +18,17 @@ This text is shamelessly copied from
 [scikit-learn's](https://scikit-learn.org/stable/developers/contributing.html)
 contribution guidelines.
 
-The preferred way to contribute to DefromableGym is to fork the
-[repository](https://git.hb.dfki.de/april/learning/deformable_gym) on GitLab,
-then submit a "merge request" (MR):
+The preferred way to contribute to DefromableGym is to fork this
+[repository](https://www.github.com/dfki-ric/deformable_gym),
+then submit a "pull request" (PR):
 
-1. Fork the [project repository](https://git.hb.dfki.de/april/learning/deformable_gym):
+1. Fork the [project repository](https://www.github.com/dfki-ric/deformable_gym):
    click on the 'Fork' button near the top of the page. This creates a copy of
    the code under your account on the GitHub server.
 
 2. Clone this copy to your local disk:
 
-       $ git clone --recurse-submodules git@git.hb.dfki.de:april/learning/deformable_gym.git
+       $ git clone git@github.com:dfki-ric/deformable_gym.git
 
 3. Create a branch to hold your changes:
 
@@ -47,8 +47,8 @@ then submit a "merge request" (MR):
        $ git push -u origin my-feature
 
 Finally, go to the web page of your fork of the deformable_gym repository,
-and click 'Merge request' to send your changes to the maintainer for review.
-Make sure that your target branch is 'development'.
+and click 'Pull request' to send your changes to the maintainer for review.
+Make sure that your target branch is `development`.
 
 In the above setup, your `origin` remote repository points to
 YourLogin/deformable_gym.git. If you wish to fetch/merge from the main
@@ -56,7 +56,7 @@ repository instead of your forked one, you will need to add another remote
 to use instead of `origin`. If we choose the name `upstream` for it, the
 command will be:
 
-    $ git remote add upstream https://git.hb.dfki.de/april/learning/deformable_gym
+    $ git remote add upstream https://www.github.com/dfki-ric/deformable_gym
 
 (If any of the above seems like magic to you, then look up the
 [Git documentation](http://git-scm.com/documentation) on the web.)

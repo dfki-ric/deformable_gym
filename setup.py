@@ -21,7 +21,7 @@ if __name__ == "__main__":
             "pytransform3d",
         ],
         extras_require={
-            "mujoco": ["mujoco>= 3.2.0", "imageio >=2.34.1"],
+            "mujoco": ["mujoco== 3.2.3", "imageio >=2.34.1"],
             "dev": ["pytest", "pre-commit", "flake8"],
         },
     )

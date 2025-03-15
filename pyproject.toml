@@ -5,11 +5,11 @@ build-backends = "setuptools.built_meta"
 [project]
 name = "deformable_gym"
 maintainers = [
-    { name="Melvin Laux", "melvin.laux@uni-bremen.de" },
+    { name="Melvin Laux", email="melvin.laux@uni-bremen.de" },
 ]
 authors = [
-    { name="Melvin Laux", "melvin.laux@uni-bremen.de" },
-    { name="Alexander Fabisch", "alexander.fabisch@dfki.de" },
+    { name="Melvin Laux", email="melvin.laux@uni-bremen.de" },
+    { name="Alexander Fabisch", email="alexander.fabisch@dfki.de" },
 ]
 description = "Gymnasium envrionments for grasping 3D deformable objects"
 requires-python = ">=3.9"

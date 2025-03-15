@@ -26,10 +26,10 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-depenendencies = [
+dependencies = [
     "pybullet",
     "gymnasium>=1.0.0a2",
-    "numpy>1.23.5,<2.0.0",
+    "numpy>1.23.5",
     "pytransform3d",
 ]
 dynamic = ["version", "readme"]
@@ -42,6 +42,9 @@ all = ["deformable_gym[dev,mujoco]"]
 [project.urls]
 Homepage = "https://github.com/dfki-ric/deformable_gym"
 Issues = "https://github.com/dfki-ric/deformable_gym/issues"
+
+[tool.setuptools]
+packages = ["deformable_gym"]
 
 [tool.setuptools.dynamic]
 version = {attr = "deformable_gym.__version__"}

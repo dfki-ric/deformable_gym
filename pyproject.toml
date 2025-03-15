@@ -1,3 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backends = "setuptools.built_meta"
+
+[project]
+name = "deformable_gym"
+maintainers = [
+    { name="Melvin Laux", "melvin.laux@uni-bremen.de" },
+]
+authors = [
+    { name="Melvin Laux", "melvin.laux@uni-bremen.de" },
+    { name="Alexander Fabisch", "alexander.fabisch@dfki.de" },
+]
+
 [tool.black]
 line-length = 80
 target-version = ["py38", "py39", "py310", "py311"]

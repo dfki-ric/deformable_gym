@@ -1,5 +1,8 @@
 from gymnasium.envs.registration import register
 
+__version__ = "0.4.3"
+
+
 register(
     id="FloatingMiaGraspInsole-v0",
     entry_point="deformable_gym.envs.floating_mia_grasp_env:FloatingMiaGraspEnv",

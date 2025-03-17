@@ -1,3 +1,55 @@
+[build-system]
+requires = ["setuptools"]
+build-backends = "setuptools.built_meta"
+
+[project]
+name = "deformable_gym"
+maintainers = [
+    { name="Melvin Laux", email="melvin.laux@uni-bremen.de" },
+]
+authors = [
+    { name="Melvin Laux", email="melvin.laux@uni-bremen.de" },
+    { name="Alexander Fabisch", email="alexander.fabisch@dfki.de" },
+]
+description = "Gymnasium envrionments for grasping 3D deformable objects"
+requires-python = ">=3.9"
+license = {text = "BSD-3-Clause"}
+keywords = ["Reinforcement Learning", "Gymnasium", "PyBullet", "Mujoco"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: The 3-Clause BSD License (BSD-3-Clause)",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pybullet",
+    "gymnasium>=1.0.0a2",
+    "numpy>1.23.5",
+    "pytransform3d",
+]
+dynamic = ["version", "readme"]
+
+[project.optional-dependencies]
+dev = ["pytest", "pre-commit", "black", "flake8", "isort"]
+mujoco = ["mujoco==3.2.3", "imageio>=2.34.1"]
+all = ["deformable_gym[dev,mujoco]"]
+
+[project.urls]
+Homepage = "https://github.com/dfki-ric/deformable_gym"
+Issues = "https://github.com/dfki-ric/deformable_gym/issues"
+
+[tool.setuptools]
+packages = ["deformable_gym"]
+
+[tool.setuptools.dynamic]
+version = {attr = "deformable_gym.__version__"}
+readme = {file = ["README.md"]}
+
 [tool.black]
 line-length = 80
 target-version = ["py38", "py39", "py310", "py311"]

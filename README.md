@@ -1,6 +1,7 @@
 [![Tests](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml/badge.svg)](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![DOI](https://zenodo.org/badge/624321096.svg)](https://doi.org/10.5281/zenodo.15742434)
 
 # DeformableGym
 

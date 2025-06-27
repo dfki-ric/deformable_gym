@@ -1,6 +1,7 @@
 [![Tests](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml/badge.svg)](https://github.com/dfki-ric/deformable_gym/actions/workflows/test.yaml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![DOI](https://zenodo.org/badge/624321096.svg)](https://doi.org/10.5281/zenodo.15742434)
 
 # DeformableGym
 
@@ -45,17 +46,6 @@ libGL error: MESA-LOADER: failed to open iris: /usr/lib/dri/iris_dri.so: cannot 
 libGL error: failed to load driver: iris
 libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
 libGL error: failed to load driver: swrast
-```
-```
-libGL error: MESA-LOADER: failed to open iris: /usr/lib/dri/iris_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: iris
-libGL error: MESA-LOADER: failed to open iris: /usr/lib/dri/iris_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: iris
-libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: swrast
-/home/kaixing/miniconda3/envs/test/lib/python3.10/site-packages/glfw/__init__.py:914: GLFWError: (65543) b'GLX: Failed to create context: BadValue (integer parameter out of range for operation)'
-  warnings.warn(message, GLFWError)
-ERROR: could not create window
 ```
 In this case, install the following dependency via conda-forge:
 

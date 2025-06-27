@@ -7,7 +7,7 @@ authors:
 - family-names: "Fabisch"
   given-names: "Alexander"
   orcid: "https://orcid.org/0000-0003-2824-7956"
-title: "RL-BLOX"
+title: "deformable_gym"
 version: 0.4.3
 doi: 10.5281/zenodo.15742434
 date-released: 2025-06-25

@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools"]
-build-backends = "setuptools.built_meta"
+build-backend = "setuptools.built_meta"
 
 [project]
 name = "deformable_gym"
@@ -11,7 +11,7 @@ authors = [
     { name="Melvin Laux", email="melvin.laux@uni-bremen.de" },
     { name="Alexander Fabisch", email="alexander.fabisch@dfki.de" },
 ]
-description = "Gymnasium envrionments for grasping 3D deformable objects"
+description = "Gymnasium environments for grasping 3D deformable objects"
 requires-python = ">=3.9"
 license = {text = "BSD-3-Clause"}
 keywords = ["Reinforcement Learning", "Gymnasium", "PyBullet", "Mujoco"]
@@ -52,7 +52,7 @@ readme = {file = ["README.md"]}
 
 [tool.black]
 line-length = 80
-target-version = ["py38", "py39", "py310", "py311"]
+target-version = ["py39", "py310", "py311", "py312", "py313"]
 
 [tool.isort]
 profile = "black"

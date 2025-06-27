@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools"]
-build-backend = "setuptools.built_meta"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "deformable_gym"
@@ -13,7 +13,8 @@ authors = [
 ]
 description = "Gymnasium environments for grasping 3D deformable objects"
 requires-python = ">=3.9"
-license = {text = "BSD-3-Clause"}
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 keywords = ["Reinforcement Learning", "Gymnasium", "PyBullet", "Mujoco"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -23,7 +24,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: The 3-Clause BSD License (BSD-3-Clause)",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]

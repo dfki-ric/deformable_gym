@@ -14,7 +14,7 @@ from ..robots.sensors import MiaHandForceSensors
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/mia_hand.urdf",
+    "assets/robots/urdf/mia_hand.urdf",
 )
 
 

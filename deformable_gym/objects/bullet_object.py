@@ -591,7 +591,7 @@ class Insole(MocapObjectMixin, SoftObjectBase):
         fixed=False,
     ):
         super().__init__(
-            os.path.join(base_path, "object_data/insole.vtk"),
+            os.path.join(base_path, "assets/objects/insole.vtk"),
             pb_client=pb_client,
             fixed=fixed,
             fixed_nodes=[0, 40, 45],
@@ -635,7 +635,7 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
         fixed=False,
     ):
         super().__init__(
-            os.path.join(base_path, "object_data/insole.vtk"),
+            os.path.join(base_path, "assets/objects/insole.vtk"),
             pb_client=pb_client,
             fixed=fixed,
             fixed_nodes=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
@@ -803,7 +803,7 @@ class ObjectFactory:
             )
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "object_data/insole.vtk"),
+                os.path.join(base_path, "assets/objects/insole.vtk"),
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
@@ -815,7 +815,7 @@ class ObjectFactory:
             )
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "object_data/pillow_small.vtk"),
+                os.path.join(base_path, "assets/objects/pillow_small.vtk"),
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,

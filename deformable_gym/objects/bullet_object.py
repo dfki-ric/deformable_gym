@@ -1,7 +1,6 @@
 import abc
-import os
 import warnings
-from pathlib import Path
+from importlib.resources import as_file, files
 from typing import List, Sequence, Tuple, Union
 
 import numpy as np
@@ -14,7 +13,15 @@ from pybullet_utils import bullet_client as bc
 from ..helpers import pybullet_helper as pbh
 from ..robots.bullet_utils import draw_pose
 
-base_path = Path(os.path.dirname(__file__)).parent.parent.absolute()
+INSOLE_PATH = None
+with as_file(files("deformable_gym.assets.objects").joinpath("insole.vtk")) as vtk_path:
+    INSOLE_PATH = str(vtk_path)
+
+PILLOW_PATH = None
+with as_file(
+    files("deformable_gym.assets.objects").joinpath("pillow_small.vtk")
+) as vtk_path:
+    PILLOW_PATH = str(vtk_path)
 
 
 class BulletObjectBase(abc.ABC):
@@ -280,9 +287,7 @@ class SphereObject(RigidPrimitiveObject):
         )
 
     def _create_primitive(self):
-        return self.pb_client.createCollisionShape(
-            pb.GEOM_SPHERE, radius=self.radius
-        )
+        return self.pb_client.createCollisionShape(pb.GEOM_SPHERE, radius=self.radius)
 
 
 class CylinderObject(RigidPrimitiveObject):
@@ -482,9 +487,7 @@ class SoftObjectBase(BulletObjectBase):
 
     def __make_anchors(self, object_id):
         if self.fixed_nodes is None:
-            warnings.warn(
-                "Object should be fixed, but no fixed nodes are given."
-            )
+            warnings.warn("Object should be fixed, but no fixed nodes are given.")
             self.constraints = []
         else:
             self.constraints = [
@@ -591,7 +594,7 @@ class Insole(MocapObjectMixin, SoftObjectBase):
         fixed=False,
     ):
         super().__init__(
-            os.path.join(base_path, "assets/objects/insole.vtk"),
+            INSOLE_PATH,
             pb_client=pb_client,
             fixed=fixed,
             fixed_nodes=[0, 40, 45],
@@ -635,7 +638,7 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
         fixed=False,
     ):
         super().__init__(
-            os.path.join(base_path, "assets/objects/insole.vtk"),
+            PILLOW_PATH,
             pb_client=pb_client,
             fixed=fixed,
             fixed_nodes=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
@@ -654,11 +657,8 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
 
     @staticmethod
     def mesh_pose(insole_markers2world):
-
         markers2mesh = pt.transform_from(
-            R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(
-                np.deg2rad([0, 0, 90])
-            ),
+            R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(np.deg2rad([0, 0, 90])),
             p=np.array([0.0, -0.02, 0.095]),
         )
 
@@ -798,12 +798,10 @@ class ObjectFactory:
         )
 
         if object_name == "insole":
-            args = dict(
-                fixed=True, mass=0.1, E=200000.0, fixed_nodes=[0, 40, 45]
-            )
+            args = dict(fixed=True, mass=0.1, E=200000.0, fixed_nodes=[0, 40, 45])
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "assets/objects/insole.vtk"),
+                INSOLE_PATH,
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
@@ -815,7 +813,7 @@ class ObjectFactory:
             )
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "assets/objects/pillow_small.vtk"),
+                PILLOW_PATH,
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
@@ -834,9 +832,7 @@ class ObjectFactory:
             args = dict(scale=1.0)
             args.update(additional_args)
             args["grasp_point_name"] = object_name.split("/")[-1]
-            object_to_grasp = InsoleOnConveyorBelt(
-                object2world, self.pb_client, **args
-            )
+            object_to_grasp = InsoleOnConveyorBelt(object2world, self.pb_client, **args)
         elif object_name == "box":
             args = dict(half_extents=(0.1, 0.02, 0.02), mass=0.1, fixed=True)
             args.update(additional_args)
@@ -905,9 +901,7 @@ class ObjectFactory:
             if object_position is None:
                 object_position = np.copy(self.OBJECT_POSITIONS[object_name])
             if object_orientation is None:
-                object_orientation = np.copy(
-                    self.OBJECT_ORIENTATIONS[object_name]
-                )
+                object_orientation = np.copy(self.OBJECT_ORIENTATIONS[object_name])
 
             object2world = pt.transform_from(
                 R=pr.active_matrix_from_extrinsic_euler_xyz(object_orientation),

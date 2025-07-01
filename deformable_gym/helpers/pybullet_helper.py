@@ -10,7 +10,6 @@ import tempfile
 from contextlib import contextmanager
 from enum import Enum
 from importlib.resources import as_file, files
-from typing import Tuple
 
 import numpy as np
 import numpy.typing as npt
@@ -168,8 +167,7 @@ class Joint:
         else:
             if self.verbose:
                 print(
-                    f"""Warning: Trying to control deactivated motor {
-                      self.name}."""
+                    f"""Warning: Trying to control deactivated motor {self.name}."""
                 )
 
     def set_target_velocity(self, velocity: float) -> None:
@@ -186,8 +184,7 @@ class Joint:
         else:
             if self.verbose:
                 print(
-                    f"Warning: Trying to control deactivated motor {
-                      self.name}."
+                    f"""Warning: Trying to control deactivated motor {self.name}."""
                 )
 
     def deactivate(self):
@@ -339,8 +336,7 @@ def analyze_robot(
         if verbose:
             print(
                 f"Joint #{joint_idx}: {joint_name} ({joint_type}), "
-                f"child link: {child_link_name}, parent link index: {
-                    parent_idx}"
+                f"child link: {child_link_name}, parent link index: {parent_idx}"
             )
             if joint_type == "fixed":
                 continue

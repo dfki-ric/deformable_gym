@@ -83,9 +83,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
 
         assert (
             command.shape[0] == 31
-        ), f"expected command to have shape 31, got {
+        ), f"""expected command to have shape 31, got {
             command.shape[0]
-        } instead"
+        } instead"""
 
         # get arm joint targets
         arm_target = self.arm_command_to_joint_targets(command[:7], False)

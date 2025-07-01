@@ -43,8 +43,8 @@ all = ["deformable_gym[dev,mujoco]"]
 Homepage = "https://github.com/dfki-ric/deformable_gym"
 Issues = "https://github.com/dfki-ric/deformable_gym/issues"
 
-[tool.setuptools]
-packages = ["deformable_gym"]
+[tool.setuptools.packages.find]
+where =["."]
 
 [tool.setuptools.dynamic]
 version = {attr = "deformable_gym.__version__"}

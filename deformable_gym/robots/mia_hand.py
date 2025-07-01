@@ -1,6 +1,5 @@
 import abc
-import os
-from pathlib import Path
+from importlib.resources import files
 from typing import Dict, List, Tuple, Union
 
 import numpy as np
@@ -12,10 +11,7 @@ from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.sensors import MiaHandForceSensors
 
-URDF_PATH = os.path.join(
-    Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/mia_hand.urdf",
-)
+URDF_PATH = files("assets/robots/urdf/mia_hand.urdf")
 
 
 class MiaHandMixin(HandMixin):
@@ -63,9 +59,9 @@ class MiaHandMixin(HandMixin):
         :param motors: Joints.
         :param command: 3D joint command array (fle_index, fle_mrl, fle_thumb)
         """
-        assert (
-            len(command) == 3
-        ), f"expected command to have length 3, got {command=} instead"
+        assert len(command) == 3, (
+            f"expected command to have length 3, got {command=} instead"
+        )
 
         hand_joint_target = self.convert_action_to_pybullet(command)
 

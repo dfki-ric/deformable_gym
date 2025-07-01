@@ -1,10 +1,9 @@
 import abc
-import os
-from pathlib import Path
 
 import numpy.typing as npt
 from pybullet_utils import bullet_client as bc
 
+from ..helpers.pybullet_helper import load_urdf_from_resource
 from ..robots.bullet_robot import BulletRobot, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.inverse_kinematics import (
@@ -15,11 +14,6 @@ from .mia_hand import MiaHandMixin
 
 # Mia freq = 20 Hz
 # UR5 freq = 125 Hz
-
-URDF_PATH = os.path.join(
-    Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "assets/robots/urdf/mia_hand_on_ur5.urdf",
-)
 
 
 class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
@@ -41,9 +35,9 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
         orn_limit=None,
         debug_visualization=True,
     ):
-
+        urdf_path = load_urdf_from_resource(pb_client, "mia_hand_on_ur5.urdf")
         super().__init__(
-            urdf_path=URDF_PATH,
+            urdf_path=urdf_path,
             pb_client=pb_client,
             verbose=verbose,
             task_space_limit=task_space_limit,

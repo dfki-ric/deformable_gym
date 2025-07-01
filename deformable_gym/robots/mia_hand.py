@@ -10,8 +10,6 @@ from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.sensors import MiaHandForceSensors
 
-URDF_PATH = load_urdf_from_resource()
-
 
 class MiaHandMixin(HandMixin):
     # motor array, which includes all revolute joints, we omit j_thumb_opp,
@@ -58,9 +56,9 @@ class MiaHandMixin(HandMixin):
         :param motors: Joints.
         :param command: 3D joint command array (fle_index, fle_mrl, fle_thumb)
         """
-        assert len(command) == 3, (
-            f"expected command to have length 3, got {command=} instead"
-        )
+        assert (
+            len(command) == 3
+        ), f"expected command to have length 3, got {command=} instead"
 
         hand_joint_target = self.convert_action_to_pybullet(command)
 
@@ -138,9 +136,10 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
         debug_visualization: bool = True,
         **kwargs,
     ):
+        urdf_path = load_urdf_from_resource(pb_client, "mia_hand.urdf")
         super().__init__(
             pb_client=pb_client,
-            urdf_path=URDF_PATH,
+            urdf_path=urdf_path,
             verbose=verbose,
             world_pos=world_pos,
             world_orn=world_orn,

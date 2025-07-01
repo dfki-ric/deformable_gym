@@ -1,11 +1,10 @@
 import abc
-import os
-from pathlib import Path
 from typing import Any
 
 import numpy as np
 from pybullet_utils import bullet_client as bc
 
+from ..helpers.pybullet_helper import load_urdf_from_resource
 from ..robots.bullet_robot import BulletRobot, HandMixin
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.inverse_kinematics import (
@@ -14,11 +13,6 @@ from ..robots.inverse_kinematics import (
 
 # Shadow freq = 500 Hz
 # UR5 freq = 125 Hz
-
-URDF_PATH = os.path.join(
-    Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "assets/robots/urdf/shadow_hand_on_ur10.urdf",
-)
 
 
 class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
@@ -40,8 +34,11 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         orn_limit=None,
         debug_visualization: bool = True,
     ):
+        urdf_path = load_urdf_from_resource(
+            pb_client, "shadow_hand_on_ur10.urdf"
+        )
         super().__init__(
-            urdf_path=URDF_PATH,
+            urdf_path=urdf_path,
             pb_client=pb_client,
             verbose=verbose,
             task_space_limit=task_space_limit,

@@ -1,17 +1,16 @@
 import abc
-from importlib.resources import files
 from typing import Dict, List, Tuple, Union
 
 import numpy as np
 import numpy.typing as npt
 from pybullet_utils import bullet_client as bc
 
-from ..helpers.pybullet_helper import Joint
+from ..helpers.pybullet_helper import Joint, load_urdf_from_resource
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.sensors import MiaHandForceSensors
 
-URDF_PATH = files("assets/robots/urdf/mia_hand.urdf")
+URDF_PATH = load_urdf_from_resource()
 
 
 class MiaHandMixin(HandMixin):

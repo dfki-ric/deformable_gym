@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools"]
-build-backends = "setuptools.built_meta"
+build-backends = "setuptools.build_meta"
 
 [project]
 name = "deformable_gym"

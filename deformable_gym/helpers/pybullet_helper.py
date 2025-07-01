@@ -9,7 +9,7 @@ import sys
 import tempfile
 from contextlib import contextmanager
 from enum import Enum
-from importlib.resources import open_binary
+from importlib.resources import as_file, files
 from typing import Tuple
 
 import numpy as np
@@ -19,16 +19,28 @@ import pytransform3d.rotations as pr
 from pybullet_utils import bullet_client as bc
 
 
-def load_urdf_from_resource():
-    package_name = "deformable_gym.assets.robots.urdf"
-    resource_name = "mia_hand.urdf"
+def extract_resources(package, target_dir):
+    root = files(package)
 
-    with open_binary(package_name, resource_name) as resource_stream:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".urdf") as tmp_file:
-            shutil.copyfileobj(resource_stream, tmp_file)
-            tmp_file_path = tmp_file.name
+    for item in root.rglob("*"):
+        if item.is_file():
+            relative_path = item.relative_to(root)
+            dest_path = os.path.join(target_dir, relative_path)
+            os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+            with as_file(item) as src_path:
+                shutil.copy(src_path, dest_path)
 
-    return tmp_file_path
+
+def load_urdf_from_resource(pb_client, resource_name):
+    tmp_dir = tempfile.mkdtemp()
+
+    extract_resources("deformable_gym.assets", tmp_dir)
+    urdf_relative = os.path.join("robots", "urdf", resource_name)
+    urdf_path = os.path.join(tmp_dir, urdf_relative)
+
+    pb_client.setAdditionalSearchPath(tmp_dir)
+
+    return urdf_path
 
 
 @contextmanager
@@ -92,7 +104,9 @@ class Joint:
         self.pb_client = pb_client
 
     def __repr__(self):
-        return f"Joint({', '.join([f'{k}={v}' for k, v in vars(self).items()])})"
+        return (
+            f"Joint({', '.join([f'{k}={v}' for k, v in vars(self).items()])})"
+        )
 
     def reset(self) -> None:
         """Resets the joint to its initial position."""
@@ -153,7 +167,10 @@ class Joint:
 
         else:
             if self.verbose:
-                print(f"Warning: Trying to control deactivated motor {self.name}.")
+                print(
+                    f"Warning: Trying to control deactivated motor {
+                      self.name}."
+                )
 
     def set_target_velocity(self, velocity: float) -> None:
         """Sets the target position of the joint."""
@@ -168,7 +185,10 @@ class Joint:
             )
         else:
             if self.verbose:
-                print(f"Warning: Trying to control deactivated motor {self.name}.")
+                print(
+                    f"Warning: Trying to control deactivated motor {
+                      self.name}."
+                )
 
     def deactivate(self):
         """Deactivates the motor."""
@@ -319,7 +339,8 @@ def analyze_robot(
         if verbose:
             print(
                 f"Joint #{joint_idx}: {joint_name} ({joint_type}), "
-                f"child link: {child_link_name}, parent link index: {parent_idx}"
+                f"child link: {child_link_name}, parent link index: {
+                    parent_idx}"
             )
             if joint_type == "fixed":
                 continue
@@ -338,7 +359,9 @@ def analyze_robot(
         for link_idx in sorted(link_id_to_link_name.keys()):
             print(f"Link #{link_idx}: {link_id_to_link_name[link_idx]}")
 
-    return joint_name_to_joint_id, {v: k for k, v in link_id_to_link_name.items()}
+    return joint_name_to_joint_id, {
+        v: k for k, v in link_id_to_link_name.items()
+    }
 
 
 def get_limit_array(joint_list):
@@ -421,7 +444,9 @@ class MultibodyPose:
         Physics client ID.
     """
 
-    def __init__(self, uuid, initial_pos, initial_orn, pb_client: bc.BulletClient):
+    def __init__(
+        self, uuid, initial_pos, initial_orn, pb_client: bc.BulletClient
+    ):
         self.uuid = uuid
         self.pb_client = pb_client
 
@@ -457,7 +482,9 @@ class MultibodyPose:
             Inertial frame orientation. Provided as scalar-last quaternion.
         """
         new_pos, new_orn = self.translate_pose(pos, orn)
-        self.pb_client.resetBasePositionAndOrientation(self.uuid, new_pos, new_orn)
+        self.pb_client.resetBasePositionAndOrientation(
+            self.uuid, new_pos, new_orn
+        )
         return new_pos, new_orn
 
     def translate_pose(self, pos, orn):
@@ -494,8 +521,8 @@ class MultibodyPose:
         orn : array-like, shape (4,)
             Orientation. Provided as scalar-last quaternion.
         """
-        measured_pos, measured_orn = self.pb_client.getBasePositionAndOrientation(
-            self.uuid
+        measured_pos, measured_orn = (
+            self.pb_client.getBasePositionAndOrientation(self.uuid)
         )
         return self.pb_client.multiplyTransforms(
             measured_pos,

@@ -46,10 +46,7 @@ Issues = "https://github.com/dfki-ric/deformable_gym/issues"
 where =["."]
 
 [tool.setuptools.package-data]
-deformable_gym = [
-    "assets/robots/urdf/*.urdf",
-    "assets/objects/*.vtk",
-]
+deformable_gym = ["assets/**/*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "deformable_gym.__version__"}

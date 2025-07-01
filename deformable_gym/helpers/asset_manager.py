@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import os
 import xml.etree.ElementTree as ET
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Sequence
 
 import mujoco
 
-ASSETS_DIR = Path(__file__).parents[2] / "assets"
+ASSETS_DIR = Path(__file__).parents[1] / "assets"
 MESH_DIR = os.path.join(ASSETS_DIR, "meshes")
 ROBOT_DIR = os.path.join(ASSETS_DIR, "robots", "mjcf")
 OBJECT_DIR = os.path.join(ASSETS_DIR, "objects", "mjcf")

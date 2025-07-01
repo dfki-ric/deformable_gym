@@ -25,9 +25,9 @@ class GraspEnv(BaseMJEnv):
         control_type: str = "mocap",
         max_sim_time: float = 6,
         render_mode: str | None = None,
-        mocap_cfg: Dict[str, str] | None = None,
+        mocap_cfg: dict[str, str] | None = None,
         init_frame: str | None = None,
-        default_cam_config: Dict[str, Any] | None = None,
+        default_cam_config: dict[str, Any] | None = None,
         camera_name: str | None = None,
         camera_id: int | None = None,
     ):
@@ -48,7 +48,7 @@ class GraspEnv(BaseMJEnv):
 
         self.reward_range = (-1, 1)
 
-    def reset(self, *, seed=None, options=None) -> Tuple[NDArray, Dict]:
+    def reset(self, *, seed=None, options=None) -> tuple[NDArray, dict]:
         super().reset(seed=seed, options=options)
         observation = self._get_observation()
         info = self._get_info()
@@ -136,7 +136,7 @@ class GraspEnv(BaseMJEnv):
     def _is_truncated(self) -> bool:
         return False
 
-    def _get_info(self) -> Dict:
+    def _get_info(self) -> dict:
         """
         If the GUI viewer is running, this method will return a dictionary indicating that.
 
@@ -146,7 +146,7 @@ class GraspEnv(BaseMJEnv):
 
         return {}
 
-    def step(self, action: ArrayLike) -> Tuple[NDArray, int, bool, bool, Dict]:
+    def step(self, action: ArrayLike) -> tuple[NDArray, int, bool, bool, dict]:
         """
         Advances the simulation applying the given control input to the robot
 

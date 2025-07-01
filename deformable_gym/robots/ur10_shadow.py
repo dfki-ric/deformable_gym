@@ -1,12 +1,11 @@
 import abc
-import os
-from pathlib import Path
 from typing import Any
 
 import numpy as np
 from pybullet_utils import bullet_client as bc
 
-from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
+from ..helpers.pybullet_helper import load_urdf_from_resource
+from ..robots.bullet_robot import BulletRobot, HandMixin
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.inverse_kinematics import (
     UniversalRobotAnalyticalInverseKinematics,
@@ -14,11 +13,6 @@ from ..robots.inverse_kinematics import (
 
 # Shadow freq = 500 Hz
 # UR5 freq = 125 Hz
-
-URDF_PATH = os.path.join(
-    Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/shadow_hand_on_ur10.urdf",
-)
 
 
 class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
@@ -40,8 +34,11 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         orn_limit=None,
         debug_visualization: bool = True,
     ):
+        urdf_path = load_urdf_from_resource(
+            pb_client, "shadow_hand_on_ur10.urdf"
+        )
         super().__init__(
-            urdf_path=URDF_PATH,
+            urdf_path=urdf_path,
             pb_client=pb_client,
             verbose=verbose,
             task_space_limit=task_space_limit,
@@ -84,10 +81,11 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         command and joint-space hand command.
         """
 
-        assert command.shape[0] == 31, (
-            f"expected command to have shape 31, "
-            f"got {command.shape[0]} instead"
-        )
+        assert (
+            command.shape[0] == 31
+        ), f"""expected command to have shape 31, got {
+            command.shape[0]
+        } instead"""
 
         # get arm joint targets
         arm_target = self.arm_command_to_joint_targets(command[:7], False)
@@ -130,7 +128,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         """
         assert (
             command.shape[0] == 24
-        ), f"expected command to have shape 24, got {command.shape[0]} instead"
+        ), f"""expected command to have shape 24, got {
+            command.shape[0]
+        } instead"""
 
         if velocity_commands:
             current_joint_angles = self.get_joint_positions(self._hand_motors)

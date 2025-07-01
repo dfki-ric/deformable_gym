@@ -1,19 +1,13 @@
 import abc
-import os
-from pathlib import Path
 from typing import Union
 
 import numpy as np
 import numpy.typing as npt
 from pybullet_utils import bullet_client as bc
 
+from ..helpers.pybullet_helper import load_urdf_from_resource
 from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
-
-URDF_PATH = os.path.join(
-    Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/shadow_hand.urdf",
-)
 
 
 class ShadowHand(HandMixin, BulletRobot, abc.ABC):
@@ -50,8 +44,9 @@ class ShadowHand(HandMixin, BulletRobot, abc.ABC):
         debug_visualization: bool = True,
         **kwargs,
     ):
+        urdf_path = load_urdf_from_resource(pb_client, "shadow_hand.urdf")
         super().__init__(
-            urdf_path=URDF_PATH,
+            urdf_path=urdf_path,
             pb_client=pb_client,
             verbose=verbose,
             world_pos=world_pos,

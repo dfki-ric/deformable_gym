@@ -1,8 +1,8 @@
 import abc
-import os
 import warnings
-from pathlib import Path
-from typing import List, Sequence, Tuple, Union
+from collections.abc import Sequence
+from importlib.resources import as_file, files
+from typing import List, Tuple, Union
 
 import numpy as np
 import numpy.typing as npt
@@ -14,7 +14,17 @@ from pybullet_utils import bullet_client as bc
 from ..helpers import pybullet_helper as pbh
 from ..robots.bullet_utils import draw_pose
 
-base_path = Path(os.path.dirname(__file__)).parent.parent.absolute()
+INSOLE_PATH = None
+with as_file(
+    files("deformable_gym.assets.objects").joinpath("insole.vtk")
+) as vtk_path:
+    INSOLE_PATH = str(vtk_path)
+
+PILLOW_PATH = None
+with as_file(
+    files("deformable_gym.assets.objects").joinpath("pillow_small.vtk")
+) as vtk_path:
+    PILLOW_PATH = str(vtk_path)
 
 
 class BulletObjectBase(abc.ABC):
@@ -404,7 +414,7 @@ class UrdfObject(PositionEulerAngleMixin, BulletObjectBase):
 class SoftObjectBase(BulletObjectBase):
     filename: str
     fixed: bool
-    fixed_nodes: List[int]
+    fixed_nodes: list[int]
     scale: float
     nu: float
     E: float
@@ -591,7 +601,7 @@ class Insole(MocapObjectMixin, SoftObjectBase):
         fixed=False,
     ):
         super().__init__(
-            os.path.join(base_path, "object_data/insole.vtk"),
+            INSOLE_PATH,
             pb_client=pb_client,
             fixed=fixed,
             fixed_nodes=[0, 40, 45],
@@ -635,7 +645,7 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
         fixed=False,
     ):
         super().__init__(
-            os.path.join(base_path, "object_data/insole.vtk"),
+            PILLOW_PATH,
             pb_client=pb_client,
             fixed=fixed,
             fixed_nodes=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
@@ -654,7 +664,6 @@ class PillowSmall(MocapObjectMixin, SoftObjectBase):
 
     @staticmethod
     def mesh_pose(insole_markers2world):
-
         markers2mesh = pt.transform_from(
             R=pr.active_matrix_from_extrinsic_roll_pitch_yaw(
                 np.deg2rad([0, 0, 90])
@@ -775,7 +784,7 @@ class ObjectFactory:
         object_orientation: Union[npt.ArrayLike, None] = None,
         object2world: Union[npt.ArrayLike, None] = None,
         **additional_args,
-    ) -> Tuple[BulletObjectBase, np.ndarray, np.ndarray]:
+    ) -> tuple[BulletObjectBase, np.ndarray, np.ndarray]:
         """Create object to grasp.
 
         :param object_name: Name of the object. Must be one of 'insole',
@@ -803,7 +812,7 @@ class ObjectFactory:
             )
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "object_data/insole.vtk"),
+                INSOLE_PATH,
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
@@ -815,7 +824,7 @@ class ObjectFactory:
             )
             args.update(additional_args)
             object_to_grasp = SoftObject(
-                os.path.join(base_path, "object_data/pillow_small.vtk"),
+                PILLOW_PATH,
                 self.pb_client,
                 world_pos=object_position,
                 world_orn=object_orientation,
@@ -884,7 +893,7 @@ class ObjectFactory:
         object_position: Union[npt.ArrayLike, None] = None,
         object_orientation: Union[npt.ArrayLike, None] = None,
         object2world: Union[npt.ArrayLike, None] = None,
-    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Translates between pose representations.
 
         :param object_name: Name of the object. Must be one of 'insole',
@@ -921,7 +930,7 @@ class ObjectFactory:
         return object_position, object_orientation, object2world
 
 
-class Pose(object):
+class Pose:
     def __init__(
         self,
         position,

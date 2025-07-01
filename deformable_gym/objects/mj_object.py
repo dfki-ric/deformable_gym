@@ -33,15 +33,15 @@ class MJObject:
         self.model = am.load_asset(name)
 
     @property
-    def init_pose(self) -> Dict[str, Pose]:
+    def init_pose(self) -> dict[str, Pose]:
         return ObjectInitPose.get(self.name)
 
     @property
-    def eq_constraints(self) -> List[str]:
+    def eq_constraints(self) -> list[str]:
         return mju.get_equality_names(self.model)
 
     @property
-    def eq_constraints_to_disable(self) -> List[str | None]:
+    def eq_constraints_to_disable(self) -> list[str | None]:
         return []
 
     def set_pose(
@@ -86,7 +86,7 @@ class FixedObject(MJObject):
         super().__init__(name)
 
     @property
-    def eq_constraints_to_disable(self) -> List[str]:
+    def eq_constraints_to_disable(self) -> list[str]:
         return self.eq_constraints
 
     def get_center_of_mass(self, data: MjData) -> NDArray:

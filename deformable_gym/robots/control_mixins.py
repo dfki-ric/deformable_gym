@@ -6,7 +6,7 @@ class PositionControlMixin:
 
     velocity_commands = False
 
-    def actuate_motors(self, keys: Union[List[str], None] = None):
+    def actuate_motors(self, keys: Union[list[str], None] = None):
         """
         Takes the provided action and sends the joint controls to the robot.
 
@@ -24,7 +24,7 @@ class VelocityControlMixin:
 
     velocity_commands = True
 
-    def actuate_motors(self, keys: Union[List[str], None] = None):
+    def actuate_motors(self, keys: Union[list[str], None] = None):
         """
         Takes the provided action and sends the joint controls to the robot.
 

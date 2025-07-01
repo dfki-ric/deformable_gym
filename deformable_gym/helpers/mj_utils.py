@@ -39,20 +39,20 @@ class Pose:
 
 
 # -------------------------------- LOAD MODEL --------------------------------#
-def load_model_from_file(path: str) -> Tuple[MjModel, MjData]:
+def load_model_from_file(path: str) -> tuple[MjModel, MjData]:
     model = MjModel.from_xml_path(path)
     data = MjData(model)
     return model, data
 
 
-def load_model_from_string(xml: str) -> Tuple[MjModel, MjData]:
+def load_model_from_string(xml: str) -> tuple[MjModel, MjData]:
     model = MjModel.from_xml_string(xml)
     data = MjData(model)
     return model, data
 
 
 # -------------------------------- BODY UTILS --------------------------------#
-def get_body_names(model: MjModel) -> List[str]:
+def get_body_names(model: MjModel) -> list[str]:
 
     return [
         model.body(i).name
@@ -109,7 +109,7 @@ def get_body_center_of_mass(
 
 
 # -------------------------------- JOINT UTILS --------------------------------#
-def get_joint_names(model: MjModel) -> List[str]:
+def get_joint_names(model: MjModel) -> list[str]:
     return [
         model.joint(i).name
         for i in range(model.njnt)
@@ -147,7 +147,7 @@ def disable_joint(model: MjModel, data: MjData, *name: str) -> None:
 
 
 # -------------------------------- GEOM UTILS --------------------------------#
-def get_geom_names(model: MjModel) -> List[str]:
+def get_geom_names(model: MjModel) -> list[str]:
     """Get all first level geom names under worldbody node in the model.
 
     Args:
@@ -181,7 +181,7 @@ def remove_geom(model: MjModel, data: MjData, name: str) -> None:
 
 
 # -------------------------------- SENSOR UTILS --------------------------------#
-def get_sensor_names(model: MjModel) -> List[str]:
+def get_sensor_names(model: MjModel) -> list[str]:
     return [
         model.sensor(i).name
         for i in range(model.nsensor)
@@ -198,7 +198,7 @@ def get_sensor_data(model: MjModel, data: MjModel, name: str) -> NDArray:
 
 
 # -------------------------------- EQUALITY CONSTRAINT UTILS --------------------------------#
-def get_equality_names(model: MjModel) -> List[str]:
+def get_equality_names(model: MjModel) -> list[str]:
     return [
         model.equality(i).name
         for i in range(model.neq)
@@ -233,7 +233,7 @@ def disable_equality_constraint(
 
 
 # -------------------------------- ACTUATOR UTILS --------------------------------#
-def get_actuator_names(model: MjModel) -> List[str]:
+def get_actuator_names(model: MjModel) -> list[str]:
     return [
         model.actuator(i).name
         for i in range(model.nu)
@@ -298,7 +298,7 @@ def spec2model(spec: MjSpec) -> MjModel:
 
 
 def add_geom2body(
-    spec: MjSpec, body_name: str, geom_attr: Dict[str, Any]
+    spec: MjSpec, body_name: str, geom_attr: dict[str, Any]
 ) -> None:
     body = spec.find_body(body_name)
     geom = body.add_geom()
@@ -306,7 +306,7 @@ def add_geom2body(
         setattr(geom, attr_name, value)
 
 
-def add_flex(spec: MjSpec, flex_attr: Dict[str, Any]) -> None:
+def add_flex(spec: MjSpec, flex_attr: dict[str, Any]) -> None:
     flex = spec.add_flex()
     for attr_name, value in flex_attr.items():
         setattr(flex, attr_name, value)

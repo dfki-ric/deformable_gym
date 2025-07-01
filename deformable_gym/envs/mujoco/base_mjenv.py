@@ -69,9 +69,9 @@ class BaseMJEnv(gym.Env, ABC):
         control_type: str = "mocap",
         max_sim_time: float = 10,
         render_mode: str | None = None,
-        mocap_cfg: Dict[str, str] | None = None,
+        mocap_cfg: dict[str, str] | None = None,
         init_frame: str | None = None,
-        default_cam_config: Dict[str, Any] | None = None,
+        default_cam_config: dict[str, Any] | None = None,
         camera_name: str | None = None,
         camera_id: int | None = None,
     ):
@@ -99,7 +99,7 @@ class BaseMJEnv(gym.Env, ABC):
         self.observation_space = self._get_observation_space()
         self.action_space = self._get_action_space()
 
-    def _get_renderer(self, default_cam_config: Dict[str, Any] | None):
+    def _get_renderer(self, default_cam_config: dict[str, Any] | None):
         """
         Returns the renderer object for the environment.
 
@@ -176,8 +176,8 @@ class BaseMJEnv(gym.Env, ABC):
         self,
         *,
         seed: int | None = None,
-        options: Dict | None = None,
-    ) -> Tuple[NDArray[np.float64], Dict[str, Any]]:
+        options: dict | None = None,
+    ) -> tuple[NDArray[np.float64], dict[str, Any]]:
         """
         Resets the environment to its initial state.
 
@@ -232,7 +232,7 @@ class BaseMJEnv(gym.Env, ABC):
     @abstractmethod
     def step(
         self, action: ArrayLike
-    ) -> Tuple[NDArray[np.float64], float, bool, bool, Dict]:
+    ) -> tuple[NDArray[np.float64], float, bool, bool, dict]:
         """
         Step the environment forward using the given control input.
         """

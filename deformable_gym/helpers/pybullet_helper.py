@@ -4,16 +4,42 @@ conventions.
 """
 
 import os
+import shutil
 import sys
+import tempfile
 from contextlib import contextmanager
 from enum import Enum
-from typing import Tuple
+from importlib.resources import as_file, files
 
 import numpy as np
 import numpy.typing as npt
 import pybullet as pb
 import pytransform3d.rotations as pr
 from pybullet_utils import bullet_client as bc
+
+
+def extract_resources(package, target_dir):
+    root = files(package)
+
+    for item in root.rglob("*"):
+        if item.is_file():
+            relative_path = item.relative_to(root)
+            dest_path = os.path.join(target_dir, relative_path)
+            os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+            with as_file(item) as src_path:
+                shutil.copy(src_path, dest_path)
+
+
+def load_urdf_from_resource(pb_client, resource_name):
+    tmp_dir = tempfile.mkdtemp()
+
+    extract_resources("deformable_gym.assets", tmp_dir)
+    urdf_relative = os.path.join("robots", "urdf", resource_name)
+    urdf_path = os.path.join(tmp_dir, urdf_relative)
+
+    pb_client.setAdditionalSearchPath(tmp_dir)
+
+    return urdf_path
 
 
 @contextmanager
@@ -45,7 +71,6 @@ class JointType(Enum):
 
 
 class Joint:
-
     def __init__(
         self,
         name: str,
@@ -78,7 +103,9 @@ class Joint:
         self.pb_client = pb_client
 
     def __repr__(self):
-        return f"Joint({', '.join([f'{k}={v}' for k,v in vars(self).items()])})"
+        return (
+            f"Joint({', '.join([f'{k}={v}' for k, v in vars(self).items()])})"
+        )
 
     def reset(self) -> None:
         """Resets the joint to its initial position."""
@@ -140,7 +167,7 @@ class Joint:
         else:
             if self.verbose:
                 print(
-                    f"Warning: Trying to control deactivated motor {self.name}."
+                    f"""Warning: Trying to control deactivated motor {self.name}."""
                 )
 
     def set_target_velocity(self, velocity: float) -> None:
@@ -157,7 +184,7 @@ class Joint:
         else:
             if self.verbose:
                 print(
-                    f"Warning: Trying to control deactivated motor {self.name}."
+                    f"""Warning: Trying to control deactivated motor {self.name}."""
                 )
 
     def deactivate(self):
@@ -347,7 +374,7 @@ def get_joint_by_name(joint_list, name):
 
 def link_pose(
     robot: int, link: int, pb_client: bc.BulletClient
-) -> Tuple[Tuple[float], Tuple[float]]:
+) -> tuple[tuple[float], tuple[float]]:
     """Compute link pose from link state.
 
     A link state contains the world pose of a link's inertial frame and

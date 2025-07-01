@@ -128,7 +128,7 @@ class UR5Mia(MiaHandMixin, BulletRobot, abc.ABC):
 
         :param keys: Names of joints to reset. Default is all.
         """
-        super(UR5Mia, self).reset(keys)
+        super().reset(keys)
         self.mia_hand_force_sensors.reset()
         if self.debug_visualization:
             self.contact_normals = []

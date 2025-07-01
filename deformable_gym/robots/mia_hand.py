@@ -14,14 +14,14 @@ from ..robots.sensors import MiaHandForceSensors
 class MiaHandMixin(HandMixin):
     # motor array, which includes all revolute joints, we omit j_thumb_opp,
     # j_thumb_opp cannot be controlled actively
-    actuated_simulated_joints: List[str] = [
+    actuated_simulated_joints: list[str] = [
         "j_index_fle",
         "j_little_fle",
         "j_mrl_fle",
         "j_ring_fle",
         "j_thumb_fle",
     ]
-    actuated_real_joints: List[str] = [
+    actuated_real_joints: list[str] = [
         "j_index_fle",
         "j_mrl_fle",
         "j_thumb_fle",
@@ -29,7 +29,7 @@ class MiaHandMixin(HandMixin):
 
     mia_hand_force_sensors: MiaHandForceSensors
 
-    motors: Dict[str, Joint]
+    motors: dict[str, Joint]
 
     def _correct_index_limit(self):
         """Correct the lower limit of index finger."""
@@ -49,7 +49,7 @@ class MiaHandMixin(HandMixin):
             self.motors["j_thumb_opp"].init_pos = -0.628
 
     def update_current_hand_command(
-        self, motors: Dict[str, Joint], command: npt.ArrayLike
+        self, motors: dict[str, Joint], command: npt.ArrayLike
     ):
         """Translates hand commands and updates current command.
 
@@ -81,7 +81,7 @@ class MiaHandMixin(HandMixin):
         )
         return hand_joint_target
 
-    def get_joint_limits(self) -> Tuple[np.ndarray, np.ndarray]:
+    def get_joint_limits(self) -> tuple[np.ndarray, np.ndarray]:
         """Get joint limits.
 
         :return: Array of lower limits and array of upper limits.
@@ -101,7 +101,7 @@ class MiaHandMixin(HandMixin):
         """
         return self.mia_hand_force_sensors.measure().copy()
 
-    def get_sensor_limits(self) -> Tuple[np.ndarray, np.ndarray]:
+    def get_sensor_limits(self) -> tuple[np.ndarray, np.ndarray]:
         return self.mia_hand_force_sensors.get_limits()
 
 
@@ -183,7 +183,7 @@ class MiaHand(MiaHandMixin, BulletRobot, abc.ABC):
 
         :param keys: Names of joints to reset. Default is all.
         """
-        super(MiaHand, self).reset(keys)
+        super().reset(keys)
         self.mia_hand_force_sensors.reset()
         if self.debug_visualization:
             self.contact_normals = []

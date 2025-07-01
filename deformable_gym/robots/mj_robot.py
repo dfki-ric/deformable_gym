@@ -62,7 +62,7 @@ class MJRobot(ABC):
         return self.model.nv
 
     @property
-    def actuators(self) -> List[str]:
+    def actuators(self) -> list[str]:
         return mju.get_actuator_names(self.model)
 
     @property
@@ -70,7 +70,7 @@ class MJRobot(ABC):
         return len(self.actuators)
 
     @property
-    def joints(self) -> List[str]:
+    def joints(self) -> list[str]:
         return mju.get_joint_names(self.model)
 
     @property
@@ -344,7 +344,7 @@ class MiaHandOnArm(MiaHand):
             self._excluded_actuators = self.mrl_actuators
 
     @property
-    def actuators(self) -> List[str]:
+    def actuators(self) -> list[str]:
         all_actuators = mju.get_actuator_names(self.model)
 
         acts = [

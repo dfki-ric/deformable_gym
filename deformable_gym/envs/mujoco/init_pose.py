@@ -35,7 +35,7 @@ class ObjectInitPose:
     }
 
     @staticmethod
-    def get(name: str) -> Dict[str, Pose]:
+    def get(name: str) -> dict[str, Pose]:
         if name == "insole_fixed":
             return ObjectInitPose.insole_fixed
         elif name == "pillow_fixed":
@@ -55,7 +55,7 @@ class RobotInitPose:
     }
 
     @staticmethod
-    def get(name: str) -> Dict[str, Pose]:
+    def get(name: str) -> dict[str, Pose]:
         if name == "shadow_hand":
             return RobotInitPose.shadow_hand
         elif name == "mia_hand":

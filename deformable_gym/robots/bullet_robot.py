@@ -1,5 +1,6 @@
 import abc
-from typing import Any, Dict, Iterable, List, Tuple, Union
+from collections.abc import Iterable
+from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 import numpy.typing as npt
@@ -166,7 +167,7 @@ class BulletRobot(abc.ABC):
         """
         return self._id
 
-    def set_initial_joint_positions(self, position_dict: Dict[str, float]):
+    def set_initial_joint_positions(self, position_dict: dict[str, float]):
         """Set the initial positions for all the robot's motors.
 
         :param position_dict: Initial positions of the motors.
@@ -236,7 +237,7 @@ class BulletRobot(abc.ABC):
             ]
         )
 
-    def update_current_command(self, command: Dict[str, float]):
+    def update_current_command(self, command: dict[str, float]):
         """Updates the current command.
 
         The current command will be sent to the robot when a time step is
@@ -395,7 +396,7 @@ class BulletRobot(abc.ABC):
             self.motors[key].reset()
             self.current_command[key] = self.motors[key].get_position()
 
-    def set_joint_positions(self, position_dict: Dict[str, float]) -> None:
+    def set_joint_positions(self, position_dict: dict[str, float]) -> None:
         """Sets the joint positions of the robot.
 
         :param position_dict: Maps joint names to angles.
@@ -419,7 +420,7 @@ class BulletRobot(abc.ABC):
         :param offset: Pose offset of the robot given as position and
         scalar-last quaternion: (x, y, z, qx, qy, qz, qw).
         """
-        pose = np.hstack((self.multibody_pose.get_pose())) + offset
+        pose = np.hstack(self.multibody_pose.get_pose()) + offset
 
         target_pos, target_orn = self._enforce_limits(pose)
 
@@ -433,7 +434,7 @@ class BulletRobot(abc.ABC):
             maxForce=100000,
         )
 
-    def _enforce_limits(self, pose) -> Tuple[Any, Any]:
+    def _enforce_limits(self, pose) -> tuple[Any, Any]:
         assert self.base_commands, (
             "tried to move base, but base commands " "are not enabled"
         )
@@ -474,8 +475,8 @@ class BulletRobot(abc.ABC):
         return self._link_name_to_link_id[link_name]
 
     def get_joint_limits(
-        self, joints: List[str]
-    ) -> Tuple[np.ndarray, np.ndarray]:
+        self, joints: list[str]
+    ) -> tuple[np.ndarray, np.ndarray]:
         """Get array of lower limits and array of upper limits of joints.
 
         :param joints: Names of joints for which we request limits.
@@ -509,7 +510,7 @@ class RobotCommandWrapper:
 
 class HandMixin:
     debug_visualization: bool
-    contact_normals: List[Any]
+    contact_normals: list[Any]
 
     def _init_debug_visualizations(self):
         """Initialize debug visualizations."""

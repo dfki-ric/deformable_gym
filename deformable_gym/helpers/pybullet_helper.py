@@ -378,7 +378,7 @@ def get_joint_by_name(joint_list, name):
 
 def link_pose(
     robot: int, link: int, pb_client: bc.BulletClient
-) -> Tuple[Tuple[float], Tuple[float]]:
+) -> tuple[tuple[float], tuple[float]]:
     """Compute link pose from link state.
 
     A link state contains the world pose of a link's inertial frame and

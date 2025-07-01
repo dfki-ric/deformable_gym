@@ -128,9 +128,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         """
         assert (
             command.shape[0] == 24
-        ), f"expected command to have shape 24, got {
+        ), f"""expected command to have shape 24, got {
             command.shape[0]
-        } instead"
+        } instead"""
 
         if velocity_commands:
             current_joint_angles = self.get_joint_positions(self._hand_motors)

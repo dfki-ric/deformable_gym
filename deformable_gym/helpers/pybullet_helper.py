@@ -168,8 +168,8 @@ class Joint:
         else:
             if self.verbose:
                 print(
-                    f"Warning: Trying to control deactivated motor {
-                      self.name}."
+                    f"""Warning: Trying to control deactivated motor {
+                      self.name}."""
                 )
 
     def set_target_velocity(self, velocity: float) -> None:

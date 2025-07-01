@@ -6,7 +6,7 @@ from typing import Any
 import numpy as np
 from pybullet_utils import bullet_client as bc
 
-from ..robots.bullet_robot import BulletRobot, HandMixin, RobotCommandWrapper
+from ..robots.bullet_robot import BulletRobot, HandMixin
 from ..robots.control_mixins import PositionControlMixin, VelocityControlMixin
 from ..robots.inverse_kinematics import (
     UniversalRobotAnalyticalInverseKinematics,
@@ -17,7 +17,7 @@ from ..robots.inverse_kinematics import (
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/shadow_hand_on_ur10.urdf",
+    "assets/robots/urdf/shadow_hand_on_ur10.urdf",
 )
 
 
@@ -84,10 +84,11 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         command and joint-space hand command.
         """
 
-        assert command.shape[0] == 31, (
-            f"expected command to have shape 31, "
-            f"got {command.shape[0]} instead"
-        )
+        assert (
+            command.shape[0] == 31
+        ), f"expected command to have shape 31, got {
+            command.shape[0]
+        } instead"
 
         # get arm joint targets
         arm_target = self.arm_command_to_joint_targets(command[:7], False)
@@ -130,7 +131,9 @@ class UR10Shadow(HandMixin, BulletRobot, abc.ABC):
         """
         assert (
             command.shape[0] == 24
-        ), f"expected command to have shape 24, got {command.shape[0]} instead"
+        ), f"expected command to have shape 24, got {
+            command.shape[0]
+        } instead"
 
         if velocity_commands:
             current_joint_angles = self.get_joint_positions(self._hand_motors)

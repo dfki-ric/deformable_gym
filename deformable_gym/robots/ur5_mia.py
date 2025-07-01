@@ -18,7 +18,7 @@ from .mia_hand import MiaHandMixin
 
 URDF_PATH = os.path.join(
     Path(os.path.dirname(__file__)).parent.parent.absolute(),
-    "robots/urdf/mia_hand_on_ur5.urdf",
+    "assets/robots/urdf/mia_hand_on_ur5.urdf",
 )
 
 

@@ -31,7 +31,8 @@ dependencies = [
     "numpy>1.23.5",
     "pytransform3d",
 ]
-dynamic = ["version", "readme"]
+readme = { file = "README.md", content-type = "text/markdown" }
+dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pre-commit", "black", "flake8", "isort"]

@@ -14,15 +14,31 @@ In these environments, the agent needs to learn to grasp deformable 3D objects s
 
 ## Installation
 
+### Install from PyPI
+
+The easiest way to install deformable_gym is via PyPI:
+
+```bash
+pip install deformable_gym
+```
+
+### Install from source
+
+Alternatively, e.g. if you want to develop extensions, you can also clone the 
+repository and then install it in editable mode:
+
 ```bash
 git clone git@github.com:dfki-ric/deformable_gym.git
-```
-
-After cloning the repository, it is recommended to install the library in editable mode.
-
-```bash
 pip install -e .
 ```
+
+### Optional dependencies
+
+To install the mujoco versions of the environments, use `pip install 'deformable_gym[mujoco]'`.
+
+To install the development dependencies, use `pip install 'deformable_gym[dev]'.
+
+You can install all optional dependencies using `pip install 'deformable_gym[all]'.
 
 ## Available environments
 
@@ -37,21 +53,6 @@ pip install -e .
 | URMiaGraspPillow          | :heavy_check_mark: | :heavy_check_mark: |
 | URShadowGraspPillow       | :heavy_check_mark: | :heavy_check_mark: |
 
-### Known Issues
-
-If you use conda, you may experience the error below:
-
-```
-libGL error: MESA-LOADER: failed to open iris: /usr/lib/dri/iris_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: iris
-libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: swrast
-```
-In this case, install the following dependency via conda-forge:
-
-```bash
-conda install -c conda-forge libstdcxx-ng
-```
 
 ## Example
 

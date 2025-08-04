@@ -14,15 +14,31 @@ In these environments, the agent needs to learn to grasp deformable 3D objects s
 
 ## Installation
 
+### Install from PyPI
+
+The easiest way to install deformable_gym is via PyPI:
+
+```bash
+pip install deformable_gym
+```
+
+### Install from source
+
+Alternatively, e.g. if you want to develop extensions, you can also clone the 
+repository and then install it in editable mode:
+
 ```bash
 git clone git@github.com:dfki-ric/deformable_gym.git
-```
-
-After cloning the repository, it is recommended to install the library in editable mode.
-
-```bash
 pip install -e .
 ```
+
+### Optional dependencies
+
+To install the mujoco versions of the environments, use `pip install 'deformable_gym[mujoco]'`.
+
+To install the development dependencies, use `pip install 'deformable_gym[dev]'.
+
+You can install all optional dependencies using `pip install 'deformable_gym[all]'.
 
 ## Available environments
 

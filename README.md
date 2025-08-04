@@ -37,21 +37,6 @@ pip install -e .
 | URMiaGraspPillow          | :heavy_check_mark: | :heavy_check_mark: |
 | URShadowGraspPillow       | :heavy_check_mark: | :heavy_check_mark: |
 
-### Known Issues
-
-If you use conda, you may experience the error below:
-
-```
-libGL error: MESA-LOADER: failed to open iris: /usr/lib/dri/iris_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: iris
-libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
-libGL error: failed to load driver: swrast
-```
-In this case, install the following dependency via conda-forge:
-
-```bash
-conda install -c conda-forge libstdcxx-ng
-```
 
 ## Example
 

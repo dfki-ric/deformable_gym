@@ -5,7 +5,7 @@
                 <body name="insole_fixed">
                         <flexcomp name="insole" mass=".5" dim="3" type="gmsh" file="insole.msh" rgba=".1 .9 .1 1" radius="0.001">
                                 <edge equality="true" />
-                                <elasticity young="1e4" damping="1e-4" poisson="0.1"/>
+                                <elasticity young="1e4" damping="1e-4" poisson="0.1" />
                         </flexcomp>
                 </body>
         </worldbody>

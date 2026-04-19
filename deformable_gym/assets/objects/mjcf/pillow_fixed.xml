@@ -5,7 +5,7 @@
                 <body name="pillow_fixed" pos="0 0 1" quat="1 0 0 1">
                         <flexcomp name="pillow" mass="1" dim="3" type="gmsh" scale=".7 .7 .7" file="pillow_small.msh" rgba=".1 .9 .1 1" radius="0.001">
                                 <edge equality="true" />
-                                <elasticity young="2000" damping="1e-4" poisson="0.1"/>
+                                <elasticity young="2000" damping="1e-4" poisson="0.1" />
                         </flexcomp>
                 </body>
         </worldbody>

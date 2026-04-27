@@ -36,7 +36,7 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pre-commit", "black", "flake8", "isort"]
-mujoco = ["mujoco==3.2.3", "imageio>=2.34.1"]
+mujoco = ["mujoco>=3.2.3", "imageio>=2.34.1"]
 all = ["deformable_gym[dev,mujoco]"]
 
 [project.urls]

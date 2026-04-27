@@ -36,9 +36,9 @@ pip install -e .
 
 To install the mujoco versions of the environments, use `pip install 'deformable_gym[mujoco]'`.
 
-To install the development dependencies, use `pip install 'deformable_gym[dev]'.
+To install the development dependencies, use `pip install 'deformable_gym[dev]'`.
 
-You can install all optional dependencies using `pip install 'deformable_gym[all]'.
+You can install all optional dependencies using `pip install 'deformable_gym[all]'`.
 
 ## Available environments
 

@@ -12,16 +12,16 @@ authors = [
     { name="Alexander Fabisch", email="alexander.fabisch@dfki.de" },
 ]
 description = "Gymnasium environments for grasping 3D deformable objects"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "BSD-3-Clause"
 keywords = ["Reinforcement Learning", "Gymnasium", "PyBullet", "Mujoco"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
@@ -55,7 +55,7 @@ readme = {file = ["README.md"]}
 
 [tool.black]
 line-length = 80
-target-version = ["py39", "py310", "py311", "py312"]
+target-version = ["py310", "py311", "py312", "py313"]
 
 [tool.isort]
 profile = "black"
